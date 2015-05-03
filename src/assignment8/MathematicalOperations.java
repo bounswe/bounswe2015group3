@@ -4,7 +4,7 @@
 package assignment8;
 
 /**
- * @author Bunyamin
+ * @author Bunyamin, MrNanonA
  *
  */
 public class MathematicalOperations {
@@ -26,12 +26,7 @@ public class MathematicalOperations {
 
 
 	public int addition(int num1, int num2) {
-
-
 		return num1 + num2 ;
-
-
-
 	}
 	public boolean negation(boolean x){
 		if(x == true){
@@ -40,8 +35,10 @@ public class MathematicalOperations {
 			return true;
 		}
 	}
+
 	public int remainder(int x, int y) {
-    	return x % y;
-    }
+
+		return x % y;
+	}
 
 }
