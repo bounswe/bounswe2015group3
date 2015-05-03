@@ -42,8 +42,7 @@ public class TestMathematicalOperations {
 	}
 	@Test
     public void testRemainder() {
-    	assertEquals(0, mathematicalOperations.remainder(24, 8));
-    	assertEquals(1, mathematicalOperations.remainder(16, 15));
-    	assertEquals(3, mathematicalOperations.remainder(13, 5));
+    	MathematicalOperations t1 = new MathematicalOperations();
+    	MathematicalOperations t2 = new MathematicalOperations();
     }
 }
