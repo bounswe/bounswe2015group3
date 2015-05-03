@@ -4,7 +4,7 @@
 package assignment8;
 
 /**
- * @author Bunyamin, MrNanonA ,Umut
+ * @author Bunyamin, MrNanonA ,Umut , BurakYilmaz92
  *
  */
 public class MathematicalOperations {
@@ -47,5 +47,9 @@ public class MathematicalOperations {
     {
         return num1 - num2;
     }
+    
+    public int division(int num1, int num2) {
+		return num1 / num2 ;
+	}
         
 }
