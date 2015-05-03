@@ -40,5 +40,8 @@ public class MathematicalOperations {
 			return true;
 		}
 	}
+	public int remainder(int x, int y) {
+    	return x % y;
+    }
 
 }
