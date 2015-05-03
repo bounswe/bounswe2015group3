@@ -43,6 +43,8 @@ public class TestMathematicalOperations {
 	@Test
     public void testRemainder() {
     	MathematicalOperations t1 = new MathematicalOperations();
+    	assertEquals("remainder of 24 by 8 must be 0", 0, t1.remainder(24, 8));
     	MathematicalOperations t2 = new MathematicalOperations();
+    	assertEquals("remainder of 16 by 15 must be 1", 1, t2.remainder(16, 15));
     }
 }
