@@ -47,4 +47,13 @@ public class TestMathematicalOperations {
 		MathematicalOperations t2 = new MathematicalOperations();
 		assertEquals("remainder of 16 by 15 must be 1", 1, t2.remainder(16, 15));
 	}
+    
+    @Test
+    public void testSubtraction()
+    {
+        MatematicalOperations t1 = new MatematicalOperations();
+        assertEquals("Subtraction of 5 from 10 must be 5"), 5, t1.subtraction(10,5));
+        MatematicalOperations t2 = new MatematicalOperations();
+        assertEquals("Subtraction of -3 from 12 must be 15", 15 , t2.subtraction(12,-3));
+    }
 }
