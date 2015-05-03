@@ -40,4 +40,10 @@ public class TestMathematicalOperations {
 		assertEquals("negation of false", true, t2.negation(false));
 
 	}
+	@Test
+    public void testRemainder() {
+    	assertEquals(0, mathematicalOperations.remainder(24, 8));
+    	assertEquals(1, mathematicalOperations.remainder(16, 15));
+    	assertEquals(3, mathematicalOperations.remainder(13, 5));
+    }
 }
