@@ -4,7 +4,7 @@
 package assignment8;
 
 /**
- * @author Bunyamin, MrNanonA ,Umut , BurakYilmaz92 , akifcorduk
+ * @author Bunyamin, MrNanonA ,Umut , BurakYilmaz92 , akifcorduk, CemOZEN
  *
  */
 public class MathematicalOperations {
@@ -51,6 +51,20 @@ public class MathematicalOperations {
     public int division(int num1, int num2) {
 		return num1 / num2 ;
 	}
+    /**
+     
+     * Inverse Division
+     
+     * @param num1 is the divisor
+     
+     * @param num2 is the dividend
+     
+     * @return base^power
+     
+     */
+    public int inverseDivision(int num1, int num2){
+        return num2 / num1 ;
+    }
     
     public int multiplication(int num1, int num2) {
         return num1 * num2 ;
