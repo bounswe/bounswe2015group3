@@ -4,7 +4,7 @@
 package assignment8;
 
 /**
- * @author Bunyamin, MrNanonA ,Umut , BurakYilmaz92
+ * @author Bunyamin, MrNanonA ,Umut , BurakYilmaz92 , akifcorduk
  *
  */
 public class MathematicalOperations {
