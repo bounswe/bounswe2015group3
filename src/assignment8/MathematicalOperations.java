@@ -55,4 +55,23 @@ public class MathematicalOperations {
     public int multiplication(int num1, int num2) {
         return num1 * num2 ;
     }
+    
+	/**
+
+
+
+	 * 2 number power
+
+	 * @param num1 is the base
+
+	 * @param num2 is the power
+
+	 * @return base^power
+
+	 */
+    public int power(int num1, int num2) {
+    	
+    	return Math.pow(num1 , num2);
+    }
+    }
 }
