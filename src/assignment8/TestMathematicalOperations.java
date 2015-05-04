@@ -51,18 +51,27 @@ public class TestMathematicalOperations {
     @Test
     public void testSubtraction()
     {
-        MatematicalOperations t1 = new MatematicalOperations();
-        assertEquals("Subtraction of 5 from 10 must be 5"), 5, t1.subtraction(10,5));
-        MatematicalOperations t2 = new MatematicalOperations();
+        MathematicalOperations t1 = new MatematicalOperations();
+        assertEquals("Subtraction of 5 from 10 must be 5", 5, t1.subtraction(10,5));
+        MathematicalOperations t2 = new MatematicalOperations();
         assertEquals("Subtraction of -3 from 12 must be 15", 15 , t2.subtraction(12,-3));
     }
     
     @Test
     public void testMultiplication()
     {
-        MatematicalOperations t1 = new MatematicalOperations();
-        assertEquals("Multiplication of 0 with 10 must be 0"), 0, t1.multiplication(0,10));
-        MatematicalOperations t2 = new MatematicalOperations();
+        MathematicalOperations t1 = new MatematicalOperations();
+        assertEquals("Multiplication of 0 with 10 must be 0", 0, t1.multiplication(0,10));
+        MathematicalOperations t2 = new MatematicalOperations();
         assertEquals("Multiplication of 7 with -6 must be -42", -42 , t2.multiplication(7,-6));
     }
+    
+    @Test
+    public void testPower() {
+    	MathematicalOperations t1 = new MathematicalOperations();
+    	assertEquals("8 to the power 0 must be 1", 0, t1.power(8 , 0));
+    	MathematicalOperations t2 = new MathematicalOperations();
+    	assertEquals("3 to the power 4 must be 27", 27 , t2.power(3 , 4));
+    }
+
 }
