@@ -4,7 +4,7 @@
 package assignment8;
 
 /**
- * @author Bunyamin, MrNanonA ,Umut , BurakYilmaz92 , akifcorduk, CemOZEN
+ * @author Bunyamin, MrNanonA ,Umut , BurakYilmaz92 , akifcorduk, Cem OZEN
  *
  */
 public class MathematicalOperations {
@@ -59,7 +59,7 @@ public class MathematicalOperations {
      
      * @param num2 is the dividend
      
-     * @return base^power
+     * @return num2 divided by num1
      
      */
     public int inverseDivision(int num1, int num2){
