@@ -56,4 +56,13 @@ public class TestMathematicalOperations {
         MatematicalOperations t2 = new MatematicalOperations();
         assertEquals("Subtraction of -3 from 12 must be 15", 15 , t2.subtraction(12,-3));
     }
+    
+    @Test
+    public void testMultiplication()
+    {
+        MatematicalOperations t1 = new MatematicalOperations();
+        assertEquals("Multiplication of 0 with 10 must be 0"), 0, t1.multiplication(0,10));
+        MatematicalOperations t2 = new MatematicalOperations();
+        assertEquals("Multiplication of 7 with -6 must be -42", -42 , t2.multiplication(7,-6));
+    }
 }
