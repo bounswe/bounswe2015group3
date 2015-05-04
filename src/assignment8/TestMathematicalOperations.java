@@ -73,5 +73,12 @@ public class TestMathematicalOperations {
     	MathematicalOperations t2 = new MathematicalOperations();
     	assertEquals("3 to the power 4 must be 27", 27 , t2.power(3 , 4));
     }
+    @Test
+    public void testInverseDivision() {
+        MathematicalOperations t1 = new MathematicalOperations();
+        assertEquals("5 inverse divided by 12 must be 2", 2, t1.inverseDivision(5 , 12));
+        MathematicalOperations t2 = new MathematicalOperations();
+        assertEquals("32 inverse divided by 3 must be 0", 0 , t2.inverseDivision(32 , 3));
+    }
 
 }
