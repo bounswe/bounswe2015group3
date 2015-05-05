@@ -98,4 +98,21 @@ public class MathematicalOperations {
 		else
 			return false;
     }
+
+    /**
+     * unary plus returns the number
+     * @param num the number
+     * @return the number itself
+     */ 
+    public int unaryPlus(int num) { 
+        return num;
+    }
+    /**
+     * unary minus returns 0 minus the number
+     * @param num the number
+     * @return 0 minus the number
+     */ 
+    public int unaryMinus(int num) {
+        return -num;
+    }
 }

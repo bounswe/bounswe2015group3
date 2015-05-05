@@ -80,5 +80,20 @@ public class TestMathematicalOperations {
         MathematicalOperations t2 = new MathematicalOperations();
         assertEquals("32 inverse divided by 3 must be 0", 0 , t2.inverseDivision(32 , 3));
     }
+    @Test
+    public void testUnaryPlus() {
+        MathematicalOperations t1 = new MathematicalOperations();
+        assertEquals("unary plus on 4 gives 4", 4, t1.inverseDivision(4));
+        MathematicalOperations t2 = new MathematicalOperations();
+        assertEquals("unary plus on 8 gives 8", 8 , t2.inverseDivision(8));
+    }
+    @Test
+    public void testUnaryMinus() {
+        MathematicalOperations t1 = new MathematicalOperations();
+        assertEquals("unary minus on 4 gives -4", -4, t1.inverseDivision(4));
+        MathematicalOperations t2 = new MathematicalOperations();
+        assertEquals("unary minus on -5 gives 5", 5 , t2.inverseDivision(-5));
+    }
+
 
 }
