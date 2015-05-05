@@ -80,5 +80,13 @@ public class TestMathematicalOperations {
         MathematicalOperations t2 = new MathematicalOperations();
         assertEquals("32 inverse divided by 3 must be 0", 0 , t2.inverseDivision(32 , 3));
     }
+	@Test
+	public void testGreaterThan() {
+		MathematicalOperations t1 = new MathematicalOperations();
+		assertEquals("It must be true that 5 is greater than 3", true, t1.greaterThan(5, 3));
+		
+		MathematicalOperations t1 = new MathematicalOperations();
+		assertEquals("It must be false that 4 is greater than 4", false, t1.greaterThan(4, 4));
 
+	}
 }
