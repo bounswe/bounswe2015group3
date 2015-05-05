@@ -87,5 +87,15 @@ public class MathematicalOperations {
     	
     	return Math.pow(num1 , num2);
     }
+ 	/**
+	 * Compare
+	 * @param num1 and num2 are the numbers to be compared
+	 * @return true if num1>num2
+	 */
+    public boolean greaterThan(int num1, int num2) {
+    	if(num1>num2)
+    		return true;
+		else
+			return false;
     }
 }
