@@ -47,7 +47,17 @@ public class MathematicalOperations {
     {
         return num1 - num2;
     }
+    /**
     
+     * Division
+     
+     * @param num1 is the dividend
+     
+     * @param num2 is the divisor
+     
+     * @return num2 divided by num1
+     
+     */
     public int division(int num1, int num2) {
 		return num1 / num2 ;
 	}
