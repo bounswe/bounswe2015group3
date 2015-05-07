@@ -43,9 +43,24 @@ public class TestMathematicalOperations {
 		assertEquals("negation of false", true, t2.negation(false));
 
 	}
+<<<<<<< HEAD
     /**
      * Tests the functionality of the remainder operation.
     */
+=======
+	 /**
+     * Tests the functionality of the division operation. 
+    */
+	@Test(expected=java.lang.ArithmeticException.class)
+	public void testDivision() {
+		MathematicalOperations t1 = new MathematicalOperations();
+		assertEquals("8 / 2 must be 4", 4, t1.division(8, 2));
+		
+		MathematicalOperations t2 = new MathematicalOperations();
+		assertEquals("22 / 3 must be 7 ", 7, t2.division(22, 3));
+
+	}
+>>>>>>> origin/master
 	@Test
 	public void testRemainder() {
 		MathematicalOperations t1 = new MathematicalOperations();
