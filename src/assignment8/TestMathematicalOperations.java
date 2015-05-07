@@ -45,11 +45,17 @@ public class TestMathematicalOperations {
     */
 	@Test(expected=java.lang.ArithmeticException.class)
 	public void testDivision() {
+		try{
 		MathematicalOperations t1 = new MathematicalOperations();
 		assertEquals("8 / 2 must be 4", 4, t1.division(8, 2));
 		
 		MathematicalOperations t2 = new MathematicalOperations();
 		assertEquals("22 / 3 must be 7 ", 7, t2.division(22, 3));
+		}
+		catch (Exception e) {
+		    String expectedMessage = "Exception for Division operation like being divided by zero";
+		    Assert.assertEquals( "Exception message must be correct", expectedMessage, e.getMessage() );
+		}   
 
 	}
 	@Test
