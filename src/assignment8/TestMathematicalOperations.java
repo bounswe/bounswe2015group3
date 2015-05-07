@@ -32,6 +32,9 @@ public class TestMathematicalOperations {
 		assertEquals("30 + -8 must be 22", 22, t2.addition(30, -8));
 
 	}
+    /**
+     * Tests the functionality of the negation operation.
+    */
 	public void testNegation() {
 		MathematicalOperations t1 = new MathematicalOperations();
 		assertEquals("negation of true", false, t1.negation(true));
@@ -40,6 +43,9 @@ public class TestMathematicalOperations {
 		assertEquals("negation of false", true, t2.negation(false));
 
 	}
+    /**
+     * Tests the functionality of the remainder operation.
+    */
 	@Test
 	public void testRemainder() {
 		MathematicalOperations t1 = new MathematicalOperations();

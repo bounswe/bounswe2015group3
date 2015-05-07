@@ -4,7 +4,7 @@
 package assignment8;
 
 /**
- * @author Bunyamin, MrNanonA ,Umut , BurakYilmaz92 , akifcorduk, Cem OZEN
+ * @author Bunyamin, MrNanonA, Umut , BurakYilmaz92 , akifcorduk, Cem OZEN
  *
  */
 public class MathematicalOperations {
@@ -28,7 +28,11 @@ public class MathematicalOperations {
 	public int addition(int num1, int num2) {
 		return num1 + num2 ;
 	}
-	
+	/**
+     * Finds the remainder of x when it is divided by y
+     * @param num1 boolean value
+     * @return negated boolean value
+    */
     public boolean negation(boolean x){
 		if(x == true){
 			return false;
@@ -37,8 +41,13 @@ public class MathematicalOperations {
 			return true;
 		}
 	}
-
-	public int remainder(int x, int y) {
+    /**
+     * Finds the remainder of x when it is divided by y
+     * @param num1 the numerator
+     * @param num2 the denumerator
+     * @return the remainder
+    */
+	public int remainder(int num1, int num2) {
 
 		return x % y;
 	}
