@@ -30,7 +30,7 @@ public class MathematicalOperations {
 	}
     /**
      * Finds the remainder of x when it is divided by y
-     * @param num1 boolean value
+     * @param x boolean value
      * @return negated boolean value
     */
     public boolean negation(boolean x){
