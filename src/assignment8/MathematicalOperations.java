@@ -64,11 +64,17 @@ public class MathematicalOperations {
      
      * @param num2 is the divisor
      
-     * @return num2 divided by num1
+     * @return num1 divided by num2
      
      */
     public int division(int num1, int num2) {
-		return num1 / num2 ;
+		try{
+			num1=num1/num2;
+		}
+		 catch(Exception e){
+	            e.printStackTrace();
+	       }
+    	return num1 ;
 	}
     /**
      
