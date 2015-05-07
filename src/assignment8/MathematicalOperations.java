@@ -28,7 +28,7 @@ public class MathematicalOperations {
 	public int addition(int num1, int num2) {
 		return num1 + num2 ;
 	}
-	/**
+    /**
      * Finds the remainder of x when it is divided by y
      * @param num1 boolean value
      * @return negated boolean value
