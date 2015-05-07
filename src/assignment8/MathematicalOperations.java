@@ -66,6 +66,12 @@ public class MathematicalOperations {
         return num2 / num1 ;
     }
     
+    /**
+     * Multiplies given two numbers and returns the result
+     * @param num1 the first factor
+     * @param num2 the second factor
+     * @return the product of num1 and num2
+    */
     public int multiplication(int num1, int num2) {
         return num1 * num2 ;
     }
