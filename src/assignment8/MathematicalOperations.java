@@ -10,17 +10,10 @@ package assignment8;
 public class MathematicalOperations {
 
 	/**
-
-
-
 	 * 2 number addition
-
 	 * @param num1 is the first number
-
 	 * @param num2 is the second number
-
 	 * @return num1 + num2
-
 	 */
 
 
@@ -57,16 +50,11 @@ public class MathematicalOperations {
         return num1 - num2;
     }
     /**
-    
-     * Division
-     
+         * Division
      * @param num1 is the dividend
-     
      * @param num2 is the divisor
-     
      * @return num1 divided by num2
-     
-     */
+         */
     public int division(int num1, int num2) {
 		try{
 			num1=num1/num2;
@@ -77,16 +65,11 @@ public class MathematicalOperations {
     	return num1 ;
 	}
     /**
-     
-     * Inverse Division
-     
-     * @param num1 is the divisor
-     
-     * @param num2 is the dividend
-     
-     * @return num2 divided by num1
-     
-     */
+         * Inverse Division
+         * @param num1 is the divisor
+         * @param num2 is the dividend
+         * @return num2 divided by num1
+         */
     public int inverseDivision(int num1, int num2){
         return num2 / num1 ;
     }
@@ -102,17 +85,10 @@ public class MathematicalOperations {
     }
     
 	/**
-
-
-
-	 * 2 number power
-
+     * 2 number power
 	 * @param num1 is the base
-
 	 * @param num2 is the power
-
 	 * @return base^power
-
 	 */
     public int power(int num1, int num2) {
     	
