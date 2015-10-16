@@ -29,6 +29,7 @@ public class MathematicalOperations {
     public boolean negation(boolean x){
 		if(x == true){
 			return false;
+		}
 		else{
 			return true;
 		}
