@@ -42,8 +42,7 @@ public class CmpeSocialUserModel {
 
     public void updateUser(Long id, String email, String password) {
         String sql = "UPDATE user SET email = ?, password = ? WHERE id = ?";
-
-        this.jdbcTemplate.update(sql, email, id);
+        this.jdbcTemplate.update(sql, email, password,id);
     }
 
     public void deleteUser(Long id) {
