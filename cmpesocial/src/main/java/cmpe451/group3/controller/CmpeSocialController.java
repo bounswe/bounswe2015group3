@@ -2,12 +2,16 @@ package cmpe451.group3.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cmpe451.group3.auth.CmpeSocialAuthentication;
 import cmpe451.group3.model.CmpeSocialUserModel;
+import cmpe451.group3.utils.SecurityUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +23,7 @@ public class CmpeSocialController {
     @Autowired
     private CmpeSocialUserModel cmpeSocialUserModel = null;
 
-    @RequestMapping(value = {"/", "/index"})
+    @RequestMapping(value = "/index")
     public String index(ModelMap model) {
 
         // gets users from model.
@@ -44,13 +48,15 @@ public class CmpeSocialController {
     @RequestMapping(value = "user/update")
     public String updateUser(
             @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String surname,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String password) {
 
         if (id != null)
-        	cmpeSocialUserModel.updateUser(id, email, password);
+        	cmpeSocialUserModel.updateUser(id, name, surname, email, SecurityUtils.getHashed(password));
         else
-        	cmpeSocialUserModel.addUser(email, password);
+        	cmpeSocialUserModel.addUser(name, surname, email, SecurityUtils.getHashed(password));
 
         return "redirect:/index";
     }
@@ -65,5 +71,28 @@ public class CmpeSocialController {
     	cmpeSocialUserModel.deleteUser(id);
 
         return "redirect:/index";
+    }
+    
+    @RequestMapping(value = {"/", "/home"})
+    public String home(ModelMap model) {
+        // return back to home page
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    		return "home";
+
+    }
+    
+    @RequestMapping(value = "user/login")
+    public String userLogin(
+    		@RequestParam(required = false) String email,
+            @RequestParam(required = false) String password) {
+        if(email != null && password != null){
+        	String hashedPassword = cmpeSocialUserModel.getPassword(email);
+        	if(SecurityUtils.checkPassword(hashedPassword, password)){
+        	CmpeSocialAuthentication.getAuthentication(email, password);
+        	}
+        	return "redirect:/home";
+        }
+        else
+        	return "login";
     }
 }

@@ -61,43 +61,19 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-5 col-lg-offset-0">
-		<div class="well">
-			<div class="container">
-				<div>
-					<h1>Welcome to CMPE Social Life</h1>
-					<p>Login to explore the complete features!</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-6">
+	<div class="col-lg-4 col-lg-offset-4">
 		<div class="well">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-6">
-						<form action="${contextPath}/user/update" method="post">
-							<input type="hidden" name="id" value="${user.id}">
+					<div class="col-lg-4">
+						<form role="form" action="#" method="post">
 							<div class="form-group">
-								<label for="name">Name:</label> <input type="text"
-									class="form-control" placeholder="Your Name" name="name" id="name" value="${user.name}">
+								<label for="email">Email address:</label> 
+								<input type="email" class="form-control" name="email" id="email">
 							</div>
 							<div class="form-group">
-								<label for="surname">Surname:</label> <input type="text"
-									class="form-control" placeholder="Your Surname" name="surname" id="surname" value="${user.surname}">
-							</div>
-							<div class="form-group">
-								<label for="email">Email address:</label> <input type="email"
-									class="form-control" placeholder="Your Email" name="email" id="email" value="${user.email}">
-							</div>
-							<div class="form-group">
-								<label for="password">Password:</label> <input type="password"
-									class="form-control" placeholder="Your Password" name="password" id="password">
-							</div>
-							<div class="form-group">
-								<label for="password2">Password Again:</label> <input
-									type="password" class="form-control"
-									placeholder="Your Password Again" name="password2" id="password2">
+								<label for="password">Password:</label> 
+								<input type="password" class="form-control" name="password" id="password">
 							</div>
 							<button type="submit" class="btn btn-default">Submit</button>
 						</form>
@@ -106,6 +82,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

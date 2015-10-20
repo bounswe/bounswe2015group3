@@ -33,17 +33,24 @@ public class CmpeSocialUserModel {
 
         return this.jdbcTemplate.queryForMap(sql, id);
     }
-
-    public void addUser(String email, String password) {
-        String sql = "INSERT INTO user(email, password) VALUES(?, ?)";
-
-        this.jdbcTemplate.update(sql, email, password);
+    
+    public String getPassword(String email) {
+        String sql = "SELECT password FROM user WHERE email = ? ";
+        Map<String, Object> user = this.jdbcTemplate.queryForMap(sql, email);
+        String password = (String) user.get("password");
+        return password;
     }
 
-    public void updateUser(Long id, String email, String password) {
-        String sql = "UPDATE user SET email = ?, password = ? WHERE id = ?";
+    public void addUser(String name, String surname, String email, String password) {
+        String sql = "INSERT INTO user(name, surname, email, password) VALUES(?, ?, ?, ?)";
 
-        this.jdbcTemplate.update(sql, email, id);
+        this.jdbcTemplate.update(sql, name, surname, email, password);
+    }
+
+    public void updateUser(Long id, String name, String surname, String email, String password) {
+        String sql = "UPDATE user SET name = ?, surname = ?, email = ?, password = ? WHERE id = ?";
+
+        this.jdbcTemplate.update(sql, name, surname, email, password, id);
     }
 
     public void deleteUser(Long id) {
