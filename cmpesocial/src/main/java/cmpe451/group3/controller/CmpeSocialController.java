@@ -77,8 +77,10 @@ public class CmpeSocialController {
     public String home(ModelMap model) {
         // return back to home page
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	if(auth == null || !auth.isAuthenticated())
+    		return "redirect:/user/login";
+    	else
     		return "home";
-
     }
     
     @RequestMapping(value = "user/login")

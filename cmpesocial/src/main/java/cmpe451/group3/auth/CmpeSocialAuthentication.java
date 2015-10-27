@@ -12,7 +12,7 @@ public class CmpeSocialAuthentication {
 		try {
 			Authentication request = new UsernamePasswordAuthenticationToken(email, password);
 			Authentication result = am.authenticate(request);
-			SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_THREADLOCAL);
+			SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
 			SecurityContextHolder.getContext().setAuthentication(result);
 		} catch(AuthenticationException e) {
 			System.out.println("Authentication failed: " + e.getMessage());
