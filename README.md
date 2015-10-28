@@ -1,5 +1,5 @@
 bounswe2015group3
 
-Cmpe Social Life
+Cmpe Social Life - Android Application
 
-http://ec2-54-148-86-208.us-west-2.compute.amazonaws.com:8080/cmpesocial/
+This is the temporary branch for the Androiders. The final version of the codes will be placed to the master branch.
