@@ -2,22 +2,20 @@ package com.group3.cmpesocial;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,19 +81,43 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_events) {
-            // Handle the camera action
-            Log.i(TAG,"events");
-        } else if (id == R.id.nav_groups) {
-            Log.i(TAG,"groups");
-        } else if (id == R.id.nav_profile) {
-            Log.i(TAG,"profile");
-        } else if (id == R.id.nav_logout) {
-            Log.i(TAG,"logout");
-        } else if (id == R.id.nav_share) {
-            Log.i(TAG,"share");
-        } else if (id == R.id.nav_send) {
-            Log.i(TAG,"send");
+        switch (id){
+            case R.id.nav_groups:
+                Toast.makeText(this, "Groups", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_events:
+                Toast.makeText(this, "Events", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.nav_login:
+                Toast.makeText(this, "Login", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_signup:
+                Toast.makeText(this, "Signup", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.nav_my_profile:
+                Toast.makeText(this, "My Profile", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_my_groups:
+                Toast.makeText(this, "My Groups", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_my_events:
+                Toast.makeText(this, "My Events", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_logout:
+                Toast.makeText(this, "Logout", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.nav_help:
+                Toast.makeText(this, "Help", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_about_us:
+                Toast.makeText(this, "About Us", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.nav_send_feedback:
+                Toast.makeText(this, "Send Feedback", Toast.LENGTH_LONG).show();
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

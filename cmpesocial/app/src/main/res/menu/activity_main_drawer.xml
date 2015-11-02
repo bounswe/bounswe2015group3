@@ -1,26 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group
-        android:id="@+id/upperGroup">
-        <item
-            android:id="@+id/nav_events"
-            android:title="Events" />
-        <!--android:icon="@android:drawable/ic_menu_camera"-->
+    <group android:id="@+id/generalGroup">
         <item
             android:id="@+id/nav_groups"
-            android:title="Groups" />
-
+            android:title="Import" />
+        <item
+            android:id="@+id/nav_events"
+            android:title="Gallery" />
     </group>
 
-    <group android:id="@+id/lowerGroup">
+    <group
+        android:id="@+id/notLoggedInGroup"
+        android:visible="false">
         <item
-            android:id="@+id/nav_profile"
-            android:title="Profile" />
+            android:id="@+id/nav_login"
+            android:title="Login" />
+        <item
+            android:id="@+id/nav_signup"
+            android:title="Signup" />
+    </group>
+
+    <group
+        android:id="@+id/personalGroup"
+        android:visible="false">
+        <item
+            android:id="@+id/nav_my_profile"
+            android:title="My Profile" />
+        <item
+            android:id="@+id/nav_my_groups"
+            android:title="My Groups" />
+        <item
+            android:id="@+id/nav_my_events"
+            android:title="My Events" />
         <item
             android:id="@+id/nav_logout"
             android:title="Logout" />
+    </group>
 
+    <group android:id="@+id/introductionGroup">
+        <item
+            android:id="@+id/nav_help"
+            android:title="Help" />
+        <item
+            android:id="@+id/nav_about_us"
+            android:title="About Us" />
+        <item
+            android:id="@+id/nav_send_feedback"
+            android:title="Send Feedback" />
     </group>
 
     <item android:title="Communicate">
