@@ -5,12 +5,202 @@
   Time: 6:28 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+        pageEncoding="UTF-8" %>
+<%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}" scope="application"/>
+<c:set var="requestURI" value="${pageContext.request.requestURI}" scope="application"/>
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-    <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Cmpe Social</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+  <script type="text/javascript">var switchTo5x=true;</script>
+  <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+  <script type="text/javascript">stLight.options({publisher: "ur-b4964695-8b2f-20dd-2ced-c9f6141de24c", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 </head>
 <body>
 
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Header -->
+<header class="header-container">
+  <!-- Main Header  -->
+  <div class="main-header affix">
+
+    <!-- Moblie Nav Wrapper  -->
+    <div class="mobile-nav-wrapper">
+      <div class="container ">
+
+        <!-- logo  -->
+        <div id="logo">
+          <a href="index.htm"><img src="img/logo.png" alt=""></a>
+        </div>
+
+        <div id="sb-search" class="sb-search">
+          <form>
+            <input class="sb-search-input" placeholder="People, Events and more" type="text" name="search" id="search">
+            <input class="sb-search-submit" type="submit" value="">
+            <span class="sb-icon-search"></span>
+          </form>
+        </div>
+        <!-- moblie-menu-icon -->
+
+        <div class="mobile-menu-icon">
+          <i class="fa fa-bars"></i>
+        </div>
+
+        <!-- Nav -->
+        <nav class="main-nav mobile-menu">
+
+          <ul class="clearfix">
+            <li ><i class="icon fa fa-home"> </i> <a href="index.html">Home</a>
+            </li>
+
+            <li ><a href="#"><i class="icon fa fa-user"> </i> Profile</a>
+            </li>
+            <li><a href="contact.html"><i class="icon fa fa-comments"> </i> Messages</a></li>
+            <li><a href="contact.html"><i class="icon fa fa-sign-out"> </i> Sign Out</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header> <!-- header -->
+
+<section class="eventform newsection">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <small>Search Result For:</small>
+        <h2 class="title">"Table Tennis"</h2>
+      </div>
+
+      <div class="col-md-4 eventform-con">
+        <form>
+
+          <div class="form-input">
+            <div class="styled-select">
+              <select >
+                <option>Group</option>
+                <option> Event </option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="form-input ">
+            <button class="btn btn-pri ">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Events -->
+<section class="events newsection">
+  <div class="container">
+    <div class="row">
+      <div class="blog col-md-12">
+        <div class="clearfix">
+
+          <div class="event-container clearfix">
+            <div class="event clearfix">
+              <div class="eventsimg">
+                <img src="img/TableTennis2.gif" alt="">
+              </div>
+              <div class="event-content">
+                <h3 class="title"><a href="#">Playing Table Tennis </a></h3>
+                <ul class="meta">
+                  <li><i class="icon fa  fa-group"> Group</i>
+                  <li><i class="icon fa  fa-user"> 14 Members</i>
+                  <li><i class="icon fa  fa-calendar-o"> Created: 31 October 2015</i>
+                </ul>
+                <p>Masa tenisi oynayarak biraz stres atabiliriz gencler! </p>
+                <a href="#" class="btn btn-pri">Join</a>
+                <a href="#" class="btn btn-disabled">Go to page</a>
+              </div>
+            </div>
+          </div>
+          <div class="event-container clearfix">
+            <div class="event clearfix">
+              <div class="eventsimg">
+                <img src="img/world-cup-table-tennis-32.jpg" alt="">
+              </div>
+              <div class="event-content">
+                <h3 class="title"><a href="#">World Tour Tennis </a></h3>
+                <ul class="meta">
+                  <li><i class="icon fa  fa-calendar"> Event</i>
+                  <li><i class="icon fa  fa-user"> 52 Participants</i>
+                  <li><i class="icon fa  fa-calendar-o"> Created: 31 October 2015</i>
+                </ul>
+                <p>Masa tenisi oynayarak biraz stres atabiliriz gencler! </p>
+                <a href="#" class="btn btn-pri">Join</a>
+                <a href="#" class="btn btn-disabled">Go to page</a>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="main-footer">
+  <div class="container">
+    <div class="row">
+      <div class="widget col-md-3">
+        <p> <a target ="_blank" href ="https://github.com/bounswe/bounswe2015group3/wiki"> About US</a><p>
+      </div>
+
+      <div class="widget col-md-3">
+
+      </div>
+
+      <div class="widget col-md-3">
+
+
+      </div>
+
+      <div class="widget col-md-3">
+
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="js/vendor/jquery-1.10.2.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+
 </body>
 </html>
+
