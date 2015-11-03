@@ -20,7 +20,8 @@
         android:inputType="textPersonName"
         android:hint="First Name"
         android:gravity="center"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:width="250dp" />
 
     <EditText
         android:id="@+id/lastNameEditText"
@@ -32,7 +33,8 @@
         android:inputType="textPersonName"
         android:hint="Last Name"
         android:gravity="center"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:width="250dp" />
 
     <EditText
         android:id="@+id/emailEditText"
@@ -44,7 +46,8 @@
         android:inputType="textEmailAddress"
         android:hint="E-Mail"
         android:gravity="center"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:width="250dp" />
 
     <EditText
         android:id="@+id/passwordEditText"
@@ -56,25 +59,36 @@
         android:inputType="textPassword"
         android:hint="Password"
         android:gravity="center"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:width="250dp" />
 
     <EditText
-        android:id="@+id/passwordAgainEditText"
+        android:id="@+id/confirmPasswordEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/passwordEditText"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="textPassword"
-        android:hint="Password Again"
+        android:hint="Confirm Password"
         android:gravity="center"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:width="250dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/confirmPasswordEditText"
+        android:id="@+id/roleSpinner"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:minWidth="250dp"/>
 
     <Button
         android:id="@+id/signupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/passwordAgainEditText"
+        android:layout_below="@+id/roleSpinner"
         android:layout_centerHorizontal="true"
         android:text="SIGN UP"
         android:gravity="center"
