@@ -83,4 +83,18 @@ public class UserAPIController {
     }
 
 
+    @RequestMapping( value = "/updateUser" , method = RequestMethod.POST )
+    @ResponseBody
+    public String login(@RequestBody UserModel userRequestModel) {
+        Gson gson = new Gson();
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        cmpeSocialUserModel.updateUser(userRequestModel.id,userRequestModel.name, userRequestModel.surname, userRequestModel.email,SecurityUtils.getHashed(userRequestModel.password) );
+
+        result.put("Result","SUCCESS");
+
+        return gson.toJson(result);
+    }
+
+
 }

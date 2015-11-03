@@ -1,5 +1,6 @@
 package cmpe451.group3.MobileAPI;
 
+
 import java.util.Map;
 
 /**
@@ -7,6 +8,7 @@ import java.util.Map;
  */
 public class UserModel {
 
+    public long id;
     public String surname;
     public String password;
     public String email;
@@ -49,11 +51,11 @@ public class UserModel {
     public UserModel MapModelFromDAO (Map<String, Object> UserMap)
     {
         UserModel userModel = new UserModel();
+        userModel.id = Long.parseLong(UserMap.get("id").toString());
         userModel.name = UserMap.get("name").toString();
         userModel.email = UserMap.get("email").toString();
         userModel.password = UserMap.get("password").toString();
         userModel.surname = UserMap.get("surname").toString();
-
 
         return  userModel;
     }
