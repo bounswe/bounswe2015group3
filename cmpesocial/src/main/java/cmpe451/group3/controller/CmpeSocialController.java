@@ -42,7 +42,7 @@ public class CmpeSocialController {
 
         model.put("user", user);
 
-        return "user_edit";
+        return "signup";
     }
 
     @RequestMapping(value = "user/update")
@@ -70,7 +70,7 @@ public class CmpeSocialController {
     public String deleteUser(@RequestParam(required = false) Long id) {
     	cmpeSocialUserModel.deleteUser(id);
 
-        return "redirect:/index";
+        return "redirect:/signup";
     }
     
     @RequestMapping(value = {"/", "/home"})
@@ -78,9 +78,9 @@ public class CmpeSocialController {
         // return back to home page
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	if(auth == null || !auth.isAuthenticated())
-    		return "redirect:/user/login";
+    		return "redirect:/index";
     	else
-    		return "home";
+    		return "index";
     }
     
     @RequestMapping(value = "user/login")
@@ -92,9 +92,9 @@ public class CmpeSocialController {
         	if(SecurityUtils.checkPassword(hashedPassword, password)){
         	CmpeSocialAuthentication.getAuthentication(email, password);
         	}
-        	return "redirect:/home";
+        	return "redirect:/signup";
         }
         else
-        	return "login";
+        	return "index";
     }
 }
