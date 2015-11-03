@@ -1,259 +1,54 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: umut
-  Date: 11/2/15
-  Time: 6:13 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
-        pageEncoding="UTF-8" %>
+         pageEncoding="UTF-8" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="application"/>
 <c:set var="requestURI" value="${pageContext.request.requestURI}" scope="application"/>
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Cmpe Social</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
 
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-  <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
-  <link rel="shortcut icon" href="favicon.png">
-  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
-  <link rel="stylesheet" href="css/main.css">
-  <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-  <script type="text/javascript">var switchTo5x=true;</script>
-  <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-  <script type="text/javascript">stLight.options({publisher: "ur-b4964695-8b2f-20dd-2ced-c9f6141de24c", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Cmpe Social Life</title>
 </head>
 <body>
 
-<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
+<div>
+    <h1>Cmpe Social Life</h1>
+    <p></p>
+</div>
 
-<!-- Header -->
-<header class="header-container">
-  <!-- Main Header  -->
-  <div class="main-header affix">
-
-    <!-- Moblie Nav Wrapper  -->
-    <div class="mobile-nav-wrapper">
-      <div class="container ">
-
-        <!-- logo  -->
-        <div id="logo">
-          <a href="index.htm"><img src="img/logo.png" alt=""></a>
-        </div>
-
-        <div id="sb-search" class="sb-search">
-          <form>
-            <input class="sb-search-input" placeholder="People, Events and more" type="text" name="search" id="search">
-            <input class="sb-search-submit" type="submit" value="">
-            <span class="sb-icon-search"></span>
-          </form>
-        </div>
-        <!-- moblie-menu-icon -->
-
-        <div class="mobile-menu-icon">
-          <i class="fa fa-bars"></i>
-        </div>
-
-        <!-- Nav -->
-        <nav class="main-nav mobile-menu">
-
-          <ul class="clearfix">
-            <li ><i class="icon fa fa-home"> </i> <a href="index.html">Home</a>
-            </li>
-
-            <li ><a href="#"><i class="icon fa fa-user"> </i> Profile</a>
-            </li>
-            <li><a href="contact.html"><i class="icon fa fa-comments"> </i> Messages</a></li>
-            <li><a href="contact.html"><i class="icon fa fa-sign-out"> </i> Sign Out</a></li>
-          </ul>
-        </nav>
-      </div>
+<div class="row">
+    <div>
+        <table style="margin-top:10px;">
+            <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>UserID</th>
+            <th>Location</th>
+            <th>Description</th>
+            </thead>
+            <tbody>
+            <c:forEach var="event" items="${events}" varStatus="roop">
+                <tr>
+                    <td>${event.id}</td>
+                    <td>${event.name}</td>
+                    <td>${event.date}</td>
+                    <td>${event.id_user}</td>
+                    <td>${event.location}</td>
+                    <td>${event.description}</td>
+                    <td><a href="${contextPath}/event/edit?id=${event.id}">Edit</a></td>
+                    <td><a href="${contextPath}/event/delete?id=${event.id}">Delete</a></td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+        <a href="${contextPath}/events/create">Create New Event</a>
     </div>
-  </div>
-</header> <!-- header -->
-<br/>
-
-<!-- Events -->
-<section class="events newsection">
-  <div class="container">
-    <div class="row">
-      <div class="single-blog col-md-6">
-        <section class="event-container clearfix">
-          <div class="event clearfix">
-            <div class="eventsimg">
-              <img src="img/TableTennis2.gif" alt="">
-            </div>
-            <div class="event-content">
-              <h3 class="title"><a href="#">Masa Tenisi Oynayanlar</a></h3>
-
-
-
-              <ul class="meta clearfix">
-                <li class="date"><i class="icon fa fa-calendar"></i>31 October 2015</li>
-                <li class="date"><i class="icon fa fa-map-marker"></i>Kare Block Zemin</li>
-              </ul>
-
-              <h5>Müsait olanlar ile masa tenisi yapalım. Dört kişilik de oynayabilirz :)</h5>
-
-
-            </div>
-          </div>
-          <div class="sep"></div>
-        </section>
-      </div>
-
-      <!-- col-md-3 -->
-      <div class="col-md-6">
-        <aside id="aside" class="aside-bar-style-two clearfix">
-
-
-          <div class="widget clearfix">
-
-            <form>
-              <button class="btn btn-pri btn-full">Create Event</button>
-            </form>
-
-          </div>
-
-        </aside>
-        <aside id="aside" class="aside-bar-style-two clearfix">
-
-
-          <div class="widget clearfix">
-            <h4>Kamil Abitoglu wants to join the group</h4>
-            <br/>
-            <form >
-              <button class="btn btn-success">Accept</button>
-              <button class="btn btn-danger">Reject</button>
-            </form>
-
-          </div>
-
-        </aside>
-        <aside id="aside" class="aside-bar-style-two clearfix">
-
-
-          <div class="widget clearfix">
-            <div class="top-ppost">
-
-              <div class="date">
-                <p>Umut Afacan</p>
-              </div>
-              <div class="content">
-                <h4> Ben bu hafta sonu musaitim. oynayack olursa lutfen mesaj atsin.</h4>
-              </div>
-            </div>
-            <br/>
-            <div class="top-ppost">
-
-              <div class="date">
-                <p>Burak Yılmaz</p>
-              </div>
-              <div class="content">
-                <h4> Arkadaşlar. yapmayın cmpe451 deadline'i yaklasiyor. sonra oynarız</h4>
-              </div>
-            </div>
-            <br/>
-            <div class="top-ppost">
-
-              <div class="date">
-                <p>Naqibullah Danishjo</p>
-              </div>
-              <div class="content">
-                <h4>Kare block'u sevmesem de tenis oynamak için gidilir.</h4>
-              </div>
-            </div>
-            <br/>
-          </div>
-
-        </aside>
-
-
-        <aside id="aside" class="aside-bar-style-two clearfix">
-
-
-          <div class="widget clearfix">
-            <table>
-              <tr>
-                <th>Admin</th>
-              </tr>
-              <tr>
-                <td>Suzan Uskudarli</td>
-              </tr>
-            </table>
-            <table>
-              <tr>
-                <th>Members</th>
-              </tr>
-              <tr>
-                <td>Umut Afacan</td>
-              </tr>
-              <tr>
-                <td>Bunyamin Ince</td>
-              </tr>
-              <tr>
-                <td>Can Kurtan</td>
-              </tr>
-              <tr>
-                <td>Tuba Topaloglu</td>
-              </tr>
-              <tr>
-                <td><a href ="#">Show All</a></td>
-              </tr>
-            </table>
-
-          </div>
-
-        </aside>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- Footer -->
-<footer class="main-footer">
-  <div class="container">
-    <div class="row">
-      <div class="widget col-md-3">
-        <p> <a target ="_blank" href ="https://github.com/bounswe/bounswe2015group3/wiki"> About US</a><p>
-      </div>
-
-      <div class="widget col-md-3">
-
-      </div>
-
-      <div class="widget col-md-3">
-
-
-      </div>
-
-      <div class="widget col-md-3">
-
-      </div>
-    </div>
-  </div>
-</footer>
-<script src="js/vendor/jquery-1.10.2.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="js/main.js"></script>
+</div>
 
 </body>
 </html>

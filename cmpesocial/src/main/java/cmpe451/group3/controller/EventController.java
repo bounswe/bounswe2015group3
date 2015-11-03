@@ -24,14 +24,14 @@ public class EventController {
     @Autowired
     private EventModel eventModel = null;
 
-    @RequestMapping(value = "/eventsTest")
+    @RequestMapping(value = "/events")
     public String events(ModelMap model) {
         
         List<Map<String, Object>> events = eventModel.getEvents();
 
         model.put("events", events);
 
-        return "eventsTest";
+        return "events";
     }
 
     @RequestMapping(value = "/events/edit")
@@ -57,7 +57,7 @@ public class EventController {
         else
         	eventModel.createEvent(name, date, userid, location, description);
 
-        return "redirect:/eventsTest";
+        return "redirect:/events";
     }
 
     @RequestMapping(value = "events/create")
@@ -73,7 +73,7 @@ public class EventController {
     public String deleteUser(@RequestParam(required = false) Long id) {
     	eventModel.deleteEvent(id);
 
-        return "redirect:/eventsTest";
+        return "redirect:/events";
     }
     
 }
