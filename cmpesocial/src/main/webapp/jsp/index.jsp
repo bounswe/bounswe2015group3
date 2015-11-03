@@ -6,8 +6,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="application"/>
-<c:set var="requestURI" value="${pageContext.request.requestURI}" scope="application"/>
-<!DOCTYPE html>
+<c:set var="requestURI" value="${pageContext.request.requestURI}" scope="application"/><!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -23,11 +22,11 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
     <link rel="shortcut icon" href="favicon.png">
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
-    <link rel="stylesheet" href="css/main.css">
-    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/jquery.datetimepicker.css">
+    <link rel="stylesheet" href="${contextPath}/assets/bootstrap/css/main.css">
+    <script src="${contextPath}/assets/js/vendor/modernizr-2.6.2.min.js"></script>
     <script type="text/javascript">var switchTo5x=true;</script>
     <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
     <script type="text/javascript">stLight.options({publisher: "ur-b4964695-8b2f-20dd-2ced-c9f6141de24c", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
@@ -225,9 +224,9 @@
         </div>
     </div>
 </footer>
-<script src="js/vendor/jquery-1.10.2.min.js"></script>
-<script src="js/plugins.js"></script>
-<script src="js/main.js"></script>
+<script src="${contextPath}/assets/js/vendor/jquery-1.10.2.min.js"></script>
+<script src="${contextPath}/assets/js/plugins.js"></script>
+<script src="${contextPath}/assets/js/main.js"></script>
 
 </body>
 </html>

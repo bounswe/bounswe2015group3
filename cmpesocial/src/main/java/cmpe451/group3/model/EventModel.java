@@ -30,7 +30,7 @@ public class EventModel {
     }
 
     public Map<String, Object> getEvent(Long id) {
-        String sql = "SELECT * FROM user WHERE id = ? ";
+        String sql = "SELECT * FROM event WHERE id = ? ";
 
         return this.jdbcTemplate.queryForMap(sql, id);
     }
@@ -48,7 +48,7 @@ public class EventModel {
     }
 
     public void deleteEvent(Long id) {
-        String sql = "DELETE FROM user WHERE id = ?";
+        String sql = "DELETE FROM event WHERE id = ?";
         this.jdbcTemplate.update(sql, id);
     }
 }

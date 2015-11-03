@@ -70,7 +70,7 @@ public class CmpeSocialController {
     public String deleteUser(@RequestParam(required = false) Long id) {
     	cmpeSocialUserModel.deleteUser(id);
 
-        return "redirect:/index";
+        return "redirect:/signup";
     }
     
     @RequestMapping(value = {"/", "/home"})
@@ -92,7 +92,7 @@ public class CmpeSocialController {
         	if(SecurityUtils.checkPassword(hashedPassword, password)){
         	CmpeSocialAuthentication.getAuthentication(email, password);
         	}
-        	return "redirect:/index";
+        	return "redirect:/signup";
         }
         else
         	return "index";
