@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Repository
 @Scope("request")
@@ -33,6 +34,20 @@ public class CmpeSocialUserModel {
 
         return this.jdbcTemplate.queryForMap(sql, id);
     }
+
+    public  Map<String, Object> getUserByEmail(String email) {
+        String sql = "SELECT * FROM user WHERE email = ?";
+
+        return  this.jdbcTemplate.queryForMap(sql,email);
+
+    }
+
+    public Map<String, Object> getUserWithEmail(String email)
+    {
+        String sql = "SELECT * FROM user WHERE email = ?";
+
+        return this.jdbcTemplate.queryForMap(sql,email);
+    }
     
     public String getPassword(String email) {
         String sql = "SELECT password FROM user WHERE email = ? ";
@@ -57,4 +72,5 @@ public class CmpeSocialUserModel {
         String sql = "DELETE FROM user WHERE id = ?";
         this.jdbcTemplate.update(sql, id);
     }
+
 }
