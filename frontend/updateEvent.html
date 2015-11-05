@@ -10,8 +10,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
-   
-     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
     <link rel="shortcut icon" href="favicon.png">
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
@@ -20,9 +19,14 @@
     <link rel="stylesheet" href="css/main.css">
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     <script type="text/javascript">var switchTo5x=true;</script>
+
+    <!--
     <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    -->
     <script type="text/javascript">stLight.options({publisher: "ur-b4964695-8b2f-20dd-2ced-c9f6141de24c", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
-    </head>
+
+	
+	</head>
 <body>
 
 <!--[if lt IE 7]>
@@ -65,152 +69,103 @@
 
                         <li ><a href="#"><i class="icon fa fa-user"> </i> Profile</a>
                         </li>
-                        <li><a href="contact.html"><i class="icon fa fa-comments"> </i> Messages</a></li>
-						<li><a href="contact.html"><i class="icon fa fa-sign-out"> </i> Sign Out</a></li>
+                        <li><a href="#"><i class="icon fa fa-comments"> </i> Messages</a></li>
+						<li><a href="#"><i class="icon fa fa-sign-out"> </i> Sign Out</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
     </div>
-</header> <!-- header -->  
-<br/>
+</header> 
 
-<!-- Events -->
+<section class="sub-banner newsection">
+    <div class="container">
+        <h2 class="title">Update Event</h2>
+    </div>
+</section>
+
 <section class="events newsection">
     <div class="container">
         <div class="row">
-		            <div class="single-blog col-md-6">
-                <section class="event-container clearfix">
-                    <div class="event clearfix">
-                        <div class="eventsimg">
-                            <img src="img/TableTennis2.gif" alt="">
-                        </div>
-                        <div class="event-content">
-                            <h3 class="title"><a href="#">Masa Tenisi Oynayanlar</a></h3>
-
-                           
-
-                                <ul class="meta clearfix">
-                                    <li class="date"><i class="icon fa fa-calendar"></i>31 October 2015</li>
-									<li class="date"><i class="icon fa fa-map-marker"></i>Kare Block Zemin</li>
-                                </ul>
-								
-								<h5>Müsait olanlar ile masa tenisi yapalım. Dört kişilik de oynayabilirz :)</h5>
-
-
-                         </div>
-                            </div>
-                            <div class="sep"></div>
-                        </section>
-                        </div>
-
-                    <!-- col-md-3 -->
-                    <div class="col-md-6">
+            <div class="col-md-8">
                         <aside id="aside" class="aside-bar-style-two clearfix">
 
 
                             <div class="widget clearfix">
-										
-							<form>
-                                <button class="btn btn-pri btn-full">Create Event</button>
-                            </form>
+                                <h2>Update Event</h2>
+								<hr/>
+                        <form method="post" action="register.php" class="form">
+                            <div class="response">&nbsp;</div>
+                            <p ><label for="register_name">What are you planning?</label>
+                                <input id="register_name" type="text" value="Masa Tenisi Oynayanlar" name="event_name"  class="textflied">
+                                </p>
 
-                            </div>
+                            <p><label >Where?</label>
+                                <input  type="text" value="Kare Block"   class="textflied">
+                                <i class="icon fa fa-map-marker"></i></p>
 
-                        </aside>
-						<aside id="aside" class="aside-bar-style-two clearfix">
+                            <p ><label >When?</label><br/>
+							
+                        <input  value="11/8/2015" class="date_timepicker_start" style= "width:100%; height:40px; padding:0px 10px; border:1px solid #c2c4cb; border-radius:2px; outline:none;">
+								 
+								<i class="icon fa fa-calendar"></i> </p>
+							
+							
 
-
-                            <div class="widget clearfix">
-							<h4>Kamil Abitoglu wants to join the group</h4>
-							<br/>
-							<form >
-                                <button class="btn btn-success">Accept</button>
-								<button class="btn btn-danger">Reject</button>
-                            </form>
-
-                            </div>
-
-                        </aside>
-					<aside id="aside" class="aside-bar-style-two clearfix">
-
-
-                            <div class="widget clearfix">
-                                <div class="top-ppost">
+                            <p><label >Change Photo</label>
+                                <input  type="file"  class="textflied">
+                                <i class="icon fa fa-photo"></i></p>
 								
-                                    <div class="date">
-                                        <p>Umut Afacan</p>
-                                    </div>
-                                    <div class="content">
-                                        <h4> Ben bu hafta sonu musaitim. oynayack olursa lutfen mesaj atsin.</h4>
-                                    </div>
-                                </div>
-								<br/>
-                                <div class="top-ppost">
-								
-                                    <div class="date">
-                                        <p>Burak Yılmaz</p>
-                                    </div>
-                                    <div class="content">
-                                        <h4> Arkadaşlar. yapmayın cmpe451 deadline'i yaklasiyor. sonra oynarız</h4>
-                                    </div>
-                                </div>
-								<br/>
-                                <div class="top-ppost">
-								
-                                    <div class="date">
-                                        <p>Naqibullah Danishjo</p>
-                                    </div>
-                                    <div class="content">
-                                        <h4>Kare block'u sevmesem de tenis oynamak için gidilir.</h4>
-                                    </div>
-                                </div>
-								<br/>
+							<p><label >Event Description</label>
+                                  <textarea style= "width:100%; padding:0px 10px; border:1px solid #c2c4cb; border-radius:2px; outline:none;" name="description"  rows="20" >
+                                                    <p>Masa tenisi, yaygın şekilde oynanan bir salon sporudur. Pinpon olarak da bilinen masa tenisi oyunu, 19. yüzyılın sonları ile 20. yüzyılın başlarında, İngiltere’de gelişmiştir.</p>
+					<p>Masa tenisi, 1900’lü yıllarda İngiltere ve Amerika Birleşik Devletleri’nde selüloit yapılı bir özel top ve tef benzeri gergin raketlerle oynanmıştır. Topun raketlere teması sonucu çıkan “ping-pong” sesleri nedeniyle, yansıma kaynaklı bu isimle de anılmaktaydı. Zaman geçtikçe oyuna ilgi azalmış, ancak 1. Dünya Savaşı’ndan sonra, özellikle İngiltere’de tekrar fazlaca oynanmaya başlanmıştı.</p>
+								</textarea></p>
+
+
+                                <button type="submit" name="submit" id="submitButton"  class="btn btn-pri">Update Event</button>
+                            </p>
+                        </form>
                             </div>
+ 
+
+                             
 
                             </aside>
-							
-							
-						<aside id="aside" class="aside-bar-style-two clearfix">
+            </div>
+            <div class="col-md-4">
+                        <aside id="aside" class="aside-bar-style-two clearfix">
 
 
                             <div class="widget clearfix">
-							<table>
-								  <tr>
-									<th>Admin</th>
-								  </tr>
-								  <tr>
-									<td>Suzan Uskudarli</td>
-								  </tr>
-								</table>
-								<table>
-								  <tr>
-									<th>Members</th>
-								  </tr>
-								  <tr>
-									<td>Umut Afacan</td>
-								  </tr>
-								  <tr>
-									<td>Bunyamin Ince</td>
-								  </tr>
-								  <tr>
-									<td>Can Kurtan</td>
-								  </tr>
-								  <tr>
-									<td>Tuba Topaloglu</td>
-								  </tr>
-								  <tr>
-									<td><a href ="#">Show All</a></td>
-								  </tr>
-								</table>
-
+                                <h3 class="title">Suggested For You</h3>
+                                <div class="top-ppost">
+								
+                                    <div class="date">
+                                        <p><span><i class="icon fa fa-calendar"> </i></span>EVENT</p>
+                                    </div>
+                                    <div class="content">
+                                        <h4  class="title"><a href="#">Watching Star Wars in Kuzey Kampus Cinema </a></h4>
+                                    </div>
+                                </div>
+								<hr/>
+                                <div class="top-ppost">
+                                    <div class="date">
+                                        <p><span><i class="icon fa fa-group"> </i></span>GROUP</p>
+                                    </div>
+                                    <div class="content">
+                                        <h4  class="title"><a href="#">Orta Düzey Tenis Oyuncuları  </a></h4>
+                                    </div>
+                                </div>
                             </div>
 
-                        </aside>
-                        </div>
-                    </div> 
-                </div> 
-            </section>
+                             
+
+                            </aside>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 <!-- Footer -->
@@ -235,10 +190,10 @@
                 </div>
             </div> 
         </div>
-    </footer>     
-    <script src="js/vendor/jquery-1.10.2.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
+    </footer>  
+<script src="js/vendor/jquery-1.10.2.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
 
 </body>
 </html>

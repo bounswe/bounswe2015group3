@@ -238,7 +238,7 @@ $(function(){
 if($("#contact-map").length > 0){
 	$("#contact-map").gmap3({
 		marker:{
-			latLng: [46.578498,2.457275],
+			latLng: [41.0858993,29.0452034],
 			options:{
 				draggable:true
 			},
@@ -270,7 +270,7 @@ if($("#contact-map").length > 0){
 		},
 		map:{
 			options:{
-				zoom: 5
+				zoom: 15
 			}
 		}
 	});

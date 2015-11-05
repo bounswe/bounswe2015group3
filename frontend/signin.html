@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Event On</title>
+    <title>Cmpe Social</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
@@ -61,13 +61,6 @@
                 <nav class="main-nav mobile-menu">
 
                     <ul class="clearfix">
-                        <li ><i class="icon fa fa-home"> </i> <a href="index.html">Home</a>
-                        </li>
-
-                        <li ><a href="#"><i class="icon fa fa-user"> </i> Profile</a>
-                        </li>
-                        <li><a href="contact.html"><i class="icon fa fa-comments"> </i> Messages</a></li>
-						<li><a href="contact.html"><i class="icon fa fa-sign-out"> </i> Sign Out</a></li>
                     </ul>
                 </nav>
             </div>
@@ -77,12 +70,12 @@
 
 <section class="sub-banner newsection">
     <div class="container">
-        <h2 class="title">Login & Register</h2>
+        <h2 class="title">Sign In</h2>
         <ul class="breadcrumb">
             <li>
                 <a href="index.html">Home</a>
             </li>
-            <li>Login & Register</li>
+            <li>Sign In</li>
         </ul>
     </div>
 </section>
@@ -90,12 +83,13 @@
 <section class="events newsection">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <aside class="aside-bar-style-two clearfix">
-                    <div class="widget clearfix">
-                        <h2>Login</h2>
-                        <hr/>
+            <div class="col-md-8">
+                        <aside id="aside" class="aside-bar-style-two clearfix">
 
+
+                            <div class="widget clearfix">
+                                <h2><i class="icon fa fa-lock"> </i> Sign In</h2>
+								<hr/>
                         <form method="post" action="login.php" class="form">
                             <div class="response">&nbsp;</div>
 
@@ -107,49 +101,43 @@
                                 <input id="login_password" type="password"  placeholder="Password" name="login_password" class="textflied">
                                 <i class="icon fa fa-lock"></i></p>
 
-                            <p><input id="login_remember_me" type="checkbox" checked="checked" placeholder="Password" name="login_remember_me"> Remember Me</p>
-                            <button type="submit" name="submit" id="login_submit" title="Click here to login!" class="btn btn-success">Login</button>
+                            <p><input id="login_remember_me" type="checkbox" checked="checked" placeholder="Password" name="login_remember_me"> Remember Me <a style="float:right;" href ="#">Forget Password</a></p>
+                            <button type="submit" name="submit" id="login_submit"  class="btn btn-success">Login</button>
                             </p>
                         </form>
-                    </div>
-                </aside>
+                            </div>
+ 
+
+                             
+
+                            </aside>
             </div>
-            <div class="col-md-6">
-                <aside class="aside-bar-style-two clearfix">
-                    <div class="widget clearfix">
-                        <h2>Register</h2>
-                        <hr/>
-                        <form method="post" action="register.php" class="form">
-                            <div class="response">&nbsp;</div>
-                            <p ><label for="register_name">Name</label>
-                                <input id="register_name" type="text" value="" name="register_name" placeholder="Name" class="textflied">
-                                <i class="icon fa fa-user"></i></p>
+            <div class="col-md-4">
+                        <aside id="aside" class="aside-bar-style-two clearfix">
 
-                            <p><label for="register_email" >Email</label>
-                                <input id="register_email" type="email" value="" name="register_email" placeholder="Email Address" class="textflied">
-                                <i class="icon fa fa-envelope"></i></p>
 
-                            <p><label for="register_password">Password</label>
-                                <input id="register_password" type="password"  placeholder="Password" name="register_password" class="textflied">
-                                <i class="icon fa fa-lock"></i></p>
+                            <div class="widget clearfix">
+                                <h3 class="title">CMPE Social Life</h3>
+								<p>
+								CMPE @ BOUN is a very busy department. It has faculty members, undergraduates, graduates, support staff, and alumni.
+								</p>
+								<p>
+								There are official and unofficial issues that are maintained on a daily basis. With the load and variety of work this can be difficult to manage. Furthermore, with all the activity going on it is difficult to create and maintain meaningful connection with other people and information.
+								</p>
+								<p>
+								Not member yet, please register.
+					
+								</p>
+																<p>
+								
+								<a href="register.html" class="btn btn-pri btn-full"><i class="icon fa fa-edit"> </i> Register</a>
+								</p>
 
-                            <p><label for="register_password_confirmation">Password Confirmation</label>
-                                <input id="register_password_confirmation" type="password"  placeholder="Password Confirmation" name="register_password_confirmation" class="textflied">
-                                <i class="icon fa fa-lock"></i></p>
+                            </div>
 
-                            <p><label for="register_role">Role</label>
-                                <select class="textflied" id="register_role" name="register_role">
-                                    <option value="1">Under Graduate</option>
-                                    <option value="2">Graduate</option>
-                                    <option value="3">Alumni</option>
-                                    <option value="4">Faculty Member</option>
-                                    <option value="45">Staff</option>
-                                </select></p>
-                                <button type="submit" name="submit" id="submitButton" title="Click here to register!" class="btn btn-pri">Register</button>
-                            </p>
-                        </form>
-                    </div>
-                </aside>
+                             
+
+                            </aside>
             </div>
         </div>
     </div>
