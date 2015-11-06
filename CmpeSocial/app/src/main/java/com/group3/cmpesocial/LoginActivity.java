@@ -8,21 +8,29 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
 public class LoginActivity extends AppCompatActivity {
+
+    private static String TAG = LoginActivity.class.getSimpleName();
+
+    private EditText emailEditText;
+    private EditText passwordEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        emailEditText = (EditText) findViewById(R.id.emailEditText);
+        passwordEditText = (EditText) findViewById(R.id.passwordEditText);
     }
 
-    public void login(View v){
-        Toast.makeText(this, "login", Toast.LENGTH_LONG).show();
-        EditText emailEditText = (EditText) findViewById(R.id.emailEditText);
-        EditText passwordEditText = (EditText) findViewById(R.id.passwordEditText);
-
+    public void login(View v) {
         if (emailEditText.getText() == null || emailEditText.getText().length() == 0 ||
-                passwordEditText.getText() == null || passwordEditText.getText().length() == 0){
+                passwordEditText.getText() == null || passwordEditText.getText().length() == 0) {
             Toast.makeText(this, "Please enter your credentials", Toast.LENGTH_LONG).show();
             return;
         }
@@ -30,22 +38,74 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailEditText.getText().toString().trim();
         String password = passwordEditText.getText().toString().trim();
 
-        Log.i("email", "" + email);
-        Log.i("password", "" + password);
+        ionLoginRequest(email, password);
     }
 
-    public void signup(View v){
+    protected void ionLoginRequest(String email, String password){
+        JsonObject json = new JsonObject();
+        json.addProperty("email", email);
+        json.addProperty("password", password);
+
+        Log.i(TAG, json.toString());
+
+        Ion.with(this)
+                .load("http://54.148.86.208:8080/cmpesocial-temp/api/login")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        Log.i(TAG, "got result");
+                        if (e != null) {
+                            Log.i(TAG, "error " + e.getMessage());
+                            Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG).show();
+                        }else if (result != null) {
+                            Toast.makeText(getApplicationContext(), "login done", Toast.LENGTH_LONG).show();
+
+                            String type = trimQuotes(result.get("type").toString());
+                            if (type.equals("SUCCESS")) {
+                                JsonObject user = result.getAsJsonObject("user");
+                                String id = user.get("id").toString();
+                                String first_name = trimQuotes(user.get("name").toString());
+                                String last_name = trimQuotes(user.get("surname").toString());
+                                String password = trimQuotes(user.get("password").toString());
+                                String email = trimQuotes(user.get("email").toString());
+                                Log.i(TAG, id + " " + first_name + " " + last_name + " " + email + " " + password);
+
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            } else if (type.equals("WRONG_PASSWORD")) {
+                                Toast.makeText(getApplicationContext(), "wrong password", Toast.LENGTH_LONG).show();
+                                passwordEditText.setText("");
+                            }
+
+                        } else {
+                            Log.i(TAG, "result empty");
+                            emptyFields();
+                            Toast.makeText(getApplicationContext(), "result empty", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    protected String trimQuotes(String s){
+        return s.substring(1, s.length() - 1);
+    }
+
+    /*
+     * Empty the fields in case of an unsuccessful login attempt
+     */
+    protected void emptyFields(){
+        emailEditText.setText("");
+        passwordEditText.setText("");
+    }
+
+    public void signup(View v) {
         Toast.makeText(this, "signup", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);
     }
 
-    public void noLogin(View v){
-        Toast.makeText(this, "noLogin", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("user", -1);
-        startActivity(intent);
-        finish();
-    }
 }

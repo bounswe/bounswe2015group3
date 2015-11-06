@@ -1,47 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:id="@+id/generalGroup">
+    <group android:id="@+id/mainGroup">
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home"/>
         <item
             android:id="@+id/nav_groups"
-            android:title="Import" />
+            android:title="Groups"/>
         <item
             android:id="@+id/nav_events"
-            android:title="Gallery" />
+            android:title="Events"/>
     </group>
 
     <group
-        android:id="@+id/notLoggedInGroup"
-        android:visible="false">
+        android:id="@+id/personalGroup">
         <item
-            android:id="@+id/nav_login"
-            android:title="Login" />
+            android:id="@+id/nav_profile"
+            android:title="Profile" />
         <item
-            android:id="@+id/nav_signup"
-            android:title="Signup" />
-    </group>
-
-    <group
-        android:id="@+id/personalGroup"
-        android:visible="false">
-        <item
-            android:id="@+id/nav_my_profile"
-            android:title="My Profile" />
-        <item
-            android:id="@+id/nav_my_groups"
-            android:title="My Groups" />
-        <item
-            android:id="@+id/nav_my_events"
-            android:title="My Events" />
+            android:id="@+id/nav_messages"
+            android:title="Messages"/>
         <item
             android:id="@+id/nav_logout"
             android:title="Logout" />
     </group>
 
     <group android:id="@+id/introductionGroup">
-        <item
-            android:id="@+id/nav_help"
-            android:title="Help" />
         <item
             android:id="@+id/nav_about_us"
             android:title="About Us" />
@@ -50,7 +35,8 @@
             android:title="Send Feedback" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Communicate"
+        android:visible="false">
         <menu>
             <item
                 android:id="@+id/nav_share"
