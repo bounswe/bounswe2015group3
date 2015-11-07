@@ -212,14 +212,7 @@ $('.end').click(function(){
 
 $(function(){
 	$('.date_timepicker_start').datetimepicker({
-		format:'d/m/Y',
-		onShow:function( ct ){
-			this.setOptions({
-				maxDate:$('.date_timepicker_end').val()?$('.date_timepicker_end').val():false
-			})
-		},
-
-		timepicker:false
+		format:'Y/m/d H:i:s'
 	});
 
 	$('.date_timepicker_end').datetimepicker({
