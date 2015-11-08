@@ -58,12 +58,12 @@ public class CmpeSocialController {
         else
         	cmpeSocialUserModel.addUser(name, surname, email, SecurityUtils.getHashed(password));
 
-        return "redirect:/index";
+        return "redirect:/user/login";
     }
 
     @RequestMapping(value = "user/new")
     public String newUser() {
-        return "user_edit";
+        return "signup";
     }
 
     @RequestMapping(value = "user/delete")
@@ -78,7 +78,7 @@ public class CmpeSocialController {
         // return back to home page
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	if(auth == null || !auth.isAuthenticated())
-    		return "redirect:/index";
+    		return "redirect:/user/login";
     	else
     		return "index";
     }
@@ -87,14 +87,14 @@ public class CmpeSocialController {
     public String userLogin(
     		@RequestParam(required = false) String email,
             @RequestParam(required = false) String password) {
-        if(email != null && password != null){
+        if(email != null && cmpeSocialUserModel.checkEmail(email) && password != null){
         	String hashedPassword = cmpeSocialUserModel.getPassword(email);
         	if(SecurityUtils.checkPassword(hashedPassword, password)){
-        	CmpeSocialAuthentication.getAuthentication(email, password);
+        		CmpeSocialAuthentication.getAuthentication(email, password);
         	}
-        	return "redirect:/signup";
+        	return "redirect:/home";
         }
         else
-        	return "index";
+        	return "login";
     }
 }

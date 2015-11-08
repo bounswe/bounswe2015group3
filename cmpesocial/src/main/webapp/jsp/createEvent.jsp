@@ -8,10 +8,6 @@
 <c:set var="requestURI" value="${pageContext.request.requestURI}"
 	scope="application" />
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
 <head>
@@ -28,36 +24,24 @@
 <link rel="shortcut icon" href="favicon.png">
 <link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/assets/bootstrap/css/jquery.datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/jquery.datetimepicker.css">
 <link rel="stylesheet" href="${contextPath}/assets/bootstrap/css/main.css">
 <script src="${contextPath}/assets/js/vendor/modernizr-2.6.2.min.js"></script>
 <script type="text/javascript">var switchTo5x=true;</script>
-<!--
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-    -->
 <script type="text/javascript">stLight.options({publisher: "ur-b4964695-8b2f-20dd-2ced-c9f6141de24c", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 </head>
 <body>
-
-	<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
-
 	<!-- Header -->
 	<header class="header-container">
 		<!-- Main Header  -->
 		<div class="main-header affix">
-
 			<!-- Moblie Nav Wrapper  -->
 			<div class="mobile-nav-wrapper">
 				<div class="container ">
-
 					<!-- logo  -->
 					<div id="logo">
 						<a href="index.htm"><img src="${contextPath}/assets/img/logo.png" alt=""></a>
 					</div>
-
 					<div id="sb-search" class="sb-search">
 						<form>
 							<input class="sb-search-input"
@@ -76,6 +60,15 @@
 					<nav class="main-nav mobile-menu">
 
 						<ul class="clearfix">
+							<li><i class="icon fa fa-home"> </i> <a href="index.html">Home</a>
+							</li>
+
+							<li><a href="#"><i class="icon fa fa-user"> </i>
+									Profile</a></li>
+							<li><a href="#"><i class="icon fa fa-comments"> </i>
+									Messages</a></li>
+							<li><a href="#"><i class="icon fa fa-sign-out"> </i>
+									Sign Out</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -84,11 +77,7 @@
 	</header>
 	<section class="sub-banner newsection">
 		<div class="container">
-			<h2 class="title">Sign In</h2>
-			<ul class="breadcrumb">
-				<li><a href="index.html">Home</a></li>
-				<li>Sign In</li>
-			</ul>
+			<h2 class="title">Create Event</h2>
 		</div>
 	</section>
 	<section class="events newsection">
@@ -97,35 +86,46 @@
 				<div class="col-md-8">
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
-							<h2>
-								<i class="icon fa fa-lock"> </i> Sign In
-							</h2>
+							<h2>Create Event</h2>
 							<hr />
-							<form method="post" action="#" class="form">
+							<form method="post" action="${contextPath}/events/update" class="form">
+							<input type="hidden" name="id" value="${event.id}">
 								<div class="response">&nbsp;</div>
-
 								<p>
-									<label for="email">Email</label> <input id="email"
-										type="email" value="" name="email"
-										placeholder="Email Address" class="textflied"> <i
-										class="icon fa fa-envelope"></i>
+									<label for="name">What are you planning?</label> <input
+										id="name" type="text" value="" name="name"
+										placeholder="Event Title" class="textflied">
 								</p>
 
 								<p>
-									<label for="password">Password</label> <input
-										id="password" type="password" placeholder="Password"
-										name="password" class="textflied"> <i
-										class="icon fa fa-lock"></i>
+									<label>Where?</label> <input type="text" name="location" id="location" value=""
+										placeholder="Event Location" class="textflied"> <i
+										class="icon fa fa-map-marker"></i>
 								</p>
 
 								<p>
-									<input id="login_remember_me" type="checkbox" checked="checked"
-										placeholder="Password" name="login_remember_me">
-									Remember Me <a style="float: right;" href="#">Forget
-										Password</a>
+									<label>When?</label><br /> 
+									<input name="date" id="date"
+										placeholder="YYYY/MM/DD HH:MM:SS"
+										class="date_timepicker_start"
+										style="width: 100%; height: 40px; padding: 0px 10px; border: 1px solid #c2c4cb; border-radius: 2px; outline: none;">
+
+									<i class="icon fa fa-calendar"></i>
 								</p>
-								<button type="submit" name="submit" id="login_submit"
-									class="btn btn-success">Login</button>
+
+								<p>
+									<label>Event Photo</label> <input type="file"
+										class="textflied"> <i class="icon fa fa-photo"></i>
+								</p>
+								<p>
+									<label>Event Description</label>
+									<textarea
+										style="width: 100%; padding: 0px 10px; border: 1px solid #c2c4cb; border-radius: 2px; outline: none;"
+										name="description" id="description" rows="10">
+                                </textarea>
+								</p>
+								<button type="submit" name="submit" id="submitButton"
+									class="btn btn-success">CREATE Event</button>
 								</p>
 							</form>
 						</div>
@@ -134,19 +134,33 @@
 				<div class="col-md-4">
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
-							<h3 class="title">CMPE Social Life</h3>
-							<p>CMPE @ BOUN is a very busy department. It has faculty
-								members, undergraduates, graduates, support staff, and alumni.</p>
-							<p>There are official and unofficial issues that are
-								maintained on a daily basis. With the load and variety of work
-								this can be difficult to manage. Furthermore, with all the
-								activity going on it is difficult to create and maintain
-								meaningful connection with other people and information.</p>
-							<p>Not member yet, please register.</p>
-							<p>
-								<a href="register.html" class="btn btn-pri btn-full"><i
-									class="icon fa fa-edit"> </i> Register</a>
-							</p>
+							<h3 class="title">Suggested For You</h3>
+							<div class="top-ppost">
+
+								<div class="date">
+									<p>
+										<span><i class="icon fa fa-calendar"> </i></span>EVENT
+									</p>
+								</div>
+								<div class="content">
+									<h4 class="title">
+										<a href="#">Watching Star Wars in Kuzey Kampus Cinema </a>
+									</h4>
+								</div>
+							</div>
+							<hr />
+							<div class="top-ppost">
+								<div class="date">
+									<p>
+										<span><i class="icon fa fa-group"> </i></span>GROUP
+									</p>
+								</div>
+								<div class="content">
+									<h4 class="title">
+										<a href="#">Orta Düzey Tenis Oyuncuları </a>
+									</h4>
+								</div>
+							</div>
 						</div>
 					</aside>
 				</div>
@@ -170,8 +184,8 @@
 			</div>
 		</div>
 	</footer>
-	<script src="js/vendor/jquery-1.10.2.min.js"></script>
-	<script src="js/plugins.js"></script>
-	<script src="js/main.js"></script>
+	<script src="${contextPath}/assets/js/vendor/jquery-1.10.2.min.js"></script>
+	<script src="${contextPath}/assets/js/plugins.js"></script>
+	<script src="${contextPath}/assets/js/main.js"></script>
 </body>
 </html>

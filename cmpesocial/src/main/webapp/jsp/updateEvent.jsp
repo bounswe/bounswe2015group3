@@ -3,7 +3,6 @@
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}"
 	scope="application" />
 <c:set var="requestURI" value="${pageContext.request.requestURI}"
@@ -20,7 +19,6 @@
 <link
 	href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic'
 	rel='stylesheet' type='text/css'>
-
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
 <link rel="shortcut icon" href="favicon.png">
@@ -36,8 +34,6 @@
 <script type="text/javascript">
 	var switchTo5x = true;
 </script>
-<script type="text/javascript"
-	src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">
 	stLight.options({
 		publisher : "ur-b4964695-8b2f-20dd-2ced-c9f6141de24c",
@@ -46,12 +42,9 @@
 		hashAddressBar : false
 	});
 </script>
+
 </head>
 <body>
-
-	<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
 	<!-- Header -->
 	<header class="header-container">
 		<!-- Main Header  -->
@@ -59,7 +52,6 @@
 			<!-- Moblie Nav Wrapper  -->
 			<div class="mobile-nav-wrapper">
 				<div class="container ">
-
 					<!-- logo  -->
 					<div id="logo">
 						<a href="index.htm"><img
@@ -75,125 +67,85 @@
 						</form>
 					</div>
 					<!-- moblie-menu-icon -->
-
 					<div class="mobile-menu-icon">
 						<i class="fa fa-bars"></i>
 					</div>
-
 					<!-- Nav -->
 					<nav class="main-nav mobile-menu">
-
 						<ul class="clearfix">
+							<li><i class="icon fa fa-home"> </i> <a href="index.html">Home</a>
+							</li>
+
+							<li><a href="#"><i class="icon fa fa-user"> </i> Profile</a></li>
+							<li><a href="#"><i class="icon fa fa-comments"> </i>
+									Messages</a></li>
+							<li><a href="#"><i class="icon fa fa-sign-out"> </i>
+									Sign Out</a></li>
 						</ul>
 					</nav>
 				</div>
 			</div>
 		</div>
 	</header>
-	<!-- header -->
-
-
-	<!-- Event Form -->
-	<br />
-	<!-- Events -->
+	<section class="sub-banner newsection">
+		<div class="container">
+			<h2 class="title">Update Event</h2>
+		</div>
+	</section>
 	<section class="events newsection">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8">
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
-							<h2>All Events</h2>
+							<h2>Update Event</h2>
 							<hr />
-							<c:forEach var="event" items="${events}" varStatus="roop">
-								<a href="${contextPath}/event/delete?id=${event.id}">Delete</a>
-								<div class="top-ppost">
-									<div class="date">
-										<p>
-											{event.date} <span>31</span>OCT
-										</p>
-									</div>
-									<div class="content">
-										<h4 class="title">
-											<a href="${contextPath}/event/view?id=${event.id}">${event.name}</a>
-										</h4>
-										<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>${event.location}</a>
-									</div>
-								</div>
-								<br />
-							</c:forEach>
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span>31</span>OCT
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Arkadaşlar, halı saha maçı yapalım diyen?</a>
-									</h4>
-									<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>Etiler
-									</a>
-								</div>
-							</div>
-							<br />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span>25</span>OCT
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Paint Ball Turnuvası diyorum. </a>
-									</h4>
-									<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>Kilyos</a>
-								</div>
-							</div>
-							<br />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span>23</span>OCT
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Pes 2016 oynamak isteyen var mı? </a>
-									</h4>
-									<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>Cafe</a>
-								</div>
-							</div>
-							<br />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span>15</span>OCT
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Mission Impossible'i izlemek için sinemaya
-											gidiyoruz</a>
-									</h4>
-									<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>Trump
-										Alışveriş Merkezi</a>
-								</div>
-							</div>
+							<form method="post" action="${contextPath}/events/update"
+								class="form">
+								<input type="hidden" name="id" value="${event.id}">
+								<div class="response">&nbsp;</div>
+								<p>
+									<label for="name">What are you planning?</label> <input
+										type="text" name="name" id="name" value="${event.name}"
+										class="textflied">
+								</p>
+
+								<p>
+									<label>Where?</label> <input type="text" name="location"
+										id="location" value="${event.location}" class="textflied">
+									<i class="icon fa fa-map-marker"></i>
+								</p>
+
+								<p>
+									<label>When?</label><br /> <input name="date" id="date"
+										value="${event.date}" class="date_timepicker_start"
+										style="width: 100%; height: 40px; padding: 0px 10px; border: 1px solid #c2c4cb; border-radius: 2px; outline: none;">
+
+									<i class="icon fa fa-calendar"></i>
+								</p>
+
+								<p>
+									<label>Change Photo</label> <input type="file"
+										class="textflied"> <i class="icon fa fa-photo"></i>
+								</p>
+
+								<p>
+									<label>Event Description</label>
+									<textarea name="description" id="description"
+										value="${event.description}"
+										style="width: 100%; padding: 0px 10px; border: 1px solid #c2c4cb; border-radius: 2px; outline: none;"
+										name="description" rows="20">
+                                                 
+								</textarea>
+								</p>
+								<button type="submit" name="submit" id="submitButton"
+									class="btn btn-pri">Update Event</button>
+								</p>
+							</form>
 						</div>
 					</aside>
 				</div>
-				<!-- col-md-3 -->
 				<div class="col-md-4">
-					<aside id="aside" class="aside-bar-style-two clearfix">
-						<div class="widget clearfix">
-							<a href="${contextPath}/user/login"
-								class="btn btn-success btn-full"><i class="icon fa fa-lock">
-							</i> Sign In</a> <a href="${contextPath}/user/new"
-								class="btn btn-pri btn-full"><i class="icon fa fa-edit">
-							</i> Register</a>
-						</div>
-					</aside>
-					<br />
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
 							<h3 class="title">Suggested For You</h3>

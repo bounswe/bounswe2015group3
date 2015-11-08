@@ -31,7 +31,7 @@ public class EventController {
 
         model.put("events", events);
 
-        return "events";
+        return "index";
     }
 
     @RequestMapping(value = "/events/edit")
@@ -40,7 +40,14 @@ public class EventController {
 
         model.put("event", event);
 
-        return "event_edit";
+        return "updateEvent";
+    }
+    
+    @RequestMapping(value = "/events/view")
+    public String viewEvent(@RequestParam(required = false) Long id, ModelMap model) {
+        Map<String, Object> event = eventModel.getEvent(id);
+        model.put("event", event);
+        return "viewEvent";
     }
 
     @RequestMapping(value = "events/update")
@@ -66,7 +73,7 @@ public class EventController {
     	if(auth == null || !auth.isAuthenticated())
     		return "redirect:/user/login";
     	
-        return "event_edit";
+        return "createEvent";
     }
 
     @RequestMapping(value = "events/delete")

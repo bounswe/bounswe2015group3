@@ -49,6 +49,20 @@ public class CmpeSocialUserModel {
         return this.jdbcTemplate.queryForMap(sql,email);
     }
     
+    public boolean checkEmail(String email){
+    	String sql = "SELECT password FROM user WHERE email = ? ";
+    	try{
+    		Map<String, Object> user = this.jdbcTemplate.queryForMap(sql, email);
+    		if(user.isEmpty()){
+    			return false;
+    		}
+    	}
+    	catch(Exception e){
+    		return false;
+    	}
+    	return true;
+    }
+    
     public String getPassword(String email) {
         String sql = "SELECT password FROM user WHERE email = ? ";
         Map<String, Object> user = this.jdbcTemplate.queryForMap(sql, email);
