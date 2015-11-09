@@ -101,7 +101,7 @@ public class EventAPIController {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        eventModel.updateEvent(eventBaseModel.id, eventBaseModel.name,  eventBaseModel.date, eventBaseModel.userid, eventBaseModel.location, eventBaseModel.description);
+        eventModel.updateEvent(eventBaseModel.id, eventBaseModel.name,  eventBaseModel.date, eventBaseModel.id_user, eventBaseModel.location, eventBaseModel.description);
         result.put("Result","SUCCESS");
 
         return gson.toJson(result);

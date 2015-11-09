@@ -12,7 +12,7 @@ public class EventBaseModel {
     public String name;
     public String date;
     public String date_of_creation;
-    public Long userid;
+    public Long id_user;
     public String location;
     public String description;
 
@@ -25,7 +25,7 @@ public class EventBaseModel {
         eventModel.name = event.get("name").toString();
         eventModel.date = event.get("date").toString();
         eventModel.date_of_creation = event.get("date_of_creation").toString();
-        eventModel.userid = Long.parseLong(event.get("userid").toString());
+        eventModel.id_user = Long.parseLong(event.get("id_user").toString());
         eventModel.location = event.get("location").toString();
         eventModel.description = event.get("description").toString();
 

@@ -23,10 +23,10 @@ public class EventModel {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<Map<String, Object>> getEventsForUser(long id) {
-        String sql = "SELECT * FROM event WHERE user_id = ? ";
+    public List<Map<String, Object>> getEventsForUser(long id_user) {
+        String sql = "SELECT * FROM event WHERE id_user = ? ";
 
-        return this.jdbcTemplate.queryForList(sql, id);
+        return this.jdbcTemplate.queryForList(sql, id_user);
     }
 
     public List<Map<String, Object>> getEvents() {
@@ -55,7 +55,7 @@ public class EventModel {
     }
 
     public void updateEvent(Long id, String name, String date, long userid, String location, String description) {
-        String sql = "UPDATE event SET name = ?, date = ?, userid = ?, location = ?, description = ? WHERE id = ?";
+        String sql = "UPDATE event SET name = ?, date = ?, id_user = ?, location = ?, description = ? WHERE id = ?";
 
         this.jdbcTemplate.update(sql, name, date, userid, location, description, id);
     }
