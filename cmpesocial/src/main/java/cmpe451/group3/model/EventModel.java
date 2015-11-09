@@ -28,7 +28,7 @@ public class EventModel {
 
         return this.jdbcTemplate.queryForList(sql, id);
     }
-    
+
     public List<Map<String, Object>> getEvents() {
         String sql = "SELECT * FROM event";
 
@@ -40,7 +40,14 @@ public class EventModel {
 
         return this.jdbcTemplate.queryForMap(sql, id);
     }
-    
+
+    public Map<String, Object> getEventForName(String name)
+    {
+        String sql = "SELECT * FROM event WHERE name = ?";
+        return  this.jdbcTemplate.queryForMap(sql,name);
+    }
+
+
     public void createEvent(String name, String date, long userid, String location, String description) {
         String sql = "INSERT INTO event(name, date, id_user, location, description) VALUES(?, ?, ?, ?, ?)";
         

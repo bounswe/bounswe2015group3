@@ -71,7 +71,7 @@ public class UserAPIController {
 
     @RequestMapping( value = "/signup" , method = RequestMethod.POST )
     @ResponseBody
-    public String login(@RequestBody UserSignupRequestModel userSignupRequestModel) {
+    public String signup(@RequestBody UserSignupRequestModel userSignupRequestModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
@@ -85,7 +85,7 @@ public class UserAPIController {
 
     @RequestMapping( value = "/updateUser" , method = RequestMethod.POST )
     @ResponseBody
-    public String login(@RequestBody UserModel userRequestModel) {
+    public String updateUser(@RequestBody UserModel userRequestModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
