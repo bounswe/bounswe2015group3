@@ -87,7 +87,7 @@ public class SignupActivity extends AppCompatActivity {
         Log.i(TAG,json.toString());
 
         Ion.with(this)
-                .load("http://54.148.86.208:8080/cmpesocial-temp/api/signup")
+                .load("http://54.148.86.208:8080/cmpesocial/api/signup")
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {

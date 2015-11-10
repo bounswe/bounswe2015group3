@@ -1,10 +1,10 @@
 package com.group3.cmpesocial;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,26 +20,29 @@ import com.group3.cmpesocial.fragments.GroupsFragment;
 import com.group3.cmpesocial.fragments.HomeFragment;
 import com.group3.cmpesocial.fragments.MessagesFragment;
 import com.group3.cmpesocial.fragments.ProfileFragment;
+import com.group3.cmpesocial.fragments.RecommendationsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final int HOME = 0;
+    private final int RECOMMENDATIONS = 1;
+    private final int GROUPS = 2;
+    private final int EVENTS = 3;
+    private final int PROFILE = 4;
+    private final int MESSAGES = 5;
+    FragmentTransaction fragmentTransaction;
     private Toolbar toolbar;
     private RelativeLayout fragment_container;
     private FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
     private HomeFragment fragment_home;
+    private RecommendationsFragment fragment_recommendations;
     private GroupsFragment fragment_groups;
     private EventsFragment fragment_events;
     private ProfileFragment fragment_profile;
     private MessagesFragment fragment_messages;
     private Fragment[] fragments = {fragment_home, fragment_groups, fragment_events, fragment_profile, fragment_messages};
     private int currentScreen;
-    private final int HOME = 0;
-    private final int GROUPS = 1;
-    private final int EVENTS = 2;
-    private final int PROFILE = 3;
-    private final int MESSAGES = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +50,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         fragment_home = new HomeFragment();
+        fragment_recommendations = new RecommendationsFragment();
         fragment_groups = new GroupsFragment();
         fragment_events = new EventsFragment();
         fragment_profile = new ProfileFragment();
         fragment_messages = new MessagesFragment();
 
-        fragmentManager = getFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         fragment_container = (RelativeLayout) findViewById(R.id.fragment_container);
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, fragment_home);
@@ -79,6 +83,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        setEventsFragment();
     }
 
     @Override
@@ -119,60 +125,40 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
             case R.id.nav_home:
-                Toast.makeText(this, "Home", Toast.LENGTH_LONG).show();
                 if (currentScreen != HOME) {
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, fragment_home);
-                    fragmentTransaction.commit();
-                    currentScreen = HOME;
-                    getSupportActionBar().setTitle(fragment_home.getTitle());
+                    setEventsFragment();
+                }
+                break;
+            case R.id.nav_recommendations:
+                if (currentScreen != HOME) {
+                    setRecommendationsFragment();
                 }
                 break;
             case R.id.nav_groups:
-                Toast.makeText(this, "Groups", Toast.LENGTH_LONG).show();
                 if (currentScreen != GROUPS) {
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, fragment_groups);
-                    fragmentTransaction.commit();
-                    currentScreen = GROUPS;
-                    getSupportActionBar().setTitle(fragment_groups.getTitle());
+                    setGroupsFragment();
                 }
                 break;
             case R.id.nav_events:
-                Toast.makeText(this, "Events", Toast.LENGTH_LONG).show();
                 if (currentScreen != EVENTS) {
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, fragment_events);
-                    fragmentTransaction.commit();
-                    currentScreen = EVENTS;
-                    getSupportActionBar().setTitle(fragment_events.getTitle());
+                    setEventsFragment();
                 }
                 break;
 
             case R.id.nav_profile:
-                Toast.makeText(this, "Profile", Toast.LENGTH_LONG).show();
                 if (currentScreen != PROFILE) {
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, fragment_profile);
-                    fragmentTransaction.commit();
-                    currentScreen = PROFILE;
-                    getSupportActionBar().setTitle(fragment_profile.getTitle());
+                    setProfileFragment();
                 }
                 break;
             case R.id.nav_messages:
-                Toast.makeText(this, "Messages", Toast.LENGTH_LONG).show();
                 if (currentScreen != MESSAGES) {
-                    fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, fragment_messages);
-                    fragmentTransaction.commit();
-                    currentScreen = MESSAGES;
-                    getSupportActionBar().setTitle(fragment_messages.getTitle());
+                    setMessagesFragment();
                 }
                 break;
             case R.id.nav_logout:
-                Toast.makeText(this, "Logout", Toast.LENGTH_LONG).show();
+                getSharedPreferences("prefsCMPE", MODE_PRIVATE).edit().clear().commit();
                 break;
 
             case R.id.nav_about_us:
@@ -186,6 +172,54 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void setHomeFragment() {
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment_home);
+        fragmentTransaction.commit();
+        currentScreen = HOME;
+        getSupportActionBar().setTitle(fragment_home.getTitle());
+    }
+
+    public void setRecommendationsFragment() {
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment_recommendations);
+        fragmentTransaction.commit();
+        currentScreen = RECOMMENDATIONS;
+        getSupportActionBar().setTitle(fragment_recommendations.getTitle());
+    }
+
+    public void setGroupsFragment() {
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment_groups);
+        fragmentTransaction.commit();
+        currentScreen = GROUPS;
+        getSupportActionBar().setTitle(fragment_groups.getTitle());
+    }
+
+    public void setEventsFragment() {
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment_events);
+        fragmentTransaction.commit();
+        currentScreen = EVENTS;
+        getSupportActionBar().setTitle(fragment_events.getTitle());
+    }
+
+    public void setProfileFragment() {
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment_profile);
+        fragmentTransaction.commit();
+        currentScreen = PROFILE;
+        getSupportActionBar().setTitle(fragment_profile.getTitle());
+    }
+
+    public void setMessagesFragment() {
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment_messages);
+        fragmentTransaction.commit();
+        currentScreen = MESSAGES;
+        getSupportActionBar().setTitle(fragment_messages.getTitle());
     }
 
 }

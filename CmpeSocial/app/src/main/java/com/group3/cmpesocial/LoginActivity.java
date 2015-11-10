@@ -1,6 +1,7 @@
 package com.group3.cmpesocial;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -49,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         Log.i(TAG, json.toString());
 
         Ion.with(this)
-                .load("http://54.148.86.208:8080/cmpesocial-temp/api/login")
+                .load("http://54.148.86.208:8080/cmpesocial/api/login")
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -66,12 +67,20 @@ public class LoginActivity extends AppCompatActivity {
                             String type = trimQuotes(result.get("type").toString());
                             if (type.equals("SUCCESS")) {
                                 JsonObject user = result.getAsJsonObject("user");
-                                String id = user.get("id").toString();
-                                String first_name = trimQuotes(user.get("name").toString());
-                                String last_name = trimQuotes(user.get("surname").toString());
+                                int user_id = Integer.parseInt(user.get("id").toString());
+                                String name = trimQuotes(user.get("name").toString());
+                                String surname = trimQuotes(user.get("surname").toString());
                                 String password = trimQuotes(user.get("password").toString());
                                 String email = trimQuotes(user.get("email").toString());
-                                Log.i(TAG, id + " " + first_name + " " + last_name + " " + email + " " + password);
+                                Log.i(TAG, "" + user_id + " " + name + " " + surname + " " + email + " " + password);
+
+                                SharedPreferences.Editor editor = getSharedPreferences("prefsCMPE", MODE_PRIVATE).edit();
+                                editor.putBoolean("user_exists", true);
+                                editor.putInt("user_id", user_id);
+                                editor.putString("name", name);
+                                editor.putString("surname", surname);
+                                editor.putString("email", email);
+                                editor.commit();
 
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -91,7 +100,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     protected String trimQuotes(String s){
-        return s.substring(1, s.length() - 1);
+        if (s.charAt(0) == '\"' && s.charAt(s.length()-1) == '\"')
+            return s.substring(1, s.length() - 1);
+        else
+            return s;
     }
 
     /*

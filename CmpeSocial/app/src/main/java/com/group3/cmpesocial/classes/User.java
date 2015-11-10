@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
  * Created by Tuba on 04/11/15.
  */
 public class User {
+    private int id;
     private String name;
     private String surname;
     private String email;
@@ -18,10 +19,19 @@ public class User {
     }
 
     public User(JsonObject json){
+        id = json.get("id").getAsInt();
         name = json.get("name").getAsString();
         surname = json.get("surname").getAsString();
         email = json.get("email").getAsString();
         password = json.get("password").getAsString();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
