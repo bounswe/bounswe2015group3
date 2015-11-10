@@ -55,7 +55,7 @@
 
 					<!-- logo  -->
 					<div id="logo">
-						<a href="index.htm"><img src="${contextPath}/assets/img/logo.png" alt=""></a>
+						<a href=""${contextPath}/"><img src="${contextPath}/assets/img/logo.png" alt=""></a>
 					</div>
 
 					<div id="sb-search" class="sb-search">
@@ -86,7 +86,7 @@
 		<div class="container">
 			<h2 class="title">Sign In</h2>
 			<ul class="breadcrumb">
-				<li><a href="index.html">Home</a></li>
+				<li><a href=""${contextPath}/">Home</a></li>
 				<li>Sign In</li>
 			</ul>
 		</div>
@@ -101,7 +101,7 @@
 								<i class="icon fa fa-lock"> </i> Sign In
 							</h2>
 							<hr />
-							<form method="post" action="#" class="form">
+							<form method="post" action="${contextPath}/user/login" class="form">
 								<div class="response">&nbsp;</div>
 
 								<p>
@@ -144,7 +144,7 @@
 								meaningful connection with other people and information.</p>
 							<p>Not member yet, please register.</p>
 							<p>
-								<a href="register.html" class="btn btn-pri btn-full"><i
+								<a href="${contextPath}/user/new" class="btn btn-pri btn-full"><i
 									class="icon fa fa-edit"> </i> Register</a>
 							</p>
 						</div>

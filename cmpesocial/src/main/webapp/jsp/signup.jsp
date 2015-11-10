@@ -43,7 +43,7 @@
 				<div class="container ">
 					<!-- logo  -->
 					<div id="logo">
-						<a href="index.htm"><img src="${contextPath}/assets/img/logo.png" alt=""></a>
+						<a href="${contextPath}/"><img src="${contextPath}/assets/img/logo.png" alt=""></a>
 					</div>
 
 					<div id="sb-search" class="sb-search">
@@ -94,42 +94,42 @@
 								<p>
 									<label for="name">Name</label> <input
 										id="name" type="text" value="" name="name"
-										placeholder="Name" class="textflied"> <i
+										placeholder="Name" class="textfield"> <i
 										class="icon fa fa-user"></i>
 								</p>
 								<p>
 									<label for="surname">Surname</label> <input
 										id="surname" type="text" value="" name="surname"
-										placeholder="Surname" class="textflied"> <i
+										placeholder="Surname" class="textfield"> <i
 										class="icon fa fa-user"></i>
 								</p>
 								<p>
 									<label for="email">Email</label> <input
 										id="email" type="email" value=""
 										name="email" placeholder="Email Address"
-										class="textflied"> <i class="icon fa fa-envelope"></i>
+										class="textfield"> <i class="icon fa fa-envelope"></i>
 								</p>
 								<p>
 									<label for="password">Password</label> <input
 										id="password" type="password" placeholder="Password"
-										name="password" class="textflied"> <i
+										name="password" class="textfield"> <i
 										class="icon fa fa-lock"></i>
 								</p>
 								<p>
 									<label for="password_confirmation">Password
 										Confirmation</label> <input id="password_confirmation"
 										type="password" placeholder="Password Confirmation"
-										name="password_confirmation" class="textflied">
+										name="password_confirmation" class="textfield">
 									<i class="icon fa fa-lock"></i>
 								</p>
 								<p>
 									<label for="role">Role</label> <select
-										class="textflied" id="role" name="role">
+										class="textfield" id="role" name="role">
 										<option value="1">Under Graduate</option>
 										<option value="2">Graduate</option>
 										<option value="3">Alumni</option>
 										<option value="4">Faculty Member</option>
-										<option value="45">Staff</option>
+										<option value="5">Staff</option>
 									</select>
 								</p>
 								<button type="submit" name="submit" id="submitButton"
@@ -154,7 +154,7 @@
 							<p>We know you will enjoy it. Please register!</p>
 							<p>Already member, go to sign in page.</p>
 							<p>
-								<a href="signin.html" class="btn btn-success btn-full"><i
+								<a href="${contextPath}/user/login" class="btn btn-success btn-full"><i
 									class="icon fa fa-lock"> </i> Sign In</a>
 							</p>
 						</div>

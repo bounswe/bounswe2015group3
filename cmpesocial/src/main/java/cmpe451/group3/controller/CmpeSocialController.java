@@ -58,7 +58,12 @@ public class CmpeSocialController {
         else
         	cmpeSocialUserModel.addUser(name, surname, email, SecurityUtils.getHashed(password));
 
-        return "redirect:/user/login";
+        return "redirect:/user/home";
+    }
+
+    @RequestMapping(value = "user/home")
+    public String home() {
+        return "userHomePage";
     }
 
     @RequestMapping(value = "user/new")
@@ -92,7 +97,7 @@ public class CmpeSocialController {
         	if(SecurityUtils.checkPassword(hashedPassword, password)){
         		CmpeSocialAuthentication.getAuthentication(email, password);
         	}
-        	return "redirect:/home";
+        	return "redirect:/user/home";
         }
         else
         	return "login";
