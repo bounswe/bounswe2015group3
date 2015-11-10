@@ -47,7 +47,7 @@ public class EventController {
     public String viewEvent(@RequestParam(required = false) Long id, ModelMap model) {
         Map<String, Object> event = eventModel.getEvent(id);
         model.put("event", event);
-        return "viewEvent";
+        return "eventView";
     }
 
     @RequestMapping(value = "events/update")

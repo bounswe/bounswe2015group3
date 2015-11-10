@@ -94,37 +94,37 @@
 								<p>
 									<label for="name">Name</label> <input
 										id="name" type="text" value="" name="name"
-										placeholder="Name" class="textfield"> <i
+										placeholder="Name" class="textflied"> <i
 										class="icon fa fa-user"></i>
 								</p>
 								<p>
 									<label for="surname">Surname</label> <input
 										id="surname" type="text" value="" name="surname"
-										placeholder="Surname" class="textfield"> <i
+										placeholder="Surname" class="textflied"> <i
 										class="icon fa fa-user"></i>
 								</p>
 								<p>
 									<label for="email">Email</label> <input
 										id="email" type="email" value=""
 										name="email" placeholder="Email Address"
-										class="textfield"> <i class="icon fa fa-envelope"></i>
+										class="textflied"> <i class="icon fa fa-envelope"></i>
 								</p>
 								<p>
 									<label for="password">Password</label> <input
 										id="password" type="password" placeholder="Password"
-										name="password" class="textfield"> <i
+										name="password" class="textflied"> <i
 										class="icon fa fa-lock"></i>
 								</p>
 								<p>
 									<label for="password_confirmation">Password
 										Confirmation</label> <input id="password_confirmation"
 										type="password" placeholder="Password Confirmation"
-										name="password_confirmation" class="textfield">
+										name="password_confirmation" class="textflied">
 									<i class="icon fa fa-lock"></i>
 								</p>
 								<p>
 									<label for="role">Role</label> <select
-										class="textfield" id="role" name="role">
+										class="textflied" id="role" name="role">
 										<option value="1">Under Graduate</option>
 										<option value="2">Graduate</option>
 										<option value="3">Alumni</option>

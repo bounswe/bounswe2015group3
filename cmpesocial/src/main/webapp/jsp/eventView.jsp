@@ -23,13 +23,13 @@
 <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
 <link rel="shortcut icon" href="favicon.png">
 <link rel="stylesheet" type="text/css"
-	href="${contextPath}/assets/bootstracss/jquery.datetimepicker.css">
-<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstracss/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstracss/bootstrap.min.css">
+	href="${contextPath}/assets/bootstrap/css/jquery.datetimepicker.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/assets/bootstracss/easy-responsive-tabs.css">
-<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstracss/owl.carousel.css">
-<link rel="stylesheet" href="${contextPath}/assets/bootstracss/main.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/owl.carousel.css">
+<link rel="stylesheet" href="${contextPath}/assets/bootstrap/css/main.css">
 <script src="${contextPath}/assets/js/vendor/modernizr-2.6.2.min.js"></script>
 <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript"
@@ -148,26 +148,6 @@
 								</div>
 							</div>
 
-							<div class="event">
-								<div class="eventsimg">
-									<img src="img/prof05.jpg" alt="">
-								</div>
-								<div class="event-content">
-									<h3 class="title">Bünyamin Ince</h3>
-									<p class="job">Senior CmpE Student</p>
-									<p>Some description about me, some more description about
-										me</p>
-
-								</div>
-								<div class="social-icon">
-									<a href="#" class="email fa fa-envelope-o"></a><a href="#"
-										class="facebook fa fa-facebook"></a><a href="#"
-										class="fa linkedin fa-linkedin"></a><a href="#"
-										class="googleplus fa fa-google-plus"></a><a href="#"
-										class="twitter fa fa-twitter"></a>
-
-								</div>
-							</div>
 							<div class="event">
 								<div class="eventsimg">
 									<img src="${contextPath}/assets/img/prof03.jpg" alt="">
