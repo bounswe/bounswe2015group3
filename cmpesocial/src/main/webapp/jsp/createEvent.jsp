@@ -112,11 +112,7 @@
 
 									<i class="icon fa fa-calendar"></i>
 								</p>
-
-								<p>
-									<label>Event Photo</label> <input type="file"
-										class="textflied"> <i class="icon fa fa-photo"></i>
-								</p>
+								
 								<p>
 									<label>Event Description</label>
 									<textarea

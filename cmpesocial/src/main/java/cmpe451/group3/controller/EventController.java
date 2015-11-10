@@ -55,10 +55,12 @@ public class EventController {
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String date,
-            @RequestParam(required = false) Long userid,
             @RequestParam(required = false) String location,
             @RequestParam(required = false) String description) {
     	
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	String mail = auth.getName();
+    	Integer userid = eventModel.getIdFromMail(mail);
         if (id != null)
         	eventModel.updateEvent(id, name, date, userid, location, description);
         else

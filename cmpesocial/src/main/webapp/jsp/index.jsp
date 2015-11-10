@@ -102,6 +102,13 @@
 				<div class="col-md-8">
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
+							<a href="${contextPath}/events/create"
+								class="btn btn-success btn-full"><i class="icon fa fa-lock">
+							</i> Create New Event</a>
+						</div>
+					</aside>
+					<aside id="aside" class="aside-bar-style-two clearfix">
+						<div class="widget clearfix">
 							<h2>All Events</h2>
 							<hr />
 							<c:forEach var="event" items="${events}" varStatus="roop">
@@ -109,7 +116,7 @@
 								<div class="top-ppost">
 									<div class="date">
 										<p>
-											{event.date} <span>31</span>OCT
+											${event.date}
 										</p>
 									</div>
 									<div class="content">
@@ -121,64 +128,7 @@
 								</div>
 								<br />
 							</c:forEach>
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span>31</span>OCT
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Arkadaşlar, halı saha maçı yapalım diyen?</a>
-									</h4>
-									<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>Etiler
-									</a>
-								</div>
-							</div>
-							<br />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span>25</span>OCT
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Paint Ball Turnuvası diyorum. </a>
-									</h4>
-									<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>Kilyos</a>
-								</div>
-							</div>
-							<br />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span>23</span>OCT
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Pes 2016 oynamak isteyen var mı? </a>
-									</h4>
-									<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>Cafe</a>
-								</div>
-							</div>
-							<br />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span>15</span>OCT
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Mission Impossible'i izlemek için sinemaya
-											gidiyoruz</a>
-									</h4>
-									<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>Trump
-										Alışveriş Merkezi</a>
-								</div>
-							</div>
+							
 						</div>
 					</aside>
 				</div>

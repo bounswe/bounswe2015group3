@@ -33,7 +33,7 @@ public class CmpeSocialController {
         model.put("users", users);
 
         // Spring uses InternalResourceViewResolver and return back index.jsp
-        return "index";
+        return "redirect:/events";
     }
 
     @RequestMapping(value = "user/edit")
@@ -58,7 +58,7 @@ public class CmpeSocialController {
         else
         	cmpeSocialUserModel.addUser(name, surname, email, SecurityUtils.getHashed(password));
 
-        return "redirect:/user/home";
+        return "redirect:/user/login";
     }
 
     @RequestMapping(value = "user/home")
@@ -97,7 +97,7 @@ public class CmpeSocialController {
         	if(SecurityUtils.checkPassword(hashedPassword, password)){
         		CmpeSocialAuthentication.getAuthentication(email, password);
         	}
-        	return "redirect:/user/home";
+        	return "redirect:/events";
         }
         else
         	return "login";
