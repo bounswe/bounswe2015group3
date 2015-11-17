@@ -40,7 +40,7 @@ public class UserAPIController {
     @Autowired
     private CmpeSocialUserModel cmpeSocialUserModel = null;
 
-    @RequestMapping( value = "/login" , method = RequestMethod.POST )
+    @RequestMapping( value = "/login" , method = RequestMethod.POST,produces ={ "text/plain;charset=UTF-8"} )
     @ResponseBody
     public String login(@RequestBody UserLoginRequestModel userLoginRequestModel) {
         Gson gson = new Gson();
@@ -69,7 +69,7 @@ public class UserAPIController {
     }
 
 
-    @RequestMapping( value = "/signup" , method = RequestMethod.POST )
+    @RequestMapping( value = "/signup" , method = RequestMethod.POST,produces ={ "text/plain;charset=UTF-8"} )
     @ResponseBody
     public String signup(@RequestBody UserSignupRequestModel userSignupRequestModel) {
         Gson gson = new Gson();
@@ -83,7 +83,7 @@ public class UserAPIController {
     }
 
 
-    @RequestMapping( value = "/updateUser" , method = RequestMethod.POST )
+    @RequestMapping( value = "/updateUser" , method = RequestMethod.POST,produces = "text/plain;charset=UTF-8" )
     @ResponseBody
     public String updateUser(@RequestBody UserModel userRequestModel) {
         Gson gson = new Gson();

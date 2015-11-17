@@ -58,14 +58,15 @@ public class EventAPIController {
     private EventModel eventModel = null;
 
 
-    @RequestMapping( value = "/events/create" , method = RequestMethod.POST )
+    @RequestMapping( value = "/events/create" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String createEvent(@RequestBody EventCreateRequestModel eventCreateRequestModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
-        eventModel.createEvent(eventCreateRequestModel.name,eventCreateRequestModel.date , eventCreateRequestModel.id_user, eventCreateRequestModel.location, eventCreateRequestModel.description);
+        eventModel.createEvent(eventCreateRequestModel.name, eventCreateRequestModel.date, eventCreateRequestModel.id_user, eventCreateRequestModel.location, eventCreateRequestModel.description);
         result.put("Result", "SUCCESS");
-        result.put("event",eventModel.getEventForName(eventCreateRequestModel.name));
+        result.put("event", eventModel.getEventForName(eventCreateRequestModel.name));
+
         return gson.toJson(result);
     }
     @RequestMapping( value = "/events/all" , method = RequestMethod.POST )
@@ -81,7 +82,7 @@ public class EventAPIController {
         return gson.toJson(result);
     }
 
-    @RequestMapping( value = "/events/view" , method = RequestMethod.POST )
+    @RequestMapping( value = "/events/view" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String viewEvents(@RequestBody UserModel userModel) {
         Gson gson = new Gson();
@@ -95,7 +96,7 @@ public class EventAPIController {
     }
 
 
-    @RequestMapping( value = "/events/update" , method = RequestMethod.POST )
+    @RequestMapping( value = "/events/update" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String eventUpdate(@RequestBody EventBaseModel eventBaseModel) {
         Gson gson = new Gson();
@@ -107,7 +108,7 @@ public class EventAPIController {
         return gson.toJson(result);
     }
 
-    @RequestMapping( value = "/events/delete" , method = RequestMethod.POST )
+    @RequestMapping( value = "/events/delete" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String eventDelete(@RequestBody EventBaseModel eventBaseModel) {
         Gson gson = new Gson();
