@@ -14,7 +14,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@null">
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,12 +25,14 @@
             android:textStyle="bold"
             android:padding="8dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/nameTextView"
+            android:id="@+id/nameEditText"
             android:textSize="20sp"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:background="@null"
+            android:focusable="false" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,12 +42,33 @@
             android:textStyle="bold"
             android:padding="8dp" />
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateEditText"
+            android:textSize="20sp"
+            android:padding="8dp"
+            android:background="@null"
+            android:focusable="false"
+            android:editable="false"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/dateTextView"
+            android:text="Time"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:padding="8dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/timeEditText"
+            android:textSize="20sp"
+            android:padding="8dp"
+            android:background="@null"
+            android:focusable="false"
+            android:editable="false"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,12 +78,14 @@
             android:textStyle="bold"
             android:padding="8dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/locationTextView"
+            android:id="@+id/locationEditText"
             android:textSize="20sp"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:background="@null"
+            android:focusable="false" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -69,12 +95,43 @@
             android:textStyle="bold"
             android:padding="8dp" />
 
-        <TextView
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/descriptionEditText"
+            android:textSize="20sp"
+            android:padding="8dp"
+            android:background="@null"
+            android:focusable="false" />
+
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/descriptionTextView"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"
+            android:text="Edit"
             android:textSize="20sp"
-            android:padding="8dp" />
+            android:layout_gravity="center_horizontal"
+            android:onClick="editEvent"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/editButton"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"
+            android:text="Done"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:onClick="saveEvent"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/doneButton"
+            android:visibility="gone"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -84,8 +141,8 @@
             android:text="Delete"
             android:textSize="20sp"
             android:layout_gravity="center_horizontal"
-            android:paddingTop="10dp"
-            android:onClick="deleteEvent"/>
+            android:onClick="deleteEvent"
+            android:gravity="center" />
 
     </LinearLayout>
 

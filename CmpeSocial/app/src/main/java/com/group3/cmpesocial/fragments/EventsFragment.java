@@ -46,7 +46,6 @@ public class EventsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,9 +87,29 @@ public class EventsFragment extends Fragment {
         JsonObject json = new JsonObject();
         Ion.with(getActivity())
                 .load("http://54.148.86.208:8080/cmpesocial/api/events/all")
+                //.setHeader("Content-Type", "text/plain;charset=UTF-8")
                 .setJsonObjectBody(json)
                 .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
+                //.withResponse()
+                .setCallback(/*new FutureCallback<Response<JsonObject>>() {
+                    @Override
+                    public void onCompleted(Exception e, Response<JsonObject> result) {
+                        // print the response code, ie, 200
+                        String headers = result.getHeaders().getHeaders().get("content-type");
+                        String message =result.getHeaders().message();
+                        int code = result.getHeaders().code();
+                        // print the String that was downloaded
+                        String sResult = result.getResult().toString();
+
+                        Log.i(TAG, "headers" + headers);
+                        Log.i(TAG, message);
+                        Log.i(TAG, ""+code);
+                        Log.i(TAG, sResult);
+                    }
+                });*/
+
+                new FutureCallback<JsonObject>() {
+
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
@@ -108,7 +127,7 @@ public class EventsFragment extends Fragment {
                                 JsonObject eventt = events.get(0).getAsJsonObject();
                                 Log.i(TAG, eventt.toString());
                                 Iterator<JsonElement> iterator = events.iterator();
-                                while(iterator.hasNext()){
+                                while (iterator.hasNext()) {
                                     JsonObject eventJson = iterator.next().getAsJsonObject();
                                     Event event = new Event(eventJson);
                                     eventsArray.add(event);
@@ -116,7 +135,7 @@ public class EventsFragment extends Fragment {
 
                                 adapter = new EventAdapter(getContext(), eventsArray);
                                 listView.setAdapter(adapter);
-                            } else{
+                            } else {
                                 Log.i(TAG, "type: " + type.toString());
                                 Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
                             }
@@ -129,8 +148,8 @@ public class EventsFragment extends Fragment {
 
     }
 
-    protected String trimQuotes(String s){
-        if (s.charAt(0) == '\"' && s.charAt(s.length()-1) == '\"')
+    protected String trimQuotes(String s) {
+        if (s.charAt(0) == '\"' && s.charAt(s.length() - 1) == '\"')
             return s.substring(1, s.length() - 1);
         else
             return s;
@@ -164,6 +183,7 @@ public class EventsFragment extends Fragment {
                     intent.putExtra("id", mEvent.getId());
                     intent.putExtra("name", mEvent.getName());
                     intent.putExtra("date", mEvent.getDate());
+                    intent.putExtra("time", mEvent.getHour());
                     intent.putExtra("location", mEvent.getLocation());
                     intent.putExtra("description", mEvent.getDescription());
                     startActivity(intent);
