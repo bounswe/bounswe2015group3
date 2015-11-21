@@ -24,15 +24,14 @@ public class EventModel {
     }
 
     public List<Map<String, Object>> getEventsForUser(long id_user) {
-        String sql = "SELECT * FROM event WHERE id_user = ? ";
+        String sql = "SELECT * FROM event WHERE id_user = ? ORDER  BY event.date ASC";
 
         return this.jdbcTemplate.queryForList(sql, id_user);
     }
 
 
-
     public List<Map<String, Object>> getEvents() {
-        String sql = "SELECT * FROM event";
+        String sql = "SELECT * FROM event ORDER BY event.date ASC";
 
         return this.jdbcTemplate.queryForList(sql);
     }
