@@ -53,6 +53,17 @@ public class EventController {
         
         return "eventView";
     }
+    
+    @RequestMapping(value = "/event/join", method = RequestMethod.GET)
+    public String joinEvent(@RequestParam(required = false) Long id, ModelMap model) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	String mail = auth.getName();
+    	Integer userid = eventModel.getIdFromMail(mail);
+    	
+    	eventModel.joinEvent((long)userid,id);
+        
+        return "redirect:/event/view?id="+id;
+    }
 
     @RequestMapping(value = "event/update")
     public String updateEvent(

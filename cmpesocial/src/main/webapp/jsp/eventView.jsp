@@ -228,7 +228,9 @@
 						</div>
 
 						<div class="widget clearfix">
-							<a class="btn btn-pri btn-full">Join Event</a>
+							<a href="${contextPath}/event/join?id=${event.id}"
+									class="btn btn-pri btn-full">
+								Join Event</a>
 						</div>
 						<div class="widget">
 							<h3 class="title">Organizer</h3>
