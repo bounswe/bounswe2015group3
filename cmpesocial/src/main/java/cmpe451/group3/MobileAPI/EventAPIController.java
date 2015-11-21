@@ -98,6 +98,17 @@ public class EventAPIController {
         return gson.toJson(result);
     }
 
+    @RequestMapping( value = "/events/viewDetail" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String viewEvents(@RequestBody EventIDRequestModel eventIDModel) {
+        Gson gson = new Gson();
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        result = eventModel.getEvent(eventIDModel.id);
+
+        return gson.toJson(result);
+    }
+
 
     @RequestMapping( value = "/events/update" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody

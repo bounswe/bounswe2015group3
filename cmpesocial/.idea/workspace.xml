@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2b7b5e1-fd91-40bc-bb99-22ee9ad02b7c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cmpe451/group3/utils/EventDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cmpe451/group3/model/EventIDRequestModel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java" afterPath="$PROJECT_DIR$/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cmpe451/group3/model/EventModel.java" afterPath="$PROJECT_DIR$/src/main/java/cmpe451/group3/model/EventModel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -55,19 +53,20 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/model/EventModel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1448119525000" expanded="true" signature="746:783" placeholder="SELECT * FRO..event..." />
-                <marker date="1448119525000" expanded="true" signature="929:948" placeholder="SELECT * FRO..event..." />
-                <marker date="1448119525000" expanded="true" signature="1084:1116" placeholder="SELECT * FRO..event..." />
-                <marker date="1448119525000" expanded="true" signature="1271:1305" placeholder="SELECT * FRO..event..." />
-                <marker date="1448119525000" expanded="true" signature="1501:1584" placeholder="INSERT INTO ..." />
-                <marker date="1448119525000" expanded="true" signature="1822:1914" placeholder="UPDATE event..." />
-                <marker date="1448119525000" expanded="true" signature="2072:2102" placeholder="DELETE FROM ..." />
-                <marker date="1448119525000" expanded="true" signature="2231:2266" placeholder="SELECT id FR..user..." />
-                <marker date="1448119525000" expanded="true" signature="2538:2634" placeholder="SELECT user...user..." />
-                <marker date="1448119525000" expanded="true" signature="2538:2670" placeholder="SELECT user...user..." />
+                <marker date="1448120105000" expanded="true" signature="746:783" placeholder="SELECT * FRO..event..." />
+                <marker date="1448120105000" expanded="true" signature="931:950" placeholder="SELECT * FRO..event..." />
+                <marker date="1448120105000" expanded="true" signature="1086:1118" placeholder="SELECT * FRO..event..." />
+                <marker date="1448120105000" expanded="true" signature="1273:1307" placeholder="SELECT * FRO..event..." />
+                <marker date="1448120105000" expanded="true" signature="1503:1586" placeholder="INSERT INTO ..." />
+                <marker date="1448120105000" expanded="true" signature="1824:1916" placeholder="UPDATE event..." />
+                <marker date="1448120105000" expanded="true" signature="2074:2104" placeholder="DELETE FROM ..." />
+                <marker date="1448120105000" expanded="true" signature="2233:2268" placeholder="SELECT id FR..user..." />
+                <marker date="1448120105000" expanded="true" signature="2540:2636" placeholder="SELECT user...user..." />
+                <marker date="1448120105000" expanded="true" signature="2540:2637" placeholder="SELECT user...user..." />
+                <marker date="1448120105000" expanded="true" signature="2540:2664" placeholder="SELECT user...user..." />
               </folding>
             </state>
           </provider>
@@ -96,11 +95,22 @@
       <file leaf-file-name="EventAPIController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35768262">
-              <caret line="125" column="53" selection-start-line="125" selection-start-column="53" selection-end-line="125" selection-end-column="53" />
+            <state vertical-scroll-proportion="0.4836272">
+              <caret line="106" column="54" selection-start-line="106" selection-start-column="54" selection-end-line="106" selection-end-column="54" />
               <folding>
-                <element signature="e#4429#4449#0" expanded="true" />
+                <element signature="e#1898#1914#0" expanded="true" />
+                <element signature="e#4847#4867#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EventIDRequestModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/model/EventIDRequestModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -151,18 +161,6 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/controller/EventController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -1004,12 +1002,12 @@
       <workItem from="1447104888441" duration="3092000" />
       <workItem from="1447755745290" duration="1393000" />
       <workItem from="1447786240884" duration="372000" />
-      <workItem from="1448118797110" duration="1084000" />
+      <workItem from="1448118797110" duration="1354000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38142000" />
+    <option name="totallyTimeSpent" value="38412000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1022,7 +1020,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="704" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1032,7 +1030,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1542811" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30555555" sideWeight="0.47738287" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30555555" sideWeight="0.47738287" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3267974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25444266" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1110,26 +1108,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/model/EventModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1448119525000" expanded="true" signature="746:783" placeholder="SELECT * FRO..event..." />
-            <marker date="1448119525000" expanded="true" signature="929:948" placeholder="SELECT * FRO..event..." />
-            <marker date="1448119525000" expanded="true" signature="1084:1116" placeholder="SELECT * FRO..event..." />
-            <marker date="1448119525000" expanded="true" signature="1271:1305" placeholder="SELECT * FRO..event..." />
-            <marker date="1448119525000" expanded="true" signature="1501:1584" placeholder="INSERT INTO ..." />
-            <marker date="1448119525000" expanded="true" signature="1822:1914" placeholder="UPDATE event..." />
-            <marker date="1448119525000" expanded="true" signature="2072:2102" placeholder="DELETE FROM ..." />
-            <marker date="1448119525000" expanded="true" signature="2231:2266" placeholder="SELECT id FR..user..." />
-            <marker date="1448119525000" expanded="true" signature="2538:2634" placeholder="SELECT user...user..." />
-            <marker date="1448119525000" expanded="true" signature="2538:2670" placeholder="SELECT user...user..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/controller/EventController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1447,22 +1425,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/MobileAPI/EventCreateRequestModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/MobileAPI/EventBaseModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="62" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/MobileAPI/UserModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1489,26 +1451,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/model/EventModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1448119525000" expanded="true" signature="746:783" placeholder="SELECT * FRO..event..." />
-            <marker date="1448119525000" expanded="true" signature="929:948" placeholder="SELECT * FRO..event..." />
-            <marker date="1448119525000" expanded="true" signature="1084:1116" placeholder="SELECT * FRO..event..." />
-            <marker date="1448119525000" expanded="true" signature="1271:1305" placeholder="SELECT * FRO..event..." />
-            <marker date="1448119525000" expanded="true" signature="1501:1584" placeholder="INSERT INTO ..." />
-            <marker date="1448119525000" expanded="true" signature="1822:1914" placeholder="UPDATE event..." />
-            <marker date="1448119525000" expanded="true" signature="2072:2102" placeholder="DELETE FROM ..." />
-            <marker date="1448119525000" expanded="true" signature="2231:2266" placeholder="SELECT id FR..user..." />
-            <marker date="1448119525000" expanded="true" signature="2538:2634" placeholder="SELECT user...user..." />
-            <marker date="1448119525000" expanded="true" signature="2538:2670" placeholder="SELECT user...user..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/MobileAPI/UserAPIController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1517,12 +1459,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/MobileAPI/EventBaseModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="62" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/MobileAPI/EventCreateRequestModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/model/EventIDRequestModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/model/EventModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1448120105000" expanded="true" signature="746:783" placeholder="SELECT * FRO..event..." />
+            <marker date="1448120105000" expanded="true" signature="931:950" placeholder="SELECT * FRO..event..." />
+            <marker date="1448120105000" expanded="true" signature="1086:1118" placeholder="SELECT * FRO..event..." />
+            <marker date="1448120105000" expanded="true" signature="1273:1307" placeholder="SELECT * FRO..event..." />
+            <marker date="1448120105000" expanded="true" signature="1503:1586" placeholder="INSERT INTO ..." />
+            <marker date="1448120105000" expanded="true" signature="1824:1916" placeholder="UPDATE event..." />
+            <marker date="1448120105000" expanded="true" signature="2074:2104" placeholder="DELETE FROM ..." />
+            <marker date="1448120105000" expanded="true" signature="2233:2268" placeholder="SELECT id FR..user..." />
+            <marker date="1448120105000" expanded="true" signature="2540:2636" placeholder="SELECT user...user..." />
+            <marker date="1448120105000" expanded="true" signature="2540:2637" placeholder="SELECT user...user..." />
+            <marker date="1448120105000" expanded="true" signature="2540:2664" placeholder="SELECT user...user..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35768262">
-          <caret line="125" column="53" selection-start-line="125" selection-start-column="53" selection-end-line="125" selection-end-column="53" />
+        <state vertical-scroll-proportion="0.4836272">
+          <caret line="106" column="54" selection-start-line="106" selection-start-column="54" selection-end-line="106" selection-end-column="54" />
           <folding>
-            <element signature="e#4429#4449#0" expanded="true" />
+            <element signature="e#1898#1914#0" expanded="true" />
+            <element signature="e#4847#4867#0" expanded="true" />
           </folding>
         </state>
       </provider>

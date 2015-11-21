@@ -29,6 +29,8 @@ public class EventModel {
         return this.jdbcTemplate.queryForList(sql, id_user);
     }
 
+
+
     public List<Map<String, Object>> getEvents() {
         String sql = "SELECT * FROM event";
 
