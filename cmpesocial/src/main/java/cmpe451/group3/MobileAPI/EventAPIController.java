@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import cmpe451.group3.auth.CmpeSocialAuthentication;
+import cmpe451.group3.model.EventIDRequestModel;
 import cmpe451.group3.utils.SecurityUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -25,6 +26,7 @@ import com.google.gson.Gson;
 import  cmpe451.group3.MobileAPI.UserModel;
 import  cmpe451.group3.model.CmpeSocialUserModel;
 import  cmpe451.group3.MobileAPI.UserLoginRequestModel;
+import  cmpe451.group3.utils.EventDAO;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,6 +54,7 @@ public class EventAPIController {
     @Qualifier("cmpeSocialUserModel")
     @Autowired
     private CmpeSocialUserModel cmpeSocialUserModel = null;
+
 
     @Qualifier("eventModel")
     @Autowired
@@ -102,7 +105,7 @@ public class EventAPIController {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        eventModel.updateEvent(eventBaseModel.id, eventBaseModel.name,  eventBaseModel.date, eventBaseModel.id_user, eventBaseModel.location, eventBaseModel.description);
+        eventModel.updateEvent(eventBaseModel.id, eventBaseModel.name, eventBaseModel.date, eventBaseModel.id_user, eventBaseModel.location, eventBaseModel.description);
         result.put("Result","SUCCESS");
 
         return gson.toJson(result);
@@ -120,5 +123,15 @@ public class EventAPIController {
         return gson.toJson(result);
     }
 
+    @RequestMapping( value = "/events/getParticipants" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String eventAttendants(@RequestBody EventIDRequestModel eventID) {
+        Gson gson = new Gson();
+        List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+
+        result = eventModel.getParticipants(eventID.id);
+
+        return gson.toJson(result);
+    }
 
 }
