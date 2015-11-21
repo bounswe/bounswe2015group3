@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import cmpe451.group3.auth.CmpeSocialAuthentication;
+import cmpe451.group3.model.EventIDRequestModel;
 import cmpe451.group3.utils.SecurityUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -83,18 +84,30 @@ public class UserAPIController {
     }
 
 
-    @RequestMapping( value = "/updateUser" , method = RequestMethod.POST,produces = "text/plain;charset=UTF-8" )
+    @RequestMapping( value = "/updateUser" , method = RequestMethod.POST,produces = {"text/plain;charset=UTF-8"} )
     @ResponseBody
     public String updateUser(@RequestBody UserModel userRequestModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        cmpeSocialUserModel.updateUser(userRequestModel.id,userRequestModel.name, userRequestModel.surname, userRequestModel.email,SecurityUtils.getHashed(userRequestModel.password) );
+        cmpeSocialUserModel.updateUser(userRequestModel.id, userRequestModel.name, userRequestModel.surname, userRequestModel.email, SecurityUtils.getHashed(userRequestModel.password));
 
         result.put("Result","SUCCESS");
 
         return gson.toJson(result);
     }
 
+    @RequestMapping( value = "/getUser" , method = RequestMethod.POST,produces = {"text/plain;charset=UTF-8"} )
+    @ResponseBody
+    public String updateUser(@RequestBody EventIDRequestModel userRequestModel) {
+        Gson gson = new Gson();
+        Map<String, Object> result = new HashMap<String, Object>();
+
+
+        result = cmpeSocialUserModel.getUser(userRequestModel.id);
+
+
+        return gson.toJson(result);
+    }
 
 }

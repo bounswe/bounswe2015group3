@@ -72,7 +72,7 @@ public class EventAPIController {
 
         return gson.toJson(result);
     }
-    @RequestMapping( value = "/events/all" , method = RequestMethod.POST )
+    @RequestMapping( value = "/events/all" , method = RequestMethod.POST,produces = {"text/plain;charset=UTF-8"} )
     @ResponseBody
     public String events() {
         Gson gson = new Gson();
@@ -144,5 +144,18 @@ public class EventAPIController {
 
         return gson.toJson(result);
     }
+
+    @RequestMapping( value = "/events/join" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String eventAttendants(@RequestBody EventParticipateModel partModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+        eventModel.joinEvent(partModel.id_user, partModel.id_event);
+
+        result.put("Success","Status");
+        return gson.toJson(result);
+    }
+
 
 }
