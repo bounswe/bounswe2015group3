@@ -65,12 +65,17 @@ public class EventModel {
         String sql = "DELETE FROM event WHERE id = ?";
         this.jdbcTemplate.update(sql, id);
     }
+    
     public void joinEvent(Long userid, Long eventid) {
         String sql = "INSERT INTO user_event(id_user,id_event,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = 1";
         this.jdbcTemplate.update(sql, userid, eventid, 1);
     }
     
-
+    public void invite(Long userid, Long eventid) {
+        String sql = "INSERT INTO user_event(id_user,id_event,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = IF((status = 1), 1, 2)";
+        this.jdbcTemplate.update(sql, userid, eventid, 2);
+    }
+    
     public Integer getIdFromMail(String email) {
         String sql = "SELECT id FROM user WHERE email = ? ";
         
