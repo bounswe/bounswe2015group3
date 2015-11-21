@@ -76,6 +76,12 @@ public class EventModel {
         return id;
     }
     
-    
+    public List<Map<String, Object>> getParticipants(Long id) {
+        String sql = "SELECT user.* from user, user_event WHERE user.id = user_event.id_user AND user_event.id_event = ? AND user_event.status = 1";
+        
+        List<Map<String, Object>> participants = this.jdbcTemplate.queryForList(sql, id);
+        
+        return participants;
+    }
     
 }

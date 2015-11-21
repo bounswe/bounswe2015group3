@@ -46,7 +46,7 @@
             </c:forEach>
             </tbody>
         </table>
-        <a href="${contextPath}/events/create">Create New Event</a>
+        <a href="${contextPath}/event/create">Create New Event</a>
     </div>
 </div>
 

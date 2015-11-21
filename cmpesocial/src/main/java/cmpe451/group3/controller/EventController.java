@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cmpe451.group3.model.EventModel;
@@ -24,7 +25,7 @@ public class EventController {
     @Autowired
     private EventModel eventModel = null;
 
-    @RequestMapping(value = "/events")
+    @RequestMapping(value = "/event")
     public String events(ModelMap model) {
         
         List<Map<String, Object>> events = eventModel.getEvents();
@@ -34,7 +35,7 @@ public class EventController {
         return "index";
     }
 
-    @RequestMapping(value = "/events/edit")
+    @RequestMapping(value = "/event/edit")
     public String editEvent(@RequestParam(required = false) Long id, ModelMap model) {
         Map<String, Object> event = eventModel.getEvent(id);
 
@@ -43,14 +44,17 @@ public class EventController {
         return "updateEvent";
     }
     
-    @RequestMapping(value = "/events/view")
+    @RequestMapping(value = "/event/view", method = RequestMethod.GET)
     public String viewEvent(@RequestParam(required = false) Long id, ModelMap model) {
         Map<String, Object> event = eventModel.getEvent(id);
+        List<Map<String,Object>> participants = eventModel.getParticipants(id);
         model.put("event", event);
+        model.put("participants", participants);
+        
         return "eventView";
     }
 
-    @RequestMapping(value = "events/update")
+    @RequestMapping(value = "event/update")
     public String updateEvent(
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String name,
@@ -69,7 +73,7 @@ public class EventController {
         return "redirect:/events";
     }
 
-    @RequestMapping(value = "events/create")
+    @RequestMapping(value = "event/create")
     public String createEvent() {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	if(auth == null || !auth.isAuthenticated())
@@ -78,7 +82,7 @@ public class EventController {
         return "createEvent";
     }
 
-    @RequestMapping(value = "events/delete")
+    @RequestMapping(value = "event/delete")
     public String deleteUser(@RequestParam(required = false) Long id) {
     	eventModel.deleteEvent(id);
 

@@ -127,6 +127,28 @@
 						<h2 class="title">Participants of Event</h2>
 						<!-- owl slider  -->
 						<div class="owl-team">
+							<c:forEach var="participant" items="${participants}" varStatus="roop">
+								<div class="event">
+									<div class="eventsimg">
+										<img src="${contextPath}/assets/img/prof02.jpg" alt="">
+									</div>
+									<div class="event-content">
+										<h3 class="title">${participant.name} ${participant.surname}</h3>
+										<p class="job">Senior CmpE Student</p>
+										<p>Some description about me, some more description about
+											me</p>
+	
+									</div>
+									<div class="social-icon">
+										<a href="#" class="email fa fa-envelope-o"></a><a href="#"
+											class="facebook fa fa-facebook"></a><a href="#"
+											class="fa linkedin fa-linkedin"></a><a href="#"
+											class="googleplus fa fa-google-plus"></a><a href="#"
+											class="twitter fa fa-twitter"></a>
+	
+									</div>
+								</div>	
+							</c:forEach>
 							<div class="event">
 								<div class="eventsimg">
 									<img src="${contextPath}/assets/img/prof02.jpg" alt="">
