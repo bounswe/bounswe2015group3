@@ -1,5 +1,6 @@
 package com.group3.cmpesocial;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -159,6 +160,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_logout:
                 getSharedPreferences("prefsCMPE", MODE_PRIVATE).edit().clear().commit();
+                Intent intent = new Intent(this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
 
             case R.id.nav_about_us:

@@ -10,8 +10,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -74,10 +72,6 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        ionSignupRequest(firstName, lastName, email, password);
-    }
-
-    public void ionSignupRequest(String firstName, String lastName, String email, String password){
         JsonObject json = new JsonObject();
         json.addProperty("name", firstName);
         json.addProperty("surname", lastName);
@@ -86,23 +80,15 @@ public class SignupActivity extends AppCompatActivity {
 
         Log.i(TAG,json.toString());
 
-        Ion.with(this)
-                .load("http://54.148.86.208:8080/cmpesocial/api/signup")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        Log.i(TAG, "got result");
-                        if(e != null)
-                            Log.i(TAG, "error " + e.getMessage());
-                        if(result != null)
-                            Toast.makeText(getApplicationContext(), "signup done", Toast.LENGTH_LONG).show();
-                        else
-                            Log.i(TAG, "result empty");
-                    }
-                });
+        int result = API.signup(json, this);
+        if(result == API.ERROR){
+            Toast.makeText(this, "something went wrong, try again", Toast.LENGTH_SHORT).show();
+        }else if (result == API.SUCCESS){
+            Toast.makeText(getApplicationContext(), "signup successful, please wait for confirmation email", Toast.LENGTH_LONG).show();
+        }else if(result == API.RESULT_EMPTY){
+            Log.i(TAG, "result empty");
+            Toast.makeText(this, "something went wrong, try again", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

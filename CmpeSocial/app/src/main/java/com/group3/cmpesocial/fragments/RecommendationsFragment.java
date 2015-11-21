@@ -62,7 +62,7 @@ public class RecommendationsFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_event, parent, false);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_recommendation, parent, false);
             }
             Recommendation mRecommendation = getItem(position);
 

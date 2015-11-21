@@ -1,7 +1,6 @@
 package com.group3.cmpesocial;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,8 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -49,61 +46,22 @@ public class LoginActivity extends AppCompatActivity {
 
         Log.i(TAG, json.toString());
 
-        Ion.with(this)
-                .load("http://54.148.86.208:8080/cmpesocial/api/login")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        Log.i(TAG, "got result");
-                        if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
-                            Toast.makeText(getApplicationContext(), "an error occured", Toast.LENGTH_LONG).show();
-                        }else if (result != null) {
-                            Toast.makeText(getApplicationContext(), "login done", Toast.LENGTH_LONG).show();
+        int result = API.login(json, this);
 
-                            String type = trimQuotes(result.get("type").toString());
-                            if (type.equals("SUCCESS")) {
-                                JsonObject user = result.getAsJsonObject("user");
-                                int user_id = Integer.parseInt(user.get("id").toString());
-                                String name = trimQuotes(user.get("name").toString());
-                                String surname = trimQuotes(user.get("surname").toString());
-                                String password = trimQuotes(user.get("password").toString());
-                                String email = trimQuotes(user.get("email").toString());
-                                Log.i(TAG, "" + user_id + " " + name + " " + surname + " " + email + " " + password);
+        if (result == API.ERROR){
+            Toast.makeText(getApplicationContext(), "an error occured, please try again", Toast.LENGTH_SHORT).show();
+        }else if (result == API.SUCCESS){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }else if (result == API.WRONG_PASSWORD){
+            Toast.makeText(getApplicationContext(), "wrong password", Toast.LENGTH_LONG).show();
+            passwordEditText.setText("");
+        }else if (result == API.RESULT_EMPTY){
+            emptyFields();
+            Toast.makeText(getApplicationContext(), "result empty", Toast.LENGTH_LONG).show();
+        }
 
-                                SharedPreferences.Editor editor = getSharedPreferences("prefsCMPE", MODE_PRIVATE).edit();
-                                editor.putBoolean("user_exists", true);
-                                editor.putInt("user_id", user_id);
-                                editor.putString("name", name);
-                                editor.putString("surname", surname);
-                                editor.putString("email", email);
-                                editor.commit();
-
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                            } else if (type.equals("WRONG_PASSWORD")) {
-                                Toast.makeText(getApplicationContext(), "wrong password", Toast.LENGTH_LONG).show();
-                                passwordEditText.setText("");
-                            }
-
-                        } else {
-                            Log.i(TAG, "result empty");
-                            emptyFields();
-                            Toast.makeText(getApplicationContext(), "result empty", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-    }
-
-    protected String trimQuotes(String s){
-        if (s.charAt(0) == '\"' && s.charAt(s.length()-1) == '\"')
-            return s.substring(1, s.length() - 1);
-        else
-            return s;
     }
 
     /*
