@@ -14,8 +14,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import java.util.Calendar;
 
@@ -66,40 +64,15 @@ public class EventDetailActivity extends AppCompatActivity {
     public void deleteEvent(View v){
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
-        Ion.with(this)
-                .load("http://54.148.86.208:8080/cmpesocial/api/events/delete")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
-                        } else if (result != null) {
-                            Log.i(TAG, "result not null");
-                            Log.i(TAG, "" + result.toString());
-                            String type = trimQuotes(result.get("Result").toString());
-                            Log.i(TAG, "type: " + type);
-                            if (type.equals("SUCCESS")) {
-                                Toast.makeText(getApplicationContext(), "Event deleted", Toast.LENGTH_LONG).show();
-                            } else{
-                                Log.i(TAG, "type: " + type.toString());
-                                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                            }
 
-                        } else {
-                            Log.i(TAG, "result empty");
-                        }
-                    }
-                });
-    }
-
-    protected String trimQuotes(String s){
-        if (s.charAt(0) == '\"' && s.charAt(s.length()-1) == '\"')
-            return s.substring(1, s.length() - 1);
-        else
-            return s;
+        int result = API.deleteEvent(json, this);
+        if (result == API.ERROR){
+            Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+        }else if (result == API.SUCCESS){
+            Log.i(TAG, "event deleted");
+        }else if (result == API.RESULT_EMPTY){
+            Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void editEvent(View v){
@@ -154,35 +127,15 @@ public class EventDetailActivity extends AppCompatActivity {
         json.addProperty("description", description);
 
         Log.i(TAG, json.toString());
-        Ion.with(this)
-                .load("http://54.148.86.208:8080/cmpesocial/api/events/update")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        if (result == null)
-                            Log.i(TAG, "result null");
-                        if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
-                        } else if (result != null) {
-                            Log.i(TAG, "result not null");
-                            Log.i(TAG, "" + result.toString());
-                            String type = trimQuotes(result.get("Result").toString());
-                            Log.i(TAG, "type: " + type);
-                            if (type.equals("SUCCESS")) {
-                                Toast.makeText(getApplicationContext(), "Event deleted", Toast.LENGTH_LONG).show();
-                            } else{
-                                Log.i(TAG, "type: " + type.toString());
-                                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                            }
 
-                        } else {
-                            Log.i(TAG, "result empty");
-                        }
-                    }
-                });
+        int result = API.updateEvent(json, this);
+        if (result == API.ERROR){
+            Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+        }else if (result == API.SUCCESS){
+            Log.i(TAG, "event updated");
+        }else if (result == API.RESULT_EMPTY){
+            Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void pickDate(View v){

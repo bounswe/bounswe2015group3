@@ -1,100 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="com.group3.cmpesocial.NewEventActivity">
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:padding="5dp" />
-
-    <EditText
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/nameEditText"
-        android:textSize="20sp"
-        android:padding="5dp" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:padding="5dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context="com.group3.cmpesocial.NewEventActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/dateTextView"
-        android:clickable="true"
-        android:padding="5dp"
-        android:onClick="pickDate"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Name"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Time"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:padding="5dp" />
+            <EditText
+                android:id="@+id/nameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/timeTextView"
-        android:clickable="true"
-        android:padding="5dp"
-        android:onClick="pickTime"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Date"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:padding="5dp" />
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="pickDate"
+                android:padding="5dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/locationTextView"
-        android:textSize="20sp"
-        android:padding="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Time"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:padding="5dp" />
+            <TextView
+                android:id="@+id/timeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="pickTime"
+                android:padding="5dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/descriptionEditText"
-        android:textSize="20sp"
-        android:padding="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Location"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create"
-        android:id="@+id/createButton"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:padding="16dp"
-        android:layout_gravity="center_horizontal"
-        android:onClick="createEvent" />
+            <EditText
+                android:id="@+id/locationTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="20sp" />
 
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Description"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/descriptionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/createButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimaryDark"
+                android:onClick="createEvent"
+                android:padding="16dp"
+                android:text="Create"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>

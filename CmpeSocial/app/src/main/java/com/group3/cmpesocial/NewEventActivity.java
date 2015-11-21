@@ -13,12 +13,12 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import java.util.Calendar;
 
 public class NewEventActivity extends AppCompatActivity {
+
+    private static final String TAG = NewEventActivity.class.getSimpleName();
 
     private EditText nameEditText;
     private TextView dateEditText;
@@ -56,7 +56,7 @@ public class NewEventActivity extends AppCompatActivity {
         String description = descriptionEditText.getText().toString().trim();
 
         int user_id = getSharedPreferences("prefsCMPE",MODE_PRIVATE).getInt("user_id", 0);
-        Log.i("user_id ", ""+user_id);
+        Log.i("user_id ", "" + user_id);
 
         JsonObject json = new JsonObject();
         json.addProperty("name", name);
@@ -64,25 +64,15 @@ public class NewEventActivity extends AppCompatActivity {
         json.addProperty("id_user", user_id);
         json.addProperty("location", location);
         json.addProperty("description", description);
-        Ion.with(this)
-                .load("http://54.148.86.208:8080/cmpesocial/api/events/create")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        Log.i("event", "got result");
-                        if (e != null)
-                            Log.i("event", "error " + e.getMessage());
-                        if (result != null) {
-                            Toast.makeText(getApplicationContext(), "event done", Toast.LENGTH_LONG).show();
-                            Log.i("event", result.toString());
-                        }
-                        else
-                            Log.i("event", "result empty");
-                    }
-                });
+
+        int result = API.createEvent(json, this);
+        if (result == API.ERROR){
+            Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+        }else if (result == API.SUCCESS){
+            Log.i(TAG, "event created");
+        }else if (result == API.RESULT_EMPTY){
+            Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void pickDate(View v){

@@ -9,141 +9,146 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.group3.cmpesocial.EventDetailActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:padding="16dp"
-        android:background="@null">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:padding="8dp" />
-
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/nameEditText"
-            android:textSize="20sp"
-            android:padding="8dp"
-            android:background="@null"
-            android:focusable="false" />
+            android:orientation="vertical"
+            android:padding="160dp"
+            android:background="@null">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:padding="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/dateEditText"
-            android:textSize="20sp"
-            android:padding="8dp"
-            android:background="@null"
-            android:focusable="false"
-            android:editable="false"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nameEditText"
+                android:textSize="20sp"
+                android:padding="8dp"
+                android:background="@null"
+                android:focusable="false" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:padding="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/timeEditText"
-            android:textSize="20sp"
-            android:padding="8dp"
-            android:background="@null"
-            android:focusable="false"
-            android:editable="false"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dateEditText"
+                android:textSize="20sp"
+                android:padding="8dp"
+                android:background="@null"
+                android:focusable="false"
+                android:editable="false"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Location"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:padding="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/locationEditText"
-            android:textSize="20sp"
-            android:padding="8dp"
-            android:background="@null"
-            android:focusable="false" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/timeEditText"
+                android:textSize="20sp"
+                android:padding="8dp"
+                android:background="@null"
+                android:focusable="false"
+                android:editable="false"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:padding="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/descriptionEditText"
-            android:textSize="20sp"
-            android:padding="8dp"
-            android:background="@null"
-            android:focusable="false" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/locationEditText"
+                android:textSize="20sp"
+                android:padding="8dp"
+                android:background="@null"
+                android:focusable="false" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@android:color/white"
-            android:text="Edit"
-            android:textSize="20sp"
-            android:layout_gravity="center_horizontal"
-            android:onClick="editEvent"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/editButton"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@android:color/white"
-            android:text="Done"
-            android:textSize="20sp"
-            android:layout_gravity="center_horizontal"
-            android:onClick="saveEvent"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/doneButton"
-            android:visibility="gone"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/descriptionEditText"
+                android:textSize="20sp"
+                android:padding="8dp"
+                android:background="@null"
+                android:focusable="false" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@android:color/white"
-            android:text="Delete"
-            android:textSize="20sp"
-            android:layout_gravity="center_horizontal"
-            android:onClick="deleteEvent"
-            android:gravity="center" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
+                android:text="Edit"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:onClick="editEvent"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/editButton"/>
 
-    </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
+                android:text="Done"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:onClick="saveEvent"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/doneButton"
+                android:visibility="gone"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
+                android:text="Delete"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:onClick="deleteEvent"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </FrameLayout>
