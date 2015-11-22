@@ -58,7 +58,6 @@ public class EventDetailActivity extends AppCompatActivity {
         timeEditText.setText(time);
         locationEditText.setText(location);
         descriptionEditText.setText(description);
-
     }
 
     public void deleteEvent(View v){

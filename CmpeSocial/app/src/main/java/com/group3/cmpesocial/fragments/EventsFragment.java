@@ -4,29 +4,24 @@ package com.group3.cmpesocial.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.group3.cmpesocial.API;
 import com.group3.cmpesocial.EventDetailActivity;
 import com.group3.cmpesocial.NewEventActivity;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.classes.Event;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,7 +32,7 @@ public class EventsFragment extends Fragment {
     private static final String TAG = EventsFragment.class.getSimpleName();
 
     private final String title = "Events";
-    private Button createEventButton;
+    private FloatingActionButton createEventButton;
     private ListView listView;
     private ArrayList<Event> eventsArray;
     private EventAdapter adapter;
@@ -52,7 +47,7 @@ public class EventsFragment extends Fragment {
         // Inflate the layout for this fragment
         View mView = inflater.inflate(R.layout.fragment_events, container, false);
 
-        createEventButton = (Button) mView.findViewById(R.id.createEventButton);
+        createEventButton = (FloatingActionButton) mView.findViewById(R.id.createEventButton);
         createEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,13 +59,23 @@ public class EventsFragment extends Fragment {
         listView = (ListView) mView.findViewById(R.id.listView);
 
         eventsArray = new ArrayList<>();
-        fillEvents();
 
         adapter = new EventAdapter(getContext(), eventsArray);
         adapter.setNotifyOnChange(true);
         listView.setAdapter(adapter);
 
         return mView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        refreshList();
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
     }
 
     public String getTitle() {
@@ -82,77 +87,14 @@ public class EventsFragment extends Fragment {
         super.onResume();
     }
 
-    public void fillEvents() {
+    public void refreshList() {
+        Log.i(TAG, "refresh");
         eventsArray.clear();
-        JsonObject json = new JsonObject();
-        Ion.with(getActivity())
-                .load("http://54.148.86.208:8080/cmpesocial/api/events/all")
-                //.setHeader("Content-Type", "text/plain;charset=UTF-8")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                //.withResponse()
-                .setCallback(/*new FutureCallback<Response<JsonObject>>() {
-                    @Override
-                    public void onCompleted(Exception e, Response<JsonObject> result) {
-                        // print the response code, ie, 200
-                        String headers = result.getHeaders().getHeaders().get("content-type");
-                        String message =result.getHeaders().message();
-                        int code = result.getHeaders().code();
-                        // print the String that was downloaded
-                        String sResult = result.getResult().toString();
-
-                        Log.i(TAG, "headers" + headers);
-                        Log.i(TAG, message);
-                        Log.i(TAG, ""+code);
-                        Log.i(TAG, sResult);
-                    }
-                });*/
-
-                new FutureCallback<JsonObject>() {
-
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        Log.i(TAG, "got result");
-                        if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
-                        } else if (result != null) {
-                            Log.i(TAG, "result not null");
-                            Log.i(TAG, "" + result.toString());
-                            String type = trimQuotes(result.get("Result").toString());
-                            Log.i(TAG, "type: " + type);
-                            if (type.equals("SUCCESS")) {
-                                JsonArray events = result.getAsJsonArray("events");
-                                Log.i(TAG, events.toString());
-                                JsonObject eventt = events.get(0).getAsJsonObject();
-                                Log.i(TAG, eventt.toString());
-                                Iterator<JsonElement> iterator = events.iterator();
-                                while (iterator.hasNext()) {
-                                    JsonObject eventJson = iterator.next().getAsJsonObject();
-                                    Event event = new Event(eventJson);
-                                    eventsArray.add(event);
-                                }
-
-                                adapter = new EventAdapter(getContext(), eventsArray);
-                                listView.setAdapter(adapter);
-                            } else {
-                                Log.i(TAG, "type: " + type.toString());
-                                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } else {
-                            Log.i(TAG, "result empty");
-                        }
-                    }
-                });
-
-    }
-
-    protected String trimQuotes(String s) {
-        if (s.charAt(0) == '\"' && s.charAt(s.length() - 1) == '\"')
-            return s.substring(1, s.length() - 1);
-        else
-            return s;
+        adapter.clear();
+        int result = API.allEvents(getContext(), adapter);
+        if(result == -1){
+            Toast.makeText(getContext(), "something went wrong", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public class EventAdapter extends ArrayAdapter<Event> {

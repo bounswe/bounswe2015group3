@@ -50,6 +50,14 @@
                 android:textSize="20sp"
                 android:textColor="@android:color/black"
                 android:padding="10dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Role:"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:padding="10dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -84,6 +92,15 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/roleTextView"
+                android:text="Undergraduate"
+                android:padding="10dp"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+
         </LinearLayout>
         
     </LinearLayout>
@@ -91,10 +108,25 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Update"
-        android:id="@+id/updateButton"
-        android:layout_gravity="center_horizontal"
+        android:text="Change Password"
         android:background="@color/colorPrimaryDark"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="10dp"
+        android:onClick="changePassword"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change e-mail address"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="10dp"
+        android:onClick="changeEmailAddress"/>
+
 </LinearLayout>

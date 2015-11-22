@@ -31,7 +31,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:width="250dp"
-            android:ems="10"
             android:gravity="center"
             android:hint="e-mail"
             android:inputType="textEmailAddress" />
@@ -43,11 +42,9 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:width="250dp"
-            android:ems="10"
             android:gravity="center"
             android:hint="password"
-            android:inputType="textPassword"
-            android:textIsSelectable="true" />
+            android:inputType="textPassword"/>
 
         <Button
             android:id="@+id/loginButton"

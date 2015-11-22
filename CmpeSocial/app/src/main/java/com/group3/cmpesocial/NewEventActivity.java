@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ public class NewEventActivity extends AppCompatActivity {
     private TextView timeEditText;
     private EditText locationEditText;
     private EditText descriptionEditText;
+    private Button doneButton;
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
 
@@ -70,6 +72,7 @@ public class NewEventActivity extends AppCompatActivity {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }else if (result == API.SUCCESS){
             Log.i(TAG, "event created");
+            finish();
         }else if (result == API.RESULT_EMPTY){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }

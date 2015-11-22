@@ -3,10 +3,18 @@ package com.group3.cmpesocial;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.group3.cmpesocial.classes.Event;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Tuba on 21/11/15.
@@ -174,6 +182,54 @@ public class API {
                         } else {
                             Log.i(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        return returnArray[0];
+    }
+
+    public static int allEvents(final Context context, final ArrayAdapter<Event> adapter){
+        final int[] returnArray = new int[1];
+        final ArrayList<Event> eventsList = new ArrayList<>();
+        JsonObject json = new JsonObject();
+        Ion.with(context)
+                .load(baseURI + "events/all")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        Log.i(TAG, "got result");
+                        if (e != null) {
+                            Log.i(TAG, "error " + e.getMessage());
+                            returnArray[0] = ERROR;
+                            Toast.makeText(context, "an error occurred while updating event list", Toast.LENGTH_SHORT).show();
+                        } else if (result != null) {
+                            Log.i(TAG, "result not null");
+                            String type = trimQuotes(result.get("Result").toString());
+                            Log.i(TAG, "type: " + type);
+                            if (type.equals("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                                JsonArray events = result.getAsJsonArray("events");
+                                Log.i(TAG, events.toString());
+                                JsonObject eventt = events.get(0).getAsJsonObject();
+                                Log.i(TAG, eventt.toString());
+                                Iterator<JsonElement> iterator = events.iterator();
+                                while (iterator.hasNext()) {
+                                    JsonObject eventJson = iterator.next().getAsJsonObject();
+                                    Event event = new Event(eventJson);
+                                    eventsList.add(event);
+                                }
+                                adapter.addAll(eventsList);
+                            } else {
+                                Log.i(TAG, "type: " + type.toString());
+                                returnArray[0] = ERROR;
+                                Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = ERROR;
                         }
                     }
                 });

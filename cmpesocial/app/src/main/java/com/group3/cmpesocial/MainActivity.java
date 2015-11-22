@@ -13,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -34,6 +37,10 @@ public class MainActivity extends AppCompatActivity
     private final int MESSAGES = 5;
     FragmentTransaction fragmentTransaction;
     private Toolbar toolbar;
+    private Button doneButton;
+    private Button editButton;
+    private ImageButton searchButton;
+    private ImageButton deleteButton;
     private RelativeLayout fragment_container;
     private FragmentManager fragmentManager;
     private HomeFragment fragment_home;
@@ -66,6 +73,11 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        doneButton = (Button) findViewById(R.id.doneButton);
+        editButton = (Button) findViewById(R.id.editButton);
+        searchButton = (ImageButton) findViewById(R.id.searchButton);
+        deleteButton = (ImageButton) findViewById(R.id.deleteButton);
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -179,6 +191,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setHomeFragment() {
+        doneButton.setVisibility(View.GONE);
+        editButton.setVisibility(View.GONE);
+        searchButton.setVisibility(View.VISIBLE);
+        deleteButton.setVisibility(View.GONE);
+
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_home);
         fragmentTransaction.commit();
@@ -187,6 +204,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setRecommendationsFragment() {
+        doneButton.setVisibility(View.GONE);
+        editButton.setVisibility(View.GONE);
+        searchButton.setVisibility(View.VISIBLE);
+        deleteButton.setVisibility(View.GONE);
+
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_recommendations);
         fragmentTransaction.commit();
@@ -195,6 +217,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setGroupsFragment() {
+        doneButton.setVisibility(View.GONE);
+        editButton.setVisibility(View.GONE);
+        searchButton.setVisibility(View.VISIBLE);
+        deleteButton.setVisibility(View.GONE);
+
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_groups);
         fragmentTransaction.commit();
@@ -203,6 +230,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setEventsFragment() {
+        doneButton.setVisibility(View.GONE);
+        editButton.setVisibility(View.GONE);
+        searchButton.setVisibility(View.VISIBLE);
+        deleteButton.setVisibility(View.GONE);
+
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_events);
         fragmentTransaction.commit();
@@ -211,6 +243,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setProfileFragment() {
+        doneButton.setVisibility(View.GONE);
+        editButton.setVisibility(View.VISIBLE);
+        searchButton.setVisibility(View.GONE);
+        deleteButton.setVisibility(View.GONE);
+
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_profile);
         fragmentTransaction.commit();
@@ -219,6 +256,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setMessagesFragment() {
+        doneButton.setVisibility(View.GONE);
+        editButton.setVisibility(View.GONE);
+        searchButton.setVisibility(View.GONE);
+        deleteButton.setVisibility(View.GONE);
+
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_messages);
         fragmentTransaction.commit();
