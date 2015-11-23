@@ -66,7 +66,7 @@ public class EventAPIController {
     public String createEvent(@RequestBody EventCreateRequestModel eventCreateRequestModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
-        eventModel.createEvent(eventCreateRequestModel.name, eventCreateRequestModel.date, eventCreateRequestModel.id_user, eventCreateRequestModel.location, eventCreateRequestModel.description);
+        eventModel.createEvent(eventCreateRequestModel.name, eventCreateRequestModel.date,eventCreateRequestModel.end_date,eventCreateRequestModel.periodic, eventCreateRequestModel.id_user, eventCreateRequestModel.location, eventCreateRequestModel.description);
         result.put("Result", "SUCCESS");
         result.put("event", eventModel.getEventForName(eventCreateRequestModel.name));
 
@@ -116,7 +116,7 @@ public class EventAPIController {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        eventModel.updateEvent(eventBaseModel.id, eventBaseModel.name, eventBaseModel.date, eventBaseModel.id_user, eventBaseModel.location, eventBaseModel.description);
+        eventModel.updateEvent(eventBaseModel.id, eventBaseModel.name, eventBaseModel.date,eventBaseModel.end_date,eventBaseModel.periodic ,eventBaseModel.id_user, eventBaseModel.location, eventBaseModel.description);
         result.put("Result","SUCCESS");
 
         return gson.toJson(result);

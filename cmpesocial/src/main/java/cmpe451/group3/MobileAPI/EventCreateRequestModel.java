@@ -9,6 +9,8 @@ public class EventCreateRequestModel {
 
     public String name;
     public String date;
+    public String end_date;
+    public int periodic;
     public Long id_user;
     public String location;
     public String description;

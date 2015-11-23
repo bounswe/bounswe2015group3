@@ -49,16 +49,16 @@ public class EventModel {
     }
 
 
-    public void createEvent(String name, String date, long userid, String location, String description) {
-        String sql = "INSERT INTO event(name, date, id_user, location, description) VALUES(?, ?, ?, ?, ?)";
+    public void createEvent(String name, String date,String end_date,int periodic, long userid, String location, String description) {
+        String sql = "INSERT INTO event(name, date,end_date,periodic, id_user, location, description) VALUES(?, ?, ?, ?, ?, ?, ?)";
         
-        this.jdbcTemplate.update(sql, name, date, userid, location, description);
+        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description);
     }
 
-    public void updateEvent(Long id, String name, String date, long userid, String location, String description) {
-        String sql = "UPDATE event SET name = ?, date = ?, id_user = ?, location = ?, description = ? WHERE id = ?";
+    public void updateEvent(Long id, String name, String date,String end_date,int periodic, long userid, String location, String description) {
+        String sql = "UPDATE event SET name = ?, date = ?,end_date = ?,periodic = ? , id_user = ?, location = ?, description = ? WHERE id = ?";
 
-        this.jdbcTemplate.update(sql, name, date, userid, location, description, id);
+        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description, id);
     }
 
     public void deleteEvent(Long id) {
