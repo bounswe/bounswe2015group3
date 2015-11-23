@@ -102,7 +102,7 @@
 				<div class="col-md-8">
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
-							<a href="${contextPath}/events/create"
+							<a href="${contextPath}/event/create"
 								class="btn btn-success btn-full"><i class="icon fa fa-lock">
 							</i> Create New Event</a>
 						</div>
