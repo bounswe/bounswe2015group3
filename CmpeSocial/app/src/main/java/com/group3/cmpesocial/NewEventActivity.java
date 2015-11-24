@@ -67,7 +67,7 @@ public class NewEventActivity extends AppCompatActivity {
         json.addProperty("location", location);
         json.addProperty("description", description);
 
-        int result = API.createEvent(json, this);
+        int result = API.createEvent(json, getApplicationContext());
         if (result == API.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }else if (result == API.SUCCESS){

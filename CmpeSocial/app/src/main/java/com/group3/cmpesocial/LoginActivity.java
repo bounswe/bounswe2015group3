@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Log.i(TAG, json.toString());
 
-        int result = API.login(json, this);
+        int result = API.login(json, getApplicationContext());
 
         if (result == API.ERROR){
             Toast.makeText(getApplicationContext(), "an error occured, please try again", Toast.LENGTH_SHORT).show();

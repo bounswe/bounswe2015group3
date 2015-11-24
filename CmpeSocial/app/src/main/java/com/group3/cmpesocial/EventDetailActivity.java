@@ -64,7 +64,7 @@ public class EventDetailActivity extends AppCompatActivity {
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
 
-        int result = API.deleteEvent(json, this);
+        int result = API.deleteEvent(json, getApplicationContext());
         if (result == API.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }else if (result == API.SUCCESS){
@@ -127,7 +127,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
         Log.i(TAG, json.toString());
 
-        int result = API.updateEvent(json, this);
+        int result = API.updateEvent(json, getApplicationContext());
         if (result == API.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }else if (result == API.SUCCESS){

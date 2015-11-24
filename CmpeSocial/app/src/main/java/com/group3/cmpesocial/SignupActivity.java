@@ -40,8 +40,6 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void signup(View v){
-        Toast.makeText(this, "sign up", Toast.LENGTH_LONG).show();
-
         if (firstNameEditText.getText() == null || firstNameEditText.getText().length() == 0 ||
                 lastNameEditText.getText() == null || lastNameEditText.getText().length() == 0 ||
                 emailEditText.getText() == null || emailEditText.getText().length() == 0 ||
@@ -80,11 +78,11 @@ public class SignupActivity extends AppCompatActivity {
 
         Log.i(TAG,json.toString());
 
-        int result = API.signup(json, this);
+        int result = API.signup(json, getApplicationContext());
         if(result == API.ERROR){
             Toast.makeText(this, "something went wrong, try again", Toast.LENGTH_SHORT).show();
         }else if (result == API.SUCCESS){
-            Toast.makeText(getApplicationContext(), "signup successful, please wait for confirmation email", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Signup successful, please wait for your confirmation email", Toast.LENGTH_LONG).show();
         }else if(result == API.RESULT_EMPTY){
             Log.i(TAG, "result empty");
             Toast.makeText(this, "something went wrong, try again", Toast.LENGTH_SHORT).show();
