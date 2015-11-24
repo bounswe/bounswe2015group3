@@ -322,7 +322,7 @@ input:focus,textarea:focus{
 }
 
 .main-header.affix #logo{
-	margin:5px 0;
+	margin: 5px 0;
 }
 
 .mobile-menu-icon{
@@ -2787,6 +2787,10 @@ blockquote p{
 }
 
 /*button*/
+.form-inline {
+	margin-top: 10px;
+}
+
 .btn{
 	text-transform:uppercase;
 	padding:9px 20px;
@@ -2796,7 +2800,6 @@ blockquote p{
 	font-weight:700;
 	border-radius:2px;
 	border:none;
-	color:#fff;
 	outline:none;
 	white-space:normal;
 	-webkit-transition: all 0.4s ease-in-out;
@@ -3078,6 +3081,10 @@ RE-SIZE
 @media (max-width:1009px) { 
 	.login-details li{
 		margin-right:20px;
+	}
+
+	.main-header.affix #logo{
+		margin: 10px 0;
 	}
 
 
