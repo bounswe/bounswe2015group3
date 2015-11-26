@@ -10,6 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.classes.Event;
+import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -22,7 +23,8 @@ import java.util.Iterator;
 public class API {
 
     public static final int ERROR = -1;
-    public static final int SUCCESS = 0;
+    public static final int NOT_ASSIGNED = 0;
+    public static final int SUCCESS = 1;
     public static final int WRONG_PASSWORD = -2;
     public static final int RESULT_EMPTY = -3;
     private static final String TAG = API.class.getSimpleName();
@@ -30,7 +32,7 @@ public class API {
 
     public static int login(JsonObject json, final Context context) {
         final int[] returnArray = new int[1];
-        Ion.with(context)
+        Future mFuture = Ion.with(context)
                 .load(baseURI + "login")
                 .setJsonObjectBody(json)
                 .asJsonObject()
@@ -38,7 +40,6 @@ public class API {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
-                        Log.i(TAG, "got result");
                         if (e != null) {
                             Log.i(TAG, "error " + e.getMessage());
                             returnArray[0] = ERROR;
@@ -71,12 +72,17 @@ public class API {
                         }
                     }
                 });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception " + e.getMessage());
+        }
         return returnArray[0];
     }
 
     public static int signup(JsonObject json, final Context context) {
         final int[] returnArray = new int[1];
-        Ion.with(context)
+        Future mFuture = Ion.with(context)
                 .load(baseURI + "signup")
                 .setJsonObjectBody(json)
                 .asJsonObject()
@@ -84,7 +90,6 @@ public class API {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
-                        Log.i(TAG, "got result");
                         if (e != null) {
                             Log.i(TAG, "error " + e.getMessage());
                             returnArray[0] = ERROR;
@@ -95,12 +100,17 @@ public class API {
                         }
                     }
                 });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception " + e.getMessage());
+        }
         return returnArray[0];
     }
 
     public static int createEvent(JsonObject json, Context context) {
         final int[] returnArray = new int[1];
-        Ion.with(context)
+        Future mFuture = Ion.with(context)
                 .load(baseURI + "events/create")
                 .setJsonObjectBody(json)
                 .asJsonObject()
@@ -108,7 +118,6 @@ public class API {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
-                        Log.i("event", "got result");
                         if (e != null) {
                             Log.i("event", "error " + e.getMessage());
                             returnArray[0] = ERROR;
@@ -121,12 +130,17 @@ public class API {
                         }
                     }
                 });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception " + e.getMessage());
+        }
         return returnArray[0];
     }
 
-    public static int updateEvent(JsonObject json, Context context){
+    public static int updateEvent(JsonObject json, Context context) {
         final int[] returnArray = new int[1];
-        Ion.with(context)
+        Future mFuture = Ion.with(context)
                 .load(baseURI + "events/update")
                 .setJsonObjectBody(json)
                 .asJsonObject()
@@ -138,13 +152,10 @@ public class API {
                             Log.i(TAG, "error " + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
-                            Log.i(TAG, "result not null");
                             String type = trimQuotes(result.get("Result").toString());
-                            Log.i(TAG, "type: " + type);
                             if (type.equals("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
-                            } else{
-                                Log.i(TAG, "type: " + type.toString());
+                            } else {
                                 returnArray[0] = ERROR;
                             }
                         } else {
@@ -153,12 +164,17 @@ public class API {
                         }
                     }
                 });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception " + e.getMessage());
+        }
         return returnArray[0];
     }
 
-    public static int deleteEvent(JsonObject json, Context context){
+    public static int deleteEvent(JsonObject json, Context context) {
         final int[] returnArray = new int[1];
-        Ion.with(context)
+        Future mFuture = Ion.with(context)
                 .load(baseURI + "events/delete")
                 .setJsonObjectBody(json)
                 .asJsonObject()
@@ -170,14 +186,10 @@ public class API {
                             Log.i(TAG, "error " + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
-                            Log.i(TAG, "result not null");
-                            Log.i(TAG, "" + result.toString());
                             String type = trimQuotes(result.get("Result").toString());
-                            Log.i(TAG, "type: " + type);
                             if (type.equals("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
-                            } else{
-                                Log.i(TAG, "type: " + type.toString());
+                            } else {
                                 returnArray[0] = ERROR;
                             }
                         } else {
@@ -186,29 +198,31 @@ public class API {
                         }
                     }
                 });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception " + e.getMessage());
+        }
         return returnArray[0];
     }
 
-    public static int allEvents(final Context context, final ArrayAdapter<Event> adapter){
+    public static int allEvents(final Context context, final ArrayAdapter<Event> adapter) {
         final int[] returnArray = new int[1];
         final ArrayList<Event> eventsList = new ArrayList<>();
         JsonObject json = new JsonObject();
-        Ion.with(context)
+        Future mFuture = Ion.with(context)
                 .load(baseURI + "events/all")
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        Log.i(TAG, "got result");
                         if (e != null) {
                             Log.i(TAG, "error " + e.getMessage());
                             returnArray[0] = ERROR;
                             Toast.makeText(context, "an error occurred while updating event list", Toast.LENGTH_SHORT).show();
                         } else if (result != null) {
-                            Log.i(TAG, "result not null");
                             String type = trimQuotes(result.get("Result").toString());
-                            Log.i(TAG, "type: " + type);
                             if (type.equals("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                                 JsonArray events = result.getAsJsonArray("events");
@@ -223,7 +237,6 @@ public class API {
                                 }
                                 adapter.addAll(eventsList);
                             } else {
-                                Log.i(TAG, "type: " + type.toString());
                                 returnArray[0] = ERROR;
                                 Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
                             }
@@ -234,6 +247,45 @@ public class API {
                         }
                     }
                 });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception " + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public int updateUser(JsonObject json, Context context) {
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "updateUser")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error " + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equals("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception " + e.getMessage());
+        }
         return returnArray[0];
     }
 
