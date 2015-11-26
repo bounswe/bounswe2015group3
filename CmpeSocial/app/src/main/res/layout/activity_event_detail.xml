@@ -122,6 +122,21 @@
                 android:id="@+id/doneButton"
                 android:visibility="gone"/>
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
+                android:text="Edit"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:onClick="editEvent"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/editButton"
+                android:visibility="visible"/>
+
         </LinearLayout>
 
     </ScrollView>

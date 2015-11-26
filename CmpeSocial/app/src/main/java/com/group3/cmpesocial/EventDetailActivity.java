@@ -117,13 +117,67 @@ public class EventDetailActivity extends AppCompatActivity {
         String date = dateEditText.getText().toString().trim();
         String time = timeEditText.getText().toString().trim();
 
+        String dateAPIFormat = "";
+
+
+
+        String[] parts = date.split(" ");
+        System.out.println(parts[0]);
+        int month = 0;
+        int day = 0;
+        if(parts[0].equals("Jan")) {
+            month = 1;
+        }else if(parts[0].equals("Feb")) {
+            month = 2;
+        }else if(parts[0].equals("Mar")) {
+            month = 3;
+        }else if(parts[0].equals("Apr")) {
+            month = 4;
+        }else if(parts[0].equals("May")) {
+            month = 5;
+        }else if(parts[0].equals("Jun")) {
+            month = 6;
+        }else if(parts[0].equals("Jul")) {
+            month = 7;
+        }else if(parts[0].equals("Aug")) {
+            month = 8;
+        }else if(parts[0].equals("Sep")) {
+            month = 9;
+        }else if(parts[0].equals("Oct")) {
+            month = 10;
+        }else if(parts[0].equals("Nov")) {
+            month = 11;
+        }else if(parts[0].equals("Dec")) {
+            month = 12;
+        }else {
+            System.out.println("hata");
+        }
+        day = Integer.parseInt(parts[1]);
+        dateAPIFormat = "2015-" + month + "-" + day;
+        System.out.println(dateAPIFormat);
+
+
+
+        String timeAPIFormat = "";
+        String[] partsTime = time.split(" ");
+        System.out.println(partsTime[0]);
+        System.out.println(partsTime[1]);
+
+        String end_date = "";
+        int periodic = 0;
+
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
         json.addProperty("name", name);
-        json.addProperty("date", date + " " + time);
-        json.addProperty("id_user", user_id);
+        json.addProperty("date", "Nov 28, 2015 12:00:00 AM");
+        json.addProperty("end_date", "Nov 28, 2015 12:00:00 AM");
+        json.addProperty("periodic", periodic);
+        json.addProperty("date_of_creation", "Nov 21, 2015 4:17:27 PM");
+        json.addProperty("id_user", 1);
         json.addProperty("location", location);
         json.addProperty("description", description);
+
+
 
         Log.i(TAG, json.toString());
 
