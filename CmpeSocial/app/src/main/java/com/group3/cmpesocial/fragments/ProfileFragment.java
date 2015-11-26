@@ -1,15 +1,20 @@
 package com.group3.cmpesocial.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
 import com.group3.cmpesocial.R;
 
 
@@ -20,6 +25,10 @@ public class ProfileFragment extends Fragment {
     private TextView nameTextView;
     private TextView surnameTextView;
     private TextView emailTextView;
+    private int id;
+    private String name;
+    private String surname;
+    private String email;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -42,9 +51,10 @@ public class ProfileFragment extends Fragment {
         emailTextView = (TextView) mView.findViewById(R.id.emailTextView);
 
         SharedPreferences prefs = this.getActivity().getSharedPreferences("prefsCMPE", Context.MODE_PRIVATE);
-        String name = prefs.getString("name", "def_name");
-        String surname = prefs.getString("surname", "def_surname");
-        String email = prefs.getString("email", "def_email");
+        id = prefs.getInt("id", 0);
+        name = prefs.getString("name", "def_name");
+        surname = prefs.getString("surname", "def_surname");
+        email = prefs.getString("email", "def_email");
 
         nameTextView.setText(name);
         surnameTextView.setText(surname);
@@ -58,7 +68,43 @@ public class ProfileFragment extends Fragment {
     }
 
     public void changePassword(View v){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle("Change your password");
+        alertDialog.setMessage("Enter new password");
 
+        final EditText input = new EditText(getContext());
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        alertDialog.setView(input);
+
+        alertDialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String password = input.getText().toString();
+                        if (password == null || password.length() == 0){
+                            dialog.cancel();
+                        }else{
+                            password = password.trim();
+                            JsonObject json = new JsonObject();
+                            json.addProperty("id", id);
+                            json.addProperty("name", name);
+                            json.addProperty("surname", surname);
+                            json.addProperty("password", password);
+                            json.addProperty("email", email);
+                        }
+                    }
+                });
+
+        alertDialog.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        alertDialog.show();
     }
 
     public void changeEmailAddress(View v){

@@ -1,6 +1,8 @@
 package com.group3.cmpesocial;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.group3.cmpesocial.fragments.EventsFragment;
@@ -96,6 +99,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        SharedPreferences prefs = getSharedPreferences("prefsCMPE", Context.MODE_PRIVATE);
+        String name = prefs.getString("name", "def_name");
+        String surname = prefs.getString("surname", "def_surname");
+        View header = navigationView.getHeaderView(0);
+        TextView headerName = (TextView) header.findViewById(R.id.headerName);
+        headerName.setText(name + " " + surname);
 
         setEventsFragment();
     }

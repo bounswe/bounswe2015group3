@@ -12,7 +12,7 @@ public class User {
     private String email;
     private String password;
     //private String profilePictureLink;
-    //private String role;
+    //private int role;
 
     public User(){
 
