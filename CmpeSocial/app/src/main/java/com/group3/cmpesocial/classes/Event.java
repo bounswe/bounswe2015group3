@@ -18,6 +18,10 @@ public class Event {
     private String location;
     private String description;
 
+    public Event(){
+
+    }
+
     public Event(JsonObject json){
         int id = json.get("id").getAsInt();
         String name = json.get("name").getAsString();

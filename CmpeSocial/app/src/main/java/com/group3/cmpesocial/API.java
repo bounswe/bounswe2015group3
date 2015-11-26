@@ -10,6 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.classes.Event;
+import com.group3.cmpesocial.classes.User;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -106,6 +107,74 @@ public class API {
             Log.i(TAG, "exception " + e.getMessage());
         }
         return returnArray[0];
+    }
+
+    public int updateUser(JsonObject json, Context context) {
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "updateUser")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error " + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equals("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception " + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public User getUser(JsonObject json, Context context){
+        User mUser = new User();
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "getUser")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error " + e.getMessage());
+                        } else if (result != null) {
+//                            String type = trimQuotes(result.get("Result").toString());
+//                            if (type.equals("SUCCESS")) {
+//                                returnArray[0] = SUCCESS;
+//                            } else {
+//                                returnArray[0] = ERROR;
+//                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                        }
+                    }
+                });
+        try {
+            JsonObject userJson = (JsonObject) mFuture.get();
+            Log.i(TAG, "future : " + userJson.toString());
+            mUser = new User(userJson);
+        }catch (Exception e){
+            Log.i(TAG, "exception " + e.getMessage());
+        }
+        return mUser;
     }
 
     public static int createEvent(JsonObject json, Context context) {
@@ -226,9 +295,6 @@ public class API {
                             if (type.equals("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                                 JsonArray events = result.getAsJsonArray("events");
-                                Log.i(TAG, events.toString());
-                                JsonObject eventt = events.get(0).getAsJsonObject();
-                                Log.i(TAG, eventt.toString());
                                 Iterator<JsonElement> iterator = events.iterator();
                                 while (iterator.hasNext()) {
                                     JsonObject eventJson = iterator.next().getAsJsonObject();
@@ -255,10 +321,122 @@ public class API {
         return returnArray[0];
     }
 
-    public int updateUser(JsonObject json, Context context) {
+    public ArrayList<Event> viewMyEvents(JsonObject json, Context context){
+        ArrayList<Event> mEvents = new ArrayList<>();
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "events/view")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error " + e.getMessage());
+                        } else if (result != null) {
+//                            String type = trimQuotes(result.get("Result").toString());
+//                            if (type.equals("SUCCESS")) {
+//                                returnArray[0] = SUCCESS;
+//                            } else {
+//                                returnArray[0] = ERROR;
+//                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                        }
+                    }
+                });
+        try {
+            JsonObject result = (JsonObject) mFuture.get();
+            Log.i(TAG, "future : " + result.toString());
+            JsonArray eventsJson = result.getAsJsonArray("events");
+            Iterator<JsonElement> iterator = eventsJson.iterator();
+            while (iterator.hasNext()) {
+                Event event = new Event(iterator.next().getAsJsonObject());
+                mEvents.add(event);
+            }
+        }catch (Exception e){
+            Log.i(TAG, "exception " + e.getMessage());
+        }
+        return mEvents;
+    }
+
+    public Event getEvent(JsonObject json, Context context){
+        Event mEvent = new Event();
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "events/viewDetail")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error " + e.getMessage());
+                        } else if (result != null) {
+//                            String type = trimQuotes(result.get("Result").toString());
+//                            if (type.equals("SUCCESS")) {
+//                                returnArray[0] = SUCCESS;
+//                            } else {
+//                                returnArray[0] = ERROR;
+//                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                        }
+                    }
+                });
+        try {
+            JsonObject eventJson = (JsonObject) mFuture.get();
+            Log.i(TAG, "future : " + eventJson.toString());
+            mEvent = new Event(eventJson);
+        }catch (Exception e){
+            Log.i(TAG, "exception " + e.getMessage());
+        }
+        return mEvent;
+    }
+
+    public ArrayList<User> getEventParticipants(JsonObject json, Context context){
+        ArrayList<User> mUsers = new ArrayList<>();
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "events/getParticipants")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error " + e.getMessage());
+                        } else if (result != null) {
+//                            String type = trimQuotes(result.get("Result").toString());
+//                            if (type.equals("SUCCESS")) {
+//                                returnArray[0] = SUCCESS;
+//                            } else {
+//                                returnArray[0] = ERROR;
+//                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                        }
+                    }
+                });
+        try {
+            JsonObject result = (JsonObject) mFuture.get();
+            Log.i(TAG, "future : " + result.toString());
+            JsonArray usersJson = result.getAsJsonArray("events");
+            Iterator<JsonElement> iterator = usersJson.iterator();
+            while (iterator.hasNext()) {
+                User user = new User(iterator.next().getAsJsonObject());
+                mUsers.add(user);
+            }
+        }catch (Exception e){
+            Log.i(TAG, "exception " + e.getMessage());
+        }
+        return mUsers;
+    }
+
+    public int joinEvent(JsonObject json, Context context){
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
-                .load(baseURI + "updateUser")
+                .load(baseURI + "events/join")
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
