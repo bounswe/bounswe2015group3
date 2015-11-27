@@ -88,6 +88,7 @@ public class NewEventActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 dateEditText.setText(""+year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+
             }
         }, year, month, day);
         datePickerDialog.show();
