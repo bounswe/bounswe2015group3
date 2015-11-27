@@ -298,6 +298,7 @@ public class API {
                                 Iterator<JsonElement> iterator = events.iterator();
                                 while (iterator.hasNext()) {
                                     JsonObject eventJson = iterator.next().getAsJsonObject();
+                                    Log.i(TAG, eventJson.toString());
                                     Event event = new Event(eventJson);
                                     eventsList.add(event);
                                 }
@@ -316,7 +317,7 @@ public class API {
         try {
             Log.i(TAG, "future : " + mFuture.get().toString());
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getMessage());
+            Log.i(TAG, "exception " + e.getClass() + " " + e.getMessage());
         }
         return returnArray[0];
     }

@@ -114,7 +114,10 @@ public class EventsFragment extends Fragment {
             TextView titleTextView = (TextView) convertView.findViewById(R.id.titleTextView);
             TextView placeTextView = (TextView) convertView.findViewById(R.id.placeTextView);
 
-            dateTextView.setText(mEvent.getDate());
+            int[] eventStartDate = mEvent.getStartDate();
+            String date = Event.getMonthName(eventStartDate[1]) + " " + eventStartDate[0];
+
+            dateTextView.setText(date);
             titleTextView.setText(mEvent.getName());
             placeTextView.setText(mEvent.getLocation());
 
@@ -123,13 +126,6 @@ public class EventsFragment extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), EventDetailActivity.class);
                     intent.putExtra("id", mEvent.getId());
-                    intent.putExtra("name", mEvent.getName());
-                    intent.putExtra("date", mEvent.getDate());
-                    intent.putExtra("end_date", mEvent.getEndDate());
-                    intent.putExtra("time", mEvent.getHour());
-                    intent.putExtra("year", mEvent.getYear());
-                    intent.putExtra("location", mEvent.getLocation());
-                    intent.putExtra("description", mEvent.getDescription());
                     startActivity(intent);
                 }
             });

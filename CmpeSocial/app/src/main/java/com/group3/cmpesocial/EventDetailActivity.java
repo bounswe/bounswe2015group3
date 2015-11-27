@@ -40,14 +40,6 @@ public class EventDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         id = (int) extras.get("id");
-        String name = (String) extras.get("name");
-        String date = (String) extras.get("date");
-        String end_date = (String) extras.get("end_date");
-        year = (String) extras.get("year");
-        System.out.println(end_date);
-        String time = (String) extras.get("time");
-        String location = (String) extras.get("location");
-        String description = (String) extras.get("description");
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         dateEditText = (EditText) findViewById(R.id.dateEditText);
@@ -57,11 +49,11 @@ public class EventDetailActivity extends AppCompatActivity {
         editButton = (Button) findViewById(R.id.editButton);
         doneButton = (Button) findViewById(R.id.doneButton);
 
-        nameEditText.setText(name);
-        dateEditText.setText(date);
-        timeEditText.setText(time);
-        locationEditText.setText(location);
-        descriptionEditText.setText(description);
+//        nameEditText.setText(name);
+//        dateEditText.setText(date);
+//        timeEditText.setText(time);
+//        locationEditText.setText(location);
+//        descriptionEditText.setText(description);
     }
 
     public void deleteEvent(View v){
