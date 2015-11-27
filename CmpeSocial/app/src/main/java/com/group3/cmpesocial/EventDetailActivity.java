@@ -79,6 +79,8 @@ public class EventDetailActivity extends AppCompatActivity {
         locationEditText.setFocusableInTouchMode(true);
         descriptionEditText.setFocusableInTouchMode(true);
 
+        System.out.println(monthToString(11) + "hebele");
+
         dateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,11 +115,15 @@ public class EventDetailActivity extends AppCompatActivity {
         String date = dateEditText.getText().toString().trim();
         String time = timeEditText.getText().toString().trim();
 
-        String dateAPIFormat = "";
+
+
+        String dateAPIFormat = dateToAPI(date);
+
+        System.out.println(dateAPIFormat);
 
 
 
-        String[] parts = date.split(" ");
+        /*String[] parts = date.split(" ");
         System.out.println(parts[0]);
         int month = 0;
         int day = 0;
@@ -151,7 +157,7 @@ public class EventDetailActivity extends AppCompatActivity {
         day = Integer.parseInt(parts[1]);
         System.out.println(year);
         dateAPIFormat = year + "-" + month + "-" + day;
-        System.out.println(dateAPIFormat);
+        System.out.println(dateAPIFormat);*/
 
 
 
@@ -199,6 +205,112 @@ public class EventDetailActivity extends AppCompatActivity {
         }
     }
 
+    public String monthToString (int monthI) {
+        String month = "";
+        if(monthI == 1) {
+            month = month + "Jan";
+        }else if(monthI == 2) {
+            month = month + "Feb";
+        }else if(monthI == 3) {
+            month = month + "Mar";
+        }else if(monthI == 4) {
+            month = month + "Apr";
+        }else if(monthI == 5) {
+            month = month + "May";
+        }else if(monthI == 6) {
+            month = month + "Jun";
+        }else if(monthI == 7) {
+            month = month + "Jul";
+        }else if(monthI == 8) {
+            month = month + "Aug";
+        }else if(monthI == 9) {
+            month = month + "Sep";
+        }else if(monthI == 10) {
+            month = month + "Oct";
+        }else if(monthI == 11) {
+            month = month + "Nov";
+        }else if(monthI == 12) {
+            month = month + "Dec";
+        }else {
+            System.out.println("hata");
+        }
+        return month;
+    }
+
+    public int monthToInt(String monthS) {
+        int month = 0;
+        if(monthS.equals("Jan")) {
+            month = 1;
+        }else if(monthS.equals("Feb")) {
+            month = 2;
+        }else if(monthS.equals("Mar")) {
+            month = 3;
+        }else if(monthS.equals("Apr")) {
+            month = 4;
+        }else if(monthS.equals("May")) {
+            month = 5;
+        }else if(monthS.equals("Jun")) {
+            month = 6;
+        }else if(monthS.equals("Jul")) {
+            month = 7;
+        }else if(monthS.equals("Aug")) {
+            month = 8;
+        }else if(monthS.equals("Sep")) {
+            month = 9;
+        }else if(monthS.equals("Oct")) {
+            month = 10;
+        }else if(monthS.equals("Nov")) {
+            month = 11;
+        }else if(monthS.equals("Dec")) {
+            month = 12;
+        }else {
+            System.out.println("hata");
+        }
+        return month;
+    }
+
+    public String dateToAPI(String date) {
+        String dateAPIFormat = "";
+
+
+
+        String[] parts = date.split(" ");
+        System.out.println(parts[0]);
+        int month = 0;
+        int day = 0;
+        if(parts[0].equals("Jan")) {
+            month = 1;
+        }else if(parts[0].equals("Feb")) {
+            month = 2;
+        }else if(parts[0].equals("Mar")) {
+            month = 3;
+        }else if(parts[0].equals("Apr")) {
+            month = 4;
+        }else if(parts[0].equals("May")) {
+            month = 5;
+        }else if(parts[0].equals("Jun")) {
+            month = 6;
+        }else if(parts[0].equals("Jul")) {
+            month = 7;
+        }else if(parts[0].equals("Aug")) {
+            month = 8;
+        }else if(parts[0].equals("Sep")) {
+            month = 9;
+        }else if(parts[0].equals("Oct")) {
+            month = 10;
+        }else if(parts[0].equals("Nov")) {
+            month = 11;
+        }else if(parts[0].equals("Dec")) {
+            month = 12;
+        }else {
+            System.out.println("hata");
+        }
+        day = Integer.parseInt(parts[1]);
+        System.out.println(year);
+        dateAPIFormat = year + "-" + month + "-" + day;
+        return dateAPIFormat;
+    }
+
     public void pickDate(View v){
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -209,6 +321,7 @@ public class EventDetailActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 dateEditText.setText(""+year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+                dateEditText.setText(monthToString(monthOfYear+1) + " " + dayOfMonth);
             }
         }, year, month, day);
         datePickerDialog.show();
