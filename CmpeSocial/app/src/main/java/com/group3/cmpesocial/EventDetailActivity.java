@@ -30,6 +30,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private Button doneButton;
 
     private int id;
+    private String year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,9 @@ public class EventDetailActivity extends AppCompatActivity {
         id = (int) extras.get("id");
         String name = (String) extras.get("name");
         String date = (String) extras.get("date");
+        String end_date = (String) extras.get("end_date");
+        year = (String) extras.get("year");
+        System.out.println(end_date);
         String time = (String) extras.get("time");
         String location = (String) extras.get("location");
         String description = (String) extras.get("description");
@@ -153,26 +157,38 @@ public class EventDetailActivity extends AppCompatActivity {
             System.out.println("hata");
         }
         day = Integer.parseInt(parts[1]);
-        dateAPIFormat = "2015-" + month + "-" + day;
+        System.out.println(year);
+        dateAPIFormat = year + "-" + month + "-" + day;
         System.out.println(dateAPIFormat);
 
 
 
         String timeAPIFormat = "";
+        int hour = 0;
         String[] partsTime = time.split(" ");
         System.out.println(partsTime[0]);
         System.out.println(partsTime[1]);
-
+        String[] partsHourMinuteSec = partsTime[0].split(":");
+        System.out.println(partsHourMinuteSec[0]);
+        hour = Integer.parseInt(partsHourMinuteSec[0]);
+        if(partsTime[1].equals("PM")) {
+            hour = hour + 12;
+        }
+        System.out.println(hour);
+        System.out.println(partsHourMinuteSec[1]);
+        System.out.println(partsHourMinuteSec[2]);
+        timeAPIFormat = Integer.toString(hour) + ":" + partsHourMinuteSec[1] + ":" + partsHourMinuteSec[2];
+        System.out.println(timeAPIFormat);
         String end_date = "";
         int periodic = 0;
 
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
         json.addProperty("name", name);
-        json.addProperty("date", "Nov 28, 2015 12:00:00 AM");
-        json.addProperty("end_date", "Nov 28, 2015 12:00:00 AM");
+        json.addProperty("date", dateAPIFormat + " " + timeAPIFormat);
+        json.addProperty("end_date", "2015-11-28 12:00:00");
         json.addProperty("periodic", periodic);
-        json.addProperty("date_of_creation", "Nov 21, 2015 4:17:27 PM");
+        json.addProperty("date_of_creation", "2015-11-28 12:00:00");
         json.addProperty("id_user", 1);
         json.addProperty("location", location);
         json.addProperty("description", description);

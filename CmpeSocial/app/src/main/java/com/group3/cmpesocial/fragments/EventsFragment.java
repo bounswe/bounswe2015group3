@@ -125,7 +125,9 @@ public class EventsFragment extends Fragment {
                     intent.putExtra("id", mEvent.getId());
                     intent.putExtra("name", mEvent.getName());
                     intent.putExtra("date", mEvent.getDate());
+                    intent.putExtra("end_date", mEvent.getEndDate());
                     intent.putExtra("time", mEvent.getHour());
+                    intent.putExtra("year", mEvent.getYear());
                     intent.putExtra("location", mEvent.getLocation());
                     intent.putExtra("description", mEvent.getDescription());
                     startActivity(intent);

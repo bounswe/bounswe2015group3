@@ -12,6 +12,7 @@ public class Event {
     private int id;
     private String name;
     private String date;
+    private String end_date;
     private String year;
     private String hour;
     private String id_user;
@@ -26,6 +27,7 @@ public class Event {
         int id = json.get("id").getAsInt();
         String name = json.get("name").getAsString();
         String date_year_hour = json.get("date").getAsString();
+        String end_date = json.get("end_date").getAsString();
         String id_user = json.get("id_user").getAsString();
         String location = json.get("location").getAsString();
         String description = json.get("description").getAsString();
@@ -35,13 +37,14 @@ public class Event {
         String year = year_hour.substring(0, date_year_hour.indexOf(' ')+1).trim();
         String hour = year_hour.substring(date_year_hour.indexOf(' ') + 1).trim();
 
-        Log.i("date", date);
+        Log.i("end_date", end_date);
         Log.i("year", year);
         Log.i("hour", hour);
 
         this.id = id;
         this.name = name;
         this.date = date;
+        this.end_date = end_date;
         this.year = year;
         this.hour = hour;
         this.id_user = id_user;
@@ -63,6 +66,10 @@ public class Event {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getEndDate() {
+        return end_date;
     }
 
     public String getDescription() {
