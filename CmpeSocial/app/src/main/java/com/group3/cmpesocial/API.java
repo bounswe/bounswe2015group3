@@ -109,7 +109,7 @@ public class API {
         return returnArray[0];
     }
 
-    public int updateUser(JsonObject json, Context context) {
+    public static int updateUser(JsonObject json, Context context) {
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "updateUser")
@@ -143,7 +143,7 @@ public class API {
         return returnArray[0];
     }
 
-    public User getUser(JsonObject json, Context context){
+    public static User getUser(JsonObject json, Context context){
         User mUser = new User();
         Future mFuture = Ion.with(context)
                 .load(baseURI + "getUser")
@@ -322,7 +322,7 @@ public class API {
         return returnArray[0];
     }
 
-    public ArrayList<Event> viewMyEvents(JsonObject json, Context context){
+    public static ArrayList<Event> viewMyEvents(JsonObject json, Context context){
         ArrayList<Event> mEvents = new ArrayList<>();
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/view")
@@ -361,7 +361,7 @@ public class API {
         return mEvents;
     }
 
-    public Event getEvent(JsonObject json, Context context){
+    public static Event getEvent(JsonObject json, Context context){
         Event mEvent = new Event();
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/viewDetail")
@@ -395,7 +395,7 @@ public class API {
         return mEvent;
     }
 
-    public ArrayList<User> getEventParticipants(JsonObject json, Context context){
+    public static ArrayList<User> getEventParticipants(JsonObject json, Context context){
         ArrayList<User> mUsers = new ArrayList<>();
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/getParticipants")
@@ -434,7 +434,7 @@ public class API {
         return mUsers;
     }
 
-    public int joinEvent(JsonObject json, Context context){
+    public static int joinEvent(JsonObject json, Context context){
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/join")

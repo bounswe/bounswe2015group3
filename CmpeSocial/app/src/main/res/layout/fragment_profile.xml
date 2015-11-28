@@ -2,63 +2,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.group3.cmpesocial.fragments.ProfileFragment"
     android:gravity="center_horizontal"
-    android:padding="20dp">
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context="com.group3.cmpesocial.fragments.ProfileFragment">
 
 
     <ImageView
+        android:id="@+id/profileImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:id="@+id/profileImageView"
-        android:src="@drawable/member"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
-    
+        android:src="@drawable/member" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
-        
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="Name: "
-                android:textStyle="bold"
-                android:textSize="20sp"
                 android:textColor="@android:color/black"
-                android:padding="10dp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="Surname: "
-                android:textStyle="bold"
-                android:textSize="20sp"
                 android:textColor="@android:color/black"
-                android:padding="10dp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="E-Mail:"
-                android:textStyle="bold"
-                android:textSize="20sp"
                 android:textColor="@android:color/black"
-                android:padding="10dp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="Role:"
-                android:textStyle="bold"
-                android:textSize="20sp"
                 android:textColor="@android:color/black"
-                android:padding="10dp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,73 +70,73 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="aa"
-                android:padding="10dp"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/surnameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="bb"
-                android:padding="10dp"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/emailTextView"
-                android:text="m@m.com"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:text="m@m.com"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
             <TextView
+                android:id="@+id/roleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/roleTextView"
-                android:text="Undergraduate"
                 android:padding="10dp"
+                android:text="Undergraduate"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
         </LinearLayout>
-        
+
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <Button
+        android:id="@+id/changePasswordButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="Change Password"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="@android:color/white"
-        android:gravity="center"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_marginTop="10dp"
-        android:onClick="changePassword"/>
+        android:textColor="@android:color/white" />
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:text="Change e-mail address"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="@android:color/white"
-        android:gravity="center"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_marginTop="10dp"
-        android:onClick="changeEmailAddress"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+    <!--<Button-->
+        <!--android:id="@+id/changeEmailButton"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="@dimen/activity_vertical_margin"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:gravity="center"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:paddingRight="10dp"-->
+        <!--android:text="Change e-mail address"-->
+        <!--android:textColor="@android:color/white" />-->
 
 </LinearLayout>
