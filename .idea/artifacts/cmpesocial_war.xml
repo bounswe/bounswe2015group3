@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="cmpesocial:war">
+    <output-path>$PROJECT_DIR$/cmpesocial/target</output-path>
+    <root id="archive" name="cmpesocial.war">
+      <element id="artifact" artifact-name="cmpesocial:war exploded" />
+    </root>
+  </artifact>
+</component>
