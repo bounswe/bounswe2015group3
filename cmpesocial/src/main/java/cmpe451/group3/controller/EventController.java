@@ -33,7 +33,7 @@ public class EventController {
 
         model.put("events", events);
 
-        return "index";
+        return "events";
     }
 
     @RequestMapping(value = "/event/edit")

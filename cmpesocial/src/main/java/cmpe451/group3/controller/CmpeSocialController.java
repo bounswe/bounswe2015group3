@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cmpe451.group3.auth.CmpeSocialAuthentication;
 import cmpe451.group3.model.CmpeSocialUserModel;
+import cmpe451.group3.model.EventModel;
 import cmpe451.group3.model.SearchModel;
 import cmpe451.group3.utils.SecurityUtils;
 
@@ -25,6 +26,9 @@ public class CmpeSocialController {
     private CmpeSocialUserModel cmpeSocialUserModel = null;
     
     @Autowired
+    private EventModel eventModel = null;
+    
+    @Autowired
     private SearchModel searchModel = null;
 
     @RequestMapping(value = "/index")
@@ -36,8 +40,7 @@ public class CmpeSocialController {
         // sends users List to view.
         model.put("users", users);
 
-        // Spring uses InternalResourceViewResolver and return back index.jsp
-        return "redirect:/event";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "user/edit")
@@ -66,7 +69,22 @@ public class CmpeSocialController {
     }
 
     @RequestMapping(value = "user/home")
-    public String home() {
+    public String userHome(@RequestParam(required = false) Long id, ModelMap model) {
+    	if(id == null){
+    		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    		String mail = auth.getName();
+    		int userid = cmpeSocialUserModel.getIdFromMail(mail);
+    		Map<String, Object> user = cmpeSocialUserModel.getUser((long)userid);
+    		List<Map<String, Object>> events = eventModel.getEventsOfUser((long)userid);
+    		model.put("user", user);
+    		model.put("events", events);
+    	}
+    	else{
+    		Map<String, Object> user = cmpeSocialUserModel.getUser(id);
+    		List<Map<String, Object>> events = eventModel.getEventsOfUser(id);
+    		model.put("user", user);
+    		model.put("events", events);
+    	}
         return "userHomePage";
     }
 
@@ -88,8 +106,15 @@ public class CmpeSocialController {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	if(auth == null || !auth.isAuthenticated())
     		return "redirect:/user/login";
-    	else
-    		return "index";
+    	else{
+    		List<Map<String, Object>> events = eventModel.getEvents();
+            model.put("events", events);
+            // gets users from model.
+            List<Map<String, Object>> users = cmpeSocialUserModel.getUsers();
+            // sends users List to view.
+            model.put("users", users);
+            return "index";
+    	}
     }
     
     @RequestMapping(value = "user/login")
@@ -101,7 +126,7 @@ public class CmpeSocialController {
         	if(SecurityUtils.checkPassword(hashedPassword, password)){
         		CmpeSocialAuthentication.getAuthentication(email, password);
         	}
-        	return "redirect:/event";
+        	return "redirect:/";
         }
         else
         	return "login";

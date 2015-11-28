@@ -94,4 +94,18 @@ public class EventModel {
         return participants;
     }
     
+    /**
+     * Gets the all events from database that user is joined.
+     * 
+     * @param id user's id
+     * @return list of user's events
+     */
+    public List<Map<String, Object>> getEventsOfUser(Long id){
+    	
+    	String sql = "SELECT event.* from event, user_event WHERE event.id = user_event.id_event AND user_event.id_user = ? AND user_event.status = 1";   	
+    	List<Map<String, Object>> events = this.jdbcTemplate.queryForList(sql, id);
+    	
+    	return events;
+    }
+    
 }

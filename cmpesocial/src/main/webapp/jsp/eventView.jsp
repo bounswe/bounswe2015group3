@@ -24,17 +24,30 @@
 <link rel="shortcut icon" href="favicon.png">
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/assets/bootstrap/css/jquery.datetimepicker.css">
-<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/assets/bootstrap/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/assets/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/assets/bootstracss/easy-responsive-tabs.css">
-<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/owl.carousel.css">
-<link rel="stylesheet" href="${contextPath}/assets/bootstrap/css/main.css">
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/assets/bootstrap/css/owl.carousel.css">
+<link rel="stylesheet"
+	href="${contextPath}/assets/bootstrap/css/main.css">
 <script src="${contextPath}/assets/js/vendor/modernizr-2.6.2.min.js"></script>
-<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript">
+	var switchTo5x = true;
+</script>
 <script type="text/javascript"
 	src="http://w.sharethis.com/button/buttons.js"></script>
-<script type="text/javascript">stLight.options({publisher: "ur-b4964695-8b2f-20dd-2ced-c9f6141de24c", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+<script type="text/javascript">
+	stLight.options({
+		publisher : "ur-b4964695-8b2f-20dd-2ced-c9f6141de24c",
+		doNotHash : false,
+		doNotCopy : false,
+		hashAddressBar : false
+	});
+</script>
 </head>
 <body>
 	<!--[if lt IE 7]>
@@ -50,7 +63,8 @@
 				<div class="container ">
 					<!-- logo  -->
 					<div id="logo">
-						<a href=""${contextPath}/""><img src="${contextPath}/assets/img/logo.png" alt=""></a>
+						<a href="${contextPath}/"><img
+							src="${contextPath}/assets/img/logo.png" alt=""></a>
 					</div>
 
 					<div id="sb-search" class="sb-search">
@@ -66,15 +80,14 @@
 					<div class="mobile-menu-icon">
 						<i class="fa fa-bars"></i>
 					</div>
-
 					<!-- Nav -->
 					<nav class="main-nav mobile-menu">
-
 						<ul class="clearfix">
-							<li><i class="icon fa fa-home"> </i> <a href="index.html">Home</a>
-							</li>
+							<li><i class="icon fa fa-home"> </i> <a
+								href="${contextPath}/">Home</a></li>
 
-							<li><a href="#"><i class="icon fa fa-user"> </i> Profile</a></li>
+							<li><a href="${contextPath}/user/home"><i
+									class="icon fa fa-user"> </i> Profile</a></li>
 							<li><a href="#"><i class="icon fa fa-comments"> </i>
 									Messages</a></li>
 							<li><a href="#"><i class="icon fa fa-sign-out"> </i>
@@ -100,13 +113,12 @@
 				<div class="col-md-9 col-sm-9">
 					<!--Event Detail  -->
 					<section class="event-detail newsection">
-						<h2 class="main-title ">
-							${event.name}
-						</h2>
+						<h2 class="main-title ">${event.name}</h2>
 						<!-- meta -->
 						<ul class="meta clearfix">
-							<li class="date"><i class="icon fa fa-calendar"></i> ${event.date}</li>
-							<li>${event.location} </li>
+							<li class="date"><i class="icon fa fa-calendar"></i>
+								${event.date}</li>
+							<li>${event.location}</li>
 						</ul>
 						<!-- event-detail-img -->
 						<div class="event-detail-img">
@@ -127,17 +139,14 @@
 						<h2 class="title">Participants of Event</h2>
 						<!-- owl slider  -->
 						<div class="owl-team">
-							<c:forEach var="participant" items="${participants}" varStatus="roop">
+							<c:forEach var="participant" items="${participants}"
+								varStatus="roop">
 								<div class="event">
-									<div class="eventsimg">
-										<img src="${contextPath}/assets/img/prof02.jpg" alt="">
-									</div>
 									<div class="event-content">
-										<h3 class="title">${participant.name} ${participant.surname}</h3>
+										<h3 class="title">${participant.name}
+											${participant.surname}</h3>
 										<p class="job">Senior CmpE Student</p>
-										<p>Some description about me, some more description about
-											me</p>
-	
+										<a href="${contextPath}/user/home?id=${user.id}">See Profile</a>
 									</div>
 									<div class="social-icon">
 										<a href="#" class="email fa fa-envelope-o"></a><a href="#"
@@ -145,72 +154,11 @@
 											class="fa linkedin fa-linkedin"></a><a href="#"
 											class="googleplus fa fa-google-plus"></a><a href="#"
 											class="twitter fa fa-twitter"></a>
-	
 									</div>
-								</div>	
+								</div>
 							</c:forEach>
-							<div class="event">
-								<div class="eventsimg">
-									<img src="${contextPath}/assets/img/prof02.jpg" alt="">
-								</div>
-								<div class="event-content">
-									<h3 class="title">Naqibullah Danishjo</h3>
-									<p class="job">Senior CmpE Student</p>
-									<p>Some description about me, some more description about
-										me</p>
-
-								</div>
-								<div class="social-icon">
-									<a href="#" class="email fa fa-envelope-o"></a><a href="#"
-										class="facebook fa fa-facebook"></a><a href="#"
-										class="fa linkedin fa-linkedin"></a><a href="#"
-										class="googleplus fa fa-google-plus"></a><a href="#"
-										class="twitter fa fa-twitter"></a>
-
-								</div>
-							</div>
-
-							<div class="event">
-								<div class="eventsimg">
-									<img src="${contextPath}/assets/img/prof03.jpg" alt="">
-								</div>
-								<div class="event-content">
-									<h3 class="title">Abdurrahman Can Kurtan</h3>
-									<p class="job">Senior CmpE Student</p>
-									<p>Some description about me, some more description about
-										me</p>
-
-								</div>
-								<div class="social-icon">
-									<a href="#" class="email fa fa-envelope-o"></a><a href="#"
-										class="facebook fa fa-facebook"></a><a href="#"
-										class="fa linkedin fa-linkedin"></a><a href="#"
-										class="googleplus fa fa-google-plus"></a><a href="#"
-										class="twitter fa fa-twitter"></a>
-								</div>
-							</div>
-							<div class="event">
-								<div class="eventsimg">
-									<img src="${contextPath}/assets/img/prof04.jpg" alt="">
-								</div>
-								<div class="event-content">
-									<h3 class="title">Tuba Topaloğlu</h3>
-									<p class="job">Senior CmpE Student</p>
-									<p>Some description about me, some more description about
-										me</p>
-
-								</div>
-								<div class="social-icon">
-									<a href="#" class="email fa fa-envelope-o"></a><a href="#"
-										class="facebook fa fa-facebook"></a><a href="#"
-										class="fa linkedin fa-linkedin"></a><a href="#"
-										class="googleplus fa fa-google-plus"></a><a href="#"
-										class="twitter fa fa-twitter"></a>
-								</div>
-							</div>
 						</div>
 					</section>
-
 					<!-- speakers-tabs -->
 				</div>
 				<!-- Col-md-3 -->
@@ -226,18 +174,15 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="widget clearfix">
 							<a href="${contextPath}/event/join?id=${event.id}"
-									class="btn btn-pri btn-full">
-								Join Event</a>
+								class="btn btn-pri btn-full"> Join Event</a>
 						</div>
 						<div class="widget">
 							<h3 class="title">Organizer</h3>
 							<p>
 								Organized by <b>Umut Afacan</b>
 							</p>
-
 							<a href="#" class="btn btn-black contact-button"><i
 								class="button-icon fa fa-envelope-o"></i>Contact the Organizer</a>
 							<ul class="social-icon">
@@ -252,7 +197,6 @@
 										<div class="content">twitter.com/EventOrganizer</div></a></li>
 							</ul>
 						</div>
-
 					</aside>
 				</div>
 			</div>

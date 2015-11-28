@@ -79,12 +79,11 @@
 					<div class="mobile-menu-icon">
 						<i class="fa fa-bars"></i>
 					</div>
-
 					<!-- Nav -->
 					<nav class="main-nav mobile-menu">
 						<ul class="clearfix">
-							<li><i class="icon fa fa-home"> </i> <a
-								href="${contextPath}/">Home</a></li>
+							<li><i class="icon fa fa-home"> </i> <a href="index.html">Home</a>
+							</li>
 
 							<li><a href="${contextPath}/user/home"><i
 									class="icon fa fa-user"> </i> Profile</a></li>
@@ -140,18 +139,20 @@
 				</div>
 				<!-- col-md-3 -->
 				<div class="col-md-4">
+
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
-							<h3 class="title">Groups</h3>
+							<h3 class="title">Suggested For You</h3>
 							<div class="top-ppost">
+
 								<div class="date">
 									<p>
-										<span><i class="icon fa fa-group"> </i></span>GROUP
+										<span><i class="icon fa fa-calendar"> </i></span>EVENT
 									</p>
 								</div>
 								<div class="content">
 									<h4 class="title">
-										<a href="#">Kare Block Orta Düzey Tenis Oyuncuları </a>
+										<a href="#">Watching Star Wars in Kuzey Kampus Cinema </a>
 									</h4>
 								</div>
 							</div>
@@ -164,33 +165,10 @@
 								</div>
 								<div class="content">
 									<h4 class="title">
-										<a href="#">Liseden beri masa tenisi oynayanlar </a>
+										<a href="#">Orta Düzey Tenis Oyuncuları </a>
 									</h4>
 								</div>
 							</div>
-						</div>
-						<br />
-					</aside>
-					<aside id="aside" class="aside-bar-style-two clearfix">
-						<div class="widget clearfix">
-							<h3 class="title">People</h3>
-							<c:forEach var="user" items="${users}" varStatus="roop">
-								<div class="top-ppost">
-									<div class="date">
-										<p>
-											<span><i class="icon fa fa-user"> </i></span>
-										</p>
-									</div>
-									<div class="content">
-										<h4 class="title">
-											<a href="${contextPath}/user/home?id=${user.id}">${user.name}
-												${user.surname} </a>
-										</h4>
-									</div>
-								</div>
-								<hr />
-								<br />
-							</c:forEach>
 						</div>
 					</aside>
 				</div>

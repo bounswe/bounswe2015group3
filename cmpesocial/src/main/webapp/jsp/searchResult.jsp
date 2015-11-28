@@ -71,12 +71,11 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 					<!-- Nav -->
 					<nav class="main-nav mobile-menu">
-
 						<ul class="clearfix">
 							<li><i class="icon fa fa-home"> </i> <a href="${contextPath}/">Home</a>
 							</li>
 
-							<li><a href="#"><i class="icon fa fa-user"> </i>
+							<li><a href="${contextPath}/user/home"><i class="icon fa fa-user"> </i>
 									Profile</a></li>
 							<li><a href="#"><i class="icon fa fa-comments"> </i>
 									Messages</a></li>
@@ -172,12 +171,12 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 								<div class="top-ppost">
 									<div class="date">
 										<p>
-											<span><i class="icon fa fa-user"> </i></span>
+											<span><i class="icon fa fa-user"> </i></span>USER
 										</p>
 									</div>
 									<div class="content">
 										<h4 class="title">
-											<a href="${contextPath}/user/view?id=${event.id}">${user.name}
+											<a href="${contextPath}/user/home?id=${user.id}">${user.name}
 												${user.surname} </a>
 										</h4>
 									</div>
