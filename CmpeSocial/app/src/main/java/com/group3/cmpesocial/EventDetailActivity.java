@@ -14,6 +14,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.group3.cmpesocial.classes.Event;
 
 import java.util.Calendar;
 
@@ -40,6 +41,14 @@ public class EventDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         id = (int) extras.get("id");
+        JsonObject json = new JsonObject();
+        json.addProperty("id", id);
+        Event event = API.getEvent(json, getApplicationContext());
+        String name = event.getName();
+        String start_date = event.getStartDateString();
+        String start_time = event.getStartTimeString();
+        String location = event.getLocation();
+        String description = event.getDescription();
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         dateEditText = (EditText) findViewById(R.id.dateEditText);
@@ -48,12 +57,12 @@ public class EventDetailActivity extends AppCompatActivity {
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         editButton = (Button) findViewById(R.id.editButton);
         doneButton = (Button) findViewById(R.id.doneButton);
-
-//        nameEditText.setText(name);
-//        dateEditText.setText(date);
-//        timeEditText.setText(time);
-//        locationEditText.setText(location);
-//        descriptionEditText.setText(description);
+        //nameEditText.setText(x);
+        nameEditText.setText(name);
+        dateEditText.setText(start_date);
+        timeEditText.setText(start_time);
+        locationEditText.setText(location);
+        descriptionEditText.setText(description);
     }
 
     public void deleteEvent(View v){
