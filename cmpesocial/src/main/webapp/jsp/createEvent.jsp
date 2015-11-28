@@ -55,16 +55,14 @@
 					<div class="mobile-menu-icon">
 						<i class="fa fa-bars"></i>
 					</div>
-
 					<!-- Nav -->
 					<nav class="main-nav mobile-menu">
-
 						<ul class="clearfix">
-							<li><i class="icon fa fa-home"> </i> <a href="${contextPath}/">Home</a>
-							</li>
+							<li><i class="icon fa fa-home"> </i> <a
+								href="${contextPath}/">Home</a></li>
 
-							<li><a href="#"><i class="icon fa fa-user"> </i>
-									Profile</a></li>
+							<li><a href="${contextPath}/user/home"><i
+									class="icon fa fa-user"> </i> Profile</a></li>
 							<li><a href="#"><i class="icon fa fa-comments"> </i>
 									Messages</a></li>
 							<li><a href="#"><i class="icon fa fa-sign-out"> </i>

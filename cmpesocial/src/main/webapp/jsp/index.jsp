@@ -82,8 +82,16 @@
 
 					<!-- Nav -->
 					<nav class="main-nav mobile-menu">
-
 						<ul class="clearfix">
+							<li><i class="icon fa fa-home"> </i> <a
+								href="${contextPath}/">Home</a></li>
+
+							<li><a href="${contextPath}/user/home"><i
+									class="icon fa fa-user"> </i> Profile</a></li>
+							<li><a href="#"><i class="icon fa fa-comments"> </i>
+									Messages</a></li>
+							<li><a href="#"><i class="icon fa fa-sign-out"> </i>
+									Sign Out</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -115,9 +123,7 @@
 								<a href="${contextPath}/event/delete?id=${event.id}">Delete</a>
 								<div class="top-ppost">
 									<div class="date">
-										<p>
-											${event.date}
-										</p>
+										<p>${event.date}</p>
 									</div>
 									<div class="content">
 										<h4 class="title">
@@ -128,7 +134,7 @@
 								</div>
 								<br />
 							</c:forEach>
-							
+
 						</div>
 					</aside>
 				</div>
@@ -136,27 +142,16 @@
 				<div class="col-md-4">
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
-							<a href="${contextPath}/user/login"
-								class="btn btn-success btn-full"><i class="icon fa fa-lock">
-							</i> Sign In</a> <a href="${contextPath}/user/new"
-								class="btn btn-pri btn-full"><i class="icon fa fa-edit">
-							</i> Register</a>
-						</div>
-					</aside>
-					<br />
-					<aside id="aside" class="aside-bar-style-two clearfix">
-						<div class="widget clearfix">
-							<h3 class="title">Suggested For You</h3>
+							<h3 class="title">Groups</h3>
 							<div class="top-ppost">
-
 								<div class="date">
 									<p>
-										<span><i class="icon fa fa-calendar"> </i></span>EVENT
+										<span><i class="icon fa fa-group"> </i></span>GROUP
 									</p>
 								</div>
 								<div class="content">
 									<h4 class="title">
-										<a href="#">Watching Star Wars in Kuzey Kampus Cinema </a>
+										<a href="#">Kare Block Orta Düzey Tenis Oyuncuları </a>
 									</h4>
 								</div>
 							</div>
@@ -169,10 +164,33 @@
 								</div>
 								<div class="content">
 									<h4 class="title">
-										<a href="#">Orta Düzey Tenis Oyuncuları </a>
+										<a href="#">Liseden beri masa tenisi oynayanlar </a>
 									</h4>
 								</div>
 							</div>
+						</div>
+						<br />
+					</aside>
+					<aside id="aside" class="aside-bar-style-two clearfix">
+						<div class="widget clearfix">
+							<h3 class="title">People</h3>
+							<c:forEach var="user" items="${users}" varStatus="roop">
+								<div class="top-ppost">
+									<div class="date">
+										<p>
+											<span><i class="icon fa fa-user"> </i></span>
+										</p>
+									</div>
+									<div class="content">
+										<h4 class="title">
+											<a href="${contextPath}/user/home?id=${user.id}">${user.name}
+												${user.surname} </a>
+										</h4>
+									</div>
+								</div>
+								<hr />
+								<br />
+							</c:forEach>
 						</div>
 					</aside>
 				</div>
