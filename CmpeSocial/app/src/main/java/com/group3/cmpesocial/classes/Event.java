@@ -178,7 +178,25 @@ public class Event {
     }
 
     public String getStartTimeString(){
-        return startTime[0] + ":" + startTime[1] + ":00";
+        int startTimeZero = 0;
+        int pm = 0;
+        if(startTime[1] < 10) {
+            startTimeZero = 1;
+        }
+        if(startTime[0]>12) {
+            pm = 1;
+        }
+        if(pm == 1) {
+            if(startTimeZero == 1)
+                return startTime[0]-12 + ":0" + startTime[1] + ":00" + " PM";
+            else
+                return startTime[0]-12 + ":" + startTime[1] + ":00" + " PM";
+        }else {
+            if(startTimeZero == 1)
+                return startTime[0] + ":0" + startTime[1] + ":00" + " AM";
+            else
+                return startTime[0] + ":" + startTime[1] + ":00" + " AM";
+        }
     }
 
     public String getEndDateString(){
@@ -187,5 +205,9 @@ public class Event {
 
     public String getEndTimeString(){
         return endTime[0] + ":" + endTime[1] + ":00";
+    }
+
+    public int getStartYear() {
+        return startDate[0];
     }
 }

@@ -31,7 +31,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private Button doneButton;
 
     private int id;
-    private String year;
+    private int startYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,7 @@ public class EventDetailActivity extends AppCompatActivity {
         String start_time = event.getStartTimeString();
         String location = event.getLocation();
         String description = event.getDescription();
+        startYear = event.getStartYear();
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         dateEditText = (EditText) findViewById(R.id.dateEditText);
@@ -315,8 +316,8 @@ public class EventDetailActivity extends AppCompatActivity {
             System.out.println("hata");
         }
         day = Integer.parseInt(parts[1]);
-        System.out.println(year);
-        dateAPIFormat = year + "-" + month + "-" + day;
+        //System.out.println(year);
+        dateAPIFormat = startYear + "-" + month + "-" + day;
         return dateAPIFormat;
     }
 
@@ -329,7 +330,7 @@ public class EventDetailActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                dateEditText.setText(""+year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
+                //dateEditText.setText(""+year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
                 dateEditText.setText(monthToString(monthOfYear+1) + " " + dayOfMonth);
             }
         }, year, month, day);
@@ -345,7 +346,26 @@ public class EventDetailActivity extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                timeEditText.setText(""+hourOfDay+":"+minute+":00");
+                //timeEditText.setText(""+hourOfDay+":"+minute+":00");
+                int startTimeZero = 0;
+                int pm = 0;
+                if(minute < 10) {
+                    startTimeZero = 1;
+                }
+                if(hourOfDay>12) {
+                    pm = 1;
+                }
+                if(pm == 1) {
+                    if(startTimeZero == 1)
+                        timeEditText.setText("" + (hourOfDay-12) + ":0" + minute + ":00" + " PM");
+                    else
+                        timeEditText.setText("" + (hourOfDay-12) + ":" + minute + ":00" + " PM");
+                }else {
+                    if(startTimeZero == 1)
+                        timeEditText.setText("" + (hourOfDay) + ":0" + minute + ":00" + " AM");
+                    else
+                        timeEditText.setText("" + (hourOfDay) + ":" + minute + ":00" + " AM");
+                }
             }
         }, hour, minute, true);
         timePickerDialog.show();
