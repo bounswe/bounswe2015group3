@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/bounswe2015group3.iml" filepath="$PROJECT_DIR$/bounswe2015group3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cmpesocial/cmpesocial.iml" filepath="$PROJECT_DIR$/cmpesocial/cmpesocial.iml" />
+    </modules>
+  </component>
+</project>

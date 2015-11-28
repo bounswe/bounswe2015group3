@@ -5,6 +5,7 @@ package cmpe451.group3.model;
  */
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -34,13 +35,13 @@ public class GroupDAO {
     }
 
 
-    public List<Map<String, Object>> getGroupOwned(int id_user) {
+    public List<Map<String, Object>> getGroupOwned(Long id_user) {
         String sql = "SELECT * FROM group WHERE  id_admin = ? ORDER BY group.date ASC";
 
         return this.jdbcTemplate.queryForList(sql, id_user);
     }
 
-    public Map<String, Object> getGroup(int id) {
+    public Map<String, Object> getGroup(Long id) {
         String sql = "SELECT * FROM group WHERE id = ? ";
 
         return this.jdbcTemplate.queryForMap(sql, id);
@@ -52,13 +53,13 @@ public class GroupDAO {
         return  this.jdbcTemplate.queryForMap(sql,name);
     }
 
-    public void createGroup(String name ,int id_admin, int type, String description, String group_url) {
+    public void createGroup(String name ,Long id_admin, Long type, String description, String group_url) {
         String sql = "INSERT INTO group(name, id_admin,type,description,group_url) VALUES(?, ?, ?, ?, ?)";
 
         this.jdbcTemplate.update(sql, name, id_admin,type, description,group_url);
     }
 
-    public void updateGroup(int id, String name ,int id_admin, int type, String description, String group_url) {
+    public void updateGroup(Long id, String name ,Long id_admin, Long type, String description, String group_url) {
         String sql = "UPDATE group SET name = ? id_admin = ?,type= ? ,description = ?, group_url= ? WHERE id = ?";
 
         this.jdbcTemplate.update(sql, name, id_admin,type ,description,group_url, id);
@@ -75,7 +76,7 @@ public class GroupDAO {
     }
 
     public void invite(Long userid, Long groupid) {
-        String sql = "INSERT INTO user_event(id_user,id_group,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = IF((status = 1), 1, 2)";
+        String sql = "INSERT INTO user_group(id_user,id_group,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = IF((status = 1), 1, 2)";
         this.jdbcTemplate.update(sql, userid, groupid, 2);
     }
 
@@ -87,7 +88,7 @@ public class GroupDAO {
         return participants;
     }
 
-    public Boolean isMemberOfGroup(int id_user,int id_group)
+    public Boolean isMemberOfGroup(Long id_user,Long id_group)
     {
         String sql = "SELECT user_group.* FROM user_group WHERE user_group.id_user = ? AND user_group.id_group = ? ";
 
@@ -99,6 +100,26 @@ public class GroupDAO {
         else
             return   Boolean.TRUE;
 
+    }
+
+    public int createPost(Long id_user,Long id_group, String text, String content_url)
+    {
+        String sql = "INSERT INTO post_group(id_group, id_user,post_text,post_url) VALUES(?,?,?,?)";
+
+       return this.jdbcTemplate.update(sql,id_user,id_group,text,content_url);
+
+    }
+    public int updatePost(Long id_user,Long id_group, String text, String content_url,Long id)
+    {
+        String sql = "UPDATE post_group SET id_group = ?, id_user=?,post_text=?,post_url=?) WHERE id= ?";
+
+        return this.jdbcTemplate.update(sql,id_user,id_group,text,content_url,id);
+
+    }
+    public List<Map<String,Object>> getGroupPosts(Long id_group)
+    {
+        String sql ="SELECT * FROM post_group WHERE post_group.id_group = ?";
+        return this.jdbcTemplate.queryForList(sql,id_group);
     }
 
 }
