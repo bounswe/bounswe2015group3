@@ -6,15 +6,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
+import com.group3.cmpesocial.API;
 import com.group3.cmpesocial.R;
 
 
@@ -25,6 +28,8 @@ public class ProfileFragment extends Fragment {
     private TextView nameTextView;
     private TextView surnameTextView;
     private TextView emailTextView;
+    private Button changePasswordButton;
+    private Button changeEmailButton;
     private int id;
     private String name;
     private String surname;
@@ -50,8 +55,23 @@ public class ProfileFragment extends Fragment {
         surnameTextView = (TextView) mView.findViewById(R.id.surnameTextView);
         emailTextView = (TextView) mView.findViewById(R.id.emailTextView);
 
+        changePasswordButton = (Button) mView.findViewById(R.id.changePasswordButton);
+        changePasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changePassword(v);
+            }
+        });
+//        changeEmailButton = (Button) mView.findViewById(R.id.changeEmailButton);
+//        changeEmailButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                changeEmail(v);
+//            }
+//        });
+
         SharedPreferences prefs = this.getActivity().getSharedPreferences("prefsCMPE", Context.MODE_PRIVATE);
-        id = prefs.getInt("id", 0);
+        id = prefs.getInt("user_id", 0);
         name = prefs.getString("name", "def_name");
         surname = prefs.getString("surname", "def_surname");
         email = prefs.getString("email", "def_email");
@@ -93,6 +113,8 @@ public class ProfileFragment extends Fragment {
                             json.addProperty("surname", surname);
                             json.addProperty("password", password);
                             json.addProperty("email", email);
+                            Log.i("API", json.toString());
+                            API.updateUser(json, getActivity());
                         }
                     }
                 });
@@ -107,8 +129,45 @@ public class ProfileFragment extends Fragment {
         alertDialog.show();
     }
 
-    public void changeEmailAddress(View v){
-
-    }
+//    public void changeEmail(View v){
+//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+//        alertDialog.setTitle("Change your e-mail address");
+//        alertDialog.setMessage("Enter new e-mail address");
+//
+//        final EditText input = new EditText(getContext());
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT,
+//                LinearLayout.LayoutParams.MATCH_PARENT);
+//        input.setLayoutParams(lp);
+//        alertDialog.setView(input);
+//
+//        alertDialog.setPositiveButton("OK",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        String email = input.getText().toString();
+//                        if (email == null || email.length() == 0){
+//                            dialog.cancel();
+//                        }else{
+//                            email = email.trim();
+//                            JsonObject json = new JsonObject();
+//                            json.addProperty("id", id);
+//                            json.addProperty("name", name);
+//                            json.addProperty("surname", surname);
+//                            //json.addProperty("password", password);
+//                            json.addProperty("email", email);
+//                            API.updateUser(json, getActivity());
+//                        }
+//                    }
+//                });
+//
+//        alertDialog.setNegativeButton("Cancel",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.cancel();
+//                    }
+//                });
+//
+//        alertDialog.show();
+//    }
 
 }
