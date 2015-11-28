@@ -146,6 +146,7 @@
 										<h3 class="title">${participant.name}
 											${participant.surname}</h3>
 										<p class="job">Senior CmpE Student</p>
+										<a href="${contextPath}/user/home?id=${user.id}">See Profile</a>
 									</div>
 									<div class="social-icon">
 										<a href="#" class="email fa fa-envelope-o"></a><a href="#"
@@ -158,7 +159,6 @@
 							</c:forEach>
 						</div>
 					</section>
-
 					<!-- speakers-tabs -->
 				</div>
 				<!-- Col-md-3 -->
@@ -174,7 +174,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="widget clearfix">
 							<a href="${contextPath}/event/join?id=${event.id}"
 								class="btn btn-pri btn-full"> Join Event</a>
@@ -184,7 +183,6 @@
 							<p>
 								Organized by <b>Umut Afacan</b>
 							</p>
-
 							<a href="#" class="btn btn-black contact-button"><i
 								class="button-icon fa fa-envelope-o"></i>Contact the Organizer</a>
 							<ul class="social-icon">
@@ -199,7 +197,6 @@
 										<div class="content">twitter.com/EventOrganizer</div></a></li>
 							</ul>
 						</div>
-
 					</aside>
 				</div>
 			</div>
