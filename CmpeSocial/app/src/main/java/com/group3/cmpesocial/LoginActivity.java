@@ -1,6 +1,8 @@
 package com.group3.cmpesocial;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,7 +29,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View v) {
-        if (emailEditText.getText() == null || emailEditText.getText().length() == 0 ||
+        if (!isNetworkConnected()){
+            Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show();
+            return;
+        }
+        else if (emailEditText.getText() == null || emailEditText.getText().length() == 0 ||
                 passwordEditText.getText() == null || passwordEditText.getText().length() == 0) {
             Toast.makeText(this, "Please enter your credentials", Toast.LENGTH_LONG).show();
             return;
@@ -76,6 +82,11 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(this, "signup", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
     }
 
 }
