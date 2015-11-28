@@ -67,7 +67,7 @@ public class GroupAPIController {
             }
         }
 
-        result.put("Status","SUCCESS");
+        result.put("Result","SUCCESS");
         result.put("groups",groups);
 
 
@@ -80,7 +80,7 @@ public class GroupAPIController {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        result.put("Status","SUCCESS");
+        result.put("Result","SUCCESS");
         result.put("group",groupDAO.getGroup(idRequestModelodel.id));
 
 
@@ -104,7 +104,7 @@ public class GroupAPIController {
         Map<String, Object> result = new HashMap<String, Object>();
 
         groupDAO.updateGroup(groupModel.id, groupModel.name,groupModel.id_admin, groupModel.type, groupModel.description,groupModel.group_url);
-        result.put("Status","SUCCESS");
+        result.put("Result","SUCCESS");
 
         return gson.toJson(result);
     }
@@ -142,7 +142,7 @@ public class GroupAPIController {
 
         groupDAO.joinGroup(partModel.id_user, partModel.id_group);
 
-        result.put("Status","Success");
+        result.put("Result","Success");
         return gson.toJson(result);
     }
 
@@ -154,7 +154,7 @@ public class GroupAPIController {
 
         groupDAO.invite(partModel.id_user, partModel.id_group);
 
-        result.put("Status","Success");
+        result.put("Result","Success");
         return gson.toJson(result);
     }
 
@@ -167,9 +167,9 @@ public class GroupAPIController {
         int control =groupDAO.createPost(postModel.id_user, postModel.id_group, postModel.post_text,postModel.post_url);
 
         if (control != 0)
-            result.put("Status","Success");
+            result.put("Result","Success");
         else
-            result.put("Status","Failure");
+            result.put("Result","Failure");
 
         return gson.toJson(result);
     }
@@ -183,9 +183,9 @@ public class GroupAPIController {
         int control =groupDAO.updatePost(postModel.id_user, postModel.id_group, postModel.post_text,postModel.post_url,postModel.id);
 
         if (control != 0)
-            result.put("Status","Success");
+            result.put("Result","Success");
         else
-            result.put("Status","Failure");
+            result.put("Result","Failure");
 
         return gson.toJson(result);
     }
@@ -198,7 +198,7 @@ public class GroupAPIController {
         Map<String,Object> result = new HashMap<>();
 
 
-        result.put("Status","Success");
+        result.put("Result","Success");
         result.put("posts",groupDAO.getGroupPosts(idModel.id));
 
 

@@ -147,7 +147,7 @@ public class EventAPIController {
 
     @RequestMapping( value = "/events/join" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
-    public String eventAttendants(@RequestBody EventParticipateModel partModel) {
+    public String eventJoin(@RequestBody EventParticipateModel partModel) {
         Gson gson = new Gson();
         Map<String,Object> result = new HashMap<>();
 
