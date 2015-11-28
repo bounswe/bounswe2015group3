@@ -361,7 +361,7 @@ public class API {
         return mEvents;
     }
 
-    public Event getEvent(JsonObject json, Context context){
+    public static Event getEvent(JsonObject json, Context context){ //static
         Event mEvent = new Event();
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/viewDetail")
