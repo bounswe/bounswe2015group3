@@ -44,7 +44,11 @@ public class EventDetailActivity extends AppCompatActivity {
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
         Event event = API.getEvent(json, getApplicationContext());
-        String x = event.getName();
+        String name = event.getName();
+        String start_date = event.getStartDateString();
+        String start_time = event.getStartTimeString();
+        String location = event.getLocation();
+        String description = event.getDescription();
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         dateEditText = (EditText) findViewById(R.id.dateEditText);
@@ -53,12 +57,12 @@ public class EventDetailActivity extends AppCompatActivity {
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         editButton = (Button) findViewById(R.id.editButton);
         doneButton = (Button) findViewById(R.id.doneButton);
-        nameEditText.setText(x);
-        /*nameEditText.setText(name);
-        dateEditText.setText(date);
-        timeEditText.setText(time);
+        //nameEditText.setText(x);
+        nameEditText.setText(name);
+        dateEditText.setText(start_date);
+        timeEditText.setText(start_time);
         locationEditText.setText(location);
-        descriptionEditText.setText(description);*/
+        descriptionEditText.setText(description);
     }
 
     public void deleteEvent(View v){

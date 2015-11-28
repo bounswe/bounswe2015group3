@@ -173,7 +173,8 @@ public class Event {
     }
 
     public String getStartDateString(){
-        return startDate[2] + "-" + startDate[1] + "-" + startDate[0];
+        //return startDate[2] + "-" + startDate[1] + "-" + startDate[0];
+        return getMonthName(startDate[1]) + " " + startDate[0];
     }
 
     public String getStartTimeString(){
