@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cmpe451.group3.auth.CmpeSocialAuthentication;
 import cmpe451.group3.model.CmpeSocialUserModel;
+import cmpe451.group3.model.SearchModel;
 import cmpe451.group3.utils.SecurityUtils;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class CmpeSocialController {
 
     @Autowired
     private CmpeSocialUserModel cmpeSocialUserModel = null;
+    
+    @Autowired
+    private SearchModel searchModel = null;
 
     @RequestMapping(value = "/index")
     public String index(ModelMap model) {
@@ -101,5 +105,17 @@ public class CmpeSocialController {
         }
         else
         	return "login";
+    }
+    
+    @RequestMapping(value = "/search")
+    public String search(@RequestParam(required = false) String query, ModelMap model) {
+    	if(query != null){
+    		List<Map<String, Object>> users = searchModel.getUsers(query.trim());
+    		List<Map<String, Object>> events = searchModel.getEvents(query.trim());
+    		model.put("query", query);
+    		model.put("users", users);
+    		model.put("events", events);
+    	}
+        return "searchResult";
     }
 }

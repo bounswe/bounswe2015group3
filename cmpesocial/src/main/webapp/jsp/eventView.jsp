@@ -50,14 +50,14 @@
 				<div class="container ">
 					<!-- logo  -->
 					<div id="logo">
-						<a href="index.htm"><img src="${contextPath}/assets/img/logo.png" alt=""></a>
+						<a href=""${contextPath}/""><img src="${contextPath}/assets/img/logo.png" alt=""></a>
 					</div>
 
 					<div id="sb-search" class="sb-search">
-						<form>
+						<form method="post" action="${contextPath}/search" class="form">
 							<input class="sb-search-input"
-								placeholder="People, Events and more" type="text" name="search"
-								id="search"> <input class="sb-search-submit"
+								placeholder="People, Events and more" type="text" name="query"
+								id="query"> <input class="sb-search-submit"
 								type="submit" value=""> <span class="sb-icon-search"></span>
 						</form>
 					</div>

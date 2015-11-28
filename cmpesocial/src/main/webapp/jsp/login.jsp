@@ -58,14 +58,6 @@
 						<a href=""${contextPath}/"><img src="${contextPath}/assets/img/logo.png" alt=""></a>
 					</div>
 
-					<div id="sb-search" class="sb-search">
-						<form>
-							<input class="sb-search-input"
-								placeholder="People, Events and more" type="text" name="search"
-								id="search"> <input class="sb-search-submit"
-								type="submit" value=""> <span class="sb-icon-search"></span>
-						</form>
-					</div>
 					<!-- moblie-menu-icon -->
 
 					<div class="mobile-menu-icon">
