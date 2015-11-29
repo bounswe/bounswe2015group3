@@ -5,11 +5,16 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -22,48 +27,135 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private static final String TAG = EventDetailActivity.class.getSimpleName();
 
+    private Event mEvent;
+
     private EditText nameEditText;
-    private EditText dateEditText;
-    private EditText timeEditText;
+    private EditText startDateEditText;
+    private EditText startTimeEditText;
+    private EditText endDateEditText;
+    private EditText endTimeEditText;
     private EditText locationEditText;
     private EditText descriptionEditText;
+    private Spinner spinner;
     private Button editButton;
+    private ImageButton deleteButton;
     private Button doneButton;
 
+    private String new_start_date;
+    private String new_start_time;
+    private String new_end_date;
+    private String new_end_time;
+    private int new_period;
+
     private int id;
-    private int startYear;
+    int user_id;
+
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
 
+        toolbar  = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        user_id = getSharedPreferences("prefsCMPE", MODE_PRIVATE).getInt("user_id", 0);
+
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         id = (int) extras.get("id");
+
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
-        Event event = API.getEvent(json, getApplicationContext());
-        String name = event.getName();
-        String start_date = event.getStartDateString();
-        String start_time = event.getStartTimeString();
-        String location = event.getLocation();
-        String description = event.getDescription();
-        startYear = event.getStartYear();
+        mEvent = API.getEvent(json, getApplicationContext());
+        //ArrayList<User> participants = API.getEventParticipants(json, getApplicationContext());
+
+        String name = mEvent.getName();
+        int id_user = mEvent.getId_user();
+        final int periodic = mEvent.getPeriod();
+        String start_date = mEvent.getShowStartDate();
+        String start_time = mEvent.getShowStartTime();
+        String end_date = mEvent.getShowEndDate();
+        String end_time = mEvent.getShowEndTime();
+        String location = mEvent.getLocation();
+        String description = mEvent.getDescription();
+
+        new_start_date = mEvent.getStartDateString();
+        new_start_time = mEvent.getStartTimeString();
+        new_end_date = mEvent.getEndDateString();
+        new_end_time = mEvent.getEndTimeString();
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
-        dateEditText = (EditText) findViewById(R.id.dateEditText);
-        timeEditText = (EditText) findViewById(R.id.timeEditText);
+        startDateEditText = (EditText) findViewById(R.id.startDateEditText);
+        startTimeEditText = (EditText) findViewById(R.id.startTimeEditText);
+        endDateEditText = (EditText) findViewById(R.id.endDateEditText);
+        endTimeEditText = (EditText) findViewById(R.id.endTimeEditText);
         locationEditText = (EditText) findViewById(R.id.locationEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
-        editButton = (Button) findViewById(R.id.editButton);
-        doneButton = (Button) findViewById(R.id.doneButton);
-        //nameEditText.setText(x);
+        spinner = (Spinner) findViewById(R.id.spinner);
+
+        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Event.periods));
+        spinner.setSelection(periodic);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                new_period = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                spinner.setSelection(periodic);
+            }
+        });
+
         nameEditText.setText(name);
-        dateEditText.setText(start_date);
-        timeEditText.setText(start_time);
+        startDateEditText.setText(start_date);
+        startTimeEditText.setText(start_time);
+        endDateEditText.setText(end_date);
+        endTimeEditText.setText(end_time);
         locationEditText.setText(location);
         descriptionEditText.setText(description);
+
+        editButton = (Button) findViewById(R.id.editButton);
+        deleteButton = (ImageButton) findViewById(R.id.deleteButton);
+        doneButton = (Button) findViewById(R.id.doneButton);
+        if(user_id == id_user){
+            editButton.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.VISIBLE);
+        }
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editEvent(v);
+            }
+        });
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteEvent(v);
+            }
+        });
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveEvent(v);
+            }
+        });
+
+        enableEditTexts(false);
+    }
+
+    public void enableEditTexts(boolean enabled){
+        nameEditText.setEnabled(enabled);
+        startDateEditText.setEnabled(enabled);
+        startTimeEditText.setEnabled(enabled);
+        endDateEditText.setEnabled(enabled);
+        endTimeEditText.setEnabled(enabled);
+        locationEditText.setEnabled(enabled);
+        descriptionEditText.setEnabled(enabled);
+        spinner.setEnabled(enabled);
     }
 
     public void deleteEvent(View v){
@@ -84,24 +176,36 @@ public class EventDetailActivity extends AppCompatActivity {
         Toast.makeText(this, "edit", Toast.LENGTH_LONG).show();
         editButton.setVisibility(View.GONE);
         doneButton.setVisibility(View.VISIBLE);
-        nameEditText.setFocusableInTouchMode(true);
-        dateEditText.setFocusableInTouchMode(true);
-        locationEditText.setFocusableInTouchMode(true);
-        descriptionEditText.setFocusableInTouchMode(true);
 
-        System.out.println(monthToString(11) + "hebele");
+        enableEditTexts(true);
 
-        dateEditText.setOnClickListener(new View.OnClickListener() {
+        startDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickDate(v);
+                pickDate(v, mEvent.getStartDate(), true);
             }
         });
 
-        timeEditText.setOnClickListener(new View.OnClickListener() {
+        startTimeEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickTime(v);
+                Log.i("API start time", mEvent.getStartTime()[0] + ":" + mEvent.getStartTime()[1]);
+                pickTime(v, mEvent.getStartTime(), true);
+            }
+        });
+
+        endDateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickDate(v, mEvent.getEndDate(), false);
+            }
+        });
+
+        endTimeEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("API end time", mEvent.getEndTime()[0] + ":" + mEvent.getEndTime()[1]);
+                pickTime(v, mEvent.getEndTime(), false);
             }
         });
     }
@@ -111,101 +215,27 @@ public class EventDetailActivity extends AppCompatActivity {
         editButton.setVisibility(View.VISIBLE);
         doneButton.setVisibility(View.GONE);
 
-        int user_id = getSharedPreferences("prefsCMPE",MODE_PRIVATE).getInt("user_id", 0);
-
-        nameEditText.setFocusableInTouchMode(false);
-        dateEditText.setFocusableInTouchMode(false);
-        timeEditText.setFocusableInTouchMode(false);
-        locationEditText.setFocusableInTouchMode(false);
-        descriptionEditText.setFocusableInTouchMode(false);
+        enableEditTexts(false);
 
         String name = nameEditText.getText().toString().trim();
         String location = locationEditText.getText().toString().trim();
         String description = descriptionEditText.getText().toString().trim();
-        String date = dateEditText.getText().toString().trim();
-        String time = timeEditText.getText().toString().trim();
-
-
-
-        String dateAPIFormat = dateToAPI(date);
-
-        System.out.println(dateAPIFormat);
-
-
-
-        /*String[] parts = date.split(" ");
-        System.out.println(parts[0]);
-        int month = 0;
-        int day = 0;
-        if(parts[0].equals("Jan")) {
-            month = 1;
-        }else if(parts[0].equals("Feb")) {
-            month = 2;
-        }else if(parts[0].equals("Mar")) {
-            month = 3;
-        }else if(parts[0].equals("Apr")) {
-            month = 4;
-        }else if(parts[0].equals("May")) {
-            month = 5;
-        }else if(parts[0].equals("Jun")) {
-            month = 6;
-        }else if(parts[0].equals("Jul")) {
-            month = 7;
-        }else if(parts[0].equals("Aug")) {
-            month = 8;
-        }else if(parts[0].equals("Sep")) {
-            month = 9;
-        }else if(parts[0].equals("Oct")) {
-            month = 10;
-        }else if(parts[0].equals("Nov")) {
-            month = 11;
-        }else if(parts[0].equals("Dec")) {
-            month = 12;
-        }else {
-            System.out.println("hata");
-        }
-        day = Integer.parseInt(parts[1]);
-        System.out.println(year);
-        dateAPIFormat = year + "-" + month + "-" + day;
-        System.out.println(dateAPIFormat);*/
-
-
-
-        String timeAPIFormat = "";
-        int hour = 0;
-        String[] partsTime = time.split(" ");
-        System.out.println(partsTime[0]);
-        System.out.println(partsTime[1]);
-        String[] partsHourMinuteSec = partsTime[0].split(":");
-        System.out.println(partsHourMinuteSec[0]);
-        hour = Integer.parseInt(partsHourMinuteSec[0]);
-        if(partsTime[1].equals("PM")) {
-            hour = hour + 12;
-        }
-        System.out.println(hour);
-        System.out.println(partsHourMinuteSec[1]);
-        System.out.println(partsHourMinuteSec[2]);
-        timeAPIFormat = Integer.toString(hour) + ":" + partsHourMinuteSec[1] + ":" + partsHourMinuteSec[2];
-        System.out.println(timeAPIFormat);
-        String end_date = "";
-        int periodic = 0;
+        String date = new_start_date + " " + new_start_time;
+        String end_date = new_end_date + " " + new_end_time;
 
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
         json.addProperty("name", name);
-        json.addProperty("date", dateAPIFormat + " " + timeAPIFormat);
-        json.addProperty("end_date", "2015-11-28 12:00:00");
-        json.addProperty("periodic", periodic);
-        json.addProperty("date_of_creation", "2015-11-28 12:00:00");
-        json.addProperty("id_user", 1);
+        json.addProperty("date", date);
+        json.addProperty("end_date", end_date);
+        json.addProperty("periodic", new_period);
+        json.addProperty("id_user", user_id);
         json.addProperty("location", location);
         json.addProperty("description", description);
 
-
-
         Log.i(TAG, json.toString());
 
-        int result = API.updateEvent(json, getApplicationContext());
+        int result = API.updateEvent(json, this);
         if (result == API.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }else if (result == API.SUCCESS){
@@ -215,159 +245,47 @@ public class EventDetailActivity extends AppCompatActivity {
         }
     }
 
-    public String monthToString (int monthI) {
-        String month = "";
-        if(monthI == 1) {
-            month = month + "Jan";
-        }else if(monthI == 2) {
-            month = month + "Feb";
-        }else if(monthI == 3) {
-            month = month + "Mar";
-        }else if(monthI == 4) {
-            month = month + "Apr";
-        }else if(monthI == 5) {
-            month = month + "May";
-        }else if(monthI == 6) {
-            month = month + "Jun";
-        }else if(monthI == 7) {
-            month = month + "Jul";
-        }else if(monthI == 8) {
-            month = month + "Aug";
-        }else if(monthI == 9) {
-            month = month + "Sep";
-        }else if(monthI == 10) {
-            month = month + "Oct";
-        }else if(monthI == 11) {
-            month = month + "Nov";
-        }else if(monthI == 12) {
-            month = month + "Dec";
-        }else {
-            System.out.println("hata");
-        }
-        return month;
-    }
-
-    public int monthToInt(String monthS) {
-        int month = 0;
-        if(monthS.equals("Jan")) {
-            month = 1;
-        }else if(monthS.equals("Feb")) {
-            month = 2;
-        }else if(monthS.equals("Mar")) {
-            month = 3;
-        }else if(monthS.equals("Apr")) {
-            month = 4;
-        }else if(monthS.equals("May")) {
-            month = 5;
-        }else if(monthS.equals("Jun")) {
-            month = 6;
-        }else if(monthS.equals("Jul")) {
-            month = 7;
-        }else if(monthS.equals("Aug")) {
-            month = 8;
-        }else if(monthS.equals("Sep")) {
-            month = 9;
-        }else if(monthS.equals("Oct")) {
-            month = 10;
-        }else if(monthS.equals("Nov")) {
-            month = 11;
-        }else if(monthS.equals("Dec")) {
-            month = 12;
-        }else {
-            System.out.println("hata");
-        }
-        return month;
-    }
-
-    public String dateToAPI(String date) {
-        String dateAPIFormat = "";
-
-
-
-        String[] parts = date.split(" ");
-        System.out.println(parts[0]);
-        int month = 0;
-        int day = 0;
-        if(parts[0].equals("Jan")) {
-            month = 1;
-        }else if(parts[0].equals("Feb")) {
-            month = 2;
-        }else if(parts[0].equals("Mar")) {
-            month = 3;
-        }else if(parts[0].equals("Apr")) {
-            month = 4;
-        }else if(parts[0].equals("May")) {
-            month = 5;
-        }else if(parts[0].equals("Jun")) {
-            month = 6;
-        }else if(parts[0].equals("Jul")) {
-            month = 7;
-        }else if(parts[0].equals("Aug")) {
-            month = 8;
-        }else if(parts[0].equals("Sep")) {
-            month = 9;
-        }else if(parts[0].equals("Oct")) {
-            month = 10;
-        }else if(parts[0].equals("Nov")) {
-            month = 11;
-        }else if(parts[0].equals("Dec")) {
-            month = 12;
-        }else {
-            System.out.println("hata");
-        }
-        day = Integer.parseInt(parts[1]);
-        //System.out.println(year);
-        dateAPIFormat = startYear + "-" + month + "-" + day;
-        return dateAPIFormat;
-    }
-
-    public void pickDate(View v){
+    public void pickDate(View v, int[] date, final boolean start){
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        final int month = c.get(Calendar.MONTH);
+        final int day = c.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                //dateEditText.setText(""+year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
-                dateEditText.setText(monthToString(monthOfYear+1) + " " + dayOfMonth);
+                if (start){
+                    new_start_date = year + "-" + month + "-" + day;
+                    startDateEditText.setText(year + " " + Event.getMonthName(monthOfYear) + " " + dayOfMonth);
+                }else{
+                    new_end_date = year + "-" + month + "-" + day;
+                    endDateEditText.setText(year + " " + Event.getMonthName(monthOfYear) + " " + dayOfMonth);
+                }
             }
         }, year, month, day);
+        datePickerDialog.updateDate(date[2], date[1], date[0]);
         datePickerDialog.show();
     }
 
-    public void pickTime(View v){
+    public void pickTime(View v, int[] time, final boolean start){
         final Calendar c = Calendar.getInstance();
-        int hour = c.get(Calendar.HOUR_OF_DAY);
+        final int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
         int second = c.get(Calendar.SECOND);
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                //timeEditText.setText(""+hourOfDay+":"+minute+":00");
-                int startTimeZero = 0;
-                int pm = 0;
-                if(minute < 10) {
-                    startTimeZero = 1;
-                }
-                if(hourOfDay>12) {
-                    pm = 1;
-                }
-                if(pm == 1) {
-                    if(startTimeZero == 1)
-                        timeEditText.setText("" + (hourOfDay-12) + ":0" + minute + ":00" + " PM");
-                    else
-                        timeEditText.setText("" + (hourOfDay-12) + ":" + minute + ":00" + " PM");
-                }else {
-                    if(startTimeZero == 1)
-                        timeEditText.setText("" + (hourOfDay) + ":0" + minute + ":00" + " AM");
-                    else
-                        timeEditText.setText("" + (hourOfDay) + ":" + minute + ":00" + " AM");
+                if(start) {
+                    new_start_time = hourOfDay + ":" + minute + ":00";
+                    startTimeEditText.setText(hourOfDay + ":" + minute);
+                }else{
+                    new_end_time = hourOfDay + ":" + minute + ":00";
+                    endTimeEditText.setText(hourOfDay + ":" + minute);
                 }
             }
         }, hour, minute, true);
+        timePickerDialog.updateTime(time[0], time[1]);
         timePickerDialog.show();
     }
 }

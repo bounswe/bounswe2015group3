@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
 
         Log.i("TAG", "splash");
 
-        SharedPreferences prefs = getSharedPreferences("prefsCMPE",MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("prefsCMPE", MODE_PRIVATE);
         boolean user_exists = prefs.getBoolean("user_exists", false);
         if(user_exists){
             int user_id = prefs.getInt("user_id", -1);

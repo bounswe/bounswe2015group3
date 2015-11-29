@@ -42,7 +42,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
+                            Log.i(TAG, "error login " + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("type").toString());
@@ -76,7 +76,7 @@ public class API {
         try {
             Log.i(TAG, "future : " + mFuture.get().toString());
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getMessage());
+            Log.i(TAG, "exception login" + e.getMessage());
         }
         return returnArray[0];
     }
@@ -92,7 +92,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
+                            Log.i(TAG, "error signup" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             returnArray[0] = SUCCESS;
@@ -104,7 +104,7 @@ public class API {
         try {
             Log.i(TAG, "future : " + mFuture.get().toString());
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getMessage());
+            Log.i(TAG, "exception signup" + e.getMessage());
         }
         return returnArray[0];
     }
@@ -120,7 +120,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
+                            Log.i(TAG, "error updateUser" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -138,7 +138,7 @@ public class API {
         try {
             Log.i(TAG, "future : " + mFuture.get().toString());
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getMessage());
+            Log.i(TAG, "exception updateUser" + e.getMessage());
         }
         return returnArray[0];
     }
@@ -154,7 +154,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
+                            Log.i(TAG, "error getUser" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equals("SUCCESS")) {
@@ -172,7 +172,7 @@ public class API {
             Log.i(TAG, "future : " + userJson.toString());
             mUser = new User(userJson);
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getMessage());
+            Log.i(TAG, "exception getUser" + e.getMessage());
         }
         return mUser;
     }
@@ -188,7 +188,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i("event", "error " + e.getMessage());
+                            Log.i(TAG, "error createEvent" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             Log.i(TAG, result.toString());
@@ -202,7 +202,7 @@ public class API {
         try {
             Log.i(TAG, "future : " + mFuture.get().toString());
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getMessage());
+            Log.i(TAG, "exception createEvent" + e.getMessage());
         }
         return returnArray[0];
     }
@@ -218,7 +218,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
+                            Log.i(TAG, "error updateEvent " + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -236,7 +236,7 @@ public class API {
         try {
             Log.i(TAG, "future : " + mFuture.get().toString());
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getMessage());
+            Log.i(TAG, "exception updateEvent" + e.getMessage());
         }
         return returnArray[0];
     }
@@ -252,7 +252,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
+                            Log.i(TAG, "error deleteEvent" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -270,7 +270,7 @@ public class API {
         try {
             Log.i(TAG, "future : " + mFuture.get().toString());
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getMessage());
+            Log.i(TAG, "exception deleteEvent" + e.getMessage());
         }
         return returnArray[0];
     }
@@ -287,7 +287,7 @@ public class API {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
+                            Log.i(TAG, "error allEvents" + e.getMessage());
                             returnArray[0] = ERROR;
                             Toast.makeText(context, "an error occurred while updating event list", Toast.LENGTH_SHORT).show();
                         } else if (result != null) {
@@ -317,7 +317,7 @@ public class API {
         try {
             Log.i(TAG, "future : " + mFuture.get().toString());
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getClass() + " " + e.getMessage());
+            Log.i(TAG, "exception allEvents" + e.getClass() + " " + e.getMessage());
         }
         return returnArray[0];
     }
@@ -333,7 +333,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
+                            Log.i(TAG, "error viewMyEvents" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equals("SUCCESS")) {
@@ -356,7 +356,7 @@ public class API {
                 mEvents.add(event);
             }
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getMessage());
+            Log.i(TAG, "exception viewMyEvents" + e.getMessage());
         }
         return mEvents;
     }
@@ -372,7 +372,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
+                            Log.i(TAG, "error getEvent" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equals("SUCCESS")) {
@@ -390,7 +390,7 @@ public class API {
             Log.i(TAG, "future : " + eventJson.toString());
             mEvent = new Event(eventJson);
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getMessage());
+            Log.i(TAG, "exception getEvent" + e.getMessage());
         }
         return mEvent;
     }
@@ -406,7 +406,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
+                            Log.i(TAG, "error getEventParticipants" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equals("SUCCESS")) {
@@ -429,7 +429,7 @@ public class API {
                 mUsers.add(user);
             }
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getMessage());
+            Log.i(TAG, "exception getEventParticipants" + e.getMessage());
         }
         return mUsers;
     }
@@ -445,7 +445,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error " + e.getMessage());
+                            Log.i(TAG, "error joinEvent" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -463,7 +463,7 @@ public class API {
         try {
             Log.i(TAG, "future : " + mFuture.get().toString());
         }catch (Exception e){
-            Log.i(TAG, "exception " + e.getMessage());
+            Log.i(TAG, "exception joinEvent" + e.getMessage());
         }
         return returnArray[0];
     }

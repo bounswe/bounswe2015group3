@@ -11,19 +11,20 @@ public class Event {
     private String name;
     private int[] startDate;
     private int[] startTime;
-    private int periodic;
-    private int[] end_date;
+    private int period;
+    private int[] endDate;
     private int[] endTime;
     private int id_user;
     private String location;
     private String description;
 
-    private static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    public static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    public static final String[] periods = {"None", "Weekly", "Monthly", "Yearly"};
 
     public Event(){
         startDate = new int[3];
         startTime = new int[2];
-        end_date = new int[3];
+        endDate = new int[3];
         endTime = new int[2];
     }
 
@@ -58,10 +59,10 @@ public class Event {
         this.startDate[1] = getMonthIndex(start_month_name);
         this.startDate[2] = Integer.parseInt(start_year);
         this.startTime = getTime(start_time);
-        this.periodic = periodic;
-        this.end_date[0] = Integer.parseInt(end_day);
-        this.end_date[1] = getMonthIndex(end_month_name);
-        this.end_date[2] = Integer.parseInt(end_year);
+        this.period = periodic;
+        this.endDate[0] = Integer.parseInt(end_day);
+        this.endDate[1] = getMonthIndex(end_month_name);
+        this.endDate[2] = Integer.parseInt(end_year);
         this.endTime = getTime(end_time);
         this.id_user = id_user;
         this.location = location;
@@ -70,10 +71,10 @@ public class Event {
 
     public static int[] getTime(String time){
         String[] splitted = time.split(":");
-        int[] mTime = new int[3];
+        int[] mTime = new int[2];
         mTime[0] = Integer.parseInt(splitted[0]);
         mTime[1] = Integer.parseInt(splitted[1]);
-        if (time.contains("PM")){
+        if (time.contains("PM") && mTime[0] != 12){
             mTime[0] += 12;
         }
         return mTime;
@@ -104,12 +105,12 @@ public class Event {
         this.description = description;
     }
 
-    public int[] getEnd_date() {
-        return end_date;
+    public int[] getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(int[] end_date) {
-        this.end_date = end_date;
+    public void setEndDate(int[] endDate) {
+        this.endDate = endDate;
     }
 
     public int[] getEndTime() {
@@ -144,7 +145,7 @@ public class Event {
         this.location = location;
     }
 
-    public static String[] getMonthNames() {
+    public String[] getMonthNames() {
         return monthNames;
     }
 
@@ -172,42 +173,53 @@ public class Event {
         this.startTime = startTime;
     }
 
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
+
     public String getStartDateString(){
-        //return startDate[2] + "-" + startDate[1] + "-" + startDate[0];
-        return getMonthName(startDate[1]) + " " + startDate[0];
+        return startDate[2] + "-" + startDate[1] + "-" + startDate[0];
     }
 
     public String getStartTimeString(){
-        int startTimeZero = 0;
-        int pm = 0;
-        if(startTime[1] < 10) {
-            startTimeZero = 1;
-        }
-        if(startTime[0]>12) {
-            pm = 1;
-        }
-        if(pm == 1) {
-            if(startTimeZero == 1)
-                return startTime[0]-12 + ":0" + startTime[1] + ":00" + " PM";
-            else
-                return startTime[0]-12 + ":" + startTime[1] + ":00" + " PM";
-        }else {
-            if(startTimeZero == 1)
-                return startTime[0] + ":0" + startTime[1] + ":00" + " AM";
-            else
-                return startTime[0] + ":" + startTime[1] + ":00" + " AM";
-        }
+        return startTime[0] + ":" + startTime[1] + ":00";
     }
 
     public String getEndDateString(){
-        return end_date[2] + "-" + end_date[1] + "-" + end_date[0];
+        return endDate[2] + "-" + endDate[1] + "-" + endDate[0];
     }
 
     public String getEndTimeString(){
         return endTime[0] + ":" + endTime[1] + ":00";
     }
 
-    public int getStartYear() {
-        return startDate[0];
+    public String getShowStartDate(){
+        return startDate[0] + " " + getMonthName(startDate[1]) + " " + startDate[2];
     }
+
+    public String getShowStartTime(){
+        if(startTime[1] < 10){
+            return startTime[0] + ":" + startTime[1] + "0";
+        } else {
+            return startTime[0] + ":" + startTime[1];
+        }
+    }
+
+    public String getShowEndDate(){
+        return endDate[0] + " " + getMonthName(endDate[1]) + " " + endDate[2];
+    }
+
+    public String getShowEndTime(){
+        if (endTime[1] < 10){
+            return endTime[0] + ":" + endTime[1] + "0";
+        } else {
+            return endTime[0] + ":" + endTime[1];
+        }
+    }
+
+
 }
