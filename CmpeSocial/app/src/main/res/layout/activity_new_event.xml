@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.group3.cmpesocial.NewEventActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -12,6 +12,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -19,12 +20,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Done"
-                android:drawableLeft="@drawable/ic_check_white_24dp"
+                android:drawableRight="@drawable/ic_check_white_24dp"
                 android:textColor="@android:color/white"
                 android:background="@android:color/transparent"
                 android:onClick="createEvent"
-                android:layout_gravity="right"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+                android:layout_gravity="right"/>
 
         </android.support.v7.widget.Toolbar>
 
@@ -38,87 +38,222 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin">
+            android:background="@null"
+            android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:text="Name"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:padding="5dp" />
 
             <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/nameEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:padding="5dp"
-                android:textSize="20sp" />
+                android:background="@null" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Date"
+                android:text="Period"
                 android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/dateTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:onClick="pickDate"
+                android:textStyle="bold"
                 android:padding="5dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Time"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/timeTextView"
+            <Spinner
+                android:id="@+id/spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:onClick="pickTime"
-                android:padding="5dp" />
+                android:padding="5dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:text="Starts"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:padding="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:padding="5dp" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/startDateEditText"
+                        android:textSize="20sp"
+                        android:padding="5dp"
+                        android:background="@null"
+                        android:editable="false"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:padding="5dp" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/startTimeEditText"
+                        android:textSize="20sp"
+                        android:padding="5dp"
+                        android:background="@null"
+                        android:editable="false"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ends"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:padding="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:padding="5dp" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/endDateEditText"
+                        android:textSize="20sp"
+                        android:padding="5dp"
+                        android:background="@null"
+                        android:editable="false"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:padding="5dp" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/endTimeEditText"
+                        android:textSize="20sp"
+                        android:padding="5dp"
+                        android:background="@null"
+                        android:editable="false"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Location"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:padding="5dp" />
 
             <EditText
-                android:id="@+id/locationTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/locationEditText"
+                android:textSize="20sp"
                 android:padding="5dp"
-                android:textSize="20sp" />
+                android:background="@null"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:text="Description"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:padding="5dp" />
 
             <EditText
-                android:id="@+id/descriptionEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/descriptionEditText"
+                android:textSize="20sp"
                 android:padding="5dp"
-                android:textSize="20sp" />
+                android:background="@null"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Participants"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:padding="5dp" />
+
+            <ListView
+                android:id="@+id/participantsListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"/>
+
 
         </LinearLayout>
 
     </ScrollView>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

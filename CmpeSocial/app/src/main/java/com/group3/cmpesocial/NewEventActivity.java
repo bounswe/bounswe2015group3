@@ -4,16 +4,21 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.group3.cmpesocial.classes.Event;
 
 import java.util.Calendar;
 
@@ -22,52 +27,126 @@ public class NewEventActivity extends AppCompatActivity {
     private static final String TAG = NewEventActivity.class.getSimpleName();
 
     private EditText nameEditText;
-    private TextView dateEditText;
-    private TextView timeEditText;
+    private TextView startDateEditText;
+    private TextView startTimeEditText;
+    private TextView endDateEditText;
+    private TextView endTimeEditText;
     private EditText locationEditText;
     private EditText descriptionEditText;
+    private Spinner spinner;
     private Button doneButton;
+
+    private Toolbar toolbar;
+
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
+
+    private String new_start_date;
+    private String new_end_date;
+    private String new_start_time;
+    private String new_end_time;
+    private int periodic;
+
+    private int user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event);
 
+        user_id = getSharedPreferences("prefsCMPE", MODE_PRIVATE).getInt("user_id", 0);
+
         nameEditText = (EditText) findViewById(R.id.nameEditText);
-        dateEditText = (TextView) findViewById(R.id.dateTextView);
-        timeEditText = (TextView) findViewById(R.id.timeTextView);
-        locationEditText = (EditText) findViewById(R.id.locationTextView);
+        startDateEditText = (EditText) findViewById(R.id.startDateEditText);
+        startTimeEditText = (EditText) findViewById(R.id.startTimeEditText);
+        endDateEditText = (EditText) findViewById(R.id.endDateEditText);
+        endTimeEditText = (EditText) findViewById(R.id.endTimeEditText);
+        locationEditText = (EditText) findViewById(R.id.locationEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
+        spinner = (Spinner) findViewById(R.id.spinner);
+        doneButton = (Button) findViewById(R.id.doneButton);
+
+        toolbar  = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        startDateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickDate(v, true);
+            }
+        });
+
+        startTimeEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickTime(v, true);
+            }
+        });
+
+        endDateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickDate(v, false);
+            }
+        });
+
+        endTimeEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickTime(v, false);
+            }
+        });
+
+        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Event.periods));
+        spinner.setSelection(periodic);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                periodic = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                spinner.setSelection(periodic);
+            }
+        });
+
+        new_start_date = "";
+        new_end_date = "";
+        new_start_time = "";
+        new_end_time = "";
     }
 
     public void createEvent(View v) {
         if (nameEditText.getText() == null || nameEditText.getText().length() == 0 ||
-                dateEditText.getText() == null || dateEditText.getText().length() == 0 ||
-                timeEditText.getText() == null || timeEditText.getText().length() == 0 ||
+                startDateEditText.getText() == null || startDateEditText.getText().length() == 0 ||
+                startTimeEditText.getText() == null || startTimeEditText.getText().length() == 0 ||
+                endDateEditText.getText() == null || endDateEditText.getText().length() == 0 ||
+                endTimeEditText.getText() == null || endTimeEditText.getText().length() == 0 ||
                 locationEditText.getText() == null || locationEditText.getText().length() == 0 ||
                 descriptionEditText.getText() == null || descriptionEditText.getText().length() == 0 ){
             Toast.makeText(this, "Please fill every field", Toast.LENGTH_LONG).show();
             return;
         }
+
         String name = nameEditText.getText().toString().trim();
-        String date = dateEditText.getText().toString().trim();
-        String time = timeEditText.getText().toString().trim();
         String location = locationEditText.getText().toString().trim();
         String description = descriptionEditText.getText().toString().trim();
-
-        int user_id = getSharedPreferences("prefsCMPE",MODE_PRIVATE).getInt("user_id", 0);
-        Log.i("user_id ", "" + user_id);
+        String date = new_start_date + " " + new_start_time;
+        String end_date = new_end_date + " " + new_end_time;
 
         JsonObject json = new JsonObject();
         json.addProperty("name", name);
-        json.addProperty("date", date + " " + time);
+        json.addProperty("date", date);
+        json.addProperty("end_date", end_date);
+        json.addProperty("periodic", periodic);
         json.addProperty("id_user", user_id);
         json.addProperty("location", location);
         json.addProperty("description", description);
 
-        int result = API.createEvent(json, getApplicationContext());
+        Log.i(TAG, json.toString());
+
+        int result = API.updateEvent(json, this);
         if (result == API.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }else if (result == API.SUCCESS){
@@ -76,33 +155,46 @@ public class NewEventActivity extends AppCompatActivity {
         }else if (result == API.RESULT_EMPTY){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
+
     }
 
-    public void pickDate(View v){
+    public void pickDate(View v, final boolean start){
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        final int month = c.get(Calendar.MONTH);
+        final int day = c.get(Calendar.DAY_OF_MONTH);
 
-        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                dateEditText.setText(""+year+"-"+(monthOfYear+1)+"-"+dayOfMonth);
-
+                if (start){
+                    new_start_date = year + "-" + month + "-" + day;
+                    startDateEditText.setText(year + " " + Event.getMonthName(monthOfYear) + " " + dayOfMonth);
+                }else{
+                    new_end_date = year + "-" + month + "-" + day;
+                    endDateEditText.setText(year + " " + Event.getMonthName(monthOfYear) + " " + dayOfMonth);
+                }
             }
         }, year, month, day);
         datePickerDialog.show();
     }
 
-    public void pickTime(View v){
+    public void pickTime(View v, final boolean start){
         final Calendar c = Calendar.getInstance();
-        int hour = c.get(Calendar.HOUR_OF_DAY);
+        final int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
         int second = c.get(Calendar.SECOND);
-        timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                timeEditText.setText(""+hourOfDay+":"+minute+":00");
+                if(start) {
+                    new_start_time = hourOfDay + ":" + minute + ":00";
+                    startTimeEditText.setText(hourOfDay + ":" + minute);
+                }else{
+                    new_end_time = hourOfDay + ":" + minute + ":00";
+                    endTimeEditText.setText(hourOfDay + ":" + minute);
+                }
             }
         }, hour, minute, true);
         timePickerDialog.show();

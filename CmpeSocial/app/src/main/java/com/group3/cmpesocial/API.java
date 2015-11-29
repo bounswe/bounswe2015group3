@@ -400,10 +400,10 @@ public class API {
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/getParticipants")
                 .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, JsonArray result) {
                         // do stuff with the result or error
                         if (e != null) {
                             Log.i(TAG, "error getEventParticipants" + e.getMessage());
@@ -420,9 +420,8 @@ public class API {
                     }
                 });
         try {
-            JsonObject result = (JsonObject) mFuture.get();
-            Log.i(TAG, "future : " + result.toString());
-            JsonArray usersJson = result.getAsJsonArray("events");
+            JsonArray usersJson = (JsonArray) mFuture.get();
+            Log.i(TAG, "future : " + usersJson.toString());
             Iterator<JsonElement> iterator = usersJson.iterator();
             while (iterator.hasNext()) {
                 User user = new User(iterator.next().getAsJsonObject());

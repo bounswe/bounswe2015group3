@@ -32,15 +32,14 @@
                 android:textColor="@android:color/white"
                 android:visibility="gone"/>
 
-            <Button
+            <ImageButton
                 android:id="@+id/editButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:background="@android:color/transparent"
-                android:drawableRight="@drawable/ic_mode_edit_white_24dp"
-                android:text="Edit"
-                android:textColor="@android:color/white"
+                android:src="@drawable/ic_mode_edit_white_24dp"
+                android:layout_marginRight="8dp"
                 android:visibility="gone"/>
 
             <ImageButton
@@ -49,8 +48,28 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:background="@android:color/transparent"
-                android:paddingRight="16dp"
                 android:src="@drawable/ic_delete_white_24dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:visibility="gone"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/joinButton"
+                android:text="Join"
+                android:textColor="@android:color/white"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/leaveButton"
+                android:text="Leave"
+                android:textColor="@android:color/white"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
                 android:visibility="gone"/>
 
         </android.support.v7.widget.Toolbar>
@@ -273,11 +292,10 @@
                 android:textStyle="bold"
                 android:padding="5dp" />
 
-            <ListView
-                android:id="@+id/participantsListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp" />
 
         </LinearLayout>
 
