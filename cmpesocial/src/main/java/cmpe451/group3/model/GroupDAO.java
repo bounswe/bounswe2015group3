@@ -29,14 +29,14 @@ public class GroupDAO {
     }
 
     public List<Map<String, Object>> getAllGroups() {
-        String sql = "SELECT * FROM group ORDER  BY group.date ASC";
+        String sql = "SELECT * FROM group";
 
         return this.jdbcTemplate.queryForList(sql);
     }
 
 
     public List<Map<String, Object>> getGroupOwned(Long id_user) {
-        String sql = "SELECT * FROM group WHERE  id_admin = ? ORDER BY group.date ASC";
+        String sql = "SELECT * FROM group WHERE  id_admin = ? ";
 
         return this.jdbcTemplate.queryForList(sql, id_user);
     }

@@ -41,6 +41,12 @@ public class CmpeSocialUserModel {
         return  this.jdbcTemplate.queryForMap(sql,email);
 
     }
+    public  Long getIDUserByEmail(String email) {
+        String sql = "SELECT user.id FROM user WHERE email = ?";
+
+        Map<String, Object> user =   this.jdbcTemplate.queryForMap(sql,email);
+        return Long.parseLong( user.get("id").toString());
+    }
 
     public Map<String, Object> getUserWithEmail(String email)
     {

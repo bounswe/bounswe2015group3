@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="16418a01-6de4-4870-9b01-314aaf3d0933" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/GroupController.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/GroupController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/CmpeSocialUserModel.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/CmpeSocialUserModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java" />
     </list>
     <ignored path="bounswe2015group3.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,7 +39,7 @@
         <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="200" column="26" selection-start-line="200" selection-start-column="26" selection-end-line="200" selection-end-column="26" />
+              <caret line="56" column="56" selection-start-line="56" selection-start-column="56" selection-end-line="56" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -47,12 +47,56 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventAPIController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EventAPIController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6738149">
-              <caret line="149" column="27" selection-start-line="149" selection-start-column="27" selection-end-line="149" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="131" column="10" selection-start-line="131" selection-start-column="10" selection-end-line="158" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GroupController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/GroupController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.5756208">
+              <caret line="130" column="3" selection-start-line="130" selection-start-column="3" selection-end-line="130" selection-end-column="3" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GroupJoinModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupJoinModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CmpeSocialUserModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/CmpeSocialUserModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="47" column="57" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="57" />
+              <folding>
+                <marker date="1448879054193" expanded="true" signature="738:756" placeholder="SELECT * FRO..user..." />
+                <marker date="1448879054193" expanded="true" signature="891:922" placeholder="SELECT * FRO..user..." />
+                <marker date="1448879054193" expanded="true" signature="1074:1108" placeholder="SELECT * FRO..user..." />
+                <marker date="1448879054193" expanded="true" signature="1249:1289" placeholder="SELECT * FRO..user..." />
+                <marker date="1448879054193" expanded="true" signature="1528:1562" placeholder="SELECT * FRO..user..." />
+                <marker date="1448879054193" expanded="true" signature="1698:1739" placeholder="SELECT passw..user..." />
+                <marker date="1448879054193" expanded="true" signature="2043:2078" placeholder="SELECT id FR..user..." />
+                <marker date="1448879054193" expanded="true" signature="2332:2373" placeholder="SELECT passw..user..." />
+                <marker date="1448879054193" expanded="true" signature="2652:2719" placeholder="INSERT INTO user..." />
+                <marker date="1448879054193" expanded="true" signature="2921:2996" placeholder="UPDATE user ..." />
+                <marker date="1448879054193" expanded="true" signature="3142:3171" placeholder="DELETE FROM ..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -63,8 +107,52 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="168" column="12" selection-start-line="168" selection-start-column="12" selection-end-line="168" selection-end-column="12" />
               <folding>
-                <element signature="e#6252#6253#0" expanded="true" />
-                <element signature="e#6320#6321#0" expanded="true" />
+                <element signature="e#0#54151#0" expanded="false" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#10189#10190#0" expanded="false" />
+                <element signature="e#10216#10217#0" expanded="false" />
+                <element signature="e#10398#10399#0" expanded="false" />
+                <element signature="e#10430#10431#0" expanded="false" />
+                <element signature="e#10907#10908#0" expanded="false" />
+                <element signature="e#10945#10946#0" expanded="false" />
+                <element signature="e#13541#13542#0" expanded="false" />
+                <element signature="e#13596#13597#0" expanded="false" />
+                <element signature="e#15414#15415#0" expanded="false" />
+                <element signature="e#15459#15460#0" expanded="false" />
+                <element signature="e#24549#24550#0" expanded="false" />
+                <element signature="e#24603#24604#0" expanded="false" />
+                <element signature="e#30347#30348#0" expanded="false" />
+                <element signature="e#30384#30385#0" expanded="false" />
+                <element signature="e#30684#30685#0" expanded="false" />
+                <element signature="e#30716#30717#0" expanded="false" />
+                <element signature="e#31041#31042#0" expanded="false" />
+                <element signature="e#31086#31087#0" expanded="false" />
+                <element signature="e#33262#33263#0" expanded="false" />
+                <element signature="e#33304#33305#0" expanded="false" />
+                <element signature="e#33338#33339#0" expanded="false" />
+                <element signature="e#33375#33376#0" expanded="false" />
+                <element signature="e#33413#33414#0" expanded="false" />
+                <element signature="e#33454#33455#0" expanded="false" />
+                <element signature="e#38943#38944#0" expanded="false" />
+                <element signature="e#38994#38995#0" expanded="false" />
+                <element signature="e#39436#39437#0" expanded="false" />
+                <element signature="e#39481#39482#0" expanded="false" />
+                <element signature="e#39886#39887#0" expanded="false" />
+                <element signature="e#39960#39961#0" expanded="false" />
+                <element signature="e#40600#40601#0" expanded="false" />
+                <element signature="e#40658#40659#0" expanded="false" />
+                <element signature="e#42227#42228#0" expanded="false" />
+                <element signature="e#42280#42281#0" expanded="false" />
+                <element signature="e#42326#42327#0" expanded="false" />
+                <element signature="e#42383#42384#0" expanded="false" />
+                <element signature="e#44775#44776#0" expanded="false" />
+                <element signature="e#44842#44843#0" expanded="false" />
+                <element signature="e#46390#46391#0" expanded="false" />
+                <element signature="e#46455#46456#0" expanded="false" />
+                <element signature="e#51499#51500#0" expanded="false" />
+                <element signature="e#51557#51558#0" expanded="false" />
+                <element signature="e#51597#51598#0" expanded="false" />
+                <element signature="e#51690#51691#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -90,50 +178,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Map.java" pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/util/Map.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="239" column="6" selection-start-line="239" selection-start-column="6" selection-end-line="239" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="GroupDAO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="120" column="77" selection-start-line="120" selection-start-column="77" selection-end-line="120" selection-end-column="77" />
+              <caret line="38" column="62" selection-start-line="38" selection-start-column="62" selection-end-line="38" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1448727989863" expanded="true" signature="823:867" placeholder="SELECT * FRO..group..." />
-                <marker date="1448727989863" expanded="true" signature="1020:1083" placeholder="SELECT * FRO..group..." />
-                <marker date="1448727989863" expanded="true" signature="1228:1260" placeholder="SELECT * FRO..group..." />
-                <marker date="1448727989863" expanded="true" signature="1414:1448" placeholder="SELECT * FRO..group..." />
-                <marker date="1448727989863" expanded="true" signature="1644:1726" placeholder="INSERT INTO group..." />
-                <marker date="1448727989863" expanded="true" signature="1958:2048" placeholder="UPDATE group..." />
-                <marker date="1448727989863" expanded="true" signature="2207:2237" placeholder="DELETE FROM ..." />
-                <marker date="1448727989863" expanded="true" signature="2367:2463" placeholder="INSERT INTO user_group..." />
-                <marker date="1448727989863" expanded="true" signature="2605:2722" placeholder="INSERT INTO user_..." />
-                <marker date="1448727989863" expanded="true" signature="2872:2996" placeholder="SELECT user...user..." />
-                <marker date="1448727989863" expanded="true" signature="3218:3310" placeholder="SELECT user_..user_group..." />
-                <marker date="1448727989863" expanded="true" signature="3658:3734" placeholder="INSERT INTO post_group..." />
-                <marker date="1448727989863" expanded="true" signature="3947:4017" placeholder="UPDATE INTO ..." />
-                <marker date="1448727989863" expanded="true" signature="3947:4028" placeholder="UPDATE post_..." />
-                <marker date="1448727989863" expanded="true" signature="3953:4017" placeholder="INSERT INTO post_group..." />
-                <marker date="1448727989863" expanded="true" signature="4214:4268" placeholder="SELECT * FRO..post_group..." />
+                <marker date="1448879952395" expanded="true" signature="823:842" placeholder="SELECT * FRO..group..." />
+                <marker date="1448879952395" expanded="true" signature="995:1034" placeholder="SELECT * FRO..group..." />
+                <marker date="1448879952395" expanded="true" signature="995:1035" placeholder="SELECT * FRO..group..." />
+                <marker date="1448879952395" expanded="true" signature="1180:1212" placeholder="SELECT * FRO..group..." />
+                <marker date="1448879952395" expanded="true" signature="1366:1400" placeholder="SELECT * FRO..group..." />
+                <marker date="1448879952395" expanded="true" signature="1596:1678" placeholder="INSERT INTO group..." />
+                <marker date="1448879952395" expanded="true" signature="1910:2000" placeholder="UPDATE group..." />
+                <marker date="1448879952395" expanded="true" signature="2159:2189" placeholder="DELETE FROM ..." />
+                <marker date="1448879952395" expanded="true" signature="2319:2415" placeholder="INSERT INTO user_group..." />
+                <marker date="1448879952395" expanded="true" signature="2557:2674" placeholder="INSERT INTO user_..." />
+                <marker date="1448879952395" expanded="true" signature="2824:2948" placeholder="SELECT user...user..." />
+                <marker date="1448879952395" expanded="true" signature="3170:3262" placeholder="SELECT user_..user_group..." />
+                <marker date="1448879952395" expanded="true" signature="3610:3686" placeholder="INSERT INTO post_group..." />
+                <marker date="1448879952395" expanded="true" signature="3899:3969" placeholder="UPDATE INTO ..." />
+                <marker date="1448879952395" expanded="true" signature="3899:3980" placeholder="UPDATE post_..." />
+                <marker date="1448879952395" expanded="true" signature="3905:3969" placeholder="INSERT INTO post_group..." />
+                <marker date="1448879952395" expanded="true" signature="4166:4220" placeholder="SELECT * FRO..post_group..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GroupModel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -172,9 +241,11 @@
         <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupJoinModel.java" />
         <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostModel.java" />
         <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostBaseModel.java" />
-        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java" />
         <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java" />
         <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/CmpeSocialUserModel.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/GroupController.java" />
       </list>
     </option>
   </component>
@@ -248,8 +319,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -490,7 +559,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -923,11 +994,12 @@
       <workItem from="1448641245263" duration="4848000" />
       <workItem from="1448723151469" duration="4127000" />
       <workItem from="1448738629725" duration="112000" />
+      <workItem from="1448878256635" duration="2053000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9087000" />
+    <option name="totallyTimeSpent" value="11140000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1924" height="1047" extended-state="0" />
@@ -1004,10 +1076,18 @@
     <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="200" column="26" selection-start-line="200" selection-start-column="26" selection-end-line="200" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1016,8 +1096,52 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="168" column="12" selection-start-line="168" selection-start-column="12" selection-end-line="168" selection-end-column="12" />
           <folding>
-            <element signature="e#6252#6253#0" expanded="true" />
-            <element signature="e#6320#6321#0" expanded="true" />
+            <element signature="e#0#54151#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#10189#10190#0" expanded="false" />
+            <element signature="e#10216#10217#0" expanded="false" />
+            <element signature="e#10398#10399#0" expanded="false" />
+            <element signature="e#10430#10431#0" expanded="false" />
+            <element signature="e#10907#10908#0" expanded="false" />
+            <element signature="e#10945#10946#0" expanded="false" />
+            <element signature="e#13541#13542#0" expanded="false" />
+            <element signature="e#13596#13597#0" expanded="false" />
+            <element signature="e#15414#15415#0" expanded="false" />
+            <element signature="e#15459#15460#0" expanded="false" />
+            <element signature="e#24549#24550#0" expanded="false" />
+            <element signature="e#24603#24604#0" expanded="false" />
+            <element signature="e#30347#30348#0" expanded="false" />
+            <element signature="e#30384#30385#0" expanded="false" />
+            <element signature="e#30684#30685#0" expanded="false" />
+            <element signature="e#30716#30717#0" expanded="false" />
+            <element signature="e#31041#31042#0" expanded="false" />
+            <element signature="e#31086#31087#0" expanded="false" />
+            <element signature="e#33262#33263#0" expanded="false" />
+            <element signature="e#33304#33305#0" expanded="false" />
+            <element signature="e#33338#33339#0" expanded="false" />
+            <element signature="e#33375#33376#0" expanded="false" />
+            <element signature="e#33413#33414#0" expanded="false" />
+            <element signature="e#33454#33455#0" expanded="false" />
+            <element signature="e#38943#38944#0" expanded="false" />
+            <element signature="e#38994#38995#0" expanded="false" />
+            <element signature="e#39436#39437#0" expanded="false" />
+            <element signature="e#39481#39482#0" expanded="false" />
+            <element signature="e#39886#39887#0" expanded="false" />
+            <element signature="e#39960#39961#0" expanded="false" />
+            <element signature="e#40600#40601#0" expanded="false" />
+            <element signature="e#40658#40659#0" expanded="false" />
+            <element signature="e#42227#42228#0" expanded="false" />
+            <element signature="e#42280#42281#0" expanded="false" />
+            <element signature="e#42326#42327#0" expanded="false" />
+            <element signature="e#42383#42384#0" expanded="false" />
+            <element signature="e#44775#44776#0" expanded="false" />
+            <element signature="e#44842#44843#0" expanded="false" />
+            <element signature="e#46390#46391#0" expanded="false" />
+            <element signature="e#46455#46456#0" expanded="false" />
+            <element signature="e#51499#51500#0" expanded="false" />
+            <element signature="e#51557#51558#0" expanded="false" />
+            <element signature="e#51597#51598#0" expanded="false" />
+            <element signature="e#51690#51691#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1052,22 +1176,155 @@
           <caret line="120" column="77" selection-start-line="120" selection-start-column="77" selection-end-line="120" selection-end-column="77" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1448727989863" expanded="true" signature="823:867" placeholder="SELECT * FRO..group..." />
-            <marker date="1448727989863" expanded="true" signature="1020:1083" placeholder="SELECT * FRO..group..." />
-            <marker date="1448727989863" expanded="true" signature="1228:1260" placeholder="SELECT * FRO..group..." />
-            <marker date="1448727989863" expanded="true" signature="1414:1448" placeholder="SELECT * FRO..group..." />
-            <marker date="1448727989863" expanded="true" signature="1644:1726" placeholder="INSERT INTO group..." />
-            <marker date="1448727989863" expanded="true" signature="1958:2048" placeholder="UPDATE group..." />
-            <marker date="1448727989863" expanded="true" signature="2207:2237" placeholder="DELETE FROM ..." />
-            <marker date="1448727989863" expanded="true" signature="2367:2463" placeholder="INSERT INTO user_group..." />
-            <marker date="1448727989863" expanded="true" signature="2605:2722" placeholder="INSERT INTO user_..." />
-            <marker date="1448727989863" expanded="true" signature="2872:2996" placeholder="SELECT user...user..." />
-            <marker date="1448727989863" expanded="true" signature="3218:3310" placeholder="SELECT user_..user_group..." />
-            <marker date="1448727989863" expanded="true" signature="3658:3734" placeholder="INSERT INTO post_group..." />
-            <marker date="1448727989863" expanded="true" signature="3947:4017" placeholder="UPDATE INTO ..." />
-            <marker date="1448727989863" expanded="true" signature="3947:4028" placeholder="UPDATE post_..." />
-            <marker date="1448727989863" expanded="true" signature="3953:4017" placeholder="INSERT INTO post_group..." />
-            <marker date="1448727989863" expanded="true" signature="4214:4268" placeholder="SELECT * FRO..post_group..." />
+            <marker date="1448879952395" expanded="true" signature="823:842" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="995:1034" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="995:1035" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="1180:1212" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="1366:1400" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="1596:1678" placeholder="INSERT INTO group..." />
+            <marker date="1448879952395" expanded="true" signature="1910:2000" placeholder="UPDATE group..." />
+            <marker date="1448879952395" expanded="true" signature="2159:2189" placeholder="DELETE FROM ..." />
+            <marker date="1448879952395" expanded="true" signature="2319:2415" placeholder="INSERT INTO user_group..." />
+            <marker date="1448879952395" expanded="true" signature="2557:2674" placeholder="INSERT INTO user_..." />
+            <marker date="1448879952395" expanded="true" signature="2824:2948" placeholder="SELECT user...user..." />
+            <marker date="1448879952395" expanded="true" signature="3170:3262" placeholder="SELECT user_..user_group..." />
+            <marker date="1448879952395" expanded="true" signature="3610:3686" placeholder="INSERT INTO post_group..." />
+            <marker date="1448879952395" expanded="true" signature="3899:3969" placeholder="UPDATE INTO ..." />
+            <marker date="1448879952395" expanded="true" signature="3899:3980" placeholder="UPDATE post_..." />
+            <marker date="1448879952395" expanded="true" signature="3905:3969" placeholder="INSERT INTO post_group..." />
+            <marker date="1448879952395" expanded="true" signature="4166:4220" placeholder="SELECT * FRO..post_group..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/EventIDRequestModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="168" column="12" selection-start-line="168" selection-start-column="12" selection-end-line="168" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#54151#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#10189#10190#0" expanded="false" />
+            <element signature="e#10216#10217#0" expanded="false" />
+            <element signature="e#10398#10399#0" expanded="false" />
+            <element signature="e#10430#10431#0" expanded="false" />
+            <element signature="e#10907#10908#0" expanded="false" />
+            <element signature="e#10945#10946#0" expanded="false" />
+            <element signature="e#13541#13542#0" expanded="false" />
+            <element signature="e#13596#13597#0" expanded="false" />
+            <element signature="e#15414#15415#0" expanded="false" />
+            <element signature="e#15459#15460#0" expanded="false" />
+            <element signature="e#24549#24550#0" expanded="false" />
+            <element signature="e#24603#24604#0" expanded="false" />
+            <element signature="e#30347#30348#0" expanded="false" />
+            <element signature="e#30384#30385#0" expanded="false" />
+            <element signature="e#30684#30685#0" expanded="false" />
+            <element signature="e#30716#30717#0" expanded="false" />
+            <element signature="e#31041#31042#0" expanded="false" />
+            <element signature="e#31086#31087#0" expanded="false" />
+            <element signature="e#33262#33263#0" expanded="false" />
+            <element signature="e#33304#33305#0" expanded="false" />
+            <element signature="e#33338#33339#0" expanded="false" />
+            <element signature="e#33375#33376#0" expanded="false" />
+            <element signature="e#33413#33414#0" expanded="false" />
+            <element signature="e#33454#33455#0" expanded="false" />
+            <element signature="e#38943#38944#0" expanded="false" />
+            <element signature="e#38994#38995#0" expanded="false" />
+            <element signature="e#39436#39437#0" expanded="false" />
+            <element signature="e#39481#39482#0" expanded="false" />
+            <element signature="e#39886#39887#0" expanded="false" />
+            <element signature="e#39960#39961#0" expanded="false" />
+            <element signature="e#40600#40601#0" expanded="false" />
+            <element signature="e#40658#40659#0" expanded="false" />
+            <element signature="e#42227#42228#0" expanded="false" />
+            <element signature="e#42280#42281#0" expanded="false" />
+            <element signature="e#42326#42327#0" expanded="false" />
+            <element signature="e#42383#42384#0" expanded="false" />
+            <element signature="e#44775#44776#0" expanded="false" />
+            <element signature="e#44842#44843#0" expanded="false" />
+            <element signature="e#46390#46391#0" expanded="false" />
+            <element signature="e#46455#46456#0" expanded="false" />
+            <element signature="e#51499#51500#0" expanded="false" />
+            <element signature="e#51557#51558#0" expanded="false" />
+            <element signature="e#51597#51598#0" expanded="false" />
+            <element signature="e#51690#51691#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostBaseModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="9" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/util/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="239" column="6" selection-start-line="239" selection-start-column="6" selection-end-line="239" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="120" column="77" selection-start-line="120" selection-start-column="77" selection-end-line="120" selection-end-column="77" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1448879952395" expanded="true" signature="823:842" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="995:1034" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="995:1035" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="1180:1212" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="1366:1400" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="1596:1678" placeholder="INSERT INTO group..." />
+            <marker date="1448879952395" expanded="true" signature="1910:2000" placeholder="UPDATE group..." />
+            <marker date="1448879952395" expanded="true" signature="2159:2189" placeholder="DELETE FROM ..." />
+            <marker date="1448879952395" expanded="true" signature="2319:2415" placeholder="INSERT INTO user_group..." />
+            <marker date="1448879952395" expanded="true" signature="2557:2674" placeholder="INSERT INTO user_..." />
+            <marker date="1448879952395" expanded="true" signature="2824:2948" placeholder="SELECT user...user..." />
+            <marker date="1448879952395" expanded="true" signature="3170:3262" placeholder="SELECT user_..user_group..." />
+            <marker date="1448879952395" expanded="true" signature="3610:3686" placeholder="INSERT INTO post_group..." />
+            <marker date="1448879952395" expanded="true" signature="3899:3969" placeholder="UPDATE INTO ..." />
+            <marker date="1448879952395" expanded="true" signature="3899:3980" placeholder="UPDATE post_..." />
+            <marker date="1448879952395" expanded="true" signature="3905:3969" placeholder="INSERT INTO post_group..." />
+            <marker date="1448879952395" expanded="true" signature="4166:4220" placeholder="SELECT * FRO..post_group..." />
           </folding>
         </state>
       </provider>
@@ -1141,7 +1398,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="71" column="28" selection-start-line="71" selection-start-column="28" selection-end-line="71" selection-end-column="28" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1177,22 +1436,23 @@
           <caret line="89" column="19" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1448727989863" expanded="true" signature="823:867" placeholder="SELECT * FRO..group..." />
-            <marker date="1448727989863" expanded="true" signature="1020:1083" placeholder="SELECT * FRO..group..." />
-            <marker date="1448727989863" expanded="true" signature="1228:1260" placeholder="SELECT * FRO..group..." />
-            <marker date="1448727989863" expanded="true" signature="1414:1448" placeholder="SELECT * FRO..group..." />
-            <marker date="1448727989863" expanded="true" signature="1644:1726" placeholder="INSERT INTO group..." />
-            <marker date="1448727989863" expanded="true" signature="1958:2048" placeholder="UPDATE group..." />
-            <marker date="1448727989863" expanded="true" signature="2207:2237" placeholder="DELETE FROM ..." />
-            <marker date="1448727989863" expanded="true" signature="2367:2463" placeholder="INSERT INTO user_group..." />
-            <marker date="1448727989863" expanded="true" signature="2605:2722" placeholder="INSERT INTO user_..." />
-            <marker date="1448727989863" expanded="true" signature="2872:2996" placeholder="SELECT user...user..." />
-            <marker date="1448727989863" expanded="true" signature="3218:3310" placeholder="SELECT user_..user_group..." />
-            <marker date="1448727989863" expanded="true" signature="3658:3734" placeholder="INSERT INTO post_group..." />
-            <marker date="1448727989863" expanded="true" signature="3947:4017" placeholder="UPDATE INTO ..." />
-            <marker date="1448727989863" expanded="true" signature="3947:4028" placeholder="UPDATE post_..." />
-            <marker date="1448727989863" expanded="true" signature="3953:4017" placeholder="INSERT INTO post_group..." />
-            <marker date="1448727989863" expanded="true" signature="4214:4268" placeholder="SELECT * FRO..post_group..." />
+            <marker date="1448879952395" expanded="true" signature="823:842" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="995:1034" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="995:1035" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="1180:1212" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="1366:1400" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="1596:1678" placeholder="INSERT INTO group..." />
+            <marker date="1448879952395" expanded="true" signature="1910:2000" placeholder="UPDATE group..." />
+            <marker date="1448879952395" expanded="true" signature="2159:2189" placeholder="DELETE FROM ..." />
+            <marker date="1448879952395" expanded="true" signature="2319:2415" placeholder="INSERT INTO user_group..." />
+            <marker date="1448879952395" expanded="true" signature="2557:2674" placeholder="INSERT INTO user_..." />
+            <marker date="1448879952395" expanded="true" signature="2824:2948" placeholder="SELECT user...user..." />
+            <marker date="1448879952395" expanded="true" signature="3170:3262" placeholder="SELECT user_..user_group..." />
+            <marker date="1448879952395" expanded="true" signature="3610:3686" placeholder="INSERT INTO post_group..." />
+            <marker date="1448879952395" expanded="true" signature="3899:3969" placeholder="UPDATE INTO ..." />
+            <marker date="1448879952395" expanded="true" signature="3899:3980" placeholder="UPDATE post_..." />
+            <marker date="1448879952395" expanded="true" signature="3905:3969" placeholder="INSERT INTO post_group..." />
+            <marker date="1448879952395" expanded="true" signature="4166:4220" placeholder="SELECT * FRO..post_group..." />
           </folding>
         </state>
       </provider>
@@ -1223,26 +1483,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupJoinModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmpesocial/database/user.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-26.148148">
           <caret line="147" column="11" selection-start-line="147" selection-start-column="11" selection-end-line="147" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/GroupController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1557562">
-          <caret line="71" column="28" selection-start-line="71" selection-start-column="28" selection-end-line="71" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1269,45 +1513,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="9" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostBaseModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="120" column="77" selection-start-line="120" selection-start-column="77" selection-end-line="120" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1448727989863" expanded="true" signature="823:867" placeholder="SELECT * FRO..group..." />
-            <marker date="1448727989863" expanded="true" signature="1020:1083" placeholder="SELECT * FRO..group..." />
-            <marker date="1448727989863" expanded="true" signature="1228:1260" placeholder="SELECT * FRO..group..." />
-            <marker date="1448727989863" expanded="true" signature="1414:1448" placeholder="SELECT * FRO..group..." />
-            <marker date="1448727989863" expanded="true" signature="1644:1726" placeholder="INSERT INTO group..." />
-            <marker date="1448727989863" expanded="true" signature="1958:2048" placeholder="UPDATE group..." />
-            <marker date="1448727989863" expanded="true" signature="2207:2237" placeholder="DELETE FROM ..." />
-            <marker date="1448727989863" expanded="true" signature="2367:2463" placeholder="INSERT INTO user_group..." />
-            <marker date="1448727989863" expanded="true" signature="2605:2722" placeholder="INSERT INTO user_..." />
-            <marker date="1448727989863" expanded="true" signature="2872:2996" placeholder="SELECT user...user..." />
-            <marker date="1448727989863" expanded="true" signature="3218:3310" placeholder="SELECT user_..user_group..." />
-            <marker date="1448727989863" expanded="true" signature="3658:3734" placeholder="INSERT INTO post_group..." />
-            <marker date="1448727989863" expanded="true" signature="3947:4017" placeholder="UPDATE INTO ..." />
-            <marker date="1448727989863" expanded="true" signature="3947:4028" placeholder="UPDATE post_..." />
-            <marker date="1448727989863" expanded="true" signature="3953:4017" placeholder="INSERT INTO post_group..." />
-            <marker date="1448727989863" expanded="true" signature="4214:4268" placeholder="SELECT * FRO..post_group..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1324,27 +1534,144 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="168" column="12" selection-start-line="168" selection-start-column="12" selection-end-line="168" selection-end-column="12" />
           <folding>
-            <element signature="e#6252#6253#0" expanded="true" />
-            <element signature="e#6320#6321#0" expanded="true" />
+            <element signature="e#0#54151#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#10189#10190#0" expanded="false" />
+            <element signature="e#10216#10217#0" expanded="false" />
+            <element signature="e#10398#10399#0" expanded="false" />
+            <element signature="e#10430#10431#0" expanded="false" />
+            <element signature="e#10907#10908#0" expanded="false" />
+            <element signature="e#10945#10946#0" expanded="false" />
+            <element signature="e#13541#13542#0" expanded="false" />
+            <element signature="e#13596#13597#0" expanded="false" />
+            <element signature="e#15414#15415#0" expanded="false" />
+            <element signature="e#15459#15460#0" expanded="false" />
+            <element signature="e#24549#24550#0" expanded="false" />
+            <element signature="e#24603#24604#0" expanded="false" />
+            <element signature="e#30347#30348#0" expanded="false" />
+            <element signature="e#30384#30385#0" expanded="false" />
+            <element signature="e#30684#30685#0" expanded="false" />
+            <element signature="e#30716#30717#0" expanded="false" />
+            <element signature="e#31041#31042#0" expanded="false" />
+            <element signature="e#31086#31087#0" expanded="false" />
+            <element signature="e#33262#33263#0" expanded="false" />
+            <element signature="e#33304#33305#0" expanded="false" />
+            <element signature="e#33338#33339#0" expanded="false" />
+            <element signature="e#33375#33376#0" expanded="false" />
+            <element signature="e#33413#33414#0" expanded="false" />
+            <element signature="e#33454#33455#0" expanded="false" />
+            <element signature="e#38943#38944#0" expanded="false" />
+            <element signature="e#38994#38995#0" expanded="false" />
+            <element signature="e#39436#39437#0" expanded="false" />
+            <element signature="e#39481#39482#0" expanded="false" />
+            <element signature="e#39886#39887#0" expanded="false" />
+            <element signature="e#39960#39961#0" expanded="false" />
+            <element signature="e#40600#40601#0" expanded="false" />
+            <element signature="e#40658#40659#0" expanded="false" />
+            <element signature="e#42227#42228#0" expanded="false" />
+            <element signature="e#42280#42281#0" expanded="false" />
+            <element signature="e#42326#42327#0" expanded="false" />
+            <element signature="e#42383#42384#0" expanded="false" />
+            <element signature="e#44775#44776#0" expanded="false" />
+            <element signature="e#44842#44843#0" expanded="false" />
+            <element signature="e#46390#46391#0" expanded="false" />
+            <element signature="e#46455#46456#0" expanded="false" />
+            <element signature="e#51499#51500#0" expanded="false" />
+            <element signature="e#51557#51558#0" expanded="false" />
+            <element signature="e#51597#51598#0" expanded="false" />
+            <element signature="e#51690#51691#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java">
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/CmpeSocialUserModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="200" column="26" selection-start-line="200" selection-start-column="26" selection-end-line="200" selection-end-column="26" />
+          <caret line="47" column="57" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="57" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1448879054193" expanded="true" signature="738:756" placeholder="SELECT * FRO..user..." />
+            <marker date="1448879054193" expanded="true" signature="891:922" placeholder="SELECT * FRO..user..." />
+            <marker date="1448879054193" expanded="true" signature="1074:1108" placeholder="SELECT * FRO..user..." />
+            <marker date="1448879054193" expanded="true" signature="1249:1289" placeholder="SELECT * FRO..user..." />
+            <marker date="1448879054193" expanded="true" signature="1528:1562" placeholder="SELECT * FRO..user..." />
+            <marker date="1448879054193" expanded="true" signature="1698:1739" placeholder="SELECT passw..user..." />
+            <marker date="1448879054193" expanded="true" signature="2043:2078" placeholder="SELECT id FR..user..." />
+            <marker date="1448879054193" expanded="true" signature="2332:2373" placeholder="SELECT passw..user..." />
+            <marker date="1448879054193" expanded="true" signature="2652:2719" placeholder="INSERT INTO user..." />
+            <marker date="1448879054193" expanded="true" signature="2921:2996" placeholder="UPDATE user ..." />
+            <marker date="1448879054193" expanded="true" signature="3142:3171" placeholder="DELETE FROM ..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6738149">
-          <caret line="149" column="27" selection-start-line="149" selection-start-column="27" selection-end-line="149" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="131" column="10" selection-start-line="131" selection-start-column="10" selection-end-line="158" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupJoinModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="56" selection-start-line="56" selection-start-column="56" selection-end-line="56" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="62" selection-start-line="38" selection-start-column="62" selection-end-line="38" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1448879952395" expanded="true" signature="823:842" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="995:1034" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="995:1035" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="1180:1212" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="1366:1400" placeholder="SELECT * FRO..group..." />
+            <marker date="1448879952395" expanded="true" signature="1596:1678" placeholder="INSERT INTO group..." />
+            <marker date="1448879952395" expanded="true" signature="1910:2000" placeholder="UPDATE group..." />
+            <marker date="1448879952395" expanded="true" signature="2159:2189" placeholder="DELETE FROM ..." />
+            <marker date="1448879952395" expanded="true" signature="2319:2415" placeholder="INSERT INTO user_group..." />
+            <marker date="1448879952395" expanded="true" signature="2557:2674" placeholder="INSERT INTO user_..." />
+            <marker date="1448879952395" expanded="true" signature="2824:2948" placeholder="SELECT user...user..." />
+            <marker date="1448879952395" expanded="true" signature="3170:3262" placeholder="SELECT user_..user_group..." />
+            <marker date="1448879952395" expanded="true" signature="3610:3686" placeholder="INSERT INTO post_group..." />
+            <marker date="1448879952395" expanded="true" signature="3899:3969" placeholder="UPDATE INTO ..." />
+            <marker date="1448879952395" expanded="true" signature="3899:3980" placeholder="UPDATE post_..." />
+            <marker date="1448879952395" expanded="true" signature="3905:3969" placeholder="INSERT INTO post_group..." />
+            <marker date="1448879952395" expanded="true" signature="4166:4220" placeholder="SELECT * FRO..post_group..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="9" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/GroupController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.5756208">
+          <caret line="130" column="3" selection-start-line="130" selection-start-column="3" selection-end-line="130" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
