@@ -322,7 +322,7 @@ public class API {
         return returnArray[0];
     }
 
-    public static ArrayList<Event> viewMyEvents(JsonObject json, Context context){
+    public static ArrayList<Event> getMyEvents(JsonObject json, Context context){
         ArrayList<Event> mEvents = new ArrayList<>();
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/view")

@@ -18,8 +18,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -46,7 +44,6 @@ public class EventDetailActivity extends AppCompatActivity {
     private EditText endTimeEditText;
     private EditText locationEditText;
     private EditText descriptionEditText;
-    private ListView participantsListView;
     private RecyclerView recyclerView;
     private Spinner spinner;
     private ImageButton editButton;
@@ -87,7 +84,6 @@ public class EventDetailActivity extends AppCompatActivity {
         locationEditText = (EditText) findViewById(R.id.locationEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         spinner = (Spinner) findViewById(R.id.spinner);
-        //participantsListView = (ListView) findViewById(R.id.participantsListView);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         editButton = (ImageButton) findViewById(R.id.editButton);
         deleteButton = (ImageButton) findViewById(R.id.deleteButton);
@@ -97,29 +93,6 @@ public class EventDetailActivity extends AppCompatActivity {
 
         toolbar  = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        setListViewHeightBasedOnChildren(participantsListView);
-//        participantsListView.setOnTouchListener(new ListView.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                int action = event.getAction();
-//                switch (action) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        // Disallow ScrollView to intercept touch events.
-//                        v.getParent().requestDisallowInterceptTouchEvent(true);
-//                        break;
-//
-//                    case MotionEvent.ACTION_UP:
-//                        // Allow ScrollView to intercept touch events.
-//                        v.getParent().requestDisallowInterceptTouchEvent(false);
-//                        break;
-//                }
-//
-//                // Handle ListView touch events.
-//                v.onTouchEvent(event);
-//                return true;
-//            }
-//        });
 
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
@@ -178,7 +151,6 @@ public class EventDetailActivity extends AppCompatActivity {
         });
 
         Log.i(TAG, "participants " + participants.toString());
-        //participantsListView.setAdapter(adapter);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -318,6 +290,10 @@ public class EventDetailActivity extends AppCompatActivity {
         json.addProperty("id_event", id);
         int result = API.joinEvent(json, this);
         // Do something with result
+
+        ArrayList<User> participants = API.getEventParticipants(json, getApplicationContext());
+        adapter = new UserAdapter(participants);
+        recyclerView.setAdapter(adapter);
     }
 
     public void pickDate(View v, int[] date, final boolean start){
@@ -371,14 +347,26 @@ public class EventDetailActivity extends AppCompatActivity {
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
         // you provide access to all the views for a data item in a view holder
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder{
             // each data item is just a string in this case
             public TextView nameTextView;
             public Button profileButton;
+            public int id;
             public ViewHolder(View itemView) {
                 super(itemView);
                 nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
                 profileButton = (Button) itemView.findViewById(R.id.profileButton);
+                profileButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), UserDetailActivity.class);
+                        intent.putExtra("id", id);
+                        startActivity(intent);
+                    }
+                });
+            }
+            public void setId(int id){
+                this.id = id;
             }
         }
 
@@ -399,6 +387,7 @@ public class EventDetailActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             User mUser = users.get(position);
+            holder.setId(mUser.getId());
             String name = mUser.getName();
             String surname = mUser.getSurname();
             holder.nameTextView.setText(name + " " + surname);
@@ -422,26 +411,5 @@ public class EventDetailActivity extends AppCompatActivity {
             notifyItemRemoved(position);
         }
 
-    }
-
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
     }
 }

@@ -146,7 +146,7 @@ public class NewEventActivity extends AppCompatActivity {
 
         Log.i(TAG, json.toString());
 
-        int result = API.updateEvent(json, this);
+        int result = API.createEvent(json, this);
         if (result == API.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }else if (result == API.SUCCESS){
