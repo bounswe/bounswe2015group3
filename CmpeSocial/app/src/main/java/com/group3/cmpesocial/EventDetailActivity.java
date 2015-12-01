@@ -63,6 +63,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private int id;
     private int user_id;
+    private User currentUser;
 
     private Toolbar toolbar;
 
@@ -93,6 +94,10 @@ public class EventDetailActivity extends AppCompatActivity {
 
         toolbar  = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        JsonObject userJson = new JsonObject();
+        userJson.addProperty("id", user_id);
+        currentUser = API.getUser(userJson, this);
 
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
@@ -291,9 +296,10 @@ public class EventDetailActivity extends AppCompatActivity {
         int result = API.joinEvent(json, this);
         // Do something with result
 
-        ArrayList<User> participants = API.getEventParticipants(json, getApplicationContext());
-        adapter = new UserAdapter(participants);
-        recyclerView.setAdapter(adapter);
+        Toast.makeText(this, "joined event", Toast.LENGTH_SHORT).show();
+
+        Log.i(TAG, currentUser.toString());
+        adapter.add(currentUser);
     }
 
     public void pickDate(View v, int[] date, final boolean start){

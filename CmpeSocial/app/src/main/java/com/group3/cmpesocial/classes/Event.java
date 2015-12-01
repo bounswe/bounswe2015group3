@@ -18,7 +18,7 @@ public class Event {
     private String location;
     private String description;
 
-    public static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    public static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May","Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     public static final String[] periods = {"None", "Weekly", "Monthly", "Yearly"};
 
     public Event(){
