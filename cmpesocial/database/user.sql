@@ -36,10 +36,6 @@ CREATE TABLE `event` (
 -- Dumping data for table `event`
 --
 
-INSERT INTO `event` (`id`, `name`, `date`, `end_date`, `periodic`, `date_of_creation`, `id_user`, `location`, `description`) VALUES
-  (1, 'TestEvent', '2016-07-28 12:30:00', '2016-07-28 15:30:00', 2, '2015-11-17 18:56:10', 2, 'Eta-b a2', 'ÇÇÇakal şeyü'),
-  (2, 'Umutun çiftliği', '2015-11-28 00:00:00', '2015-11-28 00:00:00', 0, '2015-11-21 16:17:27', 1, 'evim', 'kahve çay filan'),
-  (3, 'TestEvent2', '2015-12-10 12:30:00', '2015-12-10 13:30:00', 2, '2015-11-23 21:21:42', 2, 'Eta-b a2', 'ÇÇÇakal şeyü');
 
 -- --------------------------------------------------------
 
@@ -61,11 +57,6 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `surname`, `email`, `password`, `date_of_creation`, `profile_pic_link`) VALUES
-  (1, 'halil', 'taskesen', 'halil@boun.edu.tr', '1234', '2015-11-03 18:05:27', NULL),
-  (2, 'otrivine', 'afacaaacan', 'umut@boun.edu.tr', '81dc9bdb52d04dc20036dbd8313ed055', '2015-11-03 18:24:11', NULL),
-  (3, 'test', 'test', 'test@test.com', '81dc9bdb52d04dc20036dbd8313ed055', '2015-11-10 12:54:11', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -82,10 +73,7 @@ CREATE TABLE `user_event` (
 -- Dumping data for table `user_event`
 --
 
-INSERT INTO `user_event` (`id_event`, `id_user`, `status`) VALUES
-  (1, 1, 1),
-  (1, 2, 1),
-  (1, 3, 1);
+
 
 --
 -- Indexes for dumped tables
