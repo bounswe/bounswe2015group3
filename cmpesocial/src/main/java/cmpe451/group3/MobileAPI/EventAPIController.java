@@ -157,5 +157,95 @@ public class EventAPIController {
         return gson.toJson(result);
     }
 
+    @RequestMapping( value = "/events/createPost" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String eventPostCreate (@RequestBody EventPostCreateRequestModel postModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+        eventModel.createPost(postModel.id_event,postModel.id_user,postModel.content,postModel.content_url);
+
+        result.put("Success","Status");
+        return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/events/updatePost" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String eventPostUpdate(@RequestBody EventPostBaseModel postModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+        eventModel.updatePost(postModel.id,postModel.id_event,postModel.id_user,postModel.content,postModel.content_url);
+
+        result.put("Success","Status");
+        return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/events/deletePost" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String eventPostDelete(@RequestBody EventIDRequestModel idModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+        eventModel.deletePost(idModel.id);
+
+        result.put("Success","Status");
+        return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/events/getAllPosts" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String eventPostGetAll(@RequestBody EventIDRequestModel idModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+        List<Map<String,Object>> posts = new ArrayList<>();
+
+        posts = eventModel.getAllPosts(idModel.id);
+        for (Map<String ,Object> post : posts){
+            List<Map<String,Object>> comments = new ArrayList<>();
+            comments = eventModel.getAllComments(Long.parseLong(post.get("id").toString()));
+            post.put("comments",comments);
+        }
+
+        result.put("Success","Status");
+        return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/events/createComment" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String eventCommentCreate (@RequestBody EventCreateCommentModel commentModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+        eventModel.createComment(commentModel.id_post,commentModel.id_event,commentModel.id_user,commentModel.content);
+        result.put("Success","Status");
+        return gson.toJson(result);
+    }
+
+
+    @RequestMapping( value = "/events/deleteComment" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String eventCommentDelete (@RequestBody EventIDRequestModel idModel) {
+
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+        eventModel.deleteComment(idModel.id);
+
+        result.put("Success","Status");
+
+        return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/events/updateComment" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String eventCommentUpdate (@RequestBody EventCommentBaseModel commentModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+        eventModel.updateComment(commentModel.id,commentModel.id_post,commentModel.id_event,commentModel.id_user,commentModel.content);
+        result.put("Success","Status");
+        return gson.toJson(result);
+    }
 
 }

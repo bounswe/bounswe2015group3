@@ -107,5 +107,62 @@ public class EventModel {
     	
     	return events;
     }
-    
+
+    public void createPost(Long id_event, Long id_user, String content, String content_url )
+    {
+        String sql = "INSERT INTO post_event(id_event,id_user,content,content_url) VALUES(?,?,?,?)";
+        this.jdbcTemplate.update(sql,id_event,id_user,content,content_url);
+    }
+
+    public void updatePost(Long id, Long id_event, Long id_user, String content, String content_url){
+        String sql= "UPDATE post_event SET id_event = ? , id_user = ?, content= ?, content_url = ? WHERE id= ?";
+        this.jdbcTemplate.update(sql,id_event,id_user,content,content_url,id);
+    }
+
+    public void deletePost(Long id)
+    {
+        String sql = "DELETE FROM post_event WHERE id = ?";
+        this.jdbcTemplate.update(sql,id);
+    }
+    public List<Map<String,Object>> getAllPosts(Long id_event)
+    {
+        String sql = "SELECT * FROM post_event WHERE id_event = ?";
+
+       return this.jdbcTemplate.queryForList(sql,id_event);
+    }
+
+    public Map<String,Object> getPost(Long id)
+    {
+        String sql = "SELECT * FROM post_event WHERE id= ?";
+        return  this.jdbcTemplate.queryForMap(sql,id);
+    }
+    public void createComment(Long id_post,Long id_event, Long id_user, String content)
+    {
+        String sql = "INSERT INTO comment_event(id_post,id_event,id_user,content) VALUES(?,?,?,?)";
+        this.jdbcTemplate.update(sql,id_event,id_user,content);
+    }
+
+    public void updateComment(Long id,Long id_post, Long id_event, Long id_user, String content){
+        String sql= "UPDATE  post_event SET id_post=?,id_event = ? , id_user = ?, content= ? WHERE id= ?";
+        this.jdbcTemplate.update(sql,id_post,id_event,id_user,content,id);
+    }
+
+    public void deleteComment(Long id)
+    {
+        String sql = "DELETE FROM comment_event WHERE id = ?";
+        this.jdbcTemplate.update(sql,id);
+    }
+    public List<Map<String,Object>> getAllComments(Long id_post)
+    {
+        String sql = "SELECT * FROM comment_event WHERE id_post = ?";
+
+        return this.jdbcTemplate.queryForList(sql,id_post);
+    }
+
+    public Map<String,Object> getComment(Long id)
+    {
+        String sql = "SELECT * FROM comment_event WHERE id= ?";
+        return  this.jdbcTemplate.queryForMap(sql,id);
+    }
+
 }
