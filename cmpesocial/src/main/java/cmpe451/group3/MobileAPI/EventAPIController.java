@@ -153,7 +153,7 @@ public class EventAPIController {
 
         eventModel.joinEvent(partModel.id_user, partModel.id_event);
 
-        result.put("Success","Status");
+        result.put("Result","Success");
         return gson.toJson(result);
     }
 
@@ -165,7 +165,7 @@ public class EventAPIController {
 
         eventModel.createPost(postModel.id_event,postModel.id_user,postModel.content,postModel.content_url);
 
-        result.put("Success","Status");
+        result.put("Result","Success");
         return gson.toJson(result);
     }
 
@@ -177,7 +177,7 @@ public class EventAPIController {
 
         eventModel.updatePost(postModel.id,postModel.id_event,postModel.id_user,postModel.content,postModel.content_url);
 
-        result.put("Success","Status");
+        result.put("Result","Success");
         return gson.toJson(result);
     }
 
@@ -189,7 +189,7 @@ public class EventAPIController {
 
         eventModel.deletePost(idModel.id);
 
-        result.put("Success","Status");
+        result.put("Result","Success");
         return gson.toJson(result);
     }
 
@@ -208,7 +208,7 @@ public class EventAPIController {
             post.put("comments",comments);
         }
 
-        result.put("Success","Status");
+        result.put("Result","Success");
         return gson.toJson(result);
     }
 
@@ -219,7 +219,7 @@ public class EventAPIController {
         Map<String,Object> result = new HashMap<>();
 
         eventModel.createComment(commentModel.id_post,commentModel.id_event,commentModel.id_user,commentModel.content);
-        result.put("Success","Status");
+        result.put("Result","Success");
         return gson.toJson(result);
     }
 
@@ -233,7 +233,7 @@ public class EventAPIController {
 
         eventModel.deleteComment(idModel.id);
 
-        result.put("Success","Status");
+        result.put("Result","Success");
 
         return gson.toJson(result);
     }
@@ -244,7 +244,7 @@ public class EventAPIController {
         Gson gson = new Gson();
         Map<String,Object> result = new HashMap<>();
         eventModel.updateComment(commentModel.id,commentModel.id_post,commentModel.id_event,commentModel.id_user,commentModel.content);
-        result.put("Success","Status");
+        result.put("Result","Success");
         return gson.toJson(result);
     }
 

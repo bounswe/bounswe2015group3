@@ -29,44 +29,44 @@ public class GroupDAO {
     }
 
     public List<Map<String, Object>> getAllGroups() {
-        String sql = "SELECT * FROM group";
+        String sql = "SELECT * FROM `group`";
 
         return this.jdbcTemplate.queryForList(sql);
     }
 
 
     public List<Map<String, Object>> getGroupOwned(Long id_user) {
-        String sql = "SELECT * FROM group WHERE  id_admin = ? ";
+        String sql = "SELECT * FROM `group` WHERE  id_admin = ? ";
 
         return this.jdbcTemplate.queryForList(sql, id_user);
     }
 
     public Map<String, Object> getGroup(Long id) {
-        String sql = "SELECT * FROM group WHERE id = ? ";
+        String sql = "SELECT * FROM `group` WHERE id = ? ";
 
         return this.jdbcTemplate.queryForMap(sql, id);
     }
 
     public Map<String, Object> getGroupByName(String name)
     {
-        String sql = "SELECT * FROM group WHERE name = ?";
+        String sql = "SELECT * FROM `group` WHERE name = ?";
         return  this.jdbcTemplate.queryForMap(sql,name);
     }
 
     public void createGroup(String name ,Long id_admin, Long type, String description, String group_url) {
-        String sql = "INSERT INTO group(name, id_admin,type,description,group_url) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO `group`(name, id_admin,type,description,group_url) VALUES(?, ?, ?, ?, ?)";
 
         this.jdbcTemplate.update(sql, name, id_admin,type, description,group_url);
     }
 
     public void updateGroup(Long id, String name ,Long id_admin, Long type, String description, String group_url) {
-        String sql = "UPDATE group SET name = ? id_admin = ?,type= ? ,description = ?, group_url= ? WHERE id = ?";
+        String sql = "UPDATE `group` SET name = ? id_admin = ?,type= ? ,description = ?, group_url= ? WHERE id = ?";
 
         this.jdbcTemplate.update(sql, name, id_admin,type ,description,group_url, id);
     }
 
     public void deleteGroup(Long id) {
-        String sql = "DELETE FROM group WHERE id = ?";
+        String sql = "DELETE FROM `group` WHERE id = ?";
         this.jdbcTemplate.update(sql, id);
     }
 
