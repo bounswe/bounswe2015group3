@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="16418a01-6de4-4870-9b01-314aaf3d0933" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java" />
     </list>
     <ignored path="bounswe2015group3.iws" />
@@ -37,8 +36,8 @@
       <file leaf-file-name="EventAPIController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46275395">
-              <caret line="208" column="9" selection-start-line="208" selection-start-column="9" selection-end-line="208" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.53273135">
+              <caret line="210" column="16" selection-start-line="210" selection-start-column="16" selection-end-line="210" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -47,7 +46,7 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cmpesocial/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-32.653847">
+            <state vertical-scroll-proportion="0.0">
               <caret line="122" column="20" selection-start-line="122" selection-start-column="20" selection-end-line="122" selection-end-column="20" />
               <folding />
             </state>
@@ -312,6 +311,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -634,7 +634,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
@@ -1127,14 +1126,15 @@
       <workItem from="1449261646644" duration="205000" />
       <workItem from="1449315984280" duration="950000" />
       <workItem from="1449336017566" duration="121000" />
+      <workItem from="1449336245926" duration="361000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22030000" />
+    <option name="totallyTimeSpent" value="22391000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1924" height="1047" extended-state="1" />
+    <frame x="-7" y="0" width="1924" height="1047" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1211,23 +1211,6 @@
           <caret line="120" column="77" selection-start-line="120" selection-start-column="77" selection-end-line="120" selection-end-column="77" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1448879952395" expanded="true" signature="823:842" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="995:1034" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="995:1035" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="1180:1212" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="1366:1400" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="1596:1678" placeholder="INSERT INTO group..." />
-            <marker date="1448879952395" expanded="true" signature="1910:2000" placeholder="UPDATE group..." />
-            <marker date="1448879952395" expanded="true" signature="2159:2189" placeholder="DELETE FROM ..." />
-            <marker date="1448879952395" expanded="true" signature="2319:2415" placeholder="INSERT INTO user_group..." />
-            <marker date="1448879952395" expanded="true" signature="2557:2674" placeholder="INSERT INTO user_..." />
-            <marker date="1448879952395" expanded="true" signature="2824:2948" placeholder="SELECT user...user..." />
-            <marker date="1448879952395" expanded="true" signature="3170:3262" placeholder="SELECT user_..user_group..." />
-            <marker date="1448879952395" expanded="true" signature="3610:3686" placeholder="INSERT INTO post_group..." />
-            <marker date="1448879952395" expanded="true" signature="3899:3969" placeholder="UPDATE INTO ..." />
-            <marker date="1448879952395" expanded="true" signature="3899:3980" placeholder="UPDATE post_..." />
-            <marker date="1448879952395" expanded="true" signature="3905:3969" placeholder="INSERT INTO post_group..." />
-            <marker date="1448879952395" expanded="true" signature="4166:4220" placeholder="SELECT * FRO..post_group..." />
           </folding>
         </state>
       </provider>
@@ -1292,23 +1275,6 @@
           <caret line="120" column="77" selection-start-line="120" selection-start-column="77" selection-end-line="120" selection-end-column="77" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1448879952395" expanded="true" signature="823:842" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="995:1034" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="995:1035" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="1180:1212" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="1366:1400" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="1596:1678" placeholder="INSERT INTO group..." />
-            <marker date="1448879952395" expanded="true" signature="1910:2000" placeholder="UPDATE group..." />
-            <marker date="1448879952395" expanded="true" signature="2159:2189" placeholder="DELETE FROM ..." />
-            <marker date="1448879952395" expanded="true" signature="2319:2415" placeholder="INSERT INTO user_group..." />
-            <marker date="1448879952395" expanded="true" signature="2557:2674" placeholder="INSERT INTO user_..." />
-            <marker date="1448879952395" expanded="true" signature="2824:2948" placeholder="SELECT user...user..." />
-            <marker date="1448879952395" expanded="true" signature="3170:3262" placeholder="SELECT user_..user_group..." />
-            <marker date="1448879952395" expanded="true" signature="3610:3686" placeholder="INSERT INTO post_group..." />
-            <marker date="1448879952395" expanded="true" signature="3899:3969" placeholder="UPDATE INTO ..." />
-            <marker date="1448879952395" expanded="true" signature="3899:3980" placeholder="UPDATE post_..." />
-            <marker date="1448879952395" expanded="true" signature="3905:3969" placeholder="INSERT INTO post_group..." />
-            <marker date="1448879952395" expanded="true" signature="4166:4220" placeholder="SELECT * FRO..post_group..." />
           </folding>
         </state>
       </provider>
@@ -1417,23 +1383,6 @@
           <caret line="89" column="19" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1448879952395" expanded="true" signature="823:842" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="995:1034" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="995:1035" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="1180:1212" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="1366:1400" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="1596:1678" placeholder="INSERT INTO group..." />
-            <marker date="1448879952395" expanded="true" signature="1910:2000" placeholder="UPDATE group..." />
-            <marker date="1448879952395" expanded="true" signature="2159:2189" placeholder="DELETE FROM ..." />
-            <marker date="1448879952395" expanded="true" signature="2319:2415" placeholder="INSERT INTO user_group..." />
-            <marker date="1448879952395" expanded="true" signature="2557:2674" placeholder="INSERT INTO user_..." />
-            <marker date="1448879952395" expanded="true" signature="2824:2948" placeholder="SELECT user...user..." />
-            <marker date="1448879952395" expanded="true" signature="3170:3262" placeholder="SELECT user_..user_group..." />
-            <marker date="1448879952395" expanded="true" signature="3610:3686" placeholder="INSERT INTO post_group..." />
-            <marker date="1448879952395" expanded="true" signature="3899:3969" placeholder="UPDATE INTO ..." />
-            <marker date="1448879952395" expanded="true" signature="3899:3980" placeholder="UPDATE post_..." />
-            <marker date="1448879952395" expanded="true" signature="3905:3969" placeholder="INSERT INTO post_group..." />
-            <marker date="1448879952395" expanded="true" signature="4166:4220" placeholder="SELECT * FRO..post_group..." />
           </folding>
         </state>
       </provider>
@@ -1547,23 +1496,6 @@
           <caret line="38" column="62" selection-start-line="38" selection-start-column="62" selection-end-line="38" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1448879952395" expanded="true" signature="823:842" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="995:1034" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="995:1035" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="1180:1212" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="1366:1400" placeholder="SELECT * FRO..group..." />
-            <marker date="1448879952395" expanded="true" signature="1596:1678" placeholder="INSERT INTO group..." />
-            <marker date="1448879952395" expanded="true" signature="1910:2000" placeholder="UPDATE group..." />
-            <marker date="1448879952395" expanded="true" signature="2159:2189" placeholder="DELETE FROM ..." />
-            <marker date="1448879952395" expanded="true" signature="2319:2415" placeholder="INSERT INTO user_group..." />
-            <marker date="1448879952395" expanded="true" signature="2557:2674" placeholder="INSERT INTO user_..." />
-            <marker date="1448879952395" expanded="true" signature="2824:2948" placeholder="SELECT user...user..." />
-            <marker date="1448879952395" expanded="true" signature="3170:3262" placeholder="SELECT user_..user_group..." />
-            <marker date="1448879952395" expanded="true" signature="3610:3686" placeholder="INSERT INTO post_group..." />
-            <marker date="1448879952395" expanded="true" signature="3899:3969" placeholder="UPDATE INTO ..." />
-            <marker date="1448879952395" expanded="true" signature="3899:3980" placeholder="UPDATE post_..." />
-            <marker date="1448879952395" expanded="true" signature="3905:3969" placeholder="INSERT INTO post_group..." />
-            <marker date="1448879952395" expanded="true" signature="4166:4220" placeholder="SELECT * FRO..post_group..." />
           </folding>
         </state>
       </provider>
@@ -1725,7 +1657,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cmpesocial/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-32.653847">
+        <state vertical-scroll-proportion="0.0">
           <caret line="122" column="20" selection-start-line="122" selection-start-column="20" selection-end-line="122" selection-end-column="20" />
           <folding />
         </state>
@@ -1733,8 +1665,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46275395">
-          <caret line="208" column="9" selection-start-line="208" selection-start-column="9" selection-end-line="208" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.53273135">
+          <caret line="210" column="16" selection-start-line="210" selection-start-column="16" selection-end-line="210" selection-end-column="16" />
           <folding />
         </state>
       </provider>
