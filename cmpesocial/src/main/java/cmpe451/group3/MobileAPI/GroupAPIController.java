@@ -43,7 +43,7 @@ public class GroupAPIController {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
         groupDAO.createGroup(groupModel.name,groupModel.id_admin,groupModel.type,groupModel.description,groupModel.group_url);
-        result.put("Status","Success");
+        result.put("Result","Success");
         result.put("group", groupDAO.getGroupByName(groupModel.name));
 
         return gson.toJson(result);
@@ -116,7 +116,7 @@ public class GroupAPIController {
         Map<String, Object> result = new HashMap<String, Object>();
 
         groupDAO.deleteGroup(eventBaseModel.id);
-        result.put("Status","SUCCESS");
+        result.put("Result","Success");
 
         return gson.toJson(result);
     }
