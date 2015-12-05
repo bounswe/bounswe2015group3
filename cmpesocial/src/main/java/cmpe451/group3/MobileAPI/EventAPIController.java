@@ -207,8 +207,8 @@ public class EventAPIController {
             comments = eventModel.getAllComments(Long.parseLong(post.get("id").toString()));
             post.put("comments",comments);
         }
-
         result.put("Success","Status");
+        result.put("posts",posts);
         return gson.toJson(result);
     }
 
