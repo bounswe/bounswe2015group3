@@ -74,7 +74,7 @@ public class Event {
         int[] mTime = new int[2];
         mTime[0] = Integer.parseInt(splitted[0]);
         mTime[1] = Integer.parseInt(splitted[1]);
-        if (time.contains("PM") && mTime[0] != 12){
+        if (time.contains("PM") && mTime[0] != 12 && mTime[0] != 0){
             mTime[0] += 12;
         }
         return mTime;
@@ -90,7 +90,7 @@ public class Event {
     }
 
     public static String getMonthName(int index){
-        if (index > 0 && index < 12){
+        if (index >= 0 && index < 12){
             return monthNames[index];
         }else{
             return "";
@@ -182,7 +182,7 @@ public class Event {
     }
 
     public String getStartDateString(){
-        return startDate[2] + "-" + startDate[1] + "-" + startDate[0];
+        return startDate[2] + "-" + (startDate[1]+1) + "-" + startDate[0];
     }
 
     public String getStartTimeString(){
@@ -190,7 +190,7 @@ public class Event {
     }
 
     public String getEndDateString(){
-        return endDate[2] + "-" + endDate[1] + "-" + endDate[0];
+        return endDate[2] + "-" + (endDate[1]+1) + "-" + endDate[0];
     }
 
     public String getEndTimeString(){
@@ -203,7 +203,7 @@ public class Event {
 
     public String getShowStartTime(){
         if(startTime[1] < 10){
-            return startTime[0] + ":" + startTime[1] + "0";
+            return startTime[0] + ":0" + startTime[1];
         } else {
             return startTime[0] + ":" + startTime[1];
         }
@@ -215,7 +215,7 @@ public class Event {
 
     public String getShowEndTime(){
         if (endTime[1] < 10){
-            return endTime[0] + ":" + endTime[1] + "0";
+            return endTime[0] + ":0" + endTime[1];
         } else {
             return endTime[0] + ":" + endTime[1];
         }

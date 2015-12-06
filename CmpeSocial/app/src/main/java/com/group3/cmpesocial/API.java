@@ -30,6 +30,7 @@ public class API {
     public static final int RESULT_EMPTY = -3;
     private static final String TAG = API.class.getSimpleName();
     private static final String baseURI = "http://54.148.86.208:8080/cmpesocial-temp/api/";
+    //private static final String baseURI = "http://54.148.86.208:8080/cmpesocial/api/";
 
     public static int login(JsonObject json, final Context context) {
         final int[] returnArray = new int[1];

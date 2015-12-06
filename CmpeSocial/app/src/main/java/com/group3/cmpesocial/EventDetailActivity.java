@@ -312,11 +312,11 @@ public class EventDetailActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 if (start){
-                    new_start_date = year + "-" + month + "-" + day;
-                    startDateEditText.setText(year + " " + Event.getMonthName(monthOfYear) + " " + dayOfMonth);
+                    new_start_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                    startDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
                 }else{
-                    new_end_date = year + "-" + month + "-" + day;
-                    endDateEditText.setText(year + " " + Event.getMonthName(monthOfYear) + " " + dayOfMonth);
+                    new_end_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                    endDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
                 }
             }
         }, year, month, day);
@@ -335,10 +335,16 @@ public class EventDetailActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 if(start) {
                     new_start_time = hourOfDay + ":" + minute + ":00";
-                    startTimeEditText.setText(hourOfDay + ":" + minute);
+                    if(minute < 10)
+                        startTimeEditText.setText(hourOfDay + ":0" + minute);
+                    else
+                        startTimeEditText.setText(hourOfDay + ":" + minute);
                 }else{
                     new_end_time = hourOfDay + ":" + minute + ":00";
-                    endTimeEditText.setText(hourOfDay + ":" + minute);
+                    if(minute < 10)
+                        endTimeEditText.setText(hourOfDay + ":0" + minute);
+                    else
+                        endTimeEditText.setText(hourOfDay + ":" + minute);
                 }
             }
         }, hour, minute, true);
