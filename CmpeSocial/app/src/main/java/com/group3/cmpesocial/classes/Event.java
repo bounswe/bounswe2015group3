@@ -74,8 +74,11 @@ public class Event {
         int[] mTime = new int[2];
         mTime[0] = Integer.parseInt(splitted[0]);
         mTime[1] = Integer.parseInt(splitted[1]);
-        if (time.contains("PM") && mTime[0] != 12 && mTime[0] != 0){
+        if (time.contains("PM") && mTime[0] != 12){
             mTime[0] += 12;
+        }
+        if(mTime[0] == 12 && time.contains("AM")){
+            mTime[0] -= 12;
         }
         return mTime;
     }
