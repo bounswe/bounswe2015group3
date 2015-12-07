@@ -58,12 +58,13 @@ public class CmpeSocialController {
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String surname,
             @RequestParam(required = false) String email,
-            @RequestParam(required = false) String password) {
+            @RequestParam(required = false) String password,
+            @RequestParam String type )   {
 
         if (id != null)
         	cmpeSocialUserModel.updateUser(id, name, surname, email, SecurityUtils.getHashed(password));
         else
-        	cmpeSocialUserModel.addUser(name, surname, email, SecurityUtils.getHashed(password));
+        	cmpeSocialUserModel.addUser(name, surname, email, SecurityUtils.getHashed(password),type);
 
         return "redirect:/user/login";
     }

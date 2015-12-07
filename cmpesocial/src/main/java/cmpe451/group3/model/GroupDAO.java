@@ -4,6 +4,8 @@ package cmpe451.group3.model;
  * Created by umut on 11/24/15.
  */
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.context.annotation.Scope;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
+import  java.util.Arrays;
 
 
 @Repository
@@ -53,13 +57,13 @@ public class GroupDAO {
         return  this.jdbcTemplate.queryForMap(sql,name);
     }
 
-    public void createGroup(String name ,Long id_admin, Long type, String description, String group_url) {
+    public void createGroup(String name ,Long id_admin, String type, String description, String group_url) {
         String sql = "INSERT INTO `group`(name, id_admin,type,description,group_url) VALUES(?, ?, ?, ?, ?)";
 
         this.jdbcTemplate.update(sql, name, id_admin,type, description,group_url);
     }
 
-    public void updateGroup(Long id, String name ,Long id_admin, Long type, String description, String group_url) {
+    public void updateGroup(Long id, String name ,Long id_admin, String type, String description, String group_url) {
         String sql = "UPDATE `group` SET name = ? id_admin = ?,type= ? ,description = ?, group_url= ? WHERE id = ?";
 
         this.jdbcTemplate.update(sql, name, id_admin,type ,description,group_url, id);
@@ -120,6 +124,28 @@ public class GroupDAO {
     {
         String sql ="SELECT * FROM post_group WHERE post_group.id_group = ?";
         return this.jdbcTemplate.queryForList(sql,id_group);
+    }
+
+    public Boolean isAvailableForGroup(Long id_user,Long id_group){
+
+        String sql2 = "SELECT * FROM `user` WHERE id = ?";
+
+        String sql = "SELECT * FROM `group` WHERE id = ? ";
+
+        Map<String,Object> group =  this.jdbcTemplate.queryForMap(sql, id_group);
+        Map<String,Object> user = this.jdbcTemplate.queryForMap(sql2,id_user);
+
+        List<String> list_group = new ArrayList<String>(Arrays.asList(group.get("type").toString().split(",")));
+        List<String> list_user = new ArrayList<String>(Arrays.asList(user.get("type").toString().split(",")));
+
+        for (String type_group : list_group){
+            for (String type_user : list_user)
+            {
+                if (type_group.equalsIgnoreCase(type_user))
+                    return Boolean.TRUE;
+            }
+        }
+        return  Boolean.FALSE;
     }
 
 }

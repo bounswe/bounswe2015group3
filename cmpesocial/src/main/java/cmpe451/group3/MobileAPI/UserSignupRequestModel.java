@@ -9,5 +9,6 @@ public class UserSignupRequestModel
     public String password;
     public String email;
     public String name;
+    public String type;
 
 }

@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="16418a01-6de4-4870-9b01-314aaf3d0933" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupViewRequestModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupModel.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserAPIController.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserAPIController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserModel.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserSignupRequestModel.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserSignupRequestModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/CmpeSocialController.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/CmpeSocialController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/CmpeSocialUserModel.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/CmpeSocialUserModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java" afterPath="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java" />
     </list>
     <ignored path="bounswe2015group3.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,80 +42,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="EventAPIController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53273135">
-              <caret line="210" column="16" selection-start-line="210" selection-start-column="16" selection-end-line="210" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmpesocial/pom.xml">
+      <file leaf-file-name="GroupAPIController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="122" column="20" selection-start-line="122" selection-start-column="20" selection-end-line="122" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CmpeSocialController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/CmpeSocialController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EventController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/EventController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GroupController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/GroupController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="130" column="3" selection-start-line="130" selection-start-column="3" selection-end-line="130" selection-end-column="3" />
+              <caret line="109" column="50" selection-start-line="109" selection-start-column="50" selection-end-line="109" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2914#2930#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventDAO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/utils/EventDAO.java">
+      <file leaf-file-name="GroupModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupModel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-              <folding>
-                <marker date="1448641172331" expanded="true" signature="774:811" placeholder="SELECT * FRO..event..." />
-                <marker date="1448641172331" expanded="true" signature="957:976" placeholder="SELECT * FRO..event..." />
-                <marker date="1448641172331" expanded="true" signature="1112:1144" placeholder="SELECT * FRO..event..." />
-                <marker date="1448641172331" expanded="true" signature="1299:1333" placeholder="SELECT * FRO..event..." />
-                <marker date="1448641172331" expanded="true" signature="1529:1612" placeholder="INSERT INTO event..." />
-                <marker date="1448641172331" expanded="true" signature="1842:1934" placeholder="UPDATE event..." />
-                <marker date="1448641172331" expanded="true" signature="2092:2122" placeholder="DELETE FROM ..." />
-                <marker date="1448641172331" expanded="true" signature="2247:2282" placeholder="SELECT id FR..user..." />
-                <marker date="1448641172331" expanded="true" signature="2522:2647" placeholder="SELECT user...user..." />
-              </folding>
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SecurityUtils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/utils/SecurityUtils.java">
+      <file leaf-file-name="GroupViewRequestModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupViewRequestModel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
@@ -115,55 +75,107 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/webapp/web/index.html">
+      <file leaf-file-name="UserAPIController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserAPIController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="106" column="41" selection-start-line="106" selection-start-column="41" selection-end-line="106" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmpesocial/target/miredot/index.html">
+      <file leaf-file-name="UserLoginRequestModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserLoginRequestModel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventModel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/EventModel.java">
+      <file leaf-file-name="UserModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserModel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="146" column="69" selection-start-line="146" selection-start-column="69" selection-end-line="146" selection-end-column="69" />
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
               <folding>
-                <marker date="1449258511482" expanded="true" signature="746:808" placeholder="SELECT * FRO..event..." />
-                <marker date="1449258511482" expanded="true" signature="954:997" placeholder="SELECT * FRO..event..." />
-                <marker date="1449258511482" expanded="true" signature="1133:1165" placeholder="SELECT * FRO..event..." />
-                <marker date="1449258511482" expanded="true" signature="1320:1354" placeholder="SELECT * FRO..event..." />
-                <marker date="1449258511482" expanded="true" signature="1579:1686" placeholder="INSERT INTO event..." />
-                <marker date="1449258511482" expanded="true" signature="1971:2090" placeholder="UPDATE event..." />
-                <marker date="1449258511482" expanded="true" signature="2266:2296" placeholder="DELETE FROM ..." />
-                <marker date="1449258511482" expanded="true" signature="2430:2526" placeholder="INSERT INTO user_event..." />
-                <marker date="1449258511482" expanded="true" signature="2673:2790" placeholder="INSERT INTO user_event..." />
-                <marker date="1449258511482" expanded="true" signature="2934:2969" placeholder="SELECT id FR..user..." />
-                <marker date="1449258511482" expanded="true" signature="3241:3365" placeholder="SELECT user...user..." />
-                <marker date="1449258511482" expanded="true" signature="3754:3881" placeholder="SELECT event..event..." />
-                <marker date="1449258511482" expanded="true" signature="4123:4199" placeholder="INSERT INTO post_event..." />
-                <marker date="1449258511482" expanded="true" signature="4408:4497" placeholder="UPDATE post_..." />
-                <marker date="1449258511482" expanded="true" signature="4650:4685" placeholder="DELETE FROM ..." />
-                <marker date="1449258511482" expanded="true" signature="4827:4870" placeholder="SELECT * FRO..post_event..." />
-                <marker date="1449258511482" expanded="true" signature="5016:5052" placeholder="SELECT * FRO..post_event..." />
-                <marker date="1449258511482" expanded="true" signature="5232:5307" placeholder="INSERT INTO post_event..." />
-                <marker date="1449258511482" expanded="true" signature="5500:5583" placeholder="UPDATE post_..." />
-                <marker date="1449258511482" expanded="true" signature="5735:5773" placeholder="DELETE FROM ..." />
-                <marker date="1449258511482" expanded="true" signature="5917:5962" placeholder="SELECT * FRO..post_event..." />
-                <marker date="1449258511482" expanded="true" signature="6111:6150" placeholder="SELECT * FRO..post_event..." />
+                <element signature="imports" expanded="true" />
+                <element signature="e#868#869#0" expanded="true" />
+                <element signature="e#900#901#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GroupDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="68" column="43" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4943#4951#0" expanded="true" />
+                <marker date="1449532171151" expanded="true" signature="946:967" placeholder="SELECT * FRO..group..." />
+                <marker date="1449532171151" expanded="true" signature="1120:1161" placeholder="SELECT * FRO..group..." />
+                <marker date="1449532171151" expanded="true" signature="1307:1341" placeholder="SELECT * FRO..group..." />
+                <marker date="1449532171151" expanded="true" signature="1495:1531" placeholder="SELECT * FRO..group..." />
+                <marker date="1449532171151" expanded="true" signature="1729:1813" placeholder="INSERT INTO `group`..." />
+                <marker date="1449532171151" expanded="true" signature="2047:2139" placeholder="UPDATE `grou..." />
+                <marker date="1449532171151" expanded="true" signature="2298:2330" placeholder="DELETE FROM ..." />
+                <marker date="1449532171151" expanded="true" signature="2460:2556" placeholder="INSERT INTO user_group..." />
+                <marker date="1449532171151" expanded="true" signature="2698:2815" placeholder="INSERT INTO user_group..." />
+                <marker date="1449532171151" expanded="true" signature="2965:3089" placeholder="SELECT user...user..." />
+                <marker date="1449532171151" expanded="true" signature="3311:3403" placeholder="SELECT user_..user_group..." />
+                <marker date="1449532171151" expanded="true" signature="3751:3827" placeholder="INSERT INTO post_group..." />
+                <marker date="1449532171151" expanded="true" signature="4040:4121" placeholder="UPDATE post_..." />
+                <marker date="1449532171151" expanded="true" signature="4307:4361" placeholder="SELECT * FRO..post_group..." />
+                <marker date="1449532171151" expanded="true" signature="4524:4557" placeholder="SELECT `user..." />
+                <marker date="1449532171151" expanded="true" signature="4583:4617" placeholder="SELECT * FRO..group..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CmpeSocialUserModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/CmpeSocialUserModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+              <folding>
+                <marker date="1449532417202" expanded="true" signature="738:756" placeholder="SELECT * FRO..user..." />
+                <marker date="1449532417202" expanded="true" signature="891:922" placeholder="SELECT * FRO..user..." />
+                <marker date="1449532417202" expanded="true" signature="1074:1108" placeholder="SELECT * FRO..user..." />
+                <marker date="1449532417202" expanded="true" signature="1249:1289" placeholder="SELECT * FRO..user..." />
+                <marker date="1449532417202" expanded="true" signature="1528:1562" placeholder="SELECT * FRO..user..." />
+                <marker date="1449532417202" expanded="true" signature="1698:1739" placeholder="SELECT passw..user..." />
+                <marker date="1449532417202" expanded="true" signature="2043:2078" placeholder="SELECT id FR..user..." />
+                <marker date="1449532417202" expanded="true" signature="2332:2373" placeholder="SELECT passw..user..." />
+                <marker date="1449532417202" expanded="true" signature="2664:2744" placeholder="INSERT INTO user..." />
+                <marker date="1449532417202" expanded="true" signature="2963:3052" placeholder="UPDATE user ..." />
+                <marker date="1449532417202" expanded="true" signature="3203:3232" placeholder="DELETE FROM ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EventAPIController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="4.1842475">
+              <caret line="210" column="16" selection-start-line="210" selection-start-column="16" selection-end-line="210" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserSignupRequestModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserSignupRequestModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -188,13 +200,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupModel.java" />
         <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupJoinModel.java" />
         <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostModel.java" />
         <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostBaseModel.java" />
-        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java" />
-        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/CmpeSocialUserModel.java" />
-        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java" />
         <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/GroupController.java" />
         <option value="$PROJECT_DIR$/cmpesocial/database/user.sql" />
         <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventPostCreateRequestModel.java" />
@@ -206,6 +214,16 @@
         <option value="$PROJECT_DIR$/cmpesocial/target/miredot/index.html" />
         <option value="$PROJECT_DIR$/cmpesocial/pom.xml" />
         <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserSignupRequestModel.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/CmpeSocialController.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/EventIDRequestModel.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupViewRequestModel.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupModel.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserModel.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/CmpeSocialUserModel.java" />
+        <option value="$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserAPIController.java" />
       </list>
     </option>
   </component>
@@ -282,8 +300,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="width" value="1924" />
+    <option name="x" value="-1" />
+    <option name="width" value="1918" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -312,6 +330,8 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -359,28 +379,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bounswe2015group3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bounswe2015group3" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cmpesocial" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="target" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="miredot" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -634,8 +632,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1127,40 +1123,42 @@
       <workItem from="1449315984280" duration="950000" />
       <workItem from="1449336017566" duration="121000" />
       <workItem from="1449336245926" duration="361000" />
+      <workItem from="1449352331769" duration="3117000" />
+      <workItem from="1449529675879" duration="2794000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22391000" />
+    <option name="totallyTimeSpent" value="28302000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1924" height="1047" extended-state="0" />
-    <editor active="false" />
+    <frame x="-1" y="0" width="1918" height="1047" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19796138" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19860065" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34573305" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25080732" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19146608" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34573305" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1201,105 +1199,56 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java</url>
+          <line>81</line>
+          <properties />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java</url>
+          <line>85</line>
+          <properties />
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java</url>
+          <line>141</line>
+          <properties />
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java</url>
+          <line>144</line>
+          <properties />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java</url>
+          <line>147</line>
+          <properties />
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="15" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="120" column="77" selection-start-line="120" selection-start-column="77" selection-end-line="120" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/EventIDRequestModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="168" column="12" selection-start-line="168" selection-start-column="12" selection-end-line="168" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostBaseModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="9" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/util/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="239" column="6" selection-start-line="239" selection-start-column="6" selection-end-line="239" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="120" column="77" selection-start-line="120" selection-start-column="77" selection-end-line="120" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/EventIDRequestModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2914#2930#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1364,6 +1313,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="imports" expanded="false" />
             <marker date="1448641172331" expanded="true" signature="774:811" placeholder="SELECT * FRO..event..." />
             <marker date="1448641172331" expanded="true" signature="957:976" placeholder="SELECT * FRO..event..." />
             <marker date="1448641172331" expanded="true" signature="1112:1144" placeholder="SELECT * FRO..event..." />
@@ -1383,6 +1333,23 @@
           <caret line="89" column="19" selection-start-line="89" selection-start-column="19" selection-end-line="89" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#4943#4951#0" expanded="true" />
+            <marker date="1449532171151" expanded="true" signature="946:967" placeholder="SELECT * FRO..group..." />
+            <marker date="1449532171151" expanded="true" signature="1120:1161" placeholder="SELECT * FRO..group..." />
+            <marker date="1449532171151" expanded="true" signature="1307:1341" placeholder="SELECT * FRO..group..." />
+            <marker date="1449532171151" expanded="true" signature="1495:1531" placeholder="SELECT * FRO..group..." />
+            <marker date="1449532171151" expanded="true" signature="1729:1813" placeholder="INSERT INTO `group`..." />
+            <marker date="1449532171151" expanded="true" signature="2047:2139" placeholder="UPDATE `grou..." />
+            <marker date="1449532171151" expanded="true" signature="2298:2330" placeholder="DELETE FROM ..." />
+            <marker date="1449532171151" expanded="true" signature="2460:2556" placeholder="INSERT INTO user_group..." />
+            <marker date="1449532171151" expanded="true" signature="2698:2815" placeholder="INSERT INTO user_group..." />
+            <marker date="1449532171151" expanded="true" signature="2965:3089" placeholder="SELECT user...user..." />
+            <marker date="1449532171151" expanded="true" signature="3311:3403" placeholder="SELECT user_..user_group..." />
+            <marker date="1449532171151" expanded="true" signature="3751:3827" placeholder="INSERT INTO post_group..." />
+            <marker date="1449532171151" expanded="true" signature="4040:4121" placeholder="UPDATE post_..." />
+            <marker date="1449532171151" expanded="true" signature="4307:4361" placeholder="SELECT * FRO..post_group..." />
+            <marker date="1449532171151" expanded="true" signature="4524:4557" placeholder="SELECT `user..." />
+            <marker date="1449532171151" expanded="true" signature="4583:4617" placeholder="SELECT * FRO..group..." />
           </folding>
         </state>
       </provider>
@@ -1395,25 +1362,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/4.1.1.RELEASE/spring-jdbc-4.1.1.RELEASE.jar!/org/springframework/jdbc/core/JdbcTemplate.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36321303">
-          <caret line="737" column="41" selection-start-line="736" selection-start-column="20" selection-end-line="737" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/util/Map.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="239" column="6" selection-start-line="239" selection-start-column="6" selection-end-line="239" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1425,54 +1377,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/EventIDRequestModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="168" column="12" selection-start-line="168" selection-start-column="12" selection-end-line="168" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/CmpeSocialUserModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="57" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="57" />
-          <folding>
-            <marker date="1448879054193" expanded="true" signature="738:756" placeholder="SELECT * FRO..user..." />
-            <marker date="1448879054193" expanded="true" signature="891:922" placeholder="SELECT * FRO..user..." />
-            <marker date="1448879054193" expanded="true" signature="1074:1108" placeholder="SELECT * FRO..user..." />
-            <marker date="1448879054193" expanded="true" signature="1249:1289" placeholder="SELECT * FRO..user..." />
-            <marker date="1448879054193" expanded="true" signature="1528:1562" placeholder="SELECT * FRO..user..." />
-            <marker date="1448879054193" expanded="true" signature="1698:1739" placeholder="SELECT passw..user..." />
-            <marker date="1448879054193" expanded="true" signature="2043:2078" placeholder="SELECT id FR..user..." />
-            <marker date="1448879054193" expanded="true" signature="2332:2373" placeholder="SELECT passw..user..." />
-            <marker date="1448879054193" expanded="true" signature="2652:2719" placeholder="INSERT INTO user..." />
-            <marker date="1448879054193" expanded="true" signature="2921:2996" placeholder="UPDATE user ..." />
-            <marker date="1448879054193" expanded="true" signature="3142:3171" placeholder="DELETE FROM ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupJoinModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="9" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1487,16 +1395,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="193" column="2" selection-start-line="0" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="62" selection-start-line="38" selection-start-column="62" selection-end-line="38" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1520,14 +1418,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="17" selection-start-line="62" selection-start-column="23" selection-end-line="63" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -1591,15 +1481,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/target/miredot/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1608,6 +1489,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
           <folding>
+            <element signature="imports" expanded="false" />
             <marker date="1448641172331" expanded="true" signature="774:811" placeholder="SELECT * FRO..event..." />
             <marker date="1448641172331" expanded="true" signature="957:976" placeholder="SELECT * FRO..event..." />
             <marker date="1448641172331" expanded="true" signature="1112:1144" placeholder="SELECT * FRO..event..." />
@@ -1618,22 +1500,6 @@
             <marker date="1448641172331" expanded="true" signature="2247:2282" placeholder="SELECT id FR..user..." />
             <marker date="1448641172331" expanded="true" signature="2522:2647" placeholder="SELECT user...user..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/utils/SecurityUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/CmpeSocialController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1663,9 +1529,226 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/controller/CmpeSocialController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="68" column="38" selection-start-line="68" selection-start-column="38" selection-end-line="68" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupPostModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="9" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar!/com/mysql/jdbc/SQLError.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="309" column="0" selection-start-line="309" selection-start-column="0" selection-end-line="309" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/utils/SecurityUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupJoinModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/jre/lib/rt.jar!/sun/reflect/DelegatingMethodAccessorImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.5555553">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/lang/reflect/Method.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="496" column="0" selection-start-line="496" selection-start-column="0" selection-end-line="496" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.259259">
+          <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_65/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/4.1.1.RELEASE/spring-jdbc-4.1.1.RELEASE.jar!/org/springframework/jdbc/core/ColumnMapRowMapper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.037037">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/4.1.1.RELEASE/spring-jdbc-4.1.1.RELEASE.jar!/org/springframework/jdbc/core/JdbcTemplate.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.0740743">
+          <caret line="584" column="0" selection-start-line="584" selection-start-column="0" selection-end-line="584" selection-end-column="0" />
+          <folding>
+            <element signature="e#46764#46765#0" expanded="true" />
+            <element signature="e#46811#46812#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.1.1.RELEASE/spring-web-4.1.1.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.037037">
+          <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/EventIDRequestModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.7777777">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupViewRequestModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/GroupDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="68" column="43" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4943#4951#0" expanded="true" />
+            <marker date="1449532171151" expanded="true" signature="946:967" placeholder="SELECT * FRO..group..." />
+            <marker date="1449532171151" expanded="true" signature="1120:1161" placeholder="SELECT * FRO..group..." />
+            <marker date="1449532171151" expanded="true" signature="1307:1341" placeholder="SELECT * FRO..group..." />
+            <marker date="1449532171151" expanded="true" signature="1495:1531" placeholder="SELECT * FRO..group..." />
+            <marker date="1449532171151" expanded="true" signature="1729:1813" placeholder="INSERT INTO `group`..." />
+            <marker date="1449532171151" expanded="true" signature="2047:2139" placeholder="UPDATE `grou..." />
+            <marker date="1449532171151" expanded="true" signature="2298:2330" placeholder="DELETE FROM ..." />
+            <marker date="1449532171151" expanded="true" signature="2460:2556" placeholder="INSERT INTO user_group..." />
+            <marker date="1449532171151" expanded="true" signature="2698:2815" placeholder="INSERT INTO user_group..." />
+            <marker date="1449532171151" expanded="true" signature="2965:3089" placeholder="SELECT user...user..." />
+            <marker date="1449532171151" expanded="true" signature="3311:3403" placeholder="SELECT user_..user_group..." />
+            <marker date="1449532171151" expanded="true" signature="3751:3827" placeholder="INSERT INTO post_group..." />
+            <marker date="1449532171151" expanded="true" signature="4040:4121" placeholder="UPDATE post_..." />
+            <marker date="1449532171151" expanded="true" signature="4307:4361" placeholder="SELECT * FRO..post_group..." />
+            <marker date="1449532171151" expanded="true" signature="4524:4557" placeholder="SELECT `user..." />
+            <marker date="1449532171151" expanded="true" signature="4583:4617" placeholder="SELECT * FRO..group..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/GroupAPIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="109" column="50" selection-start-line="109" selection-start-column="50" selection-end-line="109" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2914#2930#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserLoginRequestModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserSignupRequestModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#868#869#0" expanded="true" />
+            <element signature="e#900#901#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/UserAPIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="106" column="41" selection-start-line="106" selection-start-column="41" selection-end-line="106" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/model/CmpeSocialUserModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
+          <folding>
+            <marker date="1449532417202" expanded="true" signature="738:756" placeholder="SELECT * FRO..user..." />
+            <marker date="1449532417202" expanded="true" signature="891:922" placeholder="SELECT * FRO..user..." />
+            <marker date="1449532417202" expanded="true" signature="1074:1108" placeholder="SELECT * FRO..user..." />
+            <marker date="1449532417202" expanded="true" signature="1249:1289" placeholder="SELECT * FRO..user..." />
+            <marker date="1449532417202" expanded="true" signature="1528:1562" placeholder="SELECT * FRO..user..." />
+            <marker date="1449532417202" expanded="true" signature="1698:1739" placeholder="SELECT passw..user..." />
+            <marker date="1449532417202" expanded="true" signature="2043:2078" placeholder="SELECT id FR..user..." />
+            <marker date="1449532417202" expanded="true" signature="2332:2373" placeholder="SELECT passw..user..." />
+            <marker date="1449532417202" expanded="true" signature="2664:2744" placeholder="INSERT INTO user..." />
+            <marker date="1449532417202" expanded="true" signature="2963:3052" placeholder="UPDATE user ..." />
+            <marker date="1449532417202" expanded="true" signature="3203:3232" placeholder="DELETE FROM ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cmpesocial/src/main/java/cmpe451/group3/MobileAPI/EventAPIController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53273135">
+        <state vertical-scroll-proportion="4.1842475">
           <caret line="210" column="16" selection-start-line="210" selection-start-column="16" selection-end-line="210" selection-end-column="16" />
           <folding />
         </state>

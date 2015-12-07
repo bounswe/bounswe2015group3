@@ -1,6 +1,8 @@
 package cmpe451.group3.MobileAPI;
 
 
+import org.springframework.security.core.userdetails.User;
+
 import java.util.Map;
 
 /**
@@ -13,6 +15,7 @@ public class UserModel {
     public String password;
     public String email;
     public String name;
+    public String type;
 
 
     public String getSurname() {
@@ -45,7 +48,6 @@ public class UserModel {
 
     public  void setName(String name){
         this.name = name;
-
     }
 
     public UserModel MapModelFromDAO (Map<String, Object> UserMap)
@@ -56,6 +58,7 @@ public class UserModel {
         userModel.email = UserMap.get("email").toString();
         userModel.password = UserMap.get("password").toString();
         userModel.surname = UserMap.get("surname").toString();
+        userModel.type = UserMap.get("type").toString();
 
         return  userModel;
     }

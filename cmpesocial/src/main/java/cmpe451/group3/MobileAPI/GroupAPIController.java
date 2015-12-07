@@ -10,6 +10,7 @@ import cmpe451.group3.model.EventModel;
 import cmpe451.group3.model.GroupDAO;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.Authenticator;
+import com.sun.org.apache.xml.internal.serialize.ElementState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -76,13 +77,20 @@ public class GroupAPIController {
 
     @RequestMapping( value = "/groups/view" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
-    public String viewEvents(@RequestBody EventIDRequestModel idRequestModelodel) {
+    public String viewEvents(@RequestBody GroupViewRequestModel groupModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        result.put("Result","SUCCESS");
-        result.put("group",groupDAO.getGroup(idRequestModelodel.id));
-
+        if (groupDAO.isAvailableForGroup(groupModel.id_user,groupModel.id_group))
+        {
+            result.put("Result", "SUCCESS");
+            result.put("group", groupDAO.getGroup(groupModel.id_group));
+        }
+        else
+        {
+            result.put("Result", "FAILURE");
+            result.put("Reason", "This group is not allowed to the user");
+        }
 
         return gson.toJson(result);
     }
@@ -139,10 +147,15 @@ public class GroupAPIController {
 
         Gson gson = new Gson();
         Map<String,Object> result = new HashMap<>();
-
-        groupDAO.joinGroup(partModel.id_user, partModel.id_group);
-
-        result.put("Result","Success");
+        if (groupDAO.isAvailableForGroup(partModel.id_user,partModel.id_group)) {
+            groupDAO.joinGroup(partModel.id_user, partModel.id_group);
+            result.put("Result","Success");
+        }
+        else
+        {
+            result.put("Result","Failure");
+            result.put("Reason","This Group restricted to the user");
+        }
         return gson.toJson(result);
     }
 
