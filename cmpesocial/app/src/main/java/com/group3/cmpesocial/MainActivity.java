@@ -26,6 +26,7 @@ import com.group3.cmpesocial.fragments.EventsFragment;
 import com.group3.cmpesocial.fragments.GroupsFragment;
 import com.group3.cmpesocial.fragments.HomeFragment;
 import com.group3.cmpesocial.fragments.MessagesFragment;
+import com.group3.cmpesocial.fragments.MyEventsFragment;
 import com.group3.cmpesocial.fragments.ProfileFragment;
 import com.group3.cmpesocial.fragments.RecommendationsFragment;
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity
     private final int EVENTS = 3;
     private final int PROFILE = 4;
     private final int MESSAGES = 5;
+    private final int MYEVENTS = 6;
     FragmentTransaction fragmentTransaction;
     private Toolbar toolbar;
     private Button doneButton;
@@ -50,9 +52,10 @@ public class MainActivity extends AppCompatActivity
     private RecommendationsFragment fragment_recommendations;
     private GroupsFragment fragment_groups;
     private EventsFragment fragment_events;
+    private MyEventsFragment fragment_my_events;
     private ProfileFragment fragment_profile;
     private MessagesFragment fragment_messages;
-    private Fragment[] fragments = {fragment_home, fragment_groups, fragment_events, fragment_profile, fragment_messages};
+    private Fragment[] fragments = {fragment_home, fragment_groups, fragment_events, fragment_my_events, fragment_profile, fragment_messages};
     private int currentScreen;
 
     @Override
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity
         fragment_recommendations = new RecommendationsFragment();
         fragment_groups = new GroupsFragment();
         fragment_events = new EventsFragment();
+        fragment_my_events = new MyEventsFragment();
         fragment_profile = new ProfileFragment();
         fragment_messages = new MessagesFragment();
 
@@ -153,6 +157,11 @@ public class MainActivity extends AppCompatActivity
                     setEventsFragment();
                 }
                 break;
+            case R.id.nav_my_events:
+                if (currentScreen != MYEVENTS) {
+                    setMyEventsFragment();
+                }
+                break;
 
             case R.id.nav_profile:
                 if (currentScreen != PROFILE) {
@@ -164,6 +173,7 @@ public class MainActivity extends AppCompatActivity
                     setMessagesFragment();
                 }
                 break;
+
             case R.id.nav_logout:
                 getSharedPreferences("prefsCMPE", MODE_PRIVATE).edit().clear().commit();
                 Intent intent = new Intent(this, LoginActivity.class);
@@ -234,6 +244,19 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
         currentScreen = EVENTS;
         getSupportActionBar().setTitle(fragment_events.getTitle());
+    }
+
+    public void setMyEventsFragment() {
+        doneButton.setVisibility(View.GONE);
+        editButton.setVisibility(View.GONE);
+        searchButton.setVisibility(View.VISIBLE);
+        deleteButton.setVisibility(View.GONE);
+
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment_my_events);
+        fragmentTransaction.commit();
+        currentScreen = MYEVENTS;
+        getSupportActionBar().setTitle(fragment_my_events.getTitle());
     }
 
     public void setProfileFragment() {
