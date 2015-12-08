@@ -85,11 +85,12 @@ public class EventAPIController {
         return gson.toJson(result);
     }
 
-    @RequestMapping( value = "/events/view" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @RequestMapping( value = "/events/viewByOwned" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
-    public String viewEvents(@RequestBody UserModel userModel) {
+    public String viewEventsOwned(@RequestBody EventIDRequestModel userModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
+
 
         result.put("Result","SUCCESS");
         result.put("events",eventModel.getEventsForUser(userModel.id));
@@ -100,7 +101,7 @@ public class EventAPIController {
 
     @RequestMapping( value = "/events/viewDetail" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
-    public String viewEvents(@RequestBody EventIDRequestModel eventIDModel) {
+    public String viewEventDetail(@RequestBody EventIDRequestModel eventIDModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
@@ -151,9 +152,16 @@ public class EventAPIController {
         Gson gson = new Gson();
         Map<String,Object> result = new HashMap<>();
 
-        eventModel.joinEvent(partModel.id_user, partModel.id_event);
+        if(eventModel.isAvailableForEvent(partModel.id_event,partModel.id_user)) {
+            eventModel.joinEvent(partModel.id_user, partModel.id_event);
+            result.put("Result","Success");
+        }else
+        {
+            result.put("Result","Failure");
+            result.put("Message","User has not access to join.");
 
-        result.put("Result","Success");
+        }
+
         return gson.toJson(result);
     }
 

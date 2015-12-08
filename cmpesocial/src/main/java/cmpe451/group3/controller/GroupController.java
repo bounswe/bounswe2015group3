@@ -85,7 +85,7 @@ public class GroupController {
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Long id_admin,
-            @RequestParam(required = false) Long type,
+            @RequestParam(required = false) String type,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) String group_url) {
 

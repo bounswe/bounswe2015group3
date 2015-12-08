@@ -70,6 +70,7 @@ public class EventController {
     public String updateEvent(
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String name,
+            @RequestParam(required = false) String type,
             @RequestParam(required = false) String date,
             @RequestParam(required = false) String end_date,
             @RequestParam(required = false) int periodic,

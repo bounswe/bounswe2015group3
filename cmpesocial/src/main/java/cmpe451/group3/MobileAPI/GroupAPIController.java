@@ -193,7 +193,7 @@ public class GroupAPIController {
         Gson gson = new Gson();
         Map<String,Object> result = new HashMap<>();
 
-        int control =groupDAO.updatePost(postModel.id_user, postModel.id_group, postModel.post_text,postModel.post_url,postModel.id);
+        int control =groupDAO.updatePost(postModel.id_user, postModel.id_group, postModel.post_text, postModel.post_url, postModel.id);
 
         if (control != 0)
             result.put("Result","Success");
@@ -214,6 +214,19 @@ public class GroupAPIController {
         result.put("Result","Success");
         result.put("posts",groupDAO.getGroupPosts(idModel.id));
 
+
+        return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/groups/leave" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String getPosts(@RequestBody GroupJoinModel idModel) {
+        Gson gson = new Gson();
+
+        Map<String,Object> result = new HashMap<>();
+
+        groupDAO.leaveGroup(idModel.id_user,idModel.id_group);
+        result.put("Result","Success");
 
         return gson.toJson(result);
     }

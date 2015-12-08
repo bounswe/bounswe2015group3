@@ -62,7 +62,7 @@ public class CmpeSocialController {
             @RequestParam String type )   {
 
         if (id != null)
-        	cmpeSocialUserModel.updateUser(id, name, surname, email, SecurityUtils.getHashed(password));
+        	cmpeSocialUserModel.updateUser(id, name, surname, email, SecurityUtils.getHashed(password),type);
         else
         	cmpeSocialUserModel.addUser(name, surname, email, SecurityUtils.getHashed(password),type);
 

@@ -79,6 +79,12 @@ public class GroupDAO {
         this.jdbcTemplate.update(sql, userid, groupid,1);
     }
 
+    public void leaveGroup(Long id_user, Long id_group)
+    {
+        String sql = "INSERT INTO user_group(id_user,id_group,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = 0";
+        this.jdbcTemplate.update(sql,id_user,id_group,0);
+    }
+
     public void invite(Long userid, Long groupid) {
         String sql = "INSERT INTO user_group(id_user,id_group,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = IF((status = 1), 1, 2)";
         this.jdbcTemplate.update(sql, userid, groupid, 2);

@@ -6,9 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.List;
-import java.util.Map;
-import java.util.Date;
+import java.util.*;
 
 @Repository
 @Scope("request")
@@ -49,16 +47,16 @@ public class EventModel {
     }
 
 
-    public void createEvent(String name, String date,String end_date,int periodic, long userid, String location, String description) {
-        String sql = "INSERT INTO event(name, date,end_date,periodic, id_user, location, description) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    public void createEvent(String name, String date,String end_date,int periodic, long userid, String location, String description,String type) {
+        String sql = "INSERT INTO event(name, date,end_date,periodic, id_user, location, description,type) VALUES(?, ?, ?, ?, ?, ?, ?,?)";
         
-        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description);
+        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description,type);
     }
 
-    public void updateEvent(Long id, String name, String date,String end_date,int periodic, long userid, String location, String description) {
-        String sql = "UPDATE event SET name = ?, date = ?,end_date = ?,periodic = ? , id_user = ?, location = ?, description = ? WHERE id = ?";
+    public void updateEvent(Long id, String name, String date,String end_date,int periodic, long userid, String location, String description,String type) {
+        String sql = "UPDATE event SET name = ?, date = ?,end_date = ?,periodic = ? , id_user = ?, location = ?, description = ? , `type` = ? WHERE id = ?";
 
-        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description, id);
+        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description,type ,id);
     }
 
     public void deleteEvent(Long id) {
@@ -70,11 +68,19 @@ public class EventModel {
         String sql = "INSERT INTO user_event(id_user,id_event,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = 1";
         this.jdbcTemplate.update(sql, userid, eventid, 1);
     }
+
+    public void leaveEvent(Long id_user, Long id_event){
+        String sql = "INSERT INTO user_event(id_user,id_event,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = 0";
+        this.jdbcTemplate.update(sql,id_user,id_event,0);
+
+    }
     
     public void invite(Long userid, Long eventid) {
         String sql = "INSERT INTO user_event(id_user,id_event,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = IF((status = 1), 1, 2)";
         this.jdbcTemplate.update(sql, userid, eventid, 2);
     }
+
+
     
     public Integer getIdFromMail(String email) {
         String sql = "SELECT id FROM user WHERE email = ? ";
@@ -134,7 +140,7 @@ public class EventModel {
     public Map<String,Object> getPost(Long id)
     {
         String sql = "SELECT * FROM post_event WHERE id= ?";
-        return  this.jdbcTemplate.queryForMap(sql,id);
+        return  this.jdbcTemplate.queryForMap(sql, id);
     }
     public void createComment(Long id_post,Long id_event, Long id_user, String content)
     {
@@ -162,7 +168,32 @@ public class EventModel {
     public Map<String,Object> getComment(Long id)
     {
         String sql = "SELECT * FROM comment_event WHERE id= ?";
-        return  this.jdbcTemplate.queryForMap(sql,id);
+        return  this.jdbcTemplate.queryForMap(sql, id);
     }
+
+
+    public Boolean isAvailableForEvent(Long id_event, Long id_user)
+    {
+        String sql2 = "SELECT * FROM `user` WHERE id = ?";
+
+        String sql = "SELECT * FROM `event` WHERE id = ? ";
+
+        Map<String,Object> group =  this.jdbcTemplate.queryForMap(sql, id_event);
+        Map<String,Object> user = this.jdbcTemplate.queryForMap(sql2,id_user);
+
+        List<String> list_event = new ArrayList<String>(Arrays.asList(group.get("type").toString().split(",")));
+        List<String> list_user = new ArrayList<String>(Arrays.asList(user.get("type").toString().split(",")));
+
+        for (String type_group : list_event){
+            for (String type_user : list_user)
+            {
+                if (type_group.equalsIgnoreCase(type_user))
+                    return Boolean.TRUE;
+            }
+        }
+        return  Boolean.FALSE;
+    }
+
+
 
 }
