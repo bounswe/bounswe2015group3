@@ -318,6 +318,8 @@ public class EventDetailActivity extends AppCompatActivity {
         json.addProperty("id_event", id);
         int result = API.joinEvent(json, this);
         // Do something with result
+        joinButton.setVisibility(View.VISIBLE);
+        leaveButton.setVisibility(View.GONE);
     }
 
     public void pickDate(View v, int[] date, final boolean start){
