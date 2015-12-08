@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -16,7 +17,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Done"
+                android:drawableRight="@drawable/ic_check_white_24dp"
+                android:textColor="@android:color/white"
+                android:background="@android:color/transparent"
+                android:onClick="createEvent"
+                android:layout_gravity="right"/>
 
         </android.support.v7.widget.Toolbar>
 
@@ -24,7 +33,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +49,7 @@
                 android:text="Name"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -47,7 +57,8 @@
                 android:id="@+id/nameEditText"
                 android:textSize="20sp"
                 android:padding="5dp"
-                android:background="@null" />
+                android:background="@null"
+                android:textColor="@android:color/secondary_text_light" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -55,7 +66,7 @@
                 android:text="Period"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <Spinner
                 android:id="@+id/spinner"
@@ -69,7 +80,7 @@
                 android:text="Starts"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp"/>
+                android:textColor="@color/colorPrimaryDark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,19 +97,20 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
                         android:text="Date"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:padding="5dp" />
+                        android:textColor="@color/colorPrimary" />
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/startDateEditText"
                         android:textSize="20sp"
                         android:padding="5dp"
                         android:background="@null"
-                        android:editable="false"/>
+                        android:editable="false"
+                        android:textColor="@android:color/secondary_text_light" />
 
                 </LinearLayout>
 
@@ -114,16 +126,17 @@
                         android:text="Time"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:padding="5dp" />
+                        android:textColor="@color/colorPrimary" />
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/startTimeEditText"
                         android:textSize="20sp"
                         android:padding="5dp"
                         android:background="@null"
-                        android:editable="false"/>
+                        android:editable="false"
+                        android:textColor="@android:color/secondary_text_light" />
 
                 </LinearLayout>
 
@@ -136,7 +149,7 @@
                 android:text="Ends"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp"/>
+                android:textColor="@color/colorPrimaryDark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -156,16 +169,17 @@
                         android:text="Date"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:padding="5dp" />
+                        android:textColor="@color/colorPrimary" />
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/endDateEditText"
                         android:textSize="20sp"
                         android:padding="5dp"
                         android:background="@null"
-                        android:editable="false"/>
+                        android:editable="false"
+                        android:textColor="@android:color/secondary_text_light" />
 
                 </LinearLayout>
 
@@ -181,16 +195,17 @@
                         android:text="Time"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:padding="5dp" />
+                        android:textColor="@color/colorPrimary" />
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/endTimeEditText"
                         android:textSize="20sp"
                         android:padding="5dp"
                         android:background="@null"
-                        android:editable="false"/>
+                        android:editable="false"
+                        android:textColor="@android:color/secondary_text_light" />
 
                 </LinearLayout>
 
@@ -203,7 +218,7 @@
                 android:text="Location"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -211,7 +226,8 @@
                 android:id="@+id/locationEditText"
                 android:textSize="20sp"
                 android:padding="5dp"
-                android:background="@null"/>
+                android:background="@null"
+                android:textColor="@android:color/secondary_text_light" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -219,7 +235,7 @@
                 android:text="Description"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -227,23 +243,8 @@
                 android:id="@+id/descriptionEditText"
                 android:textSize="20sp"
                 android:padding="5dp"
-                android:background="@null"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Participants"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:padding="5dp" />
-
-            <ListView
-                android:id="@+id/participantsListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"/>
-
-
+                android:background="@null"
+                android:textColor="@android:color/secondary_text_light" />
 
         </LinearLayout>
 

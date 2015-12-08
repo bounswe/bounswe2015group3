@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.group3.cmpesocial.EventDetailActivity">
+    tools:context="com.group3.cmpesocial.EventDetailActivity"
+    android:focusableInTouchMode="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar"
@@ -94,7 +95,7 @@
                 android:text="Name"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -102,7 +103,8 @@
                 android:id="@+id/nameEditText"
                 android:textSize="20sp"
                 android:padding="5dp"
-                android:background="@null" />
+                android:background="@null"
+                android:textColor="@android:color/secondary_text_light" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -110,7 +112,7 @@
                 android:text="Period"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <Spinner
                 android:id="@+id/spinner"
@@ -124,7 +126,7 @@
                 android:text="Starts"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp"/>
+                android:textColor="@color/colorPrimaryDark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -141,19 +143,20 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
                         android:text="Date"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:padding="5dp" />
+                        android:textColor="@color/colorPrimary" />
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/startDateEditText"
                         android:textSize="20sp"
                         android:padding="5dp"
                         android:background="@null"
-                        android:editable="false"/>
+                        android:editable="false"
+                        android:textColor="@android:color/secondary_text_light" />
 
                 </LinearLayout>
 
@@ -169,16 +172,17 @@
                         android:text="Time"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:padding="5dp" />
+                        android:textColor="@color/colorPrimary" />
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/startTimeEditText"
                         android:textSize="20sp"
                         android:padding="5dp"
                         android:background="@null"
-                        android:editable="false"/>
+                        android:editable="false"
+                        android:textColor="@android:color/secondary_text_light" />
 
                 </LinearLayout>
 
@@ -191,7 +195,7 @@
                 android:text="Ends"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp"/>
+                android:textColor="@color/colorPrimaryDark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -211,16 +215,17 @@
                         android:text="Date"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:padding="5dp" />
+                        android:textColor="@color/colorPrimary" />
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/endDateEditText"
                         android:textSize="20sp"
                         android:padding="5dp"
                         android:background="@null"
-                        android:editable="false"/>
+                        android:editable="false"
+                        android:textColor="@android:color/secondary_text_light" />
 
                 </LinearLayout>
 
@@ -236,16 +241,17 @@
                         android:text="Time"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:padding="5dp" />
+                        android:textColor="@color/colorPrimary" />
 
                     <EditText
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/endTimeEditText"
                         android:textSize="20sp"
                         android:padding="5dp"
                         android:background="@null"
-                        android:editable="false"/>
+                        android:editable="false"
+                        android:textColor="@android:color/secondary_text_light" />
 
                 </LinearLayout>
 
@@ -258,7 +264,7 @@
                 android:text="Location"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -266,7 +272,8 @@
                 android:id="@+id/locationEditText"
                 android:textSize="20sp"
                 android:padding="5dp"
-                android:background="@null"/>
+                android:background="@null"
+                android:textColor="@android:color/secondary_text_light" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -274,7 +281,7 @@
                 android:text="Description"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -282,7 +289,8 @@
                 android:id="@+id/descriptionEditText"
                 android:textSize="20sp"
                 android:padding="5dp"
-                android:background="@null"/>
+                android:background="@null"
+                android:textColor="@android:color/secondary_text_light" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -290,7 +298,7 @@
                 android:text="Participants"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:padding="5dp" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"

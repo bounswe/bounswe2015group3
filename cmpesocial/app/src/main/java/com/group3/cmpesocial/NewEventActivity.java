@@ -66,7 +66,7 @@ public class NewEventActivity extends AppCompatActivity {
         spinner = (Spinner) findViewById(R.id.spinner);
         doneButton = (Button) findViewById(R.id.doneButton);
 
-        toolbar  = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         startDateEditText.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +124,7 @@ public class NewEventActivity extends AppCompatActivity {
                 endDateEditText.getText() == null || endDateEditText.getText().length() == 0 ||
                 endTimeEditText.getText() == null || endTimeEditText.getText().length() == 0 ||
                 locationEditText.getText() == null || locationEditText.getText().length() == 0 ||
-                descriptionEditText.getText() == null || descriptionEditText.getText().length() == 0 ){
+                descriptionEditText.getText() == null || descriptionEditText.getText().length() == 0) {
             Toast.makeText(this, "Please fill every field", Toast.LENGTH_LONG).show();
             return;
         }
@@ -146,19 +146,19 @@ public class NewEventActivity extends AppCompatActivity {
 
         Log.i(TAG, json.toString());
 
-        int result = API.updateEvent(json, this);
-        if (result == API.ERROR){
+        int result = API.createEvent(json, this);
+        if (result == API.ERROR) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-        }else if (result == API.SUCCESS){
+        } else if (result == API.SUCCESS) {
             Log.i(TAG, "event created");
             finish();
-        }else if (result == API.RESULT_EMPTY){
+        } else if (result == API.RESULT_EMPTY) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    public void pickDate(View v, final boolean start){
+    public void pickDate(View v, final boolean start) {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         final int month = c.get(Calendar.MONTH);
@@ -167,19 +167,19 @@ public class NewEventActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                if (start){
-                    new_start_date = year + "-" + month + "-" + day;
-                    startDateEditText.setText(year + " " + Event.getMonthName(monthOfYear) + " " + dayOfMonth);
-                }else{
-                    new_end_date = year + "-" + month + "-" + day;
-                    endDateEditText.setText(year + " " + Event.getMonthName(monthOfYear) + " " + dayOfMonth);
+                if (start) {
+                    new_start_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                    startDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
+                } else {
+                    new_end_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                    endDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
                 }
             }
         }, year, month, day);
         datePickerDialog.show();
     }
 
-    public void pickTime(View v, final boolean start){
+    public void pickTime(View v, final boolean start) {
         final Calendar c = Calendar.getInstance();
         final int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
@@ -188,12 +188,22 @@ public class NewEventActivity extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                if(start) {
-                    new_start_time = hourOfDay + ":" + minute + ":00";
-                    startTimeEditText.setText(hourOfDay + ":" + minute);
-                }else{
-                    new_end_time = hourOfDay + ":" + minute + ":00";
-                    endTimeEditText.setText(hourOfDay + ":" + minute);
+                if (start) {
+                    if (minute < 10) {
+                        new_start_time = hourOfDay + ":0" + minute + ":00";
+                        startTimeEditText.setText(hourOfDay + ":0" + minute);
+                    } else {
+                        new_start_time = hourOfDay + ":" + minute + ":00";
+                        startTimeEditText.setText(hourOfDay + ":" + minute);
+                    }
+                } else {
+                    if (minute < 10) {
+                        new_end_time = hourOfDay + ":0" + minute + ":00";
+                        endTimeEditText.setText(hourOfDay + ":0" + minute);
+                    } else {
+                        new_end_time = hourOfDay + ":" + minute + ":00";
+                        endTimeEditText.setText(hourOfDay + ":" + minute);
+                    }
                 }
             }
         }, hour, minute, true);

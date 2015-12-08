@@ -18,7 +18,7 @@ public class Event {
     private String location;
     private String description;
 
-    public static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+    public static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     public static final String[] periods = {"None", "Weekly", "Monthly", "Yearly"};
 
     public Event(){
@@ -77,6 +77,9 @@ public class Event {
         if (time.contains("PM") && mTime[0] != 12){
             mTime[0] += 12;
         }
+        if(mTime[0] == 12 && time.contains("AM")){
+            mTime[0] -= 12;
+        }
         return mTime;
     }
 
@@ -90,7 +93,7 @@ public class Event {
     }
 
     public static String getMonthName(int index){
-        if (index > 0 && index < 12){
+        if (index >= 0 && index < 12){
             return monthNames[index];
         }else{
             return "";
@@ -182,19 +185,25 @@ public class Event {
     }
 
     public String getStartDateString(){
-        return startDate[2] + "-" + startDate[1] + "-" + startDate[0];
+        return startDate[2] + "-" + (startDate[1]+1) + "-" + startDate[0];
     }
 
     public String getStartTimeString(){
-        return startTime[0] + ":" + startTime[1] + ":00";
+        if (startTime[1] < 10)
+            return startTime[0] + ":0" + startTime[1] + ":00";
+        else
+            return startTime[0] + ":" + startTime[1] + ":00";
     }
 
     public String getEndDateString(){
-        return endDate[2] + "-" + endDate[1] + "-" + endDate[0];
+        return endDate[2] + "-" + (endDate[1]+1) + "-" + endDate[0];
     }
 
     public String getEndTimeString(){
-        return endTime[0] + ":" + endTime[1] + ":00";
+        if (endTime[1] < 10)
+            return endTime[0] + ":0" + endTime[1] + ":00";
+        else
+            return endTime[0] + ":" + endTime[1] + ":00";
     }
 
     public String getShowStartDate(){
@@ -203,7 +212,7 @@ public class Event {
 
     public String getShowStartTime(){
         if(startTime[1] < 10){
-            return startTime[0] + ":" + startTime[1] + "0";
+            return startTime[0] + ":0" + startTime[1];
         } else {
             return startTime[0] + ":" + startTime[1];
         }
@@ -215,7 +224,7 @@ public class Event {
 
     public String getShowEndTime(){
         if (endTime[1] < 10){
-            return endTime[0] + ":" + endTime[1] + "0";
+            return endTime[0] + ":0" + endTime[1];
         } else {
             return endTime[0] + ":" + endTime[1];
         }

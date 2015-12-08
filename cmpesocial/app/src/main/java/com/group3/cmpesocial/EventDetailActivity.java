@@ -38,6 +38,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private static final String TAG = EventDetailActivity.class.getSimpleName();
 
     private Event mEvent;
+    private User mUser;
 
     private EditText nameEditText;
     private EditText startDateEditText;
@@ -46,7 +47,6 @@ public class EventDetailActivity extends AppCompatActivity {
     private EditText endTimeEditText;
     private EditText locationEditText;
     private EditText descriptionEditText;
-    private ListView participantsListView;
     private RecyclerView recyclerView;
     private Spinner spinner;
     private ImageButton editButton;
@@ -54,7 +54,6 @@ public class EventDetailActivity extends AppCompatActivity {
     private Button doneButton;
     private Button joinButton;
     private Button leaveButton;
-
 
     private UserAdapter adapter;
 
@@ -98,28 +97,9 @@ public class EventDetailActivity extends AppCompatActivity {
         toolbar  = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        setListViewHeightBasedOnChildren(participantsListView);
-//        participantsListView.setOnTouchListener(new ListView.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                int action = event.getAction();
-//                switch (action) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        // Disallow ScrollView to intercept touch events.
-//                        v.getParent().requestDisallowInterceptTouchEvent(true);
-//                        break;
-//
-//                    case MotionEvent.ACTION_UP:
-//                        // Allow ScrollView to intercept touch events.
-//                        v.getParent().requestDisallowInterceptTouchEvent(false);
-//                        break;
-//                }
-//
-//                // Handle ListView touch events.
-//                v.onTouchEvent(event);
-//                return true;
-//            }
-//        });
+        JsonObject userJson = new JsonObject();
+        userJson.addProperty("id", user_id);
+        mUser = API.getUser(userJson, this);
 
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
@@ -176,9 +156,6 @@ public class EventDetailActivity extends AppCompatActivity {
                 spinner.setSelection(periodic);
             }
         });
-
-        Log.i(TAG, "participants " + participants.toString());
-        //participantsListView.setAdapter(adapter);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -318,6 +295,11 @@ public class EventDetailActivity extends AppCompatActivity {
         json.addProperty("id_event", id);
         int result = API.joinEvent(json, this);
         // Do something with result
+
+        Toast.makeText(this, "joined event", Toast.LENGTH_SHORT).show();
+
+        adapter.add(mUser);
+
         joinButton.setVisibility(View.VISIBLE);
         leaveButton.setVisibility(View.GONE);
     }
@@ -332,12 +314,13 @@ public class EventDetailActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 if (start){
-                    new_start_date = year + "-" + month + "-" + day;
-                    startDateEditText.setText(year + " " + Event.getMonthName(monthOfYear) + " " + dayOfMonth);
+                    new_start_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                    startDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
                 }else{
-                    new_end_date = year + "-" + month + "-" + day;
-                    endDateEditText.setText(year + " " + Event.getMonthName(monthOfYear) + " " + dayOfMonth);
+                    new_end_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                    endDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
                 }
+
             }
         }, year, month, day);
         datePickerDialog.updateDate(date[2], date[1], date[0]);
@@ -354,11 +337,21 @@ public class EventDetailActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 if(start) {
-                    new_start_time = hourOfDay + ":" + minute + ":00";
-                    startTimeEditText.setText(hourOfDay + ":" + minute);
+                    if(minute < 10){
+                        new_start_time = hourOfDay + ":0" + minute + ":00";
+                        startTimeEditText.setText(hourOfDay + ":0" + minute);
+                    }else {
+                        new_start_time = hourOfDay + ":" + minute + ":00";
+                        startTimeEditText.setText(hourOfDay + ":" + minute);
+                    }
                 }else{
-                    new_end_time = hourOfDay + ":" + minute + ":00";
-                    endTimeEditText.setText(hourOfDay + ":" + minute);
+                    if(minute < 10){
+                        new_end_time = hourOfDay + ":0" + minute + ":00";
+                        endTimeEditText.setText(hourOfDay + ":0" + minute);
+                    }else {
+                        new_end_time = hourOfDay + ":" + minute + ":00";
+                        endTimeEditText.setText(hourOfDay + ":" + minute);
+                    }
                 }
             }
         }, hour, minute, true);
@@ -377,10 +370,23 @@ public class EventDetailActivity extends AppCompatActivity {
             // each data item is just a string in this case
             public TextView nameTextView;
             public Button profileButton;
+            public int id;
             public ViewHolder(View itemView) {
                 super(itemView);
                 nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
                 profileButton = (Button) itemView.findViewById(R.id.profileButton);
+                profileButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), UserDetailActivity.class);
+                        intent.putExtra("id", id);
+                        startActivity(intent);
+                    }
+                });
+            }
+            public void setId(int id){
+                this.id = id;
+
             }
         }
 
@@ -403,6 +409,7 @@ public class EventDetailActivity extends AppCompatActivity {
             User mUser = users.get(position);
             String name = mUser.getName();
             String surname = mUser.getSurname();
+            holder.setId(mUser.getId());
             holder.nameTextView.setText(name + " " + surname);
             holder.profileButton.setText(name.charAt(0) + "" + surname.charAt(0));
         }

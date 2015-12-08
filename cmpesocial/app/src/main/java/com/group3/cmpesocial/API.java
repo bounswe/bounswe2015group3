@@ -32,6 +32,10 @@ public class API {
     private static final String TAG = API.class.getSimpleName();
     private static final String baseURI = "http://54.148.86.208:8080/cmpesocial-temp/api/";
 
+    //
+    // User API methods
+    //
+
     public static int login(JsonObject json, final Context context) {
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
@@ -178,6 +182,10 @@ public class API {
         return mUser;
     }
 
+    //
+    // Event API methods
+    //
+
     public static int createEvent(JsonObject json, Context context) {
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
@@ -204,35 +212,6 @@ public class API {
             Log.i(TAG, "future : " + mFuture.get().toString());
         }catch (Exception e){
             Log.i(TAG, "exception createEvent" + e.getMessage());
-        }
-        return returnArray[0];
-    }
-    public static int createGroup(JsonObject json, Context context) {
-        final int[] returnArray = new int[1];
-        Future mFuture = Ion.with(context)
-                .load(baseURI + "groups/create")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        if (e != null) {
-                            Log.i(TAG, "error createGroup" + e.getMessage());
-                            returnArray[0] = ERROR;
-                        } else if (result != null) {
-                            Log.i(TAG, result.toString());
-                            returnArray[0] = SUCCESS;
-                        } else {
-                            Log.i(TAG, "result empty");
-                            returnArray[0] = RESULT_EMPTY;
-                        }
-                    }
-                });
-        try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
-        }catch (Exception e){
-            Log.i(TAG, "exception createGroup" + e.getMessage());
         }
         return returnArray[0];
     }
@@ -270,39 +249,6 @@ public class API {
         }
         return returnArray[0];
     }
-    public static int updateGroup(JsonObject json, Context context) {
-        final int[] returnArray = new int[1];
-        Future mFuture = Ion.with(context)
-                .load(baseURI + "groups/update")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        if (e != null) {
-                            Log.i(TAG, "error updateGroup " + e.getMessage());
-                            returnArray[0] = ERROR;
-                        } else if (result != null) {
-                            String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
-                                returnArray[0] = SUCCESS;
-                            } else {
-                                returnArray[0] = ERROR;
-                            }
-                        } else {
-                            Log.i(TAG, "result empty");
-                            returnArray[0] = RESULT_EMPTY;
-                        }
-                    }
-                });
-        try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
-        }catch (Exception e){
-            Log.i(TAG, "exception updateGroup" + e.getMessage());
-        }
-        return returnArray[0];
-    }
 
     public static int deleteEvent(JsonObject json, Context context) {
         final int[] returnArray = new int[1];
@@ -337,40 +283,6 @@ public class API {
         }
         return returnArray[0];
     }
-    public static int deleteGroup(JsonObject json, Context context) {
-        final int[] returnArray = new int[1];
-        Future mFuture = Ion.with(context)
-                .load(baseURI + "groups/delete")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        if (e != null) {
-                            Log.i(TAG, "error deleteGroup" + e.getMessage());
-                            returnArray[0] = ERROR;
-                        } else if (result != null) {
-                            String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
-                                returnArray[0] = SUCCESS;
-                            } else {
-                                returnArray[0] = ERROR;
-                            }
-                        } else {
-                            Log.i(TAG, "result empty");
-                            returnArray[0] = RESULT_EMPTY;
-                        }
-                    }
-                });
-        try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
-        }catch (Exception e){
-            Log.i(TAG, "exception deleteGroup" + e.getMessage());
-        }
-        return returnArray[0];
-    }
-
 
     public static int allEvents(final Context context, final ArrayAdapter<Event> adapter) {
         final int[] returnArray = new int[1];
@@ -418,59 +330,8 @@ public class API {
         }
         return returnArray[0];
     }
-    public static int allGroups(final Context context, final ArrayAdapter<Group> adapter) {
-        final int[] returnArray = new int[1];
 
-
-        final ArrayList<Group> groupsList = new ArrayList<>();
-        JsonObject json = new JsonObject();
-        Future mFuture = Ion.with(context)
-                .load(baseURI + "groups/all")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        if (e != null) {
-                            Log.i(TAG, "error allGroups" + e.getMessage());
-                            returnArray[0] = ERROR;
-                            Toast.makeText(context, "an error occurred while updating group list", Toast.LENGTH_SHORT).show();
-                        } else if (result != null) {
-                            String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
-                                returnArray[0] = SUCCESS;
-
-                                JsonArray groups = result.getAsJsonArray("groups");
-                                Iterator<JsonElement> iterator = groups.iterator();
-                                while (iterator.hasNext()) {
-                                    JsonObject groupJson = iterator.next().getAsJsonObject();
-                                    Log.i(TAG, groupJson.toString());
-                                    Group group = new Group(groupJson);
-                                    Log.d(TAG, "onCreate() Restoring previous state");
-                                    groupsList.add(group);
-                                }
-
-                                adapter.addAll(groupsList);
-                            } else {
-                                returnArray[0] = ERROR;
-                                Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } else {
-                            Log.i(TAG, "result empty");
-                            returnArray[0] = ERROR;
-                        }
-                    }
-                });
-        try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
-        }catch (Exception e){
-            Log.i(TAG, "exception allGroups" + e.getClass() + " " + e.getMessage());
-        }
-        return returnArray[0];
-    }
-
-    public static ArrayList<Event> viewMyEvents(JsonObject json, Context context){
+    public static ArrayList<Event> getMyEvents(JsonObject json, Context context){
         ArrayList<Event> mEvents = new ArrayList<>();
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/view")
@@ -508,45 +369,6 @@ public class API {
         }
         return mEvents;
     }
-    public static ArrayList<Group> viewMyGroups(JsonObject json, Context context){
-        ArrayList<Group> mGroups = new ArrayList<>();
-        Future mFuture = Ion.with(context)
-                .load(baseURI + "groups/view")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        if (e != null) {
-                            Log.i(TAG, "error viewMyGroups" + e.getMessage());
-                        } else if (result != null) {
-//                            String type = trimQuotes(result.get("Result").toString());
-//                            if (type.equals("SUCCESS")) {
-//                                returnArray[0] = SUCCESS;
-//                            } else {
-//                                returnArray[0] = ERROR;
-//                            }
-                        } else {
-                            Log.i(TAG, "result empty");
-                        }
-                    }
-                });
-        try {
-            JsonObject result = (JsonObject) mFuture.get();
-            Log.i(TAG, "future : " + result.toString());
-            JsonArray groupsJson = result.getAsJsonArray("groups");
-            Iterator<JsonElement> iterator = groupsJson.iterator();
-            while (iterator.hasNext()) {
-                Group group = new Group(iterator.next().getAsJsonObject());
-                mGroups.add(group);
-            }
-        }catch (Exception e){
-            Log.i(TAG, "exception viewMyEvents" + e.getMessage());
-        }
-        return mGroups;
-    }
-
 
     public static Event getEvent(JsonObject json, Context context){
         Event mEvent = new Event();
@@ -580,39 +402,6 @@ public class API {
             Log.i(TAG, "exception getEvent" + e.getMessage());
         }
         return mEvent;
-    }
-    public static Group getGroup(JsonObject json, Context context){
-        Group mGroup = new Group();
-        Future mFuture = Ion.with(context)
-                .load(baseURI + "groups/viewDetail")
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        if (e != null) {
-                            Log.i(TAG, "error getGroup" + e.getMessage());
-                        } else if (result != null) {
-//                            String type = trimQuotes(result.get("Result").toString());
-//                            if (type.equals("SUCCESS")) {
-//                                returnArray[0] = SUCCESS;
-//                            } else {
-//                                returnArray[0] = ERROR;
-//                            }
-                        } else {
-                            Log.i(TAG, "result empty");
-                        }
-                    }
-                });
-        try {
-            JsonObject groupJson = (JsonObject) mFuture.get();
-            Log.i(TAG, "future : " + groupJson.toString());
-            mGroup = new Group(groupJson);
-        }catch (Exception e){
-            Log.i(TAG, "exception getGroup" + e.getMessage());
-        }
-        return mGroup;
     }
 
     public static ArrayList<User> getEventParticipants(JsonObject json, Context context){
@@ -686,6 +475,475 @@ public class API {
         }
         return returnArray[0];
     }
+
+    public static ArrayList<Object> getAllEventPosts(JsonObject json, Context context){
+        ArrayList<Object> eventPosts = new ArrayList<>();
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "events/getAllPosts")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error getAllEventPosts" + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equals("SUCCESS")) {
+                                // get posts
+                                // add them to eventPosts
+                                // posts also have their comments in them
+                                //JsonArray comments = result.getAsJsonArray("comments");
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception getAllEventPosts" + e.getMessage());
+        }
+        Log.i(TAG, "getAllEventPosts return code: " + returnArray[0]);
+        return eventPosts;
+    }
+
+    public static int createEventPost(JsonObject json, Context context){
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "events/createPost/")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error createEventPost" + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equals("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception createEventPost" + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public static int updateEventPost(JsonObject json, Context context){
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "events/updatePost/")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error updateEventPost" + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equals("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception updateEventPost" + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public static int deleteEventPost(JsonObject json, Context context){
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "events/deletePost/")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error deleteEventPost" + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equals("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception deleteEventPost" + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public static int createEventComment(JsonObject json, Context context){
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "events/createComment/")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error createEventComment" + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equals("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception createEventComment" + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public static int updateEventComment(JsonObject json, Context context){
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "events/updateComment/")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error updateEventComment" + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equals("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception updateEventComment" + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public static int deleteEventComment(JsonObject json, Context context){
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "events/deleteComment/")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error deleteEventComment" + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equals("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception deleteEventComment" + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public static int createGroup(JsonObject json, Context context) {
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "groups/create")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error createGroup" + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            Log.i(TAG, result.toString());
+                            returnArray[0] = SUCCESS;
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception createGroup" + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public static int updateGroup(JsonObject json, Context context) {
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "groups/update")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error updateGroup " + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equals("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception updateGroup" + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public static int deleteGroup(JsonObject json, Context context) {
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "groups/delete")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error deleteGroup" + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equals("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception deleteGroup" + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public static int allGroups(final Context context, final ArrayAdapter<Group> adapter) {
+        final int[] returnArray = new int[1];
+
+
+        final ArrayList<Group> groupsList = new ArrayList<>();
+        JsonObject json = new JsonObject();
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "groups/all")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        if (e != null) {
+                            Log.i(TAG, "error allGroups" + e.getMessage());
+                            returnArray[0] = ERROR;
+                            Toast.makeText(context, "an error occurred while updating group list", Toast.LENGTH_SHORT).show();
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equals("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+
+                                JsonArray groups = result.getAsJsonArray("groups");
+                                Iterator<JsonElement> iterator = groups.iterator();
+                                while (iterator.hasNext()) {
+                                    JsonObject groupJson = iterator.next().getAsJsonObject();
+                                    Log.i(TAG, groupJson.toString());
+                                    Group group = new Group(groupJson);
+                                    Log.d(TAG, "onCreate() Restoring previous state");
+                                    groupsList.add(group);
+                                }
+
+                                adapter.addAll(groupsList);
+                            } else {
+                                returnArray[0] = ERROR;
+                                Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else {
+                            Log.i(TAG, "result empty");
+                            returnArray[0] = ERROR;
+                        }
+                    }
+                });
+        try {
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception allGroups" + e.getClass() + " " + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public static ArrayList<Group> viewMyGroups(JsonObject json, Context context){
+        ArrayList<Group> mGroups = new ArrayList<>();
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "groups/view")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error viewMyGroups" + e.getMessage());
+                        } else if (result != null) {
+//                            String type = trimQuotes(result.get("Result").toString());
+//                            if (type.equals("SUCCESS")) {
+//                                returnArray[0] = SUCCESS;
+//                            } else {
+//                                returnArray[0] = ERROR;
+//                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                        }
+                    }
+                });
+        try {
+            JsonObject result = (JsonObject) mFuture.get();
+            Log.i(TAG, "future : " + result.toString());
+            JsonArray groupsJson = result.getAsJsonArray("groups");
+            Iterator<JsonElement> iterator = groupsJson.iterator();
+            while (iterator.hasNext()) {
+                Group group = new Group(iterator.next().getAsJsonObject());
+                mGroups.add(group);
+            }
+        }catch (Exception e){
+            Log.i(TAG, "exception viewMyEvents" + e.getMessage());
+        }
+        return mGroups;
+    }
+
+    public static Group getGroup(JsonObject json, Context context){
+        Group mGroup = new Group();
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "groups/viewDetail")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error getGroup" + e.getMessage());
+                        } else if (result != null) {
+//                            String type = trimQuotes(result.get("Result").toString());
+//                            if (type.equals("SUCCESS")) {
+//                                returnArray[0] = SUCCESS;
+//                            } else {
+//                                returnArray[0] = ERROR;
+//                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                        }
+                    }
+                });
+        try {
+            JsonObject groupJson = (JsonObject) mFuture.get();
+            Log.i(TAG, "future : " + groupJson.toString());
+            mGroup = new Group(groupJson);
+        }catch (Exception e){
+            Log.i(TAG, "exception getGroup" + e.getMessage());
+        }
+        return mGroup;
+    }
+
+
 
     protected static String trimQuotes(String s) {
         if (s.charAt(0) == '\"' && s.charAt(s.length() - 1) == '\"')
