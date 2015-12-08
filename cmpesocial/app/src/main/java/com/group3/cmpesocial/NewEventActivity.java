@@ -49,8 +49,6 @@ public class NewEventActivity extends AppCompatActivity {
 
     private int user_id;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,7 +146,7 @@ public class NewEventActivity extends AppCompatActivity {
 
         Log.i(TAG, json.toString());
 
-        int result = API.createEvent(json, this);
+        int result = API.updateEvent(json, this);
         if (result == API.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }else if (result == API.SUCCESS){
@@ -170,12 +168,11 @@ public class NewEventActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 if (start){
-                    new_start_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
-
-                    startDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
+                    new_start_date = year + "-" + month + "-" + day;
+                    startDateEditText.setText(year + " " + Event.getMonthName(monthOfYear) + " " + dayOfMonth);
                 }else{
-                    new_end_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
-                    endDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
+                    new_end_date = year + "-" + month + "-" + day;
+                    endDateEditText.setText(year + " " + Event.getMonthName(monthOfYear) + " " + dayOfMonth);
                 }
             }
         }, year, month, day);
@@ -193,16 +190,10 @@ public class NewEventActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 if(start) {
                     new_start_time = hourOfDay + ":" + minute + ":00";
-                    if(minute < 10)
-                        startTimeEditText.setText(hourOfDay + ":0" + minute);
-                    else
-                        startTimeEditText.setText(hourOfDay + ":" + minute);
+                    startTimeEditText.setText(hourOfDay + ":" + minute);
                 }else{
                     new_end_time = hourOfDay + ":" + minute + ":00";
-                    if(minute < 10)
-                        endTimeEditText.setText(hourOfDay + ":0" + minute);
-                    else
-                        endTimeEditText.setText(hourOfDay + ":" + minute);
+                    endTimeEditText.setText(hourOfDay + ":" + minute);
                 }
             }
         }, hour, minute, true);

@@ -38,11 +38,14 @@
         </activity>
         <activity
             android:name=".EventDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".NewEventActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".UserDetailActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".NewGroupActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>
