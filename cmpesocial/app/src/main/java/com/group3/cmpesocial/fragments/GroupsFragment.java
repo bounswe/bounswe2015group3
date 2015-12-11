@@ -16,13 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.group3.cmpesocial.API;
-//import com.group3.cmpesocial.GroupDetailActivity;
-import com.group3.cmpesocial.NewGroupActivity;
 import com.group3.cmpesocial.R;
+import com.group3.cmpesocial.activities.group.GroupDetailActivity;
+import com.group3.cmpesocial.activities.group.NewGroupActivity;
 import com.group3.cmpesocial.classes.Group;
 
 import java.util.ArrayList;
 import java.util.List;
+
+//import com.group3.cmpesocial.GroupDetailActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -106,28 +108,25 @@ public class GroupsFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
+            if (convertView != null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_group, parent, false);
+            }
 
             final Group mGroup = getItem(position);
 
-
             TextView titleTextView = (TextView) convertView.findViewById(R.id.titleTextView);
-
-
-
 
             Log.d(TAG, mGroup.getName());
             titleTextView.setText(mGroup.getName());
 
-
-           /* convertView.setOnClickListener(new View.OnClickListener() {
+            convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), GroupDetailActivity.class);
                     intent.putExtra("id", mGroup.getId());
                     startActivity(intent);
                 }
-            });*/
+            });
 
             return convertView;
         }

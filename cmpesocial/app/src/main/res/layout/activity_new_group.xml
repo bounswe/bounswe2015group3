@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.group3.cmpesocial.NewGroupActivity">
+    tools:context=".activities.group.NewGroupActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -16,7 +17,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/ic_check_white_24dp"
+                android:onClick="createEvent"
+                android:paddingRight="10dp"
+                android:text="Done"
+                android:textColor="@android:color/white" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:drawableRight="@drawable/ic_check_white_24dp"
+                android:onClick="createGroup"
+                android:text="Done"
+                android:textColor="@android:color/white"
+                android:paddingRight="@dimen/activity_vertical_margin"/>
 
         </android.support.v7.widget.Toolbar>
 
@@ -24,71 +45,89 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
             android:background="@null"
+            android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:padding="5dp" />
-
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/nameEditText"
-                android:textSize="20sp"
-                android:padding="5dp"
-                android:background="@null" />
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_mode_edit_black_24dp" />
 
+                <EditText
+                    android:id="@+id/nameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:hint="Name"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:padding="5dp" />
+            </LinearLayout>
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/descriptionEditText"
-                android:textSize="20sp"
-                android:padding="5dp"
-                android:background="@null"/>
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Group Members"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:padding="5dp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_vertical_margin"
+                    android:src="@drawable/ic_label_black_24dp"/>
 
-            <ListView
-                android:id="@+id/participantsListView"
+                <EditText
+                    android:id="@+id/labelsEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Touch to add labels"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp"
+                    android:padding="5dp"
+                    android:background="@null"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Done"
-                android:drawableRight="@drawable/ic_check_white_24dp"
-                android:textColor="@android:color/white"
-                android:background="@android:color/black"
-                android:onClick="createGroup"
-                android:layout_gravity="right"/>
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_mode_comment_black_24dp" />
+
+                <EditText
+                    android:id="@+id/descriptionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="Description"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
 
 
         </LinearLayout>

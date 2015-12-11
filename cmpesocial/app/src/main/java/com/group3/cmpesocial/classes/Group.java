@@ -9,44 +9,36 @@ public class Group {
 
     private int id;
     private String name;
-    private int[] startDate;
-    private int[] startTime;
-    private int period;
-    private int[] endDate;
-    private int[] endTime;
     private int id_user;
-    private String location;
     private String description;
-
-    public static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-    public static final String[] periods = {"None", "Weekly", "Monthly", "Yearly"};
+    private String pictureURL;
+    private String groupURL;
+    private int[] type;
 
     public Group(){
 
     }
 
     public Group(JsonObject json){
-        this();
         int id = json.get("id").getAsInt();
         String name = json.get("name").getAsString();
-
         int id_admin = json.get("id_admin").getAsInt();
-        //String location = json.get("location").getAsString();
         String description = json.get("description").getAsString();
         String group_url = json.get("group_url").getAsString();
-
-
+        String picture_url = json.get("picture_url").getAsString();
+        String types = json.get("type").getAsString();
+        String[] type_array = types.split(",");
 
         this.id = id;
         this.name = name;
-
         this.id_user = id_admin;
-
         this.description = description;
+        this.pictureURL = picture_url;
+        this.groupURL = group_url;
+        for (int i = 0; i < type_array.length; i ++){
+            this.type[i] = Integer.parseInt(type_array[i]);
+        }
     }
-
-
-
 
     public String getDescription() {
         return description;
@@ -56,8 +48,13 @@ public class Group {
         this.description = description;
     }
 
+    public String getGroupURL() {
+        return groupURL;
+    }
 
-
+    public void setGroupURL(String groupURL) {
+        this.groupURL = groupURL;
+    }
 
     public int getId() {
         return id;
@@ -75,10 +72,6 @@ public class Group {
         this.id_user = id_user;
     }
 
-
-
-
-
     public String getName() {
         return name;
     }
@@ -87,7 +80,19 @@ public class Group {
         this.name = name;
     }
 
+    public String getPictureURL() {
+        return pictureURL;
+    }
 
+    public void setPictureURL(String pictureURL) {
+        this.pictureURL = pictureURL;
+    }
 
+    public int[] getType() {
+        return type;
+    }
 
+    public void setType(int[] type) {
+        this.type = type;
+    }
 }

@@ -9,7 +9,7 @@
         android:id="@+id/dateTextView"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:text="31\nOCT"
         android:textColor="@android:color/white"

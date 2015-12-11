@@ -16,8 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.group3.cmpesocial.API;
-import com.group3.cmpesocial.EventDetailActivity;
-import com.group3.cmpesocial.NewEventActivity;
+import com.group3.cmpesocial.activities.event.EventDetailActivity;
+import com.group3.cmpesocial.activities.event.NewEventActivity;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.classes.Event;
 

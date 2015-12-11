@@ -17,6 +17,7 @@ public class Event {
     private int id_user;
     private String location;
     private String description;
+    private int[] type;
 
     public static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     public static final String[] periods = {"None", "Weekly", "Monthly", "Yearly"};
@@ -38,6 +39,8 @@ public class Event {
         int id_user = json.get("id_user").getAsInt();
         String location = json.get("location").getAsString();
         String description = json.get("description").getAsString();
+        String type = json.get("type").getAsString();
+        String[] type_array = type.split(",");
 
         String start_date = start_date_year_hour.substring(0, start_date_year_hour.indexOf(','));
         String start_month_name = start_date.substring(0, 3).trim();
@@ -67,6 +70,9 @@ public class Event {
         this.id_user = id_user;
         this.location = location;
         this.description = description;
+        for (int i = 0; i < type_array.length; i++){
+            this.type[i] = Integer.parseInt(type_array[i]);
+        }
     }
 
     public static int[] getTime(String time){
@@ -182,6 +188,14 @@ public class Event {
 
     public void setPeriod(int period) {
         this.period = period;
+    }
+
+    public int[] getType() {
+        return type;
+    }
+
+    public void setType(int[] type) {
+        this.type = type;
     }
 
     public String getStartDateString(){

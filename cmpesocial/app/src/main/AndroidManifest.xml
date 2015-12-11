@@ -14,20 +14,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".activities.SignupActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -36,16 +36,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.UserDetailActivity" />
         <activity
-            android:name=".EventDetailActivity"
+            android:name=".activities.event.EventDetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".NewEventActivity"
+            android:name=".activities.event.NewEventActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".NewGroupActivity"
+            android:name=".activities.group.NewGroupActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".UserDetailActivity"></activity>
+        <activity
+            android:name=".activities.group.GroupDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

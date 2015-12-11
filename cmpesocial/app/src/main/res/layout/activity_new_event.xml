@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.group3.cmpesocial.NewEventActivity">
+    tools:context=".activities.event.NewEventActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,12 +20,21 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Done"
-                android:drawableRight="@drawable/ic_check_white_24dp"
-                android:textColor="@android:color/white"
+                android:layout_gravity="right"
                 android:background="@android:color/transparent"
+                android:drawableRight="@drawable/ic_check_white_24dp"
                 android:onClick="createEvent"
-                android:layout_gravity="right"/>
+                android:paddingRight="10dp"
+                android:text="Done"
+                android:textColor="@android:color/white" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/activity_vertical_margin"
+                android:src="@drawable/ic_face_white_24dp" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -38,213 +47,190 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
             android:background="@null"
+            android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/nameEditText"
-                android:textSize="20sp"
-                android:padding="5dp"
-                android:background="@null"
-                android:textColor="@android:color/secondary_text_light" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Period"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Starts"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_mode_edit_black_24dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:text="Date"
-                        android:textSize="18sp"
-                        android:textColor="@color/colorPrimary" />
+                <EditText
+                    android:id="@+id/nameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:hint="Name"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp" />
 
-                    <EditText
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_schedule_black_24dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:padding="5dp" />
+
+                    <EditText
                         android:id="@+id/startDateEditText"
-                        android:textSize="20sp"
-                        android:padding="5dp"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/spinner"
                         android:background="@null"
                         android:editable="false"
-                        android:textColor="@android:color/secondary_text_light" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Time"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary" />
+                        android:hint="start date"
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="20sp" />
 
                     <EditText
+                        android:id="@+id/startTimeEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/startTimeEditText"
-                        android:textSize="20sp"
-                        android:padding="5dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/spinner"
+                        android:layout_toRightOf="@+id/startDateEditText"
                         android:background="@null"
                         android:editable="false"
-                        android:textColor="@android:color/secondary_text_light" />
+                        android:hint="start time"
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="20sp" />
 
-                </LinearLayout>
+                    <EditText
+                        android:id="@+id/endDateEditText"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/startDateEditText"
+                        android:background="@null"
+                        android:editable="false"
+                        android:hint="end date"
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="20sp" />
 
+                    <EditText
+                        android:id="@+id/endTimeEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/startTimeEditText"
+                        android:layout_toRightOf="@+id/endDateEditText"
+                        android:background="@null"
+                        android:editable="false"
+                        android:hint="end time"
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="20sp" />
+
+
+                </RelativeLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ends"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_room_black_24dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Date"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/endDateEditText"
-                        android:textSize="20sp"
-                        android:padding="5dp"
-                        android:background="@null"
-                        android:editable="false"
-                        android:textColor="@android:color/secondary_text_light" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/locationEditText"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Time"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/endTimeEditText"
-                        android:textSize="20sp"
-                        android:padding="5dp"
-                        android:background="@null"
-                        android:editable="false"
-                        android:textColor="@android:color/secondary_text_light" />
-
-                </LinearLayout>
-
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:hint="Location"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/locationEditText"
-                android:textSize="20sp"
-                android:padding="5dp"
-                android:background="@null"
-                android:textColor="@android:color/secondary_text_light" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_vertical_margin"
+                    android:src="@drawable/ic_label_black_24dp"/>
 
-            <EditText
+                <EditText
+                    android:id="@+id/labelsEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Touch to add labels"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp"
+                    android:padding="5dp"
+                    android:background="@null"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/descriptionEditText"
-                android:textSize="20sp"
-                android:padding="5dp"
-                android:background="@null"
-                android:textColor="@android:color/secondary_text_light" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_mode_comment_black_24dp" />
+
+                <EditText
+                    android:id="@+id/descriptionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="Description"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
