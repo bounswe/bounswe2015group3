@@ -107,10 +107,7 @@ public class GroupsFragment extends Fragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
-            if (convertView != null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_group, parent, false);
-            }
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_group, parent, false);
 
             final Group mGroup = getItem(position);
 
