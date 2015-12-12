@@ -3,14 +3,11 @@
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}"
 	scope="application" />
 <c:set var="requestURI" value="${pageContext.request.requestURI}"
 	scope="application" />
 <!DOCTYPE html>
-<html class="no-js">
-<!--<![endif]-->
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -48,10 +45,6 @@
 </script>
 </head>
 <body>
-
-	<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
 	<!-- Header -->
 	<header class="header-container">
 		<!-- Main Header  -->
@@ -59,13 +52,10 @@
 			<!-- Moblie Nav Wrapper  -->
 			<div class="mobile-nav-wrapper">
 				<div class="container ">
-
-					<!-- logo  -->
 					<div id="logo">
 						<a href="${contextPath}/"><img
 							src="${contextPath}/assets/img/logo.png" alt=""></a>
 					</div>
-
 					<div id="sb-search" class="sb-search">
 						<form method="post" action="${contextPath}/search" class="form">
 							<input class="sb-search-input"
@@ -75,7 +65,6 @@
 						</form>
 					</div>
 					<!-- moblie-menu-icon -->
-
 					<div class="mobile-menu-icon">
 						<i class="fa fa-bars"></i>
 					</div>
@@ -96,78 +85,114 @@
 			</div>
 		</div>
 	</header>
-	<!-- header -->
-
-
-	<!-- Event Form -->
+	<br />
+	<section class="background clearfix newsection">
+		<div class="container">
+			<div class="panel panel-default">
+				<div class="panel-thumbnail">
+					<img src="${group.group_url}" class="img-responsive">
+				</div>
+				<div class="panel-body">
+					<p class="lead">${group.name}</p>
+					<p>${group.description}</p>
+				</div>
+			</div>
+		</div>
+	</section>
 	<br />
 	<!-- Events -->
 	<section class="events newsection">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="blog col-md-8">
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
-							<a href="${contextPath}/event/create"
-								class="btn btn-success btn-full"><i class="icon fa fa-lock">
-							</i> Create New Event</a>
+							<div class="well">
+								<form class="form-horizontal" method="post" action="${contextPath}/group/create/post?id_group=${group.id}">
+									<h4>Write Post</h4>
+									<div class="form-group" style="padding: 14px;">
+										<textarea class="form-control" id="post_text" name="post_text" placeholder="Write something.."></textarea>
+									</div>
+									<button class="btn btn-pri pull-right" type="submit">Post</button>
+									<ul class="list-inline">
+										<li><a href=""><i class="icon fa fa-upload"></i></a></li>
+										<li><a href=""><i class="icon fa fa-camera"></i></a></li>
+										<li><a href=""><i class="icon fa fa-map-marker"></i></a></li>
+									</ul>
+									<br />
+								</form>
+							</div>
 						</div>
 					</aside>
-					<aside id="aside" class="aside-bar-style-two clearfix">
-						<div class="widget clearfix">
-							<h2>All Events</h2>
-							<hr />
-							<c:forEach var="event" items="${events}" varStatus="roop">
-								<a href="${contextPath}/event/delete?id=${event.id}">Delete</a>
-								<div class="top-ppost">
-									<div class="date">
-										<p>${event.date}</p>
-									</div>
-									<div class="content">
-										<h4 class="title">
-											<a href="${contextPath}/event/view?id=${event.id}">${event.name}</a>
-										</h4>
-										<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>${event.location}</a>
+					<br />
+					<div class="clearfix">
+						<c:forEach var="post" items="${posts}" varStatus="roop">
+							<div class="event-container clearfix">
+								<div class="event clearfix">
+									<div class="event-content">										
+										<ul class="meta">
+											<li class="date"><i class="icon fa fa-calendar"></i>1
+												month ago</li>
+											<li><a href="#"><i class="icon fa fa-user"></i>by
+													${post.id_user}</a></li>
+										</ul>
+										<p>${post.post_text}</p>
+										<a href="#" class="btn btn-disabled">read more</a>
 									</div>
 								</div>
-								<br />
-							</c:forEach>
-
+							</div>
+						</c:forEach>
+						<div class="event-container clearfix">
+							<div class="event clearfix">
+								<div class="event-content">
+									<h3 class="title">
+										<a href="#">Continually reinvent economically </a>
+									</h3>
+									<ul class="meta">
+										<li class="date"><i class="icon fa fa-calendar"></i>1
+											month ago</li>
+										<li><a href="#"><i class="icon fa fa-user"></i>by Can
+												Kurtan</a></li>
+									</ul>
+									<p>Nullam facilisis metus quis nunc rhoncus fringilla.
+										Donec nec nisl nisl, vel tincidunt urna. Donec erat erat,
+										suscipit vitae tristique non, posuere nec mi. In faucibus
+										lobortis pharetra.. [...]</p>
+									<a href="#" class="btn btn-disabled">read more</a>
+								</div>
+							</div>
 						</div>
-					</aside>
+					</div>
 				</div>
 				<!-- col-md-3 -->
 				<div class="col-md-4">
-
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
-							<h3 class="title">Suggested For You</h3>
-							<div class="top-ppost">
-
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-calendar"> </i></span>EVENT
-									</p>
+							<a href="${contextPath}/group/join?id=${group.id}"
+								class="btn btn-success btn-full">
+								<i class="icon fa fa-plus"> </i> Join Group</a>
+						</div>
+						<div class="widget clearfix">
+							<a href="#"
+								class="btn btn-danger btn-full"><i
+								class="icon fa fa-sign-out"> </i> Leave Group</a>
+						</div>
+					</aside>
+					<br />
+					<aside id="aside" class="aside-bar-style-two clearfix">
+						<div class="widget clearfix">
+							<h3 class="title">Group Members</h3>
+							<c:forEach var="participant" items="${members}" varStatus="roop">
+								<div class="event">
+									<div class="event-content">
+										<h3 class="title">${participant.name}
+											${participant.surname}</h3>
+										<p class="job">Senior CmpE Student</p>
+										<a href="${contextPath}/user/home?id=${user.id}">See
+											Profile</a>
+									</div>									
 								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Watching Star Wars in Kuzey Kampus Cinema </a>
-									</h4>
-								</div>
-							</div>
-							<hr />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-group"> </i></span>GROUP
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Orta Düzey Tenis Oyuncuları </a>
-									</h4>
-								</div>
-							</div>
+							</c:forEach>
 						</div>
 					</aside>
 				</div>
@@ -185,11 +210,8 @@
 							About US</a>
 					<p>
 				</div>
-
 				<div class="widget col-md-3"></div>
-
 				<div class="widget col-md-3"></div>
-
 				<div class="widget col-md-3"></div>
 			</div>
 		</div>

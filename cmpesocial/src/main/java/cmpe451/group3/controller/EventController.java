@@ -2,7 +2,6 @@ package cmpe451.group3.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,9 +14,6 @@ import cmpe451.group3.model.EventModel;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-
 
 @Controller
 @Scope("request")
@@ -26,7 +22,7 @@ public class EventController {
     @Autowired
     private EventModel eventModel = null;
 
-    @RequestMapping(value = "/event")
+    @RequestMapping(value = "/events")
     public String events(ModelMap model) {
         
         List<Map<String, Object>> events = eventModel.getEvents();
@@ -59,9 +55,9 @@ public class EventController {
     public String joinEvent(@RequestParam(required = false) Long id, ModelMap model) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	String mail = auth.getName();
-    	Integer userid = eventModel.getIdFromMail(mail);
+    	long userid = eventModel.getIdFromMail(mail);
     	
-    	eventModel.joinEvent((long)userid,id);
+    	eventModel.joinEvent(userid,id);
         
         return "redirect:/event/view?id="+id;
     }
@@ -79,9 +75,9 @@ public class EventController {
     	
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	String mail = auth.getName();
-    	Integer userid = eventModel.getIdFromMail(mail);
+    	long userid = eventModel.getIdFromMail(mail);
         if (id != null)
-        	eventModel.updateEvent(id, name, date,end_date ,periodic, userid, location, description);
+        	eventModel.updateEvent(id, name, date,end_date, periodic, userid, location, description);
         else
         	eventModel.createEvent(name, date, end_date,periodic, userid, location, description);
 

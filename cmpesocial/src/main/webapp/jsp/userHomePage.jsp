@@ -62,13 +62,14 @@
 					</div>
 					<!-- Nav -->
 					<nav class="main-nav mobile-menu">
+
 						<ul class="clearfix">
-							<li><i class="icon fa fa-home"> </i> <a href="index.html">Home</a>
-							</li>
-							<li><a href="${contextPath}/user/home"><i class="icon fa fa-user"> </i>
-									Profile</a></li>
-							<li><a href="#"><i class="icon fa fa-comments"> </i>
-									Messages</a></li>
+							<li><a href="${contextPath}/user/home"><i
+									class="icon fa fa-user"> </i> Profile</a></li>
+							<li><a href="${contextPath}/events"><i
+									class="icon fa fa-calendar"> </i> Events</a></li>
+							<li><a href="${contextPath}/groups"><i
+									class="icon fa fa-group"> </i> Groups</a></li>
 							<li><a href="#"><i class="icon fa fa-sign-out"> </i>
 									Sign Out</a></li>
 						</ul>
@@ -99,9 +100,7 @@
 							<c:forEach var="event" items="${events}" varStatus="roop">
 								<div class="top-ppost">
 									<div class="date">
-										<p>
-											${event.date}
-										</p>
+										<p>${event.date}</p>
 									</div>
 									<div class="content">
 										<h4 class="title">

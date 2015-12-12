@@ -1,13 +1,6 @@
 package cmpe451.group3.model;
 
-/**
- * Created by umut on 11/24/15.
- */
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -91,7 +84,7 @@ public class GroupDAO {
     }
 
     public List<Map<String, Object>> getMembers(Long id) {
-        String sql = "SELECT user.* FROM user, user_group WHERE user.id = user_group.id_user AND user_event.id_group = ? AND user_group.status = 1";
+        String sql = "SELECT user.* FROM user, user_group WHERE user.id = user_group.id_user AND user_group.id_group = ? AND user_group.status = 1";
 
         List<Map<String, Object>> participants = this.jdbcTemplate.queryForList(sql, id);
 
@@ -112,27 +105,27 @@ public class GroupDAO {
 
     }
 
-    public int createPost(Long id_user,Long id_group, String text, String content_url)
+    public int createPost(long id_user,long id_group, String text, String content_url)
     {
         String sql = "INSERT INTO post_group(id_group, id_user,post_text,post_url) VALUES(?,?,?,?)";
 
-       return this.jdbcTemplate.update(sql,id_user,id_group,text,content_url);
+       return this.jdbcTemplate.update(sql, id_group, id_user, text, content_url);
 
     }
-    public int updatePost(Long id_user,Long id_group, String text, String content_url,Long id)
+    public int updatePost(long id_user,long id_group, String text, String content_url,long id)
     {
         String sql = "UPDATE post_group SET id_group = ?, id_user=?,post_text=?,post_url=?) WHERE id= ?";
 
-        return this.jdbcTemplate.update(sql,id_user,id_group,text,content_url,id);
+        return this.jdbcTemplate.update(sql, id_group, id_user, text, content_url, id);
 
     }
-    public List<Map<String,Object>> getGroupPosts(Long id_group)
+    public List<Map<String,Object>> getGroupPosts(long id_group)
     {
         String sql ="SELECT * FROM post_group WHERE post_group.id_group = ?";
         return this.jdbcTemplate.queryForList(sql,id_group);
     }
 
-    public Boolean isAvailableForGroup(Long id_user,Long id_group){
+    public Boolean isAvailableForGroup(long id_user,long id_group){
 
         String sql2 = "SELECT * FROM `user` WHERE id = ?";
 

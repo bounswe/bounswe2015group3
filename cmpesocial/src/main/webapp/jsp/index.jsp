@@ -83,13 +83,12 @@
 					<!-- Nav -->
 					<nav class="main-nav mobile-menu">
 						<ul class="clearfix">
-							<li><i class="icon fa fa-home"> </i> <a
-								href="${contextPath}/">Home</a></li>
-
 							<li><a href="${contextPath}/user/home"><i
 									class="icon fa fa-user"> </i> Profile</a></li>
-							<li><a href="#"><i class="icon fa fa-comments"> </i>
-									Messages</a></li>
+							<li><a href="${contextPath}/events"><i
+									class="icon fa fa-calendar"> </i> Events</a></li>
+							<li><a href="${contextPath}/groups"><i
+									class="icon fa fa-group"> </i> Groups</a></li>
 							<li><a href="#"><i class="icon fa fa-sign-out"> </i>
 									Sign Out</a></li>
 						</ul>
@@ -142,32 +141,29 @@
 				<div class="col-md-4">
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
+							<a href="${contextPath}/event/create"
+								class="btn btn-success btn-full"><i class="icon fa fa-lock">
+							</i> Create New Group </a>
+						</div>
+					</aside>
+					<aside id="aside" class="aside-bar-style-two clearfix">
+						<div class="widget clearfix">
 							<h3 class="title">Groups</h3>
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-group"> </i></span>GROUP
-									</p>
+							<c:forEach var="group" items="${groups}" varStatus="roop">
+								<div class="top-ppost">
+									<div class="date">
+										<p>
+											<span><i class="icon fa fa-group"> </i></span>
+										</p>
+									</div>
+									<div class="content">
+										<h4 class="title">
+											<a href="${contextPath}/group/view?id=${group.id}">${group.name}</a>
+										</h4>
+									</div>
 								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Kare Block Orta Düzey Tenis Oyuncuları </a>
-									</h4>
-								</div>
-							</div>
-							<hr />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-group"> </i></span>GROUP
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Liseden beri masa tenisi oynayanlar </a>
-									</h4>
-								</div>
-							</div>
+								<br />
+							</c:forEach>
 						</div>
 						<br />
 					</aside>
