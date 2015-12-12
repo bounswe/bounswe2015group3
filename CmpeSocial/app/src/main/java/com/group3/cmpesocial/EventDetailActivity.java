@@ -3,9 +3,13 @@ package com.group3.cmpesocial;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +38,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.classes.Event;
 import com.group3.cmpesocial.classes.Post;
@@ -86,6 +93,11 @@ public class EventDetailActivity extends AppCompatActivity {
     private Event currentEvent;
 
     private Toolbar toolbar;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,14 +107,11 @@ public class EventDetailActivity extends AppCompatActivity {
         //View mView = inflater.inflate(R.layout.activity_event_detail, container, false);
 
         listView = (ListView) findViewById(R.id.listView);
-        listView.setOnTouchListener(new ListView.OnTouchListener()
-        {
+        listView.setOnTouchListener(new ListView.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
+            public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
-                switch (action)
-                {
+                switch (action) {
                     case MotionEvent.ACTION_DOWN:
                         // Disallow ScrollView to intercept touch events.
                         v.getParent().requestDisallowInterceptTouchEvent(true);
@@ -146,7 +155,7 @@ public class EventDetailActivity extends AppCompatActivity {
         joinButton = (Button) findViewById(R.id.joinButton);
         leaveButton = (Button) findViewById(R.id.leaveButton);
 
-        toolbar  = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         JsonObject userJson = new JsonObject();
@@ -160,7 +169,7 @@ public class EventDetailActivity extends AppCompatActivity {
         Iterator iterator = participants.iterator();
         while (iterator.hasNext()) {
             User user = (User) iterator.next();
-            if (user.getId() == user_id){
+            if (user.getId() == user_id) {
                 joinButton.setVisibility(View.GONE);
                 leaveButton.setVisibility(View.VISIBLE);
             }
@@ -184,7 +193,7 @@ public class EventDetailActivity extends AppCompatActivity {
         locationEditText.setText(location);
         descriptionEditText.setText(description);
 
-        if(user_id == id_user){
+        if (user_id == id_user) {
             editButton.setVisibility(View.VISIBLE);
             deleteButton.setVisibility(View.VISIBLE);
         }
@@ -209,9 +218,7 @@ public class EventDetailActivity extends AppCompatActivity {
             }
         });
 
-        Log.i(TAG, "participants " + participants.toString());
-
-
+        //Log.i(TAG, "participants " + participants.toString());
 
 
         editButton.setOnClickListener(new View.OnClickListener() {
@@ -238,13 +245,12 @@ public class EventDetailActivity extends AppCompatActivity {
                 joinEvent();
             }
         });
-        postButton.setOnClickListener(new View.OnClickListener(){
+        postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 postButton();
             }
         });
-
 
 
         enableEditTexts(false);
@@ -285,13 +291,13 @@ public class EventDetailActivity extends AppCompatActivity {
         adapterPost.addAll(posts);
 
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
-
-
-
-    public void enableEditTexts(boolean enabled){
+    public void enableEditTexts(boolean enabled) {
         nameEditText.setEnabled(enabled);
         startDateEditText.setEnabled(enabled);
         startTimeEditText.setEnabled(enabled);
@@ -302,22 +308,22 @@ public class EventDetailActivity extends AppCompatActivity {
         spinner.setEnabled(enabled);
     }
 
-    public void deleteEvent(View v){
+    public void deleteEvent(View v) {
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
 
         int result = API.deleteEvent(json, getApplicationContext());
-        if (result == API.ERROR){
+        if (result == API.ERROR) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-        }else if (result == API.SUCCESS){
+        } else if (result == API.SUCCESS) {
             Log.i(TAG, "event deleted");
             finish();
-        }else if (result == API.RESULT_EMPTY){
+        } else if (result == API.RESULT_EMPTY) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void editEvent(View v){
+    public void editEvent(View v) {
         Toast.makeText(this, "edit", Toast.LENGTH_LONG).show();
         editButton.setVisibility(View.GONE);
         doneButton.setVisibility(View.VISIBLE);
@@ -355,7 +361,7 @@ public class EventDetailActivity extends AppCompatActivity {
         });
     }
 
-    public void saveEvent(View v){
+    public void saveEvent(View v) {
         Toast.makeText(this, "done", Toast.LENGTH_LONG).show();
         editButton.setVisibility(View.VISIBLE);
         doneButton.setVisibility(View.GONE);
@@ -378,19 +384,19 @@ public class EventDetailActivity extends AppCompatActivity {
         json.addProperty("location", location);
         json.addProperty("description", description);
 
-        Log.i(TAG, json.toString());
+        //Log.i(TAG, json.toString());
 
         int result = API.updateEvent(json, this);
-        if (result == API.ERROR){
+        if (result == API.ERROR) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-        }else if (result == API.SUCCESS){
-            Log.i(TAG, "event updated");
-        }else if (result == API.RESULT_EMPTY){
+        } else if (result == API.SUCCESS) {
+            //Log.i(TAG, "event updated");
+        } else if (result == API.RESULT_EMPTY) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void joinEvent(){
+    public void joinEvent() {
         JsonObject json = new JsonObject();
         json.addProperty("id_user", user_id);
         json.addProperty("id_event", id);
@@ -399,11 +405,11 @@ public class EventDetailActivity extends AppCompatActivity {
 
         Toast.makeText(this, "joined event", Toast.LENGTH_SHORT).show();
 
-        Log.i(TAG, currentUser.toString());
+        //Log.i(TAG, currentUser.toString());
         adapter.add(currentUser);
     }
 
-    public void pickDate(View v, int[] date, final boolean start){
+    public void pickDate(View v, int[] date, final boolean start) {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         final int month = c.get(Calendar.MONTH);
@@ -412,11 +418,11 @@ public class EventDetailActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                if (start){
-                    new_start_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                if (start) {
+                    new_start_date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
                     startDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
-                }else{
-                    new_end_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                } else {
+                    new_end_date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
                     endDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
                 }
             }
@@ -425,7 +431,7 @@ public class EventDetailActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    public void pickTime(View v, int[] time, final boolean start){
+    public void pickTime(View v, int[] time, final boolean start) {
         final Calendar c = Calendar.getInstance();
         final int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
@@ -434,15 +440,15 @@ public class EventDetailActivity extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                if(start) {
+                if (start) {
                     new_start_time = hourOfDay + ":" + minute + ":00";
-                    if(minute < 10)
+                    if (minute < 10)
                         startTimeEditText.setText(hourOfDay + ":0" + minute);
                     else
                         startTimeEditText.setText(hourOfDay + ":" + minute);
-                }else{
+                } else {
                     new_end_time = hourOfDay + ":" + minute + ":00";
-                    if(minute < 10)
+                    if (minute < 10)
                         endTimeEditText.setText(hourOfDay + ":0" + minute);
                     else
                         endTimeEditText.setText(hourOfDay + ":" + minute);
@@ -453,10 +459,53 @@ public class EventDetailActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "EventDetail Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.group3.cmpesocial/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "EventDetail Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.group3.cmpesocial/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
+
     public class PostAdapter extends ArrayAdapter<Post> {
+        TextView t;
+        //Button b2;
         public PostAdapter(Context context, List objects) {
             super(context, R.layout.item_post, objects);
         }
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
@@ -468,8 +517,14 @@ public class EventDetailActivity extends AppCompatActivity {
             TextView postTextView = (TextView) convertView.findViewById(R.id.postEditText);
             Button b = (Button) convertView.findViewById(R.id.deletePost);
             b.setTag(position);
-            b.setOnClickListener(myButtonClickListener);
+            b.setOnClickListener(delete);
 
+            Button b2 = (Button) convertView.findViewById(R.id.updatePost);
+            b2.setTag(position);
+            b2.setOnClickListener(update);
+
+            t = (TextView) convertView.findViewById(R.id.postEditText);
+            t.setTag(position);
             int userIDTemp = mPost.getUserID();
 
             //b.setTag(position);
@@ -481,14 +536,12 @@ public class EventDetailActivity extends AppCompatActivity {
             String nameTemp = " - " + userNameTemp + " " + userSurnameTemp;
             //System.out.println(nameTemp);
             String post = mPost.getPost();
-            SpannableString ss1=  new SpannableString(post + nameTemp);
+            SpannableString ss1 = new SpannableString(post + nameTemp);
             //System.out.println(ss1);
 
-            ss1.setSpan(new StyleSpan(android.graphics.Typeface.BOLD_ITALIC),
-                    post.length()+1,ss1.length(), 0);
-            ss1.setSpan(new ForegroundColorSpan(Color.BLUE), post.length()+1, ss1.length(), 0);
-
-
+            ss1.setSpan(new StyleSpan(Typeface.BOLD_ITALIC),
+                    post.length() + 1, ss1.length(), 0);
+            ss1.setSpan(new ForegroundColorSpan(Color.BLUE), post.length() + 1, ss1.length(), 0);
 
 
             //postTextView.setText(post + nameTemp);
@@ -497,23 +550,23 @@ public class EventDetailActivity extends AppCompatActivity {
 
             return convertView;
         }
-        private View.OnClickListener myButtonClickListener = new View.OnClickListener() {
+
+        private View.OnClickListener delete = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = (Integer) v.getTag();
-                System.out.println(position);
+                // System.out.println(position);
                 int size = adapterPost.getCount();
                 //System.out.println(size-position);
                 //int id_post = size-position;
                 Post p = adapterPost.getItem(position);
                 int id_post = p.getID();
-                System.out.println(id_post);
+                //   System.out.println(id_post);
 
 
                 JsonObject json = new JsonObject();
                 json.addProperty("id", id_post);
                 API.deleteEventPost(json, getContext());
-
 
 
                 JsonObject json2 = new JsonObject();
@@ -539,21 +592,73 @@ public class EventDetailActivity extends AppCompatActivity {
                 }*/
             }
         };
+        private View.OnClickListener update = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = (Integer) v.getTag();
+                final Post p = adapterPost.getItem(position);
+                String text = p.getPost();
+                //e.setClickable(true);
 
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+                alert.setTitle("Update Post");
+                alert.setMessage("You can make changes on your post");
+
+                // Set an EditText view to get user input
+                final EditText input = new EditText(getContext());
+                input.setText(text);
+                alert.setView(input);
+
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        int id_post = p.getID();
+                        JsonObject json = new JsonObject();
+                        json.addProperty("id", id_post);
+                        json.addProperty("id_user", p.getUserID());
+                        json.addProperty("id_event", p.getEventID());
+                        json.addProperty("content", input.getText().toString());
+                        json.addProperty("content_url", p.getContentURL());
+                        API.updateEventPost(json, getContext());
+                        //API.deleteEventPost(json, getContext());
+                        JsonObject json2 = new JsonObject();
+                        json2.addProperty("id", id);
+                        API.getEvent(json2, getContext());
+                        ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+                        Collections.reverse(posts);
+                        adapterPost.clear();
+                        adapterPost.addAll(posts);
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+                    }
+                });
+
+                alert.show();
+
+
+
+            }
+        };
     }
 
-    public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
+    public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         private ArrayList<User> users;
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
         // you provide access to all the views for a data item in a view holder
-        public class ViewHolder extends RecyclerView.ViewHolder{
+        public class ViewHolder extends RecyclerView.ViewHolder {
             // each data item is just a string in this case
             public TextView nameTextView;
             public Button profileButton;
             public int id;
+
             public ViewHolder(View itemView) {
                 super(itemView);
                 nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
@@ -567,7 +672,8 @@ public class EventDetailActivity extends AppCompatActivity {
                     }
                 });
             }
-            public void setId(int id){
+
+            public void setId(int id) {
                 this.id = id;
             }
         }
@@ -579,7 +685,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
         // Create new views (invoked by the layout manager)
         @Override
-        public UserAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             // create a new view
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event_detail_user, parent, false);
             return new ViewHolder(v);
@@ -628,14 +734,13 @@ public class EventDetailActivity extends AppCompatActivity {
         // Attach the adapter to a ListView
 
         listView.setAdapter(adapterPost);
-        postsArray.add(0,newPost);
+        postsArray.add(0, newPost);
 
 
         long id_event = id;
         long id_user = currentUser.getId();
         String content = post;
         String content_url = "dummy";
-
 
 
         JsonObject json = new JsonObject();
@@ -655,7 +760,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
         ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
 
-        Log.i(TAG, json2.toString());
+        //Log.i(TAG, json2.toString());
         Collections.reverse(posts);
         adapterPost.clear();
         adapterPost.addAll(posts);
@@ -664,32 +769,30 @@ public class EventDetailActivity extends AppCompatActivity {
         //System.out.println(p.getPost());
 
 
-
     }
 
 
-
     //public class Utility {
-        public static void setListViewHeightBasedOnChildren(ListView listView) {
-            ListAdapter listAdapter = listView.getAdapter();
-            if (listAdapter == null) {
-                // pre-condition
-                return;
-            }
-
-            int totalHeight = listView.getPaddingTop() + listView.getPaddingBottom();
-            for (int i = 0; i < listAdapter.getCount(); i++) {
-                View listItem = listAdapter.getView(i, null, listView);
-                if (listItem instanceof ViewGroup) {
-                    listItem.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                }
-                listItem.measure(0, 0);
-                totalHeight += listItem.getMeasuredHeight();
-            }
-
-            ViewGroup.LayoutParams params = listView.getLayoutParams();
-            params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-            listView.setLayoutParams(params);
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
         }
+
+        int totalHeight = listView.getPaddingTop() + listView.getPaddingBottom();
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            if (listItem instanceof ViewGroup) {
+                listItem.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+    }
     //}
 }

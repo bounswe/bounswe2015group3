@@ -42,5 +42,11 @@ public class Post {
     public int getUserID() {
         return id_user;
     }
+    public int getEventID() {
+        return id_event;
+    }
+    public String getContentURL() {
+        return content_url;
+    }
 
 }
