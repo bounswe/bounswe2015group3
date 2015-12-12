@@ -1,0 +1,11 @@
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listView"
+    android:layout_width="match_parent"
+    android:layout_height="300dip"
+
+    android:cacheColorHint="#0000"
+    android:paddingLeft="20dip"
+    android:paddingRight="20dip"
+    android:divider="#0000"
+    android:scrollbarStyle="outsideOverlay" />
+

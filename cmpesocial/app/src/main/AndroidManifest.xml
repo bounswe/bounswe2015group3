@@ -38,9 +38,11 @@
         </activity>
         <activity
             android:name=".EventDetailActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NewEventActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UserDetailActivity"></activity>
     </application>

@@ -10,10 +10,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.classes.Event;
+import com.group3.cmpesocial.classes.Post;
 import com.group3.cmpesocial.classes.User;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -476,8 +479,47 @@ public class API {
         return returnArray[0];
     }
 
-    public static ArrayList<Object> getAllEventPosts(JsonObject json, Context context){
-        ArrayList<Object> eventPosts = new ArrayList<>();
+
+    public static ArrayList<Post> getEventPosts2(JsonObject json, Context context){
+        ArrayList<Post> mUsers = new ArrayList<>();
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "events/getAllPosts")
+                .setJsonObjectBody(json)
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.i(TAG, "error getEventParticipants" + e.getMessage());
+                        } else if (result != null) {
+//                            String type = trimQuotes(result.get("Result").toString());
+//                            if (type.equals("SUCCESS")) {
+//                                returnArray[0] = SUCCESS;
+//                            } else {
+//                                returnArray[0] = ERROR;
+//                            }
+                        } else {
+                            Log.i(TAG, "result empty");
+                        }
+                    }
+                });
+        try {
+            /*JsonArray postsJson = (JsonArray) mFuture.get();
+            Log.i(TAG, "future : " + postsJson.toString());
+            Iterator<JsonElement> iterator = postsJson.iterator();
+            while (iterator.hasNext()) {
+                Post post = new Post(iterator.next().getAsJsonObject());
+                mUsers.add(post);
+            }*/
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception getEventParticipants" + e.getMessage());
+        }
+        return mUsers;
+    }
+    public static ArrayList<Post> getAllEventPosts(JsonObject json, Context context){
+        ArrayList<Post> eventPosts = new ArrayList<>();
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/getAllPosts")
@@ -507,7 +549,19 @@ public class API {
                         }
                     }
                 });
+
+
         try {
+            JsonObject postsObject = (JsonObject) mFuture.get();
+            JsonArray posts = postsObject.getAsJsonArray("posts");
+            Log.i(TAG, posts.toString());
+            Iterator<JsonElement> iterator = posts.iterator();
+            while (iterator.hasNext()) {
+                Post post = new Post(iterator.next().getAsJsonObject());
+                eventPosts.add(post);
+            }
+
+
             Log.i(TAG, "future : " + mFuture.get().toString());
         }catch (Exception e){
             Log.i(TAG, "exception getAllEventPosts" + e.getMessage());

@@ -2,22 +2,33 @@ package com.group3.cmpesocial;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -25,11 +36,14 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.classes.Event;
+import com.group3.cmpesocial.classes.Post;
 import com.group3.cmpesocial.classes.User;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 public class EventDetailActivity extends AppCompatActivity {
 
@@ -44,15 +58,18 @@ public class EventDetailActivity extends AppCompatActivity {
     private EditText endTimeEditText;
     private EditText locationEditText;
     private EditText descriptionEditText;
+    private EditText postEditTextMain;
     private RecyclerView recyclerView;
+    private ListView listView;
     private Spinner spinner;
     private ImageButton editButton;
     private ImageButton deleteButton;
     private Button doneButton;
     private Button joinButton;
     private Button leaveButton;
+    private Button postButton;
 
-
+    private PostAdapter adapterPost;
     private UserAdapter adapter;
 
     private String new_start_date;
@@ -61,9 +78,12 @@ public class EventDetailActivity extends AppCompatActivity {
     private String new_end_time;
     private int new_period;
 
+    private ArrayList<Post> postsArray;
+
     private int id;
     private int user_id;
     private User currentUser;
+    private Event currentEvent;
 
     private Toolbar toolbar;
 
@@ -71,6 +91,38 @@ public class EventDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
+
+        //View mView = inflater.inflate(R.layout.activity_event_detail, container, false);
+
+        listView = (ListView) findViewById(R.id.listView);
+        listView.setOnTouchListener(new ListView.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                int action = event.getAction();
+                switch (action)
+                {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
+        //setListViewHeightBasedOnChildren(listView);
+        //View header = getLayoutInflater().inflate(R.layout.activity_event_detail, null);
+
+        //listView.addHeaderView(header);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -84,11 +136,13 @@ public class EventDetailActivity extends AppCompatActivity {
         endTimeEditText = (EditText) findViewById(R.id.endTimeEditText);
         locationEditText = (EditText) findViewById(R.id.locationEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
+        postEditTextMain = (EditText) findViewById(R.id.postEditTextMain);
         spinner = (Spinner) findViewById(R.id.spinner);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         editButton = (ImageButton) findViewById(R.id.editButton);
         deleteButton = (ImageButton) findViewById(R.id.deleteButton);
         doneButton = (Button) findViewById(R.id.doneButton);
+        postButton = (Button) findViewById(R.id.postButton);
         joinButton = (Button) findViewById(R.id.joinButton);
         leaveButton = (Button) findViewById(R.id.leaveButton);
 
@@ -157,6 +211,9 @@ public class EventDetailActivity extends AppCompatActivity {
 
         Log.i(TAG, "participants " + participants.toString());
 
+
+
+
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,6 +238,14 @@ public class EventDetailActivity extends AppCompatActivity {
                 joinEvent();
             }
         });
+        postButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                postButton();
+            }
+        });
+
+
 
         enableEditTexts(false);
 
@@ -188,7 +253,43 @@ public class EventDetailActivity extends AppCompatActivity {
         new_start_time = mEvent.getStartTimeString();
         new_end_date = mEvent.getEndDateString();
         new_end_time = mEvent.getEndTimeString();
+
+
+        // Add item to adapter
+        Post newPost1 = new Post("Can'ın odasını boyamayı gönülden istiyorum.");
+        Post newPost2 = new Post("Bence Ali duvara bir şeyler çizsin, biz de onu izleyip eğlenelim.");
+
+
+        // Construct the data source
+        postsArray = new ArrayList<Post>();
+        // Create the adapter to convert the array to views
+        adapterPost = new PostAdapter(this, postsArray);
+
+
+        // Attach the adapter to a ListView
+
+        listView.setAdapter(adapterPost);
+        //postsArray.add(newPost1);
+        //postsArray.add(newPost2);
+        //adapterPost.addAll(postsArray);
+
+        JsonObject json2 = new JsonObject();
+        json2.addProperty("id", id);
+        API.getEvent(json2, this);
+
+
+        ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+
+        Log.i(TAG, json2.toString());
+        Collections.reverse(posts);
+        adapterPost.addAll(posts);
+
+
     }
+
+
+
+
 
     public void enableEditTexts(boolean enabled){
         nameEditText.setEnabled(enabled);
@@ -352,6 +453,95 @@ public class EventDetailActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+    public class PostAdapter extends ArrayAdapter<Post> {
+        public PostAdapter(Context context, List objects) {
+            super(context, R.layout.item_post, objects);
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
+            }
+
+            Post mPost = getItem(position);
+
+            TextView postTextView = (TextView) convertView.findViewById(R.id.postEditText);
+            Button b = (Button) convertView.findViewById(R.id.deletePost);
+            b.setTag(position);
+            b.setOnClickListener(myButtonClickListener);
+
+            int userIDTemp = mPost.getUserID();
+
+            //b.setTag(position);
+            JsonObject json = new JsonObject();
+            json.addProperty("id", userIDTemp);
+            User userTemp = API.getUser(json, getContext());
+            String userNameTemp = userTemp.getName();
+            String userSurnameTemp = userTemp.getSurname();
+            String nameTemp = " - " + userNameTemp + " " + userSurnameTemp;
+            //System.out.println(nameTemp);
+            String post = mPost.getPost();
+            SpannableString ss1=  new SpannableString(post + nameTemp);
+            //System.out.println(ss1);
+
+            ss1.setSpan(new StyleSpan(android.graphics.Typeface.BOLD_ITALIC),
+                    post.length()+1,ss1.length(), 0);
+            ss1.setSpan(new ForegroundColorSpan(Color.BLUE), post.length()+1, ss1.length(), 0);
+
+
+
+
+            //postTextView.setText(post + nameTemp);
+            postTextView.setText(ss1);
+
+
+            return convertView;
+        }
+        private View.OnClickListener myButtonClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = (Integer) v.getTag();
+                System.out.println(position);
+                int size = adapterPost.getCount();
+                //System.out.println(size-position);
+                //int id_post = size-position;
+                Post p = adapterPost.getItem(position);
+                int id_post = p.getID();
+                System.out.println(id_post);
+
+
+                JsonObject json = new JsonObject();
+                json.addProperty("id", id_post);
+                API.deleteEventPost(json, getContext());
+
+
+
+                JsonObject json2 = new JsonObject();
+                json2.addProperty("id", id);
+                API.getEvent(json2, getContext());
+
+                ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+
+                //Log.i(TAG, json2.toString());
+                Collections.reverse(posts);
+                adapterPost.clear();
+                adapterPost.addAll(posts);
+
+
+                /*int result = API.deleteEvent(json, getApplicationContext());
+                if (result == API.ERROR){
+                    Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+                }else if (result == API.SUCCESS){
+                    Log.i(TAG, "event deleted");
+                    finish();
+                }else if (result == API.RESULT_EMPTY){
+                    Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+                }*/
+            }
+        };
+
+    }
+
     public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
         private ArrayList<User> users;
@@ -424,4 +614,82 @@ public class EventDetailActivity extends AppCompatActivity {
         }
 
     }
+
+    public void postButton() {
+        String post = postEditTextMain.getText().toString();
+        Post newPost = new Post(post);
+        //postsArray.add(newPost);
+        //adapterPost.clear();
+        //adapterPost.addAll(postsArray);
+        //listView.setAdapter(adapterPost);
+        adapterPost = new PostAdapter(this, postsArray);
+
+
+        // Attach the adapter to a ListView
+
+        listView.setAdapter(adapterPost);
+        postsArray.add(0,newPost);
+
+
+        long id_event = id;
+        long id_user = currentUser.getId();
+        String content = post;
+        String content_url = "dummy";
+
+
+
+        JsonObject json = new JsonObject();
+        json.addProperty("id_event", id_event);
+        json.addProperty("id_user", id_user);
+        json.addProperty("content", content);
+        json.addProperty("content_url", content_url);
+
+        Log.i(TAG, json.toString());
+
+        API.createEventPost(json, this);
+
+        JsonObject json2 = new JsonObject();
+        json2.addProperty("id", id_event);
+        API.getEvent(json2, this);
+
+
+        ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+
+        Log.i(TAG, json2.toString());
+        Collections.reverse(posts);
+        adapterPost.clear();
+        adapterPost.addAll(posts);
+        postEditTextMain.setText("");
+        //Post p = posts.get(0);
+        //System.out.println(p.getPost());
+
+
+
+    }
+
+
+
+    //public class Utility {
+        public static void setListViewHeightBasedOnChildren(ListView listView) {
+            ListAdapter listAdapter = listView.getAdapter();
+            if (listAdapter == null) {
+                // pre-condition
+                return;
+            }
+
+            int totalHeight = listView.getPaddingTop() + listView.getPaddingBottom();
+            for (int i = 0; i < listAdapter.getCount(); i++) {
+                View listItem = listAdapter.getView(i, null, listView);
+                if (listItem instanceof ViewGroup) {
+                    listItem.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                }
+                listItem.measure(0, 0);
+                totalHeight += listItem.getMeasuredHeight();
+            }
+
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+            listView.setLayoutParams(params);
+        }
+    //}
 }
