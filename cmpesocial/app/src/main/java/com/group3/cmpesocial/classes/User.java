@@ -47,8 +47,8 @@ public class User {
         surname = json.get("surname").getAsString();
         email = json.get("email").getAsString();
         password = json.get("password").getAsString();
-        profilePictureURL = json.get("profilePictureURL").getAsString();
-        type = json.get("type").getAsInt();
+        //profilePictureURL = json.get("profilePictureURL").getAsString();
+        //type = json.get("type").getAsInt();
     }
 
     public int getId() {

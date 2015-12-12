@@ -21,7 +21,6 @@ public class NewGroupActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
-
     private int user_id;
 
     @Override
@@ -66,6 +65,10 @@ public class NewGroupActivity extends AppCompatActivity {
         }else if (result == API.RESULT_EMPTY){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void setRoles(View v){
+
     }
 
 }

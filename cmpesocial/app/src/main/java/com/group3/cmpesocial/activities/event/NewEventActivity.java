@@ -155,6 +155,10 @@ public class NewEventActivity extends AppCompatActivity {
 
     }
 
+    public void setRoles(View v){
+
+    }
+
     public void pickDate(View v, final boolean start) {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);

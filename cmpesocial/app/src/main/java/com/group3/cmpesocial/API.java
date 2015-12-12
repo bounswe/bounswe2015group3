@@ -52,7 +52,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("type").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 JsonObject user = result.getAsJsonObject("user");
                                 int user_id = Integer.parseInt(user.get("id").toString());
                                 String name = trimQuotes(user.get("name").toString());
@@ -69,7 +69,7 @@ public class API {
                                 editor.commit();
 
                                 returnArray[0] = SUCCESS;
-                            } else if (type.equals("WRONG_PASSWORD")) {
+                            } else if (type.equalsIgnoreCase("WRONG_PASSWORD")) {
                                 returnArray[0] = WRONG_PASSWORD;
                             }
 
@@ -130,7 +130,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -163,7 +163,7 @@ public class API {
                             Log.i(TAG, "error getUser" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
-//                            if (type.equals("SUCCESS")) {
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
 //                                returnArray[0] = SUCCESS;
 //                            } else {
 //                                returnArray[0] = ERROR;
@@ -232,7 +232,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -266,7 +266,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -302,7 +302,7 @@ public class API {
                             Toast.makeText(context, "an error occurred while updating event list", Toast.LENGTH_SHORT).show();
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                                 JsonArray events = result.getAsJsonArray("events");
                                 Iterator<JsonElement> iterator = events.iterator();
@@ -346,7 +346,7 @@ public class API {
                             Log.i(TAG, "error viewMyEvents" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
-//                            if (type.equals("SUCCESS")) {
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
 //                                returnArray[0] = SUCCESS;
 //                            } else {
 //                                returnArray[0] = ERROR;
@@ -385,7 +385,7 @@ public class API {
                             Log.i(TAG, "error getEvent" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
-//                            if (type.equals("SUCCESS")) {
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
 //                                returnArray[0] = SUCCESS;
 //                            } else {
 //                                returnArray[0] = ERROR;
@@ -419,7 +419,7 @@ public class API {
                             Log.i(TAG, "error getEventParticipants" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
-//                            if (type.equals("SUCCESS")) {
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
 //                                returnArray[0] = SUCCESS;
 //                            } else {
 //                                returnArray[0] = ERROR;
@@ -458,7 +458,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else if (type.equalsIgnoreCase("failure")) {
                                 returnArray[0] = NO_ACCESS;
@@ -495,7 +495,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 // get posts
                                 // add them to eventPosts
                                 // posts also have their comments in them
@@ -534,7 +534,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -568,7 +568,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -602,7 +602,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -636,7 +636,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -670,7 +670,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -704,7 +704,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -772,7 +772,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -806,7 +806,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -842,7 +842,7 @@ public class API {
                             Toast.makeText(context, "an error occurred while updating group list", Toast.LENGTH_SHORT).show();
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
 
                                 JsonArray groups = result.getAsJsonArray("groups");
@@ -889,7 +889,7 @@ public class API {
                             Log.i(TAG, "error viewMyGroups" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
-//                            if (type.equals("SUCCESS")) {
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
 //                                returnArray[0] = SUCCESS;
 //                            } else {
 //                                returnArray[0] = ERROR;
@@ -929,7 +929,7 @@ public class API {
                             Log.i(TAG, "error getGroup" + e.getMessage());
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else if (type.equalsIgnoreCase("Failure")) {
                                 returnArray[0] = NO_ACCESS;
@@ -974,7 +974,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else if (type.equalsIgnoreCase("failure")) {
                                 returnArray[0] = NO_ACCESS;
@@ -1010,7 +1010,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -1044,7 +1044,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -1079,7 +1079,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 // get posts
                                 // add them to eventPosts
                                 // posts also have their comments in them
@@ -1118,7 +1118,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -1152,7 +1152,7 @@ public class API {
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equals("SUCCESS")) {
+                            if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
                             } else {
                                 returnArray[0] = ERROR;
@@ -1186,7 +1186,7 @@ public class API {
 //                            returnArray[0] = ERROR;
 //                        } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
-//                            if (type.equals("SUCCESS")) {
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
 //                                returnArray[0] = SUCCESS;
 //                            } else {
 //                                returnArray[0] = ERROR;
@@ -1220,7 +1220,7 @@ public class API {
 //                            returnArray[0] = ERROR;
 //                        } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
-//                            if (type.equals("SUCCESS")) {
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
 //                                returnArray[0] = SUCCESS;
 //                            } else {
 //                                returnArray[0] = ERROR;
@@ -1254,7 +1254,7 @@ public class API {
 //                            returnArray[0] = ERROR;
 //                        } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
-//                            if (type.equals("SUCCESS")) {
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
 //                                returnArray[0] = SUCCESS;
 //                            } else {
 //                                returnArray[0] = ERROR;
@@ -1288,7 +1288,7 @@ public class API {
 //                            returnArray[0] = ERROR;
 //                        } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
-//                            if (type.equals("SUCCESS")) {
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
 //                                returnArray[0] = SUCCESS;
 //                            } else {
 //                                returnArray[0] = ERROR;
@@ -1321,7 +1321,7 @@ public class API {
                             Log.i(TAG, "error getGroup" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
-//                            if (type.equals("SUCCESS")) {
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
 //                                returnArray[0] = SUCCESS;
 //                            } else if (type.equalsIgnoreCase("Failure")) {
 //                                returnArray[0] = NO_ACCESS;

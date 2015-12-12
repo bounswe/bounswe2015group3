@@ -11,8 +11,9 @@ public class Group {
     private String name;
     private int id_user;
     private String description;
-    private String pictureURL;
     private String groupURL;
+    private boolean isMember;
+    private String pictureURL;
     private int[] type;
 
     public Group(){
@@ -25,19 +26,24 @@ public class Group {
         int id_admin = json.get("id_admin").getAsInt();
         String description = json.get("description").getAsString();
         String group_url = json.get("group_url").getAsString();
-        String picture_url = json.get("picture_url").getAsString();
-        String types = json.get("type").getAsString();
-        String[] type_array = types.split(",");
+        String member = json.get("isMember").getAsString();
+//        String picture_url = json.get("picture_url").getAsString();
+//        String types = json.get("type").getAsString();
+//        String[] type_array = types.split(",");
 
         this.id = id;
         this.name = name;
         this.id_user = id_admin;
         this.description = description;
-        this.pictureURL = picture_url;
         this.groupURL = group_url;
-        for (int i = 0; i < type_array.length; i ++){
-            this.type[i] = Integer.parseInt(type_array[i]);
-        }
+        if (member.equalsIgnoreCase("yes"))
+            isMember = true;
+        else
+            isMember = false;
+//        this.pictureURL = picture_url;
+//        for (int i = 0; i < type_array.length; i ++){
+//            this.type[i] = Integer.parseInt(type_array[i]);
+//        }
     }
 
     public String getDescription() {

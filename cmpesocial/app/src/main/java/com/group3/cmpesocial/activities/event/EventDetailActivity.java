@@ -50,6 +50,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private Spinner spinner;
     private ImageButton editButton;
     private ImageButton deleteButton;
+    private Button inviteButton;
     private Button doneButton;
     private Button joinButton;
     private Button leaveButton;
@@ -89,6 +90,7 @@ public class EventDetailActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         editButton = (ImageButton) findViewById(R.id.editButton);
         deleteButton = (ImageButton) findViewById(R.id.deleteButton);
+        inviteButton = (Button) findViewById(R.id.inviteButton);
         doneButton = (Button) findViewById(R.id.doneButton);
         joinButton = (Button) findViewById(R.id.joinButton);
         leaveButton = (Button) findViewById(R.id.leaveButton);
@@ -153,37 +155,6 @@ public class EventDetailActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 spinner.setSelection(periodic);
-            }
-        });
-
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editEvent(v);
-            }
-        });
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteEvent(v);
-            }
-        });
-        doneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveEvent(v);
-            }
-        });
-        joinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                joinEvent();
-            }
-        });
-        leaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                leaveEvent();
             }
         });
 
@@ -295,24 +266,27 @@ public class EventDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void joinEvent(){
+    public void joinEvent(View v){
         JsonObject json = new JsonObject();
         json.addProperty("id_user", user_id);
         json.addProperty("id_event", id);
         int result = API.joinEvent(json, this);
+        Log.i(TAG, ""+result);
         if (result == API.SUCCESS) {
             Toast.makeText(this, "joined event", Toast.LENGTH_SHORT).show();
-
             adapter.add(mUser);
-
-            joinButton.setVisibility(View.VISIBLE);
-            leaveButton.setVisibility(View.GONE);
+            joinButton.setVisibility(View.GONE);
+            leaveButton.setVisibility(View.VISIBLE);
         }else if (result == API.NO_ACCESS){
             Toast.makeText(this, "You cannot join this event unless you are invited.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void leaveEvent(){
+    public void leaveEvent(View v){
+
+    }
+
+    public void invite(View v){
 
     }
 
