@@ -115,6 +115,14 @@
 
 									<i class="icon fa fa-calendar"></i>
 								</p>
+								
+								<p>
+									<label>Periodic?</label><br /> <input name="periodic" id="periodic"
+										placeholder="0"
+										class="textflied"> <i class="icon fa fa-map-marker"></i>
+
+									<i class="icon fa fa-calendar"></i>
+								</p>
 
 								<p>
 									<label>Event Description</label>

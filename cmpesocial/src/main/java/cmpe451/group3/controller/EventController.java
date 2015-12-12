@@ -34,11 +34,16 @@ public class EventController {
 
     @RequestMapping(value = "/event/edit")
     public String editEvent(@RequestParam(required = false) Long id, ModelMap model) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String mail = auth.getName();
+		int userid = eventModel.getIdFromMail(mail);
         Map<String, Object> event = eventModel.getEvent(id);
-
-        model.put("event", event);
-
-        return "updateEvent";
+    	
+		if((int)event.get("id_user") == userid){
+	        model.put("event", event);
+	        return "updateEvent";
+		}
+		return "redirect:/events";
     }
     
     @RequestMapping(value = "/event/view", method = RequestMethod.GET)
@@ -62,7 +67,7 @@ public class EventController {
         return "redirect:/event/view?id="+id;
     }
 
-    @RequestMapping(value = "event/update")
+    @RequestMapping(value = "events/update")
     public String updateEvent(
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String name,
@@ -76,6 +81,7 @@ public class EventController {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	String mail = auth.getName();
     	long userid = eventModel.getIdFromMail(mail);
+		
         if (id != null)
         	eventModel.updateEvent(id, name, date,end_date, periodic, userid, location, description);
         else
@@ -94,8 +100,14 @@ public class EventController {
     }
 
     @RequestMapping(value = "event/delete")
-    public String deleteUser(@RequestParam(required = false) Long id) {
-    	eventModel.deleteEvent(id);
+    public String deleteEvent(@RequestParam(required = false) Long id) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String mail = auth.getName();
+		int userid = eventModel.getIdFromMail(mail);
+		Map<String, Object> event = eventModel.getEvent(id);
+    	
+		if((int)event.get("id_user") == userid)
+    		eventModel.deleteEvent(id);
 
         return "redirect:/events";
     }
