@@ -16,9 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.group3.cmpesocial.API;
+import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.activities.event.EventDetailActivity;
 import com.group3.cmpesocial.activities.event.NewEventActivity;
-import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.classes.Event;
 
 import java.util.ArrayList;
@@ -32,6 +32,8 @@ public class EventsFragment extends Fragment {
     private static final String TAG = EventsFragment.class.getSimpleName();
 
     private final String title = "Events";
+    private boolean searching = false;
+
     private FloatingActionButton createEventButton;
     private ListView listView;
     private ArrayList<Event> eventsArray;

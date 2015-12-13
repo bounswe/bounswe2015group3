@@ -22,8 +22,8 @@
             android:id="@+id/nav_profile"
             android:title="Profile" />
         <item
-            android:id="@+id/nav_messages"
-            android:title="Messages"/>
+            android:id="@+id/nav_invites"
+            android:title="Invites"/>
         <item
             android:id="@+id/nav_logout"
             android:title="Logout" />

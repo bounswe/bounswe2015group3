@@ -34,6 +34,7 @@ public class GroupsFragment extends Fragment {
     private static final String TAG = GroupsFragment.class.getSimpleName();
 
     private final String title = "Groups";
+
     private FloatingActionButton createGroupButton;
     private ListView listView;
     private ArrayList<Group> groupsArray;

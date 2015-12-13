@@ -13,12 +13,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,35 +27,36 @@ import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.fragments.EventsFragment;
 import com.group3.cmpesocial.fragments.GroupsFragment;
 import com.group3.cmpesocial.fragments.HomeFragment;
-import com.group3.cmpesocial.fragments.MessagesFragment;
+import com.group3.cmpesocial.fragments.InvitesFragment;
 import com.group3.cmpesocial.fragments.ProfileFragment;
 import com.group3.cmpesocial.fragments.RecommendationsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final static String TAG = MainActivity.class.getSimpleName();
+
     private final int HOME = 0;
     private final int RECOMMENDATIONS = 1;
     private final int GROUPS = 2;
     private final int EVENTS = 3;
     private final int PROFILE = 4;
-    private final int MESSAGES = 5;
+    private final int INVITES = 5;
     FragmentTransaction fragmentTransaction;
+    private boolean searching = false;
     private Toolbar toolbar;
-    private Button doneButton;
-    private Button editButton;
     private ImageButton searchButton;
-    private ImageButton deleteButton;
-    private RelativeLayout fragment_container;
+    private EditText searchEditText;
     private FragmentManager fragmentManager;
     private HomeFragment fragment_home;
     private RecommendationsFragment fragment_recommendations;
     private GroupsFragment fragment_groups;
     private EventsFragment fragment_events;
     private ProfileFragment fragment_profile;
-    private MessagesFragment fragment_messages;
-    private Fragment[] fragments = {fragment_home, fragment_groups, fragment_events, fragment_profile, fragment_messages};
+    private InvitesFragment fragment_invites;
+    private Fragment[] fragments = {fragment_home, fragment_groups, fragment_events, fragment_profile, fragment_invites};
     private int currentScreen;
+    private String currentTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,22 +68,49 @@ public class MainActivity extends AppCompatActivity
         fragment_groups = new GroupsFragment();
         fragment_events = new EventsFragment();
         fragment_profile = new ProfileFragment();
-        fragment_messages = new MessagesFragment();
+        fragment_invites = new InvitesFragment();
 
         fragmentManager = getSupportFragmentManager();
-        fragment_container = (RelativeLayout) findViewById(R.id.fragment_container);
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, fragment_home);
         fragmentTransaction.commit();
         currentScreen = HOME;
+        currentTitle = fragment_home.getTitle();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        doneButton = (Button) findViewById(R.id.doneButton);
-        editButton = (Button) findViewById(R.id.editButton);
         searchButton = (ImageButton) findViewById(R.id.searchButton);
-        deleteButton = (ImageButton) findViewById(R.id.deleteButton);
+        searchEditText = (EditText) findViewById(R.id.searchEditText);
+
+        searchEditText.setVisibility(View.GONE);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "search clicked");
+                if (!searching) {
+                    searchEditText.setVisibility(View.VISIBLE);
+                    searchButton.setImageResource(R.drawable.ic_clear_white_24dp);
+                    searching = true;
+                    getSupportActionBar().setTitle("");
+                    if (currentScreen == EVENTS){
+                        searchEvents();
+                    } else if (currentScreen == GROUPS){
+                        searchGroups();
+                    }
+                } else {
+                    View view = MainActivity.this.getCurrentFocus();
+                    if (view != null) {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+                    searchEditText.setVisibility(View.GONE);
+                    searchButton.setImageResource(R.drawable.ic_search_white_24dp);
+                    searching = false;
+                    getSupportActionBar().setTitle(currentTitle);
+                }
+            }
+        });
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -160,9 +189,9 @@ public class MainActivity extends AppCompatActivity
                     setProfileFragment();
                 }
                 break;
-            case R.id.nav_messages:
-                if (currentScreen != MESSAGES) {
-                    setMessagesFragment();
+            case R.id.nav_invites:
+                if (currentScreen != INVITES) {
+                    setInvitesFragment();
                 }
                 break;
             case R.id.nav_logout:
@@ -186,81 +215,83 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setHomeFragment() {
-        doneButton.setVisibility(View.GONE);
-        editButton.setVisibility(View.GONE);
         searchButton.setVisibility(View.VISIBLE);
-        deleteButton.setVisibility(View.GONE);
+        searchEditText.setVisibility(View.GONE);
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_home);
         fragmentTransaction.commit();
         currentScreen = HOME;
-        getSupportActionBar().setTitle(fragment_home.getTitle());
+        currentTitle = fragment_home.getTitle();
+        getSupportActionBar().setTitle(currentTitle);
     }
 
     public void setRecommendationsFragment() {
-        doneButton.setVisibility(View.GONE);
-        editButton.setVisibility(View.GONE);
         searchButton.setVisibility(View.VISIBLE);
-        deleteButton.setVisibility(View.GONE);
+        searchEditText.setVisibility(View.GONE);
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_recommendations);
         fragmentTransaction.commit();
         currentScreen = RECOMMENDATIONS;
-        getSupportActionBar().setTitle(fragment_recommendations.getTitle());
+        currentTitle = fragment_recommendations.getTitle();
+        getSupportActionBar().setTitle(currentTitle);
     }
 
     public void setGroupsFragment() {
-        doneButton.setVisibility(View.GONE);
-        editButton.setVisibility(View.GONE);
         searchButton.setVisibility(View.VISIBLE);
-        deleteButton.setVisibility(View.GONE);
+        searchEditText.setVisibility(View.GONE);
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_groups);
         fragmentTransaction.commit();
         currentScreen = GROUPS;
-        getSupportActionBar().setTitle(fragment_groups.getTitle());
+        currentTitle = fragment_groups.getTitle();
+        getSupportActionBar().setTitle(currentTitle);
     }
 
     public void setEventsFragment() {
-        doneButton.setVisibility(View.GONE);
-        editButton.setVisibility(View.GONE);
         searchButton.setVisibility(View.VISIBLE);
-        deleteButton.setVisibility(View.GONE);
+        searchEditText.setVisibility(View.GONE);
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_events);
         fragmentTransaction.commit();
         currentScreen = EVENTS;
-        getSupportActionBar().setTitle(fragment_events.getTitle());
+        currentTitle = fragment_events.getTitle();
+        getSupportActionBar().setTitle(currentTitle);
     }
 
     public void setProfileFragment() {
-        doneButton.setVisibility(View.GONE);
-        editButton.setVisibility(View.VISIBLE);
         searchButton.setVisibility(View.GONE);
-        deleteButton.setVisibility(View.GONE);
+        searchEditText.setVisibility(View.GONE);
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_profile);
         fragmentTransaction.commit();
         currentScreen = PROFILE;
-        getSupportActionBar().setTitle(fragment_profile.getTitle());
+        currentTitle = fragment_profile.getTitle();
+        getSupportActionBar().setTitle(currentTitle);
     }
 
-    public void setMessagesFragment() {
-        doneButton.setVisibility(View.GONE);
-        editButton.setVisibility(View.GONE);
+    public void setInvitesFragment() {
         searchButton.setVisibility(View.GONE);
-        deleteButton.setVisibility(View.GONE);
+        searchEditText.setVisibility(View.GONE);
 
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment_messages);
+        fragmentTransaction.replace(R.id.fragment_container, fragment_invites);
         fragmentTransaction.commit();
-        currentScreen = MESSAGES;
-        getSupportActionBar().setTitle(fragment_messages.getTitle());
+        currentScreen = INVITES;
+        currentTitle = fragment_invites.getTitle();
+        getSupportActionBar().setTitle(currentTitle);
+    }
+
+    public void searchEvents(){
+
+    }
+
+    public void searchGroups(){
+
     }
 
 }

@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -39,7 +40,8 @@ public class EventDetailActivity extends AppCompatActivity {
     private User mUser;
 
     private EditText nameEditText;
-    private EditText labelsEditText;
+    private EditText tagsEditText;
+    private TextView periodTextView;
     private EditText startDateEditText;
     private EditText startTimeEditText;
     private EditText endDateEditText;
@@ -79,7 +81,8 @@ public class EventDetailActivity extends AppCompatActivity {
         user_id = getSharedPreferences("prefsCMPE", MODE_PRIVATE).getInt("user_id", 0);
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
-        labelsEditText = (EditText) findViewById(R.id.labelsEditText);
+        tagsEditText = (EditText) findViewById(R.id.tagsEditText);
+        periodTextView = (TextView) findViewById(R.id.periodTextView);
         startDateEditText = (EditText) findViewById(R.id.startDateEditText);
         startTimeEditText = (EditText) findViewById(R.id.startTimeEditText);
         endDateEditText = (EditText) findViewById(R.id.endDateEditText);
@@ -126,6 +129,7 @@ public class EventDetailActivity extends AppCompatActivity {
         String description = mEvent.getDescription();
 
         nameEditText.setText(name);
+        periodTextView.setText(Event.periods[periodic]);
         startDateEditText.setText(start_date);
         startTimeEditText.setText(start_time);
         endDateEditText.setText(end_date);
@@ -168,7 +172,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
     public void enableEditTexts(boolean enabled){
         nameEditText.setEnabled(enabled);
-        labelsEditText.setEnabled(enabled);
+        tagsEditText.setEnabled(enabled);
         startDateEditText.setEnabled(enabled);
         startTimeEditText.setEnabled(enabled);
         endDateEditText.setEnabled(enabled);
@@ -176,6 +180,10 @@ public class EventDetailActivity extends AppCompatActivity {
         locationEditText.setEnabled(enabled);
         descriptionEditText.setEnabled(enabled);
         spinner.setEnabled(enabled);
+        if (enabled)
+            periodTextView.setVisibility(View.GONE);
+        else
+            periodTextView.setVisibility(View.VISIBLE);
     }
 
     public void deleteEvent(View v){

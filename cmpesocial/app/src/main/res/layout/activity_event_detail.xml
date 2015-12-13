@@ -123,7 +123,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:background="@null"
-                    android:hint="Name"
                     android:padding="5dp"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="20sp" />
@@ -142,10 +141,9 @@
                     android:src="@drawable/ic_label_black_24dp"/>
 
                 <EditText
-                    android:id="@+id/labelsEditText"
+                    android:id="@+id/tagsEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Touch to add labels"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="20sp"
                     android:padding="5dp"
@@ -193,7 +191,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:padding="5dp" />
+                        android:padding="5dp"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/periodTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="20sp"/>
 
                     <EditText
                         android:id="@+id/startDateEditText"
@@ -202,7 +209,6 @@
                         android:layout_below="@+id/spinner"
                         android:background="@null"
                         android:editable="false"
-                        android:hint="start date"
                         android:padding="5dp"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="20sp" />
@@ -216,7 +222,6 @@
                         android:layout_toRightOf="@+id/startDateEditText"
                         android:background="@null"
                         android:editable="false"
-                        android:hint="start time"
                         android:padding="5dp"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="20sp" />
@@ -228,7 +233,6 @@
                         android:layout_below="@+id/startDateEditText"
                         android:background="@null"
                         android:editable="false"
-                        android:hint="end date"
                         android:padding="5dp"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="20sp" />
@@ -242,7 +246,6 @@
                         android:layout_toRightOf="@+id/endDateEditText"
                         android:background="@null"
                         android:editable="false"
-                        android:hint="end time"
                         android:padding="5dp"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="20sp" />
@@ -269,7 +272,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:background="@null"
-                    android:hint="Location"
                     android:padding="5dp"
                     android:singleLine="true"
                     android:textColor="@color/colorPrimaryText"
@@ -293,7 +295,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="Description"
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"

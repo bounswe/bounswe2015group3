@@ -34,12 +34,13 @@ public class GroupDetailActivity extends AppCompatActivity {
     private User mUser;
 
     private EditText nameEditText;
-    private EditText labelsEditText;
+    private EditText tagsEditText;
     private EditText descriptionEditText;
     private RecyclerView membersRecyclerView;
     private RecyclerView eventsRecyclerView;
     private ImageButton editButton;
     private ImageButton deleteButton;
+    private Button inviteButton;
     private Button doneButton;
     private Button joinButton;
     private Button leaveButton;
@@ -63,12 +64,13 @@ public class GroupDetailActivity extends AppCompatActivity {
         user_id = getSharedPreferences("prefsCMPE", MODE_PRIVATE).getInt("user_id", 0);
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
-        labelsEditText = (EditText) findViewById(R.id.labelsEditText);
+        tagsEditText = (EditText) findViewById(R.id.tagsEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         membersRecyclerView = (RecyclerView) findViewById(R.id.membersRecyclerView);
         eventsRecyclerView = (RecyclerView) findViewById(R.id.eventsRecyclerView);
         editButton = (ImageButton) findViewById(R.id.editButton);
         deleteButton = (ImageButton) findViewById(R.id.deleteButton);
+        inviteButton = (Button) findViewById(R.id.inviteButton);
         doneButton = (Button) findViewById(R.id.doneButton);
         joinButton = (Button) findViewById(R.id.joinButton);
         leaveButton = (Button) findViewById(R.id.leaveButton);
@@ -92,6 +94,9 @@ public class GroupDetailActivity extends AppCompatActivity {
         json.addProperty("id", id);
         mGroup = API.getGroup(json, getApplicationContext());
 
+        if (mGroup == null)
+            return;
+
         String name = mGroup.getName();
         String description = mGroup.getDescription();
         int id_user = mGroup.getId_user();
@@ -105,54 +110,28 @@ public class GroupDetailActivity extends AppCompatActivity {
         }
 
         JsonObject membersJson = new JsonObject();
-        json.addProperty("id", id);
+        membersJson.addProperty("id", id);
         ArrayList<User> members = API.getGroupMembers(membersJson, this);
+        if (members == null)
+            members = new ArrayList<>();
 
         membersRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        membersRecyclerView.setLayoutManager(layoutManager);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        membersRecyclerView.setLayoutManager(mLayoutManager);
         userAdapter = new UserAdapter(members,this);
         membersRecyclerView.setAdapter(userAdapter);
 
         JsonObject eventsJson = new JsonObject();
-        json.addProperty("id", id);
+        eventsJson.addProperty("id", id);
         ArrayList<Event> events = API.getGroupEvents(eventsJson, this);
+        if (events == null)
+            events = new ArrayList<>();
 
         eventsRecyclerView.setHasFixedSize(true);
-        eventsRecyclerView.setLayoutManager(layoutManager);
+        LinearLayoutManager eLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        eventsRecyclerView.setLayoutManager(eLayoutManager);
         eventAdapter = new EventAdapter(events, this);
         eventsRecyclerView.setAdapter(eventAdapter);
-
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editGroup(v);
-            }
-        });
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteGroup(v);
-            }
-        });
-        doneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveGroup(v);
-            }
-        });
-        joinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                joinGroup();
-            }
-        });
-        leaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                leaveGroup();
-            }
-        });
 
         enableEditTexts(false);
     }
@@ -214,15 +193,31 @@ public class GroupDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void joinGroup(){
+    public void joinGroup(View v){
         JsonObject json = new JsonObject();
         json.addProperty("id_user", user_id);
-        json.addProperty("id_event", id);
+        json.addProperty("id_group", id);
 
-        int result = API.joinEvent(json, this);
+        int result = API.joinGroup(json, this);
         if (result == API.SUCCESS) {
             Toast.makeText(this, "joined group", Toast.LENGTH_SHORT).show();
             userAdapter.add(mUser);
+            joinButton.setVisibility(View.GONE);
+            leaveButton.setVisibility(View.VISIBLE);
+        }else if (result == API.NO_ACCESS){
+            Toast.makeText(this, "You cannot join this event unless you are invited.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void leaveGroup(View v){
+        JsonObject json = new JsonObject();
+        json.addProperty("id_user", user_id);
+        json.addProperty("id_group", id);
+
+        int result = API.leaveGroup(json, this);
+        if (result == API.SUCCESS) {
+            Toast.makeText(this, "left group", Toast.LENGTH_SHORT).show();
+            userAdapter.remove(mUser);
             joinButton.setVisibility(View.VISIBLE);
             leaveButton.setVisibility(View.GONE);
         }else if (result == API.NO_ACCESS){
@@ -230,7 +225,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void leaveGroup(){
+    public void invite(View v){
 
     }
 

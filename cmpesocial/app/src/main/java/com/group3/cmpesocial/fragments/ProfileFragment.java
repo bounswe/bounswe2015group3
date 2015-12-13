@@ -29,7 +29,6 @@ public class ProfileFragment extends Fragment {
     private TextView surnameTextView;
     private TextView emailTextView;
     private Button changePasswordButton;
-    private Button changeEmailButton;
     private int id;
     private String name;
     private String surname;
@@ -62,13 +61,6 @@ public class ProfileFragment extends Fragment {
                 changePassword(v);
             }
         });
-//        changeEmailButton = (Button) mView.findViewById(R.id.changeEmailButton);
-//        changeEmailButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                changeEmail(v);
-//            }
-//        });
 
         SharedPreferences prefs = this.getActivity().getSharedPreferences("prefsCMPE", Context.MODE_PRIVATE);
         id = prefs.getInt("user_id", 0);
@@ -102,8 +94,10 @@ public class ProfileFragment extends Fragment {
         alertDialog.setPositiveButton("OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        if (input.getText() == null)
+                            dialog.cancel();
                         String password = input.getText().toString();
-                        if (password == null || password.length() == 0){
+                        if (password.length() == 0){
                             dialog.cancel();
                         }else{
                             password = password.trim();
@@ -128,46 +122,5 @@ public class ProfileFragment extends Fragment {
 
         alertDialog.show();
     }
-
-//    public void changeEmail(View v){
-//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-//        alertDialog.setTitle("Change your e-mail address");
-//        alertDialog.setMessage("Enter new e-mail address");
-//
-//        final EditText input = new EditText(getContext());
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT,
-//                LinearLayout.LayoutParams.MATCH_PARENT);
-//        input.setLayoutParams(lp);
-//        alertDialog.setView(input);
-//
-//        alertDialog.setPositiveButton("OK",
-//                new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        String email = input.getText().toString();
-//                        if (email == null || email.length() == 0){
-//                            dialog.cancel();
-//                        }else{
-//                            email = email.trim();
-//                            JsonObject json = new JsonObject();
-//                            json.addProperty("id", id);
-//                            json.addProperty("name", name);
-//                            json.addProperty("surname", surname);
-//                            //json.addProperty("password", password);
-//                            json.addProperty("email", email);
-//                            API.updateUser(json, getActivity());
-//                        }
-//                    }
-//                });
-//
-//        alertDialog.setNegativeButton("Cancel",
-//                new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.cancel();
-//                    }
-//                });
-//
-//        alertDialog.show();
-//    }
 
 }

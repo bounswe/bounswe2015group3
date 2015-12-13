@@ -38,6 +38,8 @@ public class API {
     //
 
     public static int login(JsonObject json, final Context context) {
+        Log.d(TAG, "login json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "login")
@@ -48,7 +50,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error login " + e.getMessage());
+                            Log.d(TAG, "error login " + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("type").toString());
@@ -66,7 +68,7 @@ public class API {
                                 editor.putString("name", name);
                                 editor.putString("surname", surname);
                                 editor.putString("email", email);
-                                editor.commit();
+                                editor.apply();
 
                                 returnArray[0] = SUCCESS;
                             } else if (type.equalsIgnoreCase("WRONG_PASSWORD")) {
@@ -74,20 +76,22 @@ public class API {
                             }
 
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception login" + e.getMessage());
+            Log.d(TAG, "exception login" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int signup(JsonObject json, final Context context) {
+        Log.d(TAG, "signup json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "signup")
@@ -98,7 +102,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error signup" + e.getMessage());
+                            Log.d(TAG, "error signup" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             returnArray[0] = SUCCESS;
@@ -108,14 +112,16 @@ public class API {
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception signup" + e.getMessage());
+            Log.d(TAG, "exception signup" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int updateUser(JsonObject json, Context context) {
+        Log.d(TAG, "updateUser json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "updateUser")
@@ -126,7 +132,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error updateUser" + e.getMessage());
+                            Log.d(TAG, "error updateUser" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -136,20 +142,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception updateUser" + e.getMessage());
+            Log.d(TAG, "exception updateUser" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static User getUser(JsonObject json, Context context) {
+        Log.d(TAG, "getUser json " + json.toString());
+
         User mUser = new User();
         Future mFuture = Ion.with(context)
                 .load(baseURI + "getUser")
@@ -160,7 +168,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error getUser" + e.getMessage());
+                            Log.d(TAG, "error getUser" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equalsIgnoreCase("SUCCESS")) {
@@ -169,16 +177,16 @@ public class API {
 //                                returnArray[0] = ERROR;
 //                            }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                         }
                     }
                 });
         try {
             JsonObject userJson = (JsonObject) mFuture.get();
-            Log.i(TAG, "future : " + userJson.toString());
+            Log.d(TAG, "future : " + userJson.toString());
             mUser = new User(userJson);
         } catch (Exception e) {
-            Log.i(TAG, "exception getUser" + e.getMessage());
+            Log.d(TAG, "exception getUser" + e.getMessage());
         }
         return mUser;
     }
@@ -188,6 +196,8 @@ public class API {
     //
 
     public static int createEvent(JsonObject json, Context context) {
+        Log.d(TAG, "createEvent json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/create")
@@ -198,26 +208,28 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error createEvent" + e.getMessage());
+                            Log.d(TAG, "error createEvent" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
-                            Log.i(TAG, result.toString());
+                            Log.d(TAG, result.toString());
                             returnArray[0] = SUCCESS;
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception createEvent" + e.getMessage());
+            Log.d(TAG, "exception createEvent" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int updateEvent(JsonObject json, Context context) {
+        Log.d(TAG, "updateEvent json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/update")
@@ -228,7 +240,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error updateEvent " + e.getMessage());
+                            Log.d(TAG, "error updateEvent " + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -238,20 +250,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception updateEvent" + e.getMessage());
+            Log.d(TAG, "exception updateEvent" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int deleteEvent(JsonObject json, Context context) {
+        Log.d(TAG, "deleteEvent json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/delete")
@@ -262,7 +276,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error deleteEvent" + e.getMessage());
+                            Log.d(TAG, "error deleteEvent" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -272,15 +286,15 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception deleteEvent" + e.getMessage());
+            Log.d(TAG, "exception deleteEvent" + e.getMessage());
         }
         return returnArray[0];
     }
@@ -297,7 +311,7 @@ public class API {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (e != null) {
-                            Log.i(TAG, "error allEvents" + e.getMessage());
+                            Log.d(TAG, "error allEvents" + e.getMessage());
                             returnArray[0] = ERROR;
                             Toast.makeText(context, "an error occurred while updating event list", Toast.LENGTH_SHORT).show();
                         } else if (result != null) {
@@ -308,7 +322,7 @@ public class API {
                                 Iterator<JsonElement> iterator = events.iterator();
                                 while (iterator.hasNext()) {
                                     JsonObject eventJson = iterator.next().getAsJsonObject();
-                                    Log.i(TAG, eventJson.toString());
+                                    Log.d(TAG, eventJson.toString());
                                     Event event = new Event(eventJson);
                                     eventsList.add(event);
                                 }
@@ -319,20 +333,22 @@ public class API {
                             }
 
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = ERROR;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception allEvents" + e.getClass() + " " + e.getMessage());
+            Log.d(TAG, "exception allEvents" + e.getClass() + " " + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static ArrayList<Event> getMyEvents(JsonObject json, Context context) {
+        Log.d(TAG, "getMyEvents json " + json.toString());
+
         ArrayList<Event> mEvents = new ArrayList<>();
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/viewByOwned")
@@ -343,7 +359,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error viewMyEvents" + e.getMessage());
+                            Log.d(TAG, "error viewMyEvents" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equalsIgnoreCase("SUCCESS")) {
@@ -352,13 +368,13 @@ public class API {
 //                                returnArray[0] = ERROR;
 //                            }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                         }
                     }
                 });
         try {
             JsonObject result = (JsonObject) mFuture.get();
-            Log.i(TAG, "future : " + result.toString());
+            Log.d(TAG, "future : " + result.toString());
             JsonArray eventsJson = result.getAsJsonArray("events");
             Iterator<JsonElement> iterator = eventsJson.iterator();
             while (iterator.hasNext()) {
@@ -366,12 +382,14 @@ public class API {
                 mEvents.add(event);
             }
         } catch (Exception e) {
-            Log.i(TAG, "exception viewMyEvents" + e.getMessage());
+            Log.d(TAG, "exception viewMyEvents" + e.getMessage());
         }
         return mEvents;
     }
 
     public static Event getEvent(JsonObject json, Context context) {
+        Log.d(TAG, "getEvent json " + json.toString());
+
         Event mEvent = new Event();
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/viewDetail")
@@ -382,7 +400,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error getEvent" + e.getMessage());
+                            Log.d(TAG, "error getEvent" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equalsIgnoreCase("SUCCESS")) {
@@ -391,21 +409,23 @@ public class API {
 //                                returnArray[0] = ERROR;
 //                            }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                         }
                     }
                 });
         try {
             JsonObject eventJson = (JsonObject) mFuture.get();
-            Log.i(TAG, "future : " + eventJson.toString());
+            Log.d(TAG, "future : " + eventJson.toString());
             mEvent = new Event(eventJson);
         } catch (Exception e) {
-            Log.i(TAG, "exception getEvent" + e.getMessage());
+            Log.d(TAG, "exception getEvent" + e.getMessage());
         }
         return mEvent;
     }
 
     public static ArrayList<User> getEventParticipants(JsonObject json, Context context) {
+        Log.d(TAG, "getEventParticipants json " + json.toString());
+
         ArrayList<User> mUsers = new ArrayList<>();
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/getParticipants")
@@ -416,7 +436,7 @@ public class API {
                     public void onCompleted(Exception e, JsonArray result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error getEventParticipants" + e.getMessage());
+                            Log.d(TAG, "error getEventParticipants" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equalsIgnoreCase("SUCCESS")) {
@@ -425,25 +445,27 @@ public class API {
 //                                returnArray[0] = ERROR;
 //                            }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                         }
                     }
                 });
         try {
             JsonArray usersJson = (JsonArray) mFuture.get();
-            Log.i(TAG, "future : " + usersJson.toString());
+            Log.d(TAG, "future : " + usersJson.toString());
             Iterator<JsonElement> iterator = usersJson.iterator();
             while (iterator.hasNext()) {
                 User user = new User(iterator.next().getAsJsonObject());
                 mUsers.add(user);
             }
         } catch (Exception e) {
-            Log.i(TAG, "exception getEventParticipants" + e.getMessage());
+            Log.d(TAG, "exception getEventParticipants" + e.getMessage());
         }
         return mUsers;
     }
 
     public static int joinEvent(JsonObject json, Context context) {
+        Log.d(TAG, "joinEvent json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/join")
@@ -454,7 +476,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error joinEvent" + e.getMessage());
+                            Log.d(TAG, "error joinEvent" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -466,20 +488,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception joinEvent" + e.getMessage());
+            Log.d(TAG, "exception joinEvent" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static ArrayList<Object> getAllEventPosts(JsonObject json, Context context) {
+        Log.d(TAG, "getAllEventPosts json " + json.toString());
+
         ArrayList<Object> eventPosts = new ArrayList<>();
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
@@ -491,7 +515,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error getAllEventPosts" + e.getMessage());
+                            Log.d(TAG, "error getAllEventPosts" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -505,21 +529,23 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception getAllEventPosts" + e.getMessage());
+            Log.d(TAG, "exception getAllEventPosts" + e.getMessage());
         }
-        Log.i(TAG, "getAllEventPosts return code: " + returnArray[0]);
+        Log.d(TAG, "getAllEventPosts return code: " + returnArray[0]);
         return eventPosts;
     }
 
     public static int createEventPost(JsonObject json, Context context) {
+        Log.d(TAG, "createEventPost json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/createPost/")
@@ -530,7 +556,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error createEventPost" + e.getMessage());
+                            Log.d(TAG, "error createEventPost" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -540,20 +566,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception createEventPost" + e.getMessage());
+            Log.d(TAG, "exception createEventPost" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int updateEventPost(JsonObject json, Context context) {
+        Log.d(TAG, "updateEventPost json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/updatePost/")
@@ -564,7 +592,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error updateEventPost" + e.getMessage());
+                            Log.d(TAG, "error updateEventPost" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -574,20 +602,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception updateEventPost" + e.getMessage());
+            Log.d(TAG, "exception updateEventPost" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int deleteEventPost(JsonObject json, Context context) {
+        Log.d(TAG, "deleteEventPost json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/deletePost/")
@@ -598,7 +628,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error deleteEventPost" + e.getMessage());
+                            Log.d(TAG, "error deleteEventPost" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -608,20 +638,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception deleteEventPost" + e.getMessage());
+            Log.d(TAG, "exception deleteEventPost" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int createEventComment(JsonObject json, Context context) {
+        Log.d(TAG, "createEventComment json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/createComment/")
@@ -632,7 +664,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error createEventComment" + e.getMessage());
+                            Log.d(TAG, "error createEventComment" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -642,20 +674,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception createEventComment" + e.getMessage());
+            Log.d(TAG, "exception createEventComment" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int updateEventComment(JsonObject json, Context context) {
+        Log.d(TAG, "updateEventComment json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/updateComment/")
@@ -666,7 +700,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error updateEventComment" + e.getMessage());
+                            Log.d(TAG, "error updateEventComment" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -676,20 +710,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception updateEventComment" + e.getMessage());
+            Log.d(TAG, "exception updateEventComment" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int deleteEventComment(JsonObject json, Context context) {
+        Log.d(TAG, "deleteEventComment json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/deleteComment/")
@@ -700,7 +736,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error deleteEventComment" + e.getMessage());
+                            Log.d(TAG, "error deleteEventComment" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -710,15 +746,15 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception deleteEventComment" + e.getMessage());
+            Log.d(TAG, "exception deleteEventComment" + e.getMessage());
         }
         return returnArray[0];
     }
@@ -728,6 +764,8 @@ public class API {
     //
 
     public static int createGroup(JsonObject json, Context context) {
+        Log.d(TAG, "createGroup json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "groups/create")
@@ -738,26 +776,28 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error createGroup" + e.getMessage());
+                            Log.d(TAG, "error createGroup" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
-                            Log.i(TAG, result.toString());
+                            Log.d(TAG, result.toString());
                             returnArray[0] = SUCCESS;
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception createGroup" + e.getMessage());
+            Log.d(TAG, "exception createGroup" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int updateGroup(JsonObject json, Context context) {
+        Log.d(TAG, "updateGroup json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "groups/update")
@@ -768,7 +808,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error updateGroup " + e.getMessage());
+                            Log.d(TAG, "error updateGroup " + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -778,20 +818,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception updateGroup" + e.getMessage());
+            Log.d(TAG, "exception updateGroup" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int deleteGroup(JsonObject json, Context context) {
+        Log.d(TAG, "deleteGroup json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "groups/delete")
@@ -802,7 +844,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error deleteGroup" + e.getMessage());
+                            Log.d(TAG, "error deleteGroup" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -812,15 +854,15 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception deleteGroup" + e.getMessage());
+            Log.d(TAG, "exception deleteGroup" + e.getMessage());
         }
         return returnArray[0];
     }
@@ -837,7 +879,7 @@ public class API {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         if (e != null) {
-                            Log.i(TAG, "error allGroups" + e.getMessage());
+                            Log.d(TAG, "error allGroups" + e.getMessage());
                             returnArray[0] = ERROR;
                             Toast.makeText(context, "an error occurred while updating group list", Toast.LENGTH_SHORT).show();
                         } else if (result != null) {
@@ -849,7 +891,7 @@ public class API {
                                 Iterator<JsonElement> iterator = groups.iterator();
                                 while (iterator.hasNext()) {
                                     JsonObject groupJson = iterator.next().getAsJsonObject();
-                                    Log.i(TAG, groupJson.toString());
+                                    Log.d(TAG, groupJson.toString());
                                     Group group = new Group(groupJson);
                                     Log.d(TAG, "onCreate() Restoring previous state");
                                     groupsList.add(group);
@@ -862,20 +904,22 @@ public class API {
                             }
 
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = ERROR;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception allGroups" + e.getClass() + " " + e.getMessage());
+            Log.d(TAG, "exception allGroups" + e.getClass() + " " + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static ArrayList<Group> viewMyGroups(JsonObject json, Context context) {
+        Log.d(TAG, "viewMyGroups json " + json.toString());
+
         ArrayList<Group> mGroups = new ArrayList<>();
         Future mFuture = Ion.with(context)
                 .load(baseURI + "groups/viewOwned")
@@ -886,7 +930,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error viewMyGroups" + e.getMessage());
+                            Log.d(TAG, "error viewMyGroups" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equalsIgnoreCase("SUCCESS")) {
@@ -895,13 +939,13 @@ public class API {
 //                                returnArray[0] = ERROR;
 //                            }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                         }
                     }
                 });
         try {
             JsonObject result = (JsonObject) mFuture.get();
-            Log.i(TAG, "future : " + result.toString());
+            Log.d(TAG, "future : " + result.toString());
             JsonArray groupsJson = result.getAsJsonArray("groups");
             Iterator<JsonElement> iterator = groupsJson.iterator();
             while (iterator.hasNext()) {
@@ -909,16 +953,17 @@ public class API {
                 mGroups.add(group);
             }
         } catch (Exception e) {
-            Log.i(TAG, "exception viewMyEvents" + e.getMessage());
+            Log.d(TAG, "exception viewMyEvents" + e.getMessage());
         }
         return mGroups;
     }
 
     public static Group getGroup(JsonObject json, Context context) {
+        Log.d(TAG, "getGroup json " + json.toString());
+
         final int[] returnArray = new int[1];
-        Group mGroup = new Group();
         Future mFuture = Ion.with(context)
-                .load(baseURI + "groups/viewDetail")
+                .load(baseURI + "groups/view")
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -926,7 +971,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error getGroup" + e.getMessage());
+                            Log.d(TAG, "error getGroup" + e.getMessage());
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
                             if (type.equalsIgnoreCase("SUCCESS")) {
@@ -937,29 +982,36 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                         }
                     }
                 });
-        if (returnArray[0] == SUCCESS) {
-            try {
-                JsonObject groupJson = (JsonObject) mFuture.get();
-                Log.i(TAG, "future : " + groupJson.toString());
-                mGroup = new Group(groupJson);
-            } catch (Exception e) {
-                Log.i(TAG, "exception getGroup" + e.getMessage());
-            }
+
+        try {
+            JsonObject result = (JsonObject) mFuture.get();
+            Log.d(TAG, "future : " + result.toString());
+            JsonObject groupJson = result.getAsJsonObject("group");
+            Log.i("groupjson", groupJson.toString());
+            Group mGroup = new Group(groupJson);
+            Log.i("here1", "here1");
             return mGroup;
-        } else if (returnArray[0] == NO_ACCESS) {
-            Log.i(TAG, "group not visible to the user because of his role");
+        } catch (Exception e) {
+            Log.d(TAG, "exception getGroup" + e.getMessage());
+        }
+
+        if (returnArray[0] == NO_ACCESS) {
+            Log.d(TAG, "group not visible to the user because of his role");
+            Toast.makeText(context, "You cannot view this group.", Toast.LENGTH_SHORT).show();
             return null;
         } else {
-            Log.i(TAG, "getGroup unknown error");
+            Log.d(TAG, returnArray[0] + "getGroup unknown error");
             return null;
         }
     }
 
     public static int joinGroup(JsonObject json, Context context) {
+        Log.d(TAG, "joinGroup json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "groups/join")
@@ -970,7 +1022,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error joinGroup" + e.getMessage());
+                            Log.d(TAG, "error joinGroup" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -982,20 +1034,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception joinGroup" + e.getMessage());
+            Log.d(TAG, "exception joinGroup" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int leaveGroup(JsonObject json, Context context) {
+        Log.d(TAG, "leaveGroup json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "groups/leave")
@@ -1006,7 +1060,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error leaveGroup" + e.getMessage());
+                            Log.d(TAG, "error leaveGroup" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -1016,20 +1070,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception leaveGroup" + e.getMessage());
+            Log.d(TAG, "exception leaveGroup" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int inviteToGroup(JsonObject json, Context context) {
+        Log.d(TAG, "inviteToGroup json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "groups/invite")
@@ -1040,7 +1096,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error inviteToGroup" + e.getMessage());
+                            Log.d(TAG, "error inviteToGroup" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -1050,20 +1106,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception inviteToGroup" + e.getMessage());
+            Log.d(TAG, "exception inviteToGroup" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static ArrayList<Object> getAllGroupPosts(JsonObject json, Context context) {
+        Log.d(TAG, "getAllGroupPosts json " + json.toString());
+
         ArrayList<Object> eventPosts = new ArrayList<>();
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
@@ -1075,7 +1133,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error getAllGroupPosts" + e.getMessage());
+                            Log.d(TAG, "error getAllGroupPosts" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -1089,21 +1147,23 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception getAllGroupPosts" + e.getMessage());
+            Log.d(TAG, "exception getAllGroupPosts" + e.getMessage());
         }
-        Log.i(TAG, "getAllGroupPosts return code: " + returnArray[0]);
+        Log.d(TAG, "getAllGroupPosts return code: " + returnArray[0]);
         return eventPosts;
     }
 
     public static int createGroupPost(JsonObject json, Context context) {
+        Log.d(TAG, "createGroupPost json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "groups/createPost")
@@ -1114,7 +1174,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error createGroupPost" + e.getMessage());
+                            Log.d(TAG, "error createGroupPost" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -1124,20 +1184,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception createGroupPost" + e.getMessage());
+            Log.d(TAG, "exception createGroupPost" + e.getMessage());
         }
         return returnArray[0];
     }
 
     public static int updateGroupPost(JsonObject json, Context context) {
+        Log.d(TAG, "updateGroupPost json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "groups/updatePost")
@@ -1148,7 +1210,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error updateGroupPost" + e.getMessage());
+                            Log.d(TAG, "error updateGroupPost" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -1158,20 +1220,22 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
-            Log.i(TAG, "exception updateGroupPost" + e.getMessage());
+            Log.d(TAG, "exception updateGroupPost" + e.getMessage());
         }
         return returnArray[0];
     }
 
 //    public static int deleteGroupPost(JsonObject json, Context context){
+//        Log.d(TAG, "deleteGroupPost json " + json.toString());
+
 //        final int[] returnArray = new int[1];
 //        Future mFuture = Ion.with(context)
 //                .load(baseURI + "events/deletePost/")
@@ -1182,7 +1246,7 @@ public class API {
 //                    public void onCompleted(Exception e, JsonObject result) {
 //                        // do stuff with the result or error
 //                        if (e != null) {
-//                            Log.i(TAG, "error deleteEventPost" + e.getMessage());
+//                            Log.d(TAG, "error deleteEventPost" + e.getMessage());
 //                            returnArray[0] = ERROR;
 //                        } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
@@ -1192,15 +1256,15 @@ public class API {
 //                                returnArray[0] = ERROR;
 //                            }
 //                        } else {
-//                            Log.i(TAG, "result empty");
+//                            Log.d(TAG, "result empty");
 //                            returnArray[0] = RESULT_EMPTY;
 //                        }
 //                    }
 //                });
 //        try {
-//            Log.i(TAG, "future : " + mFuture.get().toString());
+//            Log.d(TAG, "future : " + mFuture.get().toString());
 //        }catch (Exception e){
-//            Log.i(TAG, "exception deleteEventPost" + e.getMessage());
+//            Log.d(TAG, "exception deleteEventPost" + e.getMessage());
 //        }
 //        return returnArray[0];
 //    }
@@ -1216,7 +1280,7 @@ public class API {
 //                    public void onCompleted(Exception e, JsonObject result) {
 //                        // do stuff with the result or error
 //                        if (e != null) {
-//                            Log.i(TAG, "error createEventComment" + e.getMessage());
+//                            Log.d(TAG, "error createEventComment" + e.getMessage());
 //                            returnArray[0] = ERROR;
 //                        } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
@@ -1226,15 +1290,15 @@ public class API {
 //                                returnArray[0] = ERROR;
 //                            }
 //                        } else {
-//                            Log.i(TAG, "result empty");
+//                            Log.d(TAG, "result empty");
 //                            returnArray[0] = RESULT_EMPTY;
 //                        }
 //                    }
 //                });
 //        try {
-//            Log.i(TAG, "future : " + mFuture.get().toString());
+//            Log.d(TAG, "future : " + mFuture.get().toString());
 //        }catch (Exception e){
-//            Log.i(TAG, "exception createEventComment" + e.getMessage());
+//            Log.d(TAG, "exception createEventComment" + e.getMessage());
 //        }
 //        return returnArray[0];
 //    }
@@ -1250,7 +1314,7 @@ public class API {
 //                    public void onCompleted(Exception e, JsonObject result) {
 //                        // do stuff with the result or error
 //                        if (e != null) {
-//                            Log.i(TAG, "error updateEventComment" + e.getMessage());
+//                            Log.d(TAG, "error updateEventComment" + e.getMessage());
 //                            returnArray[0] = ERROR;
 //                        } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
@@ -1260,15 +1324,15 @@ public class API {
 //                                returnArray[0] = ERROR;
 //                            }
 //                        } else {
-//                            Log.i(TAG, "result empty");
+//                            Log.d(TAG, "result empty");
 //                            returnArray[0] = RESULT_EMPTY;
 //                        }
 //                    }
 //                });
 //        try {
-//            Log.i(TAG, "future : " + mFuture.get().toString());
+//            Log.d(TAG, "future : " + mFuture.get().toString());
 //        }catch (Exception e){
-//            Log.i(TAG, "exception updateEventComment" + e.getMessage());
+//            Log.d(TAG, "exception updateEventComment" + e.getMessage());
 //        }
 //        return returnArray[0];
 //    }
@@ -1284,7 +1348,7 @@ public class API {
 //                    public void onCompleted(Exception e, JsonObject result) {
 //                        // do stuff with the result or error
 //                        if (e != null) {
-//                            Log.i(TAG, "error deleteEventComment" + e.getMessage());
+//                            Log.d(TAG, "error deleteEventComment" + e.getMessage());
 //                            returnArray[0] = ERROR;
 //                        } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
@@ -1294,23 +1358,25 @@ public class API {
 //                                returnArray[0] = ERROR;
 //                            }
 //                        } else {
-//                            Log.i(TAG, "result empty");
+//                            Log.d(TAG, "result empty");
 //                            returnArray[0] = RESULT_EMPTY;
 //                        }
 //                    }
 //                });
 //        try {
-//            Log.i(TAG, "future : " + mFuture.get().toString());
+//            Log.d(TAG, "future : " + mFuture.get().toString());
 //        }catch (Exception e){
-//            Log.i(TAG, "exception deleteEventComment" + e.getMessage());
+//            Log.d(TAG, "exception deleteEventComment" + e.getMessage());
 //        }
 //        return returnArray[0];
 //    }
 
     public static ArrayList<User> getGroupMembers(JsonObject json, Context context) {
+        Log.d(TAG, "getGroupMembers json " + json.toString());
+
         ArrayList<User> groupsMembers = new ArrayList<>();
         Future mFuture = Ion.with(context)
-                .load(baseURI + "groups/viewDetail")
+                .load(baseURI + "groups/getMembers")
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
@@ -1318,7 +1384,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.i(TAG, "error getGroup" + e.getMessage());
+                            Log.d(TAG, "error getGroup" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equalsIgnoreCase("SUCCESS")) {
@@ -1329,12 +1395,12 @@ public class API {
 //                                returnArray[0] = ERROR;
 //                            }
                         } else {
-                            Log.i(TAG, "result empty");
+                            Log.d(TAG, "result empty");
                         }
                     }
                 });
         try {
-            Log.i(TAG, "future : " + mFuture.get().toString());
+            Log.d(TAG, "future : " + mFuture.get().toString());
             JsonArray result = (JsonArray) mFuture.get();
             Iterator<JsonElement> iterator = result.iterator();
             while (iterator.hasNext()) {
@@ -1342,12 +1408,14 @@ public class API {
                 groupsMembers.add(user);
             }
         } catch (Exception e) {
-            Log.i(TAG, "getGroupMembers exception" + e.getMessage());
+            Log.d(TAG, "getGroupMembers exception" + e.getMessage());
         }
         return groupsMembers;
     }
 
     public static ArrayList<Event> getGroupEvents(JsonObject json, Context context){
+        Log.d(TAG, "getGroupEvents json " + json.toString());
+
         return null;
     }
 

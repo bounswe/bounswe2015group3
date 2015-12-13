@@ -6,6 +6,8 @@
     <color name="colorAccent">#00BCD4</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#727272</color>
-    <color name="icons">#FFFFFF</color>
-    <color name="divider">#B6B6B6</color>
+
+    <color name="colorCreated">#CCFF90</color>
+    <color name="colorJoined">#B9F6CA</color>
+    <color name="colorInvited">#A7FFEB</color>
 </resources>

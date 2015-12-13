@@ -68,7 +68,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         String name = mUser.getName();
         String surname = mUser.getSurname();
         holder.setId(mUser.getId());
-        holder.nameTextView.setText(name + " " + surname);
+        holder.nameTextView.setText(name + "\n" + surname);
         holder.profileButton.setText(name.charAt(0) + "" + surname.charAt(0));
     }
 

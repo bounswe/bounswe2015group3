@@ -20,7 +20,7 @@ public class Event {
     private int[] type;
 
     public static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-    public static final String[] periods = {"None", "Weekly", "Monthly", "Yearly"};
+    public static final String[] periods = {"Not periodic", "Weekly", "Monthly", "Yearly"};
 
     public Event(){
         startDate = new int[3];
@@ -152,10 +152,6 @@ public class Event {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public String[] getMonthNames() {
-        return monthNames;
     }
 
     public String getName() {

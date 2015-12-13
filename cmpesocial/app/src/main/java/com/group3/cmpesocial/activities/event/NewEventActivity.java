@@ -2,11 +2,14 @@ package com.group3.cmpesocial.activities.event;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -94,6 +97,18 @@ public class NewEventActivity extends AppCompatActivity {
             }
         });
 
+        spinner.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                View view = NewEventActivity.this.getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+                return false;
+            }
+        });
+
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Event.periods));
         spinner.setSelection(periodic);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -174,6 +189,7 @@ public class NewEventActivity extends AppCompatActivity {
                     new_start_date_array[1] = monthOfYear;
                     new_start_date_array[2] = year;
                     startDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
+                    endDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
                 } else {
                     new_end_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
                     endDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
@@ -200,9 +216,11 @@ public class NewEventActivity extends AppCompatActivity {
                     if (minute < 10) {
                         new_start_time = hourOfDay + ":0" + minute + ":00";
                         startTimeEditText.setText(hourOfDay + ":0" + minute);
+                        endTimeEditText.setText((hourOfDay+1) + ":0" + minute);
                     } else {
                         new_start_time = hourOfDay + ":" + minute + ":00";
                         startTimeEditText.setText(hourOfDay + ":" + minute);
+                        endTimeEditText.setText((hourOfDay+1) + ":" + minute);
                     }
                 } else {
                     if (minute < 10) {

@@ -12,23 +12,23 @@ import com.group3.cmpesocial.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MessagesFragment extends Fragment {
+public class InvitesFragment extends Fragment {
 
-    private final String title = "Messages";
+    private String title;
 
-    public MessagesFragment() {
-        // Required empty public constructor
+    public InvitesFragment() {
+        title = "Invites";
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_messages, container, false);
+        return inflater.inflate(R.layout.fragment_invites, container, false);
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
-
 }
