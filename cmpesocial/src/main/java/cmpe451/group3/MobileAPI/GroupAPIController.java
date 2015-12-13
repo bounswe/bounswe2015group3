@@ -61,10 +61,10 @@ public class GroupAPIController {
             Long id_group = Long.parseLong(group.get("id").toString());
             if (groupDAO.isMemberOfGroup(groupIDRequestModel.id,id_group))
             {
-                    group.put("isMember","yes");
+                    group.put("isMember",Boolean.TRUE);
             }else
             {
-                group.put("isMember","no");
+                group.put("isMember",Boolean.FALSE);
             }
         }
 
@@ -85,6 +85,7 @@ public class GroupAPIController {
         {
             result.put("Result", "SUCCESS");
             result.put("group", groupDAO.getGroup(groupModel.id_group));
+            result.put("isMember",groupDAO.isMemberOfGroup(groupModel.id_user,groupModel.id_group));
         }
         else
         {
@@ -100,6 +101,14 @@ public class GroupAPIController {
     public String viewEventsOwned(@RequestBody EventIDRequestModel eventIDModel) {
         Gson gson = new Gson();
         List<Map<String, Object>> result = groupDAO.getGroupOwned(eventIDModel.id);
+
+        return gson.toJson(result);
+    }
+    @RequestMapping( value = "/groups/viewWithMembership" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String viewEventsWithMembership(@RequestBody EventIDRequestModel eventIDModel) {
+        Gson gson = new Gson();
+        List<Map<String, Object>> result = groupDAO.getGroupWithMembership(eventIDModel.id);
 
         return gson.toJson(result);
     }
@@ -159,6 +168,7 @@ public class GroupAPIController {
         return gson.toJson(result);
     }
 
+
     @RequestMapping( value = "/groups/invite" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String groupInvite(@RequestBody GroupJoinModel partModel) {
@@ -209,10 +219,17 @@ public class GroupAPIController {
         Gson gson = new Gson();
 
         Map<String,Object> result = new HashMap<>();
+        List<Map<String,Object>> posts = new ArrayList<>();
+        posts = groupDAO.getGroupPosts(idModel.id);
 
+        for (Map<String,Object> post :posts)
+        {
+            long id_post = Long.parseLong(post.get("id").toString());
+            post.put("Comments",groupDAO.getAllComments(id_post));
+        }
 
         result.put("Result","Success");
-        result.put("posts",groupDAO.getGroupPosts(idModel.id));
+        result.put("Posts",posts);
 
 
         return gson.toJson(result);
@@ -230,6 +247,55 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
+
+    @RequestMapping( value = "/groups/createComment" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String createComment(@RequestBody GroupCreateCommentModel commentModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+        int control =groupDAO.createComment(commentModel.id_post, commentModel.id_group, commentModel.id_user,commentModel.content);
+
+        if (control != 0)
+            result.put("Result","Success");
+        else
+            result.put("Result","Failure");
+
+        return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/groups/updateComment" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String updateCommnet(@RequestBody GroupCommentBaseModel commentModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+        int control =groupDAO.updateComment(commentModel.id,commentModel.id_post, commentModel.id_group, commentModel.id_user,commentModel.content);
+
+        if (control != 0)
+            result.put("Result","Success");
+        else
+            result.put("Result","Failure");
+
+        return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/groups/deleteComment" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String deleteCommnet(@RequestBody EventIDRequestModel commentModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+        int control =groupDAO.deleteComment(commentModel.id);
+
+        if (control != 0)
+            result.put("Result","Success");
+        else
+            result.put("Result","Failure");
+
+        return gson.toJson(result);
+    }
+
 
 
 }

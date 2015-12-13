@@ -45,6 +45,11 @@ public class GroupDAO {
         return this.jdbcTemplate.queryForList(sql, id_user);
     }
 
+    public List<Map<String,Object>>  getGroupWithMembership(Long id_user){
+        String sql = "SELECT `group`.* FROM `group`, user_group WHERE group.id = user_group.id_group AND user_group.id_user = ? ";
+        return this.jdbcTemplate.queryForList(sql,id_user);
+    }
+
     public Map<String, Object> getGroup(Long id) {
         String sql = "SELECT * FROM `group` WHERE id = ? ";
 
@@ -132,21 +137,21 @@ public class GroupDAO {
         return this.jdbcTemplate.queryForList(sql,id_group);
     }
 
-    public void createComment(Long id_post,Long id_group, Long id_user, String content)
+    public int createComment(long id_post,long id_group, long id_user, String content)
     {
         String sql = "INSERT INTO comment_group(id_post,id_group,id_user,content) VALUES(?,?,?,?)";
-        this.jdbcTemplate.update(sql,id_group,id_user,content);
+       return this.jdbcTemplate.update(sql,id_post,id_group,id_user,content);
     }
 
-    public void updateComment(Long id,Long id_post, Long id_group, Long id_user, String content){
+    public int updateComment(long id,long id_post, long id_group, long id_user, String content){
         String sql= "UPDATE  comment_group SET id_post=?,id_group = ? , id_user = ?, content= ? WHERE id= ?";
-        this.jdbcTemplate.update(sql,id_post,id_group,id_user,content,id);
+        return this.jdbcTemplate.update(sql,id_post,id_group,id_user,content,id);
     }
 
-    public void deleteComment(Long id)
+    public int deleteComment(Long id)
     {
         String sql = "DELETE FROM comment_group WHERE id = ?";
-        this.jdbcTemplate.update(sql,id);
+       return this.jdbcTemplate.update(sql,id);
     }
     public List<Map<String,Object>> getAllComments(Long id_post)
     {

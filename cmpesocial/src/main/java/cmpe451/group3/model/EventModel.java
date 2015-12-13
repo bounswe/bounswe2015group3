@@ -29,6 +29,11 @@ public class EventModel {
         return this.jdbcTemplate.queryForList(sql, id_user);
     }
 
+    public List<Map<String,Object>> getEventsJoined(long id_user){
+        String sql = "SELECT `event`.* FROM `event`, user_event WHERE event.id = user_event.id_event AND user_event.id_user = ? ORDER BY event.date ASC";
+        return this.jdbcTemplate.queryForList(sql,id_user);
+    }
+
 
     public List<Map<String, Object>> getEvents() {
         String sql = "SELECT * FROM event ORDER BY event.date ASC";
@@ -49,16 +54,16 @@ public class EventModel {
     }
 
 
-    public void createEvent(String name, String date,String end_date,int periodic, long userid, String location, String description) {
-        String sql = "INSERT INTO event(name, date,end_date,periodic, id_user, location, description) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    public void createEvent(String name, String date,String end_date,int periodic, long userid, String location, String description,String type) {
+        String sql = "INSERT INTO event(name, date,end_date,periodic, id_user, location, description,type) VALUES(?, ?, ?, ?, ?, ?, ?,?)";
         
-        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description);
+        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description,type);
     }
 
-    public void updateEvent(Long id, String name, String date,String end_date,int periodic, long userid, String location, String description) {
-        String sql = "UPDATE event SET name = ?, date = ?,end_date = ?,periodic = ? , id_user = ?, location = ?, description = ? WHERE id = ?";
+    public void updateEvent(Long id, String name, String date,String end_date,int periodic, long userid, String location, String description, String type) {
+        String sql = "UPDATE event SET name = ?, date = ?,end_date = ?,periodic = ? , id_user = ?, location = ?, description = ?, type = ? WHERE id = ?";
 
-        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description ,id);
+        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description ,type,id);
     }
 
     public void deleteEvent(Long id) {
@@ -176,9 +181,9 @@ public class EventModel {
 
     public Boolean isAvailableForEvent(Long id_event, Long id_user)
     {
-        String sql2 = "SELECT * FROM `user` WHERE id = ?";
+        String sql2 = "SELECT * FROM `user` WHERE id = ? " ;
 
-        String sql = "SELECT * FROM `event` WHERE id = ? ";
+        String sql =  "SELECT * FROM `event` WHERE id = ? " ;
 
         Map<String,Object> group =  this.jdbcTemplate.queryForMap(sql, id_event);
         Map<String,Object> user = this.jdbcTemplate.queryForMap(sql2,id_user);

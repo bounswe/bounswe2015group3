@@ -124,6 +124,15 @@ public class EventAPIController {
         return gson.toJson(result);
     }
 
+    @RequestMapping( value = "/events/viewJoined" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String viewEventsJoined(@RequestBody EventIDRequestModel eventIDModel) {
+        Gson gson = new Gson();
+        List<Map<String, Object>> result = eventModel.getEventsJoined(eventIDModel.id);
+
+        return gson.toJson(result);
+    }
+
     @RequestMapping( value = "/events/viewDetail" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String viewEventDetail(@RequestBody EventParticipateModel eventParticipateModel) {
@@ -195,6 +204,20 @@ public class EventAPIController {
             result.put("Message","User has not access to join.");
 
         }
+
+        return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/events/leave" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String eventLeave(@RequestBody EventParticipateModel partModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+
+            eventModel.leaveEvent(partModel.id_user, partModel.id_event);
+            result.put("Result","Success");
+
 
         return gson.toJson(result);
     }
