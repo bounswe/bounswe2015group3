@@ -3,7 +3,9 @@ package com.group3.cmpesocial.activities.event;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,6 +26,7 @@ import com.group3.cmpesocial.API;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.classes.Event;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class NewEventActivity extends AppCompatActivity {
@@ -47,6 +50,7 @@ public class NewEventActivity extends AppCompatActivity {
     private int[] new_start_time_array = new int[2];
     private String new_end_time;
     private int periodic;
+    private ArrayList<Integer> allowedRoles;
 
     private int user_id;
 
@@ -102,7 +106,7 @@ public class NewEventActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 View view = NewEventActivity.this.getCurrentFocus();
                 if (view != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
                 return false;
@@ -146,6 +150,16 @@ public class NewEventActivity extends AppCompatActivity {
         String description = descriptionEditText.getText().toString().trim();
         String date = new_start_date + " " + new_start_time;
         String end_date = new_end_date + " " + new_end_time;
+        String type = "";
+        if (allowedRoles != null) {
+            for (int i = 0; i < allowedRoles.size(); i++) {
+                type += String.valueOf(allowedRoles.get(i)) + ",";
+            }
+            type = type.substring(0, type.length() - 1);
+        }else{
+            type = "0";
+        }
+        Log.i("type", type);
 
         JsonObject json = new JsonObject();
         json.addProperty("name", name);
@@ -155,6 +169,7 @@ public class NewEventActivity extends AppCompatActivity {
         json.addProperty("id_user", user_id);
         json.addProperty("location", location);
         json.addProperty("description", description);
+        json.addProperty("type", type);
 
         Log.i(TAG, json.toString());
 
@@ -171,7 +186,43 @@ public class NewEventActivity extends AppCompatActivity {
     }
 
     public void setRoles(View v){
+        Toast.makeText(this, "roles", Toast.LENGTH_SHORT).show();
+        allowedRoles = new ArrayList();  // Where we track the selected items
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Set the dialog title
+        builder.setTitle("Who can join?")
+                // Specify the list array, the items to be selected by default (null for none),
+                // and the listener through which to receive callbacks when items are selected
+                .setMultiChoiceItems(R.array.roles_array, null,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                if (isChecked) {
+                                    // If the user checked the item, add it to the selected items
+                                    allowedRoles.add(which);
+                                } else if (allowedRoles.contains(which)) {
+                                    // Else, if the item is already in the array, remove it
+                                    allowedRoles.remove(Integer.valueOf(which));
+                                }
+                            }
+                        })
+                        // Set the action buttons
+                .setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK, so save the mSelectedItems results somewhere
+                        // or return them to the component that opened the dialog
 
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+        builder.show();
     }
 
     public void pickDate(View v, final boolean start) {
@@ -189,6 +240,7 @@ public class NewEventActivity extends AppCompatActivity {
                     new_start_date_array[1] = monthOfYear;
                     new_start_date_array[2] = year;
                     startDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
+                    new_end_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
                     endDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
                 } else {
                     new_end_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
@@ -216,6 +268,7 @@ public class NewEventActivity extends AppCompatActivity {
                     if (minute < 10) {
                         new_start_time = hourOfDay + ":0" + minute + ":00";
                         startTimeEditText.setText(hourOfDay + ":0" + minute);
+                        new_end_time = (hourOfDay+1) + ":0" + minute;
                         endTimeEditText.setText((hourOfDay+1) + ":0" + minute);
                     } else {
                         new_start_time = hourOfDay + ":" + minute + ":00";

@@ -1,6 +1,10 @@
 package com.group3.cmpesocial.classes;
 
+import android.util.Log;
+
 import com.google.gson.JsonObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by Burak on 06/11/15.
@@ -14,13 +18,15 @@ public class Group {
     private String groupURL;
     private boolean isMember;
     private String pictureURL;
-    private int[] type;
+    private ArrayList<Integer> type;
 
-    public Group(){
-
+    public Group() {
+        type = new ArrayList<>();
     }
 
-    public Group(JsonObject json){
+    public Group(JsonObject json) {
+        this();
+
         int id = json.get("id").getAsInt();
         String name = json.get("name").getAsString();
         int id_admin = json.get("id_admin").getAsInt();
@@ -28,7 +34,8 @@ public class Group {
         String group_url = json.get("group_url").getAsString();
         boolean member = json.get("isMember").getAsBoolean();
         String types = json.get("type").getAsString();
-        String[] type_array = types.split(",");
+        Log.i("types", types);
+        String[] type_array = type_array = types.split(",");
 
         this.id = id;
         this.name = name;
@@ -36,18 +43,25 @@ public class Group {
         this.description = description;
         this.groupURL = group_url;
         this.isMember = member;
-        for (int i = 0; i < type_array.length; i ++){
-            this.type[i] = Integer.parseInt(type_array[i]);
+        if (type_array != null && !types.equals("")) {
+            for (int i = 0; i < type_array.length; i++) {
+                type.add(Integer.parseInt(type_array[i]));
+            }
+        } else {
+            type.add(0);
         }
     }
 
-    public Group(JsonObject json, boolean isMember){
+    public Group(JsonObject json, boolean isMember) {
+        this();
+
         int id = json.get("id").getAsInt();
         String name = json.get("name").getAsString();
         int id_admin = json.get("id_admin").getAsInt();
         String description = json.get("description").getAsString();
         String group_url = json.get("group_url").getAsString();
         String types = json.get("type").getAsString();
+        Log.i("types", types);
         String[] type_array = types.split(",");
 
         this.id = id;
@@ -56,8 +70,12 @@ public class Group {
         this.description = description;
         this.groupURL = group_url;
         this.isMember = isMember;
-        for (int i = 0; i < type_array.length; i ++){
-            this.type[i] = Integer.parseInt(type_array[i]);
+        if (type_array != null && !types.equals("")) {
+            for (int i = 0; i < type_array.length; i++) {
+                type.add(Integer.parseInt(type_array[i]));
+            }
+        } else {
+            type.add(0);
         }
     }
 
@@ -109,11 +127,19 @@ public class Group {
         this.pictureURL = pictureURL;
     }
 
-    public int[] getType() {
+    public boolean isMember() {
+        return isMember;
+    }
+
+    public void setIsMember(boolean isMember) {
+        this.isMember = isMember;
+    }
+
+    public ArrayList<Integer> getType() {
         return type;
     }
 
-    public void setType(int[] type) {
+    public void setType(ArrayList<Integer> type) {
         this.type = type;
     }
 }

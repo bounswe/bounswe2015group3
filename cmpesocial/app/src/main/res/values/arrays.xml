@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="roles_array">
+        <item>Undergraduate</item>
+        <item>Graduate</item>
+        <item>Faculty Member</item>
+        <item>Staff</item>
+        <item>Alumni</item>
+    </string-array>
+
+</resources>

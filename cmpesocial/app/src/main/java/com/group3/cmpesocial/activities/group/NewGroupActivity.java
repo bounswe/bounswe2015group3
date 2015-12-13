@@ -1,6 +1,8 @@
 package com.group3.cmpesocial.activities.group;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,6 +14,8 @@ import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API;
 import com.group3.cmpesocial.R;
 
+import java.util.ArrayList;
+
 public class NewGroupActivity extends AppCompatActivity {
 
     private static final String TAG = NewGroupActivity.class.getSimpleName();
@@ -22,6 +26,7 @@ public class NewGroupActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private int user_id;
+    private ArrayList<Integer> allowedRoles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,16 @@ public class NewGroupActivity extends AppCompatActivity {
 
         String name = nameEditText.getText().toString().trim();
         String description = descriptionEditText.getText().toString().trim();
+        String type = "";
+        if (allowedRoles != null) {
+            for (int i = 0; i < allowedRoles.size(); i++) {
+                type += String.valueOf(allowedRoles.get(i)) + ",";
+            }
+            type = type.substring(0, type.length() - 1);
+        }else{
+            type = "0";
+        }
+        Log.i("type", type);
 
         JsonObject json = new JsonObject();
         json.addProperty("name", name);
@@ -53,6 +68,7 @@ public class NewGroupActivity extends AppCompatActivity {
         json.addProperty("type", 1);
         json.addProperty("group_url", "www.sample.com");
         json.addProperty("description", description);
+        json.addProperty("type", type);
 
         Log.i(TAG, json.toString());
 
@@ -68,7 +84,43 @@ public class NewGroupActivity extends AppCompatActivity {
     }
 
     public void setRoles(View v){
+        Toast.makeText(this, "roles", Toast.LENGTH_SHORT).show();
+        allowedRoles = new ArrayList();  // Where we track the selected items
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Set the dialog title
+        builder.setTitle("Who can join?")
+                // Specify the list array, the items to be selected by default (null for none),
+                // and the listener through which to receive callbacks when items are selected
+                .setMultiChoiceItems(R.array.roles_array, null,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                if (isChecked) {
+                                    // If the user checked the item, add it to the selected items
+                                    allowedRoles.add(which);
+                                } else if (allowedRoles.contains(which)) {
+                                    // Else, if the item is already in the array, remove it
+                                    allowedRoles.remove(Integer.valueOf(which));
+                                }
+                            }
+                        })
+                        // Set the action buttons
+                .setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK, so save the mSelectedItems results somewhere
+                        // or return them to the component that opened the dialog
 
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+        builder.show();
     }
 
 }

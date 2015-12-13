@@ -974,16 +974,17 @@ public class API {
                             Toast.makeText(context, "an error occurred while updating group list", Toast.LENGTH_SHORT).show();
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
+                            Log.i(TAG, result.toString());
                             if (type.equalsIgnoreCase("SUCCESS")) {
                                 returnArray[0] = SUCCESS;
-
                                 JsonArray groups = result.getAsJsonArray("groups");
+                                Log.i(TAG, "here");
                                 Iterator<JsonElement> iterator = groups.iterator();
                                 while (iterator.hasNext()) {
+                                    Log.i(TAG, "in");
                                     JsonObject groupJson = iterator.next().getAsJsonObject();
                                     Log.d(TAG, groupJson.toString());
                                     Group group = new Group(groupJson);
-                                    Log.d(TAG, "onCreate() Restoring previous state");
                                     groupsList.add(group);
                                 }
 

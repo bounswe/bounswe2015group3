@@ -3,9 +3,11 @@ package com.group3.cmpesocial.activities.event;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,7 +43,6 @@ import com.group3.cmpesocial.classes.User;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public class EventDetailActivity extends AppCompatActivity {
@@ -82,6 +83,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private int new_period;
 
     private ArrayList<Post> postsArray;
+    private ArrayList<Integer> allowedRoles;
 
     private int id;
     private int user_id;
@@ -156,16 +158,16 @@ public class EventDetailActivity extends AppCompatActivity {
         mUser = API.getUser(userJson, this);
 
         JsonObject json = new JsonObject();
-        json.addProperty("id", id);
+        json.addProperty("id_event", id);
+        json.addProperty("id_user", user_id);
         mEvent = API.getEvent(json, getApplicationContext());
         ArrayList<User> participants = API.getEventParticipants(json, getApplicationContext());
-        Iterator iterator = participants.iterator();
-        while (iterator.hasNext()) {
-            User user = (User) iterator.next();
-            if (user.getId() == user_id){
-                joinButton.setVisibility(View.GONE);
-                leaveButton.setVisibility(View.VISIBLE);
-            }
+        if(mEvent.getHasJoined()){
+            joinButton.setVisibility(View.GONE);
+            leaveButton.setVisibility(View.VISIBLE);
+        }else{
+            joinButton.setVisibility(View.VISIBLE);
+            leaveButton.setVisibility(View.GONE);
         }
 
         String name = mEvent.getName();
@@ -238,7 +240,8 @@ public class EventDetailActivity extends AppCompatActivity {
         //adapterPost.addAll(postsArray);
 
         JsonObject json2 = new JsonObject();
-        json2.addProperty("id", id);
+        json2.addProperty("id_event", id);
+        json2.addProperty("id_user", user_id);
         API.getEvent(json2, this);
 
 
@@ -330,6 +333,16 @@ public class EventDetailActivity extends AppCompatActivity {
         String description = descriptionEditText.getText().toString().trim();
         String date = new_start_date + " " + new_start_time;
         String end_date = new_end_date + " " + new_end_time;
+        String type = "";
+        if (allowedRoles != null) {
+            for (int i = 0; i < allowedRoles.size(); i++) {
+                type += String.valueOf(allowedRoles.get(i)) + ",";
+            }
+            type = type.substring(0, type.length() - 1);
+        }else{
+            type = "0";
+        }
+        Log.i("type", type);
 
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
@@ -340,6 +353,7 @@ public class EventDetailActivity extends AppCompatActivity {
         json.addProperty("id_user", user_id);
         json.addProperty("location", location);
         json.addProperty("description", description);
+        json.addProperty("type", type);
 
         Log.i(TAG, json.toString());
 
@@ -370,11 +384,63 @@ public class EventDetailActivity extends AppCompatActivity {
     }
 
     public void leaveEvent(View v){
-
+        JsonObject json = new JsonObject();
+        json.addProperty("id_user", user_id);
+        json.addProperty("id_event", id);
+        int result = API.leaveEvent(json, this);
+        Log.i(TAG, ""+result);
+        if (result == API.SUCCESS) {
+            Toast.makeText(this, "left event", Toast.LENGTH_SHORT).show();
+            adapter.add(mUser);
+            joinButton.setVisibility(View.VISIBLE);
+            leaveButton.setVisibility(View.GONE);
+        }else {
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void invite(View v){
 
+    }
+
+    public void setRoles(View v){
+        Toast.makeText(this, "roles", Toast.LENGTH_SHORT).show();
+        allowedRoles = new ArrayList();  // Where we track the selected items
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Set the dialog title
+        builder.setTitle("Who can join?")
+                // Specify the list array, the items to be selected by default (null for none),
+                // and the listener through which to receive callbacks when items are selected
+                .setMultiChoiceItems(R.array.roles_array, null,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                if (isChecked) {
+                                    // If the user checked the item, add it to the selected items
+                                    allowedRoles.add(which);
+                                } else if (allowedRoles.contains(which)) {
+                                    // Else, if the item is already in the array, remove it
+                                    allowedRoles.remove(Integer.valueOf(which));
+                                }
+                            }
+                        })
+                        // Set the action buttons
+                .setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK, so save the mSelectedItems results somewhere
+                        // or return them to the component that opened the dialog
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+        builder.show();
     }
 
     public void pickDate(View v, int[] date, final boolean start){
