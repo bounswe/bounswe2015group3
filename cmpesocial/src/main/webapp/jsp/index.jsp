@@ -141,7 +141,7 @@
 				<div class="col-md-4">
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
-							<a href="${contextPath}/event/create"
+							<a href="${contextPath}/group/create"
 								class="btn btn-success btn-full"><i class="icon fa fa-lock">
 							</i> Create New Group </a>
 						</div>

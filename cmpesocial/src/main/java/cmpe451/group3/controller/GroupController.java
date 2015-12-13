@@ -69,7 +69,7 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group/join", method = RequestMethod.GET)
-    public String joinEvent(@RequestParam(required = false) long id, ModelMap model) {
+    public String joinGroup(@RequestParam(required = false) long id, ModelMap model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String mail = auth.getName();
         Long userid = userModel.getIDUserByEmail(mail);
@@ -79,6 +79,17 @@ public class GroupController {
         return "redirect:/group/view?id="+id;
     }
 
+    @RequestMapping(value = "/group/leave", method = RequestMethod.GET)
+    public String leaveGroup(@RequestParam(required = false) long id, ModelMap model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String mail = auth.getName();
+        Long userid = userModel.getIDUserByEmail(mail);
+
+        groupDAO.leaveGroup(userid,id);
+
+        return "redirect:/group/view?id="+id;
+    }
+    
     @RequestMapping(value = "group/update")
     public String updateGroup(
             @RequestParam(required = false) Long id,
@@ -127,15 +138,6 @@ public class GroupController {
 
         return "redirect:/groups";
     }
-
-
-    /*
-       public Long id_user;
-    public Long id_group;
-    public String post_text;
-    public String post_url;
-
-     */
 
     @RequestMapping( value = "/group/create/post" , method = RequestMethod.POST)
     public String createPost(@RequestParam long id_group, @RequestParam String post_text, @RequestParam(required = false) String post_url) {

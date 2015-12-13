@@ -173,7 +173,7 @@
 								<i class="icon fa fa-plus"> </i> Join Group</a>
 						</div>
 						<div class="widget clearfix">
-							<a href="#"
+							<a href="${contextPath}/group/leave?id=${group.id}"
 								class="btn btn-danger btn-full"><i
 								class="icon fa fa-sign-out"> </i> Leave Group</a>
 						</div>
