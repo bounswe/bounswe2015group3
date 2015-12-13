@@ -16,6 +16,14 @@
         android:orientation="horizontal" >
         <Button
             android:layout_height="wrap_content"
+            android:id="@+id/updatePost"
+            android:layout_width="80dp"
+            android:text="Update"
+
+            android:layout_toLeftOf="@+id/deletePost"
+            />
+        <Button
+            android:layout_height="wrap_content"
             android:id="@+id/deletePost"
             android:layout_width="80dp"
             android:text="Delete"

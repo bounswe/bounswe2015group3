@@ -90,4 +90,9 @@ public class User {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    public String toString(){
+        return id + " " + name + " " + surname;
+    }
+
 }
