@@ -58,13 +58,13 @@ public class GroupDAO {
     }
 
     public void createGroup(String name ,Long id_admin, String type, String description, String group_url) {
-        String sql = "INSERT INTO `group`(name, id_admin,type,description,group_url) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO `group`(name, id_admin, `type` , description,group_url) VALUES(?, ?, ?, ?, ?)";
 
         this.jdbcTemplate.update(sql, name, id_admin,type, description,group_url);
     }
 
     public void updateGroup(Long id, String name ,Long id_admin, String type, String description, String group_url) {
-        String sql = "UPDATE `group` SET name = ? id_admin = ?,type= ? ,description = ?, group_url= ? WHERE id = ?";
+        String sql = "UPDATE `group` SET name = ? id_admin = ?,`type` = ? ,description = ?, group_url= ? WHERE id = ?";
 
         this.jdbcTemplate.update(sql, name, id_admin,type ,description,group_url, id);
     }
@@ -153,5 +153,6 @@ public class GroupDAO {
         }
         return  Boolean.FALSE;
     }
+
 
 }

@@ -14,6 +14,7 @@ public class GroupModel {
     public String description;
     public String group_url;
 
+
     public GroupModel MapGroup (Map<String, Object> groupMap)
     {
         GroupModel groupModel = new GroupModel();
@@ -24,6 +25,7 @@ public class GroupModel {
         groupModel.type =groupMap.get("type").toString();
         groupModel.description = groupMap.get("description").toString();
         groupModel.group_url = groupMap.get("group_url").toString();
+
         return  groupModel;
     }
 

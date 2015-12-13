@@ -81,9 +81,9 @@ public class EventController {
     	String mail = auth.getName();
     	Integer userid = eventModel.getIdFromMail(mail);
         if (id != null)
-        	eventModel.updateEvent(id, name, date,end_date ,periodic, userid, location, description);
+        	eventModel.updateEvent(id, name, date,end_date ,periodic, userid, location, description,type);
         else
-        	eventModel.createEvent(name, date, end_date,periodic, userid, location, description);
+        	eventModel.createEvent(name, date, end_date,periodic, userid, location, description,type);
 
         return "redirect:/events";
     }

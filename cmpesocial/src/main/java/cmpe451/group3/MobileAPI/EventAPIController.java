@@ -14,6 +14,7 @@ import cmpe451.group3.model.EventIDRequestModel;
 import cmpe451.group3.utils.SecurityUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -66,7 +67,7 @@ public class EventAPIController {
     public String createEvent(@RequestBody EventCreateRequestModel eventCreateRequestModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
-        eventModel.createEvent(eventCreateRequestModel.name, eventCreateRequestModel.date,eventCreateRequestModel.end_date,eventCreateRequestModel.periodic, eventCreateRequestModel.id_user, eventCreateRequestModel.location, eventCreateRequestModel.description);
+        eventModel.createEvent(eventCreateRequestModel.name, eventCreateRequestModel.date,eventCreateRequestModel.end_date,eventCreateRequestModel.periodic, eventCreateRequestModel.id_user, eventCreateRequestModel.location, eventCreateRequestModel.description,eventCreateRequestModel.type);
         result.put("Result", "SUCCESS");
         result.put("event", eventModel.getEventForName(eventCreateRequestModel.name));
 
@@ -74,14 +75,24 @@ public class EventAPIController {
     }
     @RequestMapping( value = "/events/all" , method = RequestMethod.POST,produces = {"text/plain;charset=UTF-8"} )
     @ResponseBody
-    public String events() {
+    public String events(@RequestBody EventIDRequestModel requestModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
-
+        List<Map<String, Object>> events = new ArrayList<>();
         result.put("Result","SUCCESS");
-        result.put("events",eventModel.getEvents());
+        events = eventModel.getEvents();
 
-
+        for(Map<String, Object> event : events){
+            Long id_event = Long.parseLong(event.get("id").toString());
+            if (eventModel.isGoingToEvent(requestModel.id,id_event))
+            {
+                event.put("hasJoined", Boolean.TRUE);
+            }else
+            {
+                event.put("hasJoined",Boolean.FALSE);
+            }
+        }
+        result.put("events",events);
         return gson.toJson(result);
     }
 
@@ -93,19 +104,42 @@ public class EventAPIController {
 
 
         result.put("Result","SUCCESS");
-        result.put("events",eventModel.getEventsForUser(userModel.id));
 
+        List<Map<String, Object>> events = new ArrayList<>();
+
+        events = eventModel.getEventsForUser(userModel.id);
+
+        for(Map<String, Object> event : events){
+            Long id_event = Long.parseLong(event.get("id").toString());
+            if (eventModel.isGoingToEvent(userModel.id,id_event))
+            {
+                event.put("hasJoined", Boolean.TRUE);
+            }else
+            {
+                event.put("hasJoined",Boolean.FALSE);
+            }
+        }
+        result.put("events",events);
 
         return gson.toJson(result);
     }
 
     @RequestMapping( value = "/events/viewDetail" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
-    public String viewEventDetail(@RequestBody EventIDRequestModel eventIDModel) {
+    public String viewEventDetail(@RequestBody EventParticipateModel eventParticipateModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        result = eventModel.getEvent(eventIDModel.id);
+        result = eventModel.getEvent(eventParticipateModel.id_event);
+
+        if (eventModel.isGoingToEvent(eventParticipateModel.id_user,eventParticipateModel.id_event))
+        {
+            result.put("hasJoined", Boolean.TRUE);
+        }else
+        {
+            result.put("hasJoined",Boolean.FALSE);
+        }
+
 
         return gson.toJson(result);
     }
@@ -117,7 +151,7 @@ public class EventAPIController {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        eventModel.updateEvent(eventBaseModel.id, eventBaseModel.name, eventBaseModel.date,eventBaseModel.end_date,eventBaseModel.periodic ,eventBaseModel.id_user, eventBaseModel.location, eventBaseModel.description);
+        eventModel.updateEvent(eventBaseModel.id, eventBaseModel.name, eventBaseModel.date,eventBaseModel.end_date,eventBaseModel.periodic ,eventBaseModel.id_user, eventBaseModel.location, eventBaseModel.description,eventBaseModel.type);
         result.put("Result","SUCCESS");
 
         return gson.toJson(result);

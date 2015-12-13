@@ -5,4 +5,5 @@ package cmpe451.group3.model;
  */
 public class EventIDRequestModel {
    public Long  id;
+
 }

@@ -14,6 +14,7 @@ public class EventCreateRequestModel {
     public Long id_user;
     public String location;
     public String description;
+    public String type;
 
 
 }

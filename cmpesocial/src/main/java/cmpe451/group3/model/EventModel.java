@@ -194,6 +194,19 @@ public class EventModel {
         return  Boolean.FALSE;
     }
 
+    public Boolean isGoingToEvent(Long id_user,Long id_event)
+    {
+        String sql = "SELECT user_event.* FROM user_event WHERE user_event.id_user = ? AND user_event.id_event = ? ";
+
+        List<Map<String,Object>> membership = this.jdbcTemplate.queryForList(sql,id_user, id_event);
+
+
+        if (membership.isEmpty())
+            return   Boolean.FALSE;
+        else
+            return   Boolean.TRUE;
+
+    }
 
 
 }
