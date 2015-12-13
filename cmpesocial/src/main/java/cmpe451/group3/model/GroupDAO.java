@@ -4,10 +4,8 @@ package cmpe451.group3.model;
  * Created by umut on 11/24/15.
  */
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

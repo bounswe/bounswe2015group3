@@ -4,10 +4,7 @@ package cmpe451.group3.MobileAPI;
  * Created by umut on 11/24/15.
  */
 
-import cmpe451.group3.model.CmpeSocialUserModel;
-import cmpe451.group3.model.EventIDRequestModel;
-import cmpe451.group3.model.EventModel;
-import cmpe451.group3.model.GroupDAO;
+import cmpe451.group3.model.*;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.Authenticator;
 import com.sun.org.apache.xml.internal.serialize.ElementState;
@@ -37,6 +34,9 @@ public class GroupAPIController {
     @Autowired
     private GroupDAO groupDAO = null;
 
+    @Qualifier("tagDAO")
+    @Autowired
+    private TagDAO tagDAO = null;
 
     @RequestMapping( value = "/groups/create" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
@@ -120,7 +120,7 @@ public class GroupAPIController {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        groupDAO.updateGroup(groupModel.id, groupModel.name,groupModel.id_admin, groupModel.type, groupModel.description,groupModel.group_url);
+        groupDAO.updateGroup(groupModel.id, groupModel.name, groupModel.id_admin, groupModel.type, groupModel.description, groupModel.group_url);
         result.put("Result","SUCCESS");
 
         return gson.toJson(result);
@@ -228,7 +228,7 @@ public class GroupAPIController {
             post.put("Comments",groupDAO.getAllComments(id_post));
         }
 
-        result.put("Result","Success");
+        result.put("Result", "Success");
         result.put("Posts",posts);
 
 
@@ -242,7 +242,7 @@ public class GroupAPIController {
 
         Map<String,Object> result = new HashMap<>();
 
-        groupDAO.leaveGroup(idModel.id_user,idModel.id_group);
+        groupDAO.leaveGroup(idModel.id_user, idModel.id_group);
         result.put("Result","Success");
 
         return gson.toJson(result);
@@ -254,7 +254,7 @@ public class GroupAPIController {
         Gson gson = new Gson();
         Map<String,Object> result = new HashMap<>();
 
-        int control =groupDAO.createComment(commentModel.id_post, commentModel.id_group, commentModel.id_user,commentModel.content);
+        int control =groupDAO.createComment(commentModel.id_post, commentModel.id_group, commentModel.id_user, commentModel.content);
 
         if (control != 0)
             result.put("Result","Success");
@@ -270,7 +270,7 @@ public class GroupAPIController {
         Gson gson = new Gson();
         Map<String,Object> result = new HashMap<>();
 
-        int control =groupDAO.updateComment(commentModel.id,commentModel.id_post, commentModel.id_group, commentModel.id_user,commentModel.content);
+        int control =groupDAO.updateComment(commentModel.id, commentModel.id_post, commentModel.id_group, commentModel.id_user, commentModel.content);
 
         if (control != 0)
             result.put("Result","Success");
@@ -296,6 +296,55 @@ public class GroupAPIController {
         return gson.toJson(result);
     }
 
+    @RequestMapping(value = "/groups/tag/add" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String addTag(@RequestBody GroupTagCreateModel tagModel)
+    {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
 
+
+        tagDAO.addTagToGroup(tagModel.id_group,tagModel.tag);
+
+        result.put("Result","Success");
+        return  gson.toJson(result);
+    }
+
+    @RequestMapping(value = "/groups/tag/delete" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String deleteTag(@RequestBody GroupTagCreateModel tagModel)
+    {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+
+        tagDAO.deleteTagFromGroup(tagModel.id_group, tagModel.tag);
+
+        result.put("Result","Success");
+        return  gson.toJson(result);
+    }
+    //get groups has this tag
+    @RequestMapping(value = "/groups/tag/getGroups" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String addTag(@RequestBody SimpleTagModel tagModel)
+    {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+       result.put("groups", tagDAO.getTaggedFromGroups(tagModel.tag));
+        result.put("Result","Success");
+        return  gson.toJson(result);
+    }
+    //gets tags for group id
+    @RequestMapping(value = "/groups/tag/getTags" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String addTag(@RequestBody EventIDRequestModel tagModel)
+    {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+        result.put("tags", tagDAO.getTagsForGroup(tagModel.id));
+        result.put("Result","Success");
+        return  gson.toJson(result);
+
+    }
 
 }
