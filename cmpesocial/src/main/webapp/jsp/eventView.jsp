@@ -157,6 +157,21 @@
 									</div>
 								</div>
 							</c:forEach>
+							
+							<c:forEach var="post" items="${posts}"
+								varStatus="roop">
+								<div class="event">
+									<div class="event-content">
+										<h3 class="title">${post.content}
+											</h3>
+										<c:forEach var="comment" items="${post.comments}" varStatus="roop">
+											<p class="job">${comment.content}</p>
+										</c:forEach>
+									</div>
+								</div>
+							</c:forEach>
+							
+							
 						</div>
 					</section>
 					<!-- speakers-tabs -->

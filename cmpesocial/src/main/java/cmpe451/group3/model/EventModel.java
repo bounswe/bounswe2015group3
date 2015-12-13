@@ -151,7 +151,7 @@ public class EventModel {
     }
 
     public void updateComment(Long id,Long id_post, Long id_event, Long id_user, String content){
-        String sql= "UPDATE  post_event SET id_post=?,id_event = ? , id_user = ?, content= ? WHERE id= ?";
+        String sql= "UPDATE  comment_event SET id_post=?,id_event = ? , id_user = ?, content= ? WHERE id= ?";
         this.jdbcTemplate.update(sql,id_post,id_event,id_user,content,id);
     }
 

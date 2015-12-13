@@ -53,8 +53,14 @@ public class GroupController {
     public String viewEvent(@RequestParam(required = false) long id, ModelMap model) {
         Map<String, Object> group = groupDAO.getGroup(id);
         List<Map<String,Object>> members = groupDAO.getMembers(id);
+        
         List<Map<String,Object>> posts = groupDAO.getGroupPosts(id);
-
+        for(Map<String,Object> post: posts){
+        	long pid = (int)post.get("id");
+        	List<Map<String,Object>> comments = groupDAO.getAllComments(pid);
+        	post.put("comments", comments);
+        }
+        
         model.put("group", group);
         model.put("members", members);
         model.put("posts",posts);

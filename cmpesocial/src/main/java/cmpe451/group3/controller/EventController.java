@@ -50,8 +50,17 @@ public class EventController {
     public String viewEvent(@RequestParam(required = false) Long id, ModelMap model) {
         Map<String, Object> event = eventModel.getEvent(id);
         List<Map<String,Object>> participants = eventModel.getParticipants(id);
+        
+        List<Map<String,Object>> posts = eventModel.getAllPosts(id);
+        for(Map<String,Object> post: posts){
+        	long pid = (int)post.get("id");
+        	List<Map<String,Object>> comments = eventModel.getAllComments(pid);
+        	post.put("comments", comments);
+        }
+        
         model.put("event", event);
         model.put("participants", participants);
+        model.put("posts", posts);
         
         return "eventView";
     }
