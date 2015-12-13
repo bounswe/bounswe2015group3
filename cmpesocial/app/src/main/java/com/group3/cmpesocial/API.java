@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.classes.Event;
 import com.group3.cmpesocial.classes.Group;
+import com.group3.cmpesocial.classes.Post;
 import com.group3.cmpesocial.classes.User;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
@@ -501,10 +502,8 @@ public class API {
         return returnArray[0];
     }
 
-    public static ArrayList<Object> getAllEventPosts(JsonObject json, Context context) {
-        Log.d(TAG, "getAllEventPosts json " + json.toString());
-
-        ArrayList<Object> eventPosts = new ArrayList<>();
+    public static ArrayList<Post> getAllEventPosts(JsonObject json, Context context) {
+        ArrayList<Post> eventPosts = new ArrayList<>();
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/getAllPosts")
@@ -515,11 +514,11 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.d(TAG, "error getAllEventPosts" + e.getMessage());
+                            Log.i(TAG, "error getAllEventPosts" + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
-                            if (type.equalsIgnoreCase("SUCCESS")) {
+                            if (type.equals("SUCCESS")) {
                                 // get posts
                                 // add them to eventPosts
                                 // posts also have their comments in them
@@ -529,17 +528,29 @@ public class API {
                                 returnArray[0] = ERROR;
                             }
                         } else {
-                            Log.d(TAG, "result empty");
+                            Log.i(TAG, "result empty");
                             returnArray[0] = RESULT_EMPTY;
                         }
                     }
                 });
+
+
         try {
-            Log.d(TAG, "future : " + mFuture.get().toString());
-        } catch (Exception e) {
-            Log.d(TAG, "exception getAllEventPosts" + e.getMessage());
+            JsonObject postsObject = (JsonObject) mFuture.get();
+            JsonArray posts = postsObject.getAsJsonArray("posts");
+            Log.i(TAG, posts.toString());
+            Iterator<JsonElement> iterator = posts.iterator();
+            while (iterator.hasNext()) {
+                Post post = new Post(iterator.next().getAsJsonObject());
+                eventPosts.add(post);
+            }
+
+
+            Log.i(TAG, "future : " + mFuture.get().toString());
+        }catch (Exception e){
+            Log.i(TAG, "exception getAllEventPosts" + e.getMessage());
         }
-        Log.d(TAG, "getAllEventPosts return code: " + returnArray[0]);
+        Log.i(TAG, "getAllEventPosts return code: " + returnArray[0]);
         return eventPosts;
     }
 

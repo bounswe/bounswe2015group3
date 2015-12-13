@@ -36,19 +36,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.UserDetailActivity" />
+        <activity
+            android:name=".activities.UserDetailActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.event.EventDetailActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.event.NewEventActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.group.NewGroupActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.group.GroupDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
