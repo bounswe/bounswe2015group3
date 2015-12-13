@@ -8,4 +8,3 @@
     android:paddingRight="20dip"
     android:divider="#0000"
     android:scrollbarStyle="outsideOverlay" />
-

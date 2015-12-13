@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.group3.cmpesocial.EventDetailActivity"
-
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    tools:context=".activities.event.EventDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar"
@@ -23,6 +21,60 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
+            <ImageButton
+                android:id="@+id/editButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:background="@android:color/transparent"
+                android:onClick="editEvent"
+                android:src="@drawable/ic_mode_edit_white_24dp"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/deleteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@android:color/transparent"
+                android:onClick="deleteEvent"
+                android:src="@drawable/ic_delete_white_24dp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/inviteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:onClick="invite"
+                android:text="Invite"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/joinButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:onClick="joinEvent"
+                android:text="Join"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/leaveButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:onClick="leaveEvent"
+                android:text="Leave"
+                android:textColor="@android:color/white"
+                android:visibility="gone" />
+
             <Button
                 android:id="@+id/doneButton"
                 android:layout_width="wrap_content"
@@ -30,49 +82,11 @@
                 android:layout_gravity="right"
                 android:background="@android:color/transparent"
                 android:drawableRight="@drawable/ic_check_white_24dp"
+                android:onClick="saveEvent"
+                android:paddingRight="@dimen/activity_vertical_margin"
                 android:text="Done"
                 android:textColor="@android:color/white"
-                android:visibility="gone"/>
-
-            <ImageButton
-                android:id="@+id/editButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_mode_edit_white_24dp"
-                android:layout_marginRight="8dp"
-                android:visibility="gone"/>
-
-            <ImageButton
-                android:id="@+id/deleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_delete_white_24dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="8dp"
-                android:visibility="gone"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/joinButton"
-                android:text="Join"
-                android:textColor="@android:color/white"
-                android:layout_gravity="right"
-                android:background="@android:color/transparent" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/leaveButton"
-                android:text="Leave"
-                android:textColor="@android:color/white"
-                android:layout_gravity="right"
-                android:background="@android:color/transparent"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -86,267 +100,248 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="@null"
+            android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/nameEditText"
-                android:textSize="20sp"
-                android:padding="5dp"
-                android:background="@null"
-                android:textColor="@android:color/secondary_text_light" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Period"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_mode_edit_black_24dp" />
 
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"/>
+                <EditText
+                    android:id="@+id/nameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Starts"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:padding="@dimen/activity_vertical_margin"
+                    android:src="@drawable/ic_label_black_24dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:text="Date"
-                        android:textSize="18sp"
-                        android:textColor="@color/colorPrimary" />
+                <EditText
+                    android:id="@+id/tagsEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp" />
 
-                    <EditText
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_people_black_24dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_schedule_black_24dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:padding="5dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/periodTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="20sp" />
+
+                    <EditText
                         android:id="@+id/startDateEditText"
-                        android:textSize="20sp"
-                        android:padding="5dp"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/spinner"
                         android:background="@null"
                         android:editable="false"
-                        android:textColor="@android:color/secondary_text_light" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Time"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary" />
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="20sp" />
 
                     <EditText
+                        android:id="@+id/startTimeEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/startTimeEditText"
-                        android:textSize="20sp"
-                        android:padding="5dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/spinner"
+                        android:layout_toRightOf="@+id/startDateEditText"
                         android:background="@null"
                         android:editable="false"
-                        android:textColor="@android:color/secondary_text_light" />
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="20sp" />
 
-                </LinearLayout>
+                    <EditText
+                        android:id="@+id/endDateEditText"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/startDateEditText"
+                        android:background="@null"
+                        android:editable="false"
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="20sp" />
 
+                    <EditText
+                        android:id="@+id/endTimeEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/startTimeEditText"
+                        android:layout_toRightOf="@+id/endDateEditText"
+                        android:background="@null"
+                        android:editable="false"
+                        android:padding="5dp"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="20sp" />
+
+
+                </RelativeLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ends"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_room_black_24dp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Date"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/endDateEditText"
-                        android:textSize="20sp"
-                        android:padding="5dp"
-                        android:background="@null"
-                        android:editable="false"
-                        android:textColor="@android:color/secondary_text_light" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/locationEditText"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Time"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/endTimeEditText"
-                        android:textSize="20sp"
-                        android:padding="5dp"
-                        android:background="@null"
-                        android:editable="false"
-                        android:textColor="@android:color/secondary_text_light" />
-
-                </LinearLayout>
-
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/locationEditText"
-                android:textSize="20sp"
-                android:padding="5dp"
-                android:background="@null"
-                android:textColor="@android:color/secondary_text_light" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:src="@drawable/ic_mode_comment_black_24dp" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/descriptionEditText"
-                android:textSize="20sp"
-                android:padding="5dp"
-                android:background="@null"
-                android:textColor="@android:color/secondary_text_light" />
+                <EditText
+                    android:id="@+id/descriptionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Participants"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp" />
-
-
-
-
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Posts"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <EditText
-                android:layout_width="325dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/postEditTextMain"
-                android:textSize="20sp"
-                android:padding="5dp"
-                android:background="@drawable/edittextborder"
+                android:orientation="horizontal">
 
-                android:textColor="@android:color/secondary_text_light" />
+                <EditText
+                    android:id="@+id/postEditTextMain"
+                    android:layout_width="325dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextborder"
+                    android:padding="5dp"
+                    android:textColor="@android:color/secondary_text_light"
 
-        </LinearLayout>
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
 
-                android:orientation="horizontal" >
-            <Button
-                android:layout_height="wrap_content"
-                android:id="@+id/postButton"
-                android:layout_width="80dp"
-                android:text="Post"
-                android:onClick="postButton"
-                android:layout_alignParentRight="true"
-                />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/postButton"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:onClick="postButton"
+                    android:text="Post" />
             </RelativeLayout>
+
             <ListView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/listView"
                 android:layout_width="match_parent"
@@ -358,7 +353,5 @@
         </LinearLayout>
 
     </ScrollView>
-
-
 
 </android.support.design.widget.CoordinatorLayout>

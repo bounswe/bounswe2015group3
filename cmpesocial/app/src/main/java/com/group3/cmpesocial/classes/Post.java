@@ -15,6 +15,7 @@ public class Post {
 
     public Post(String p) {
         content = p;
+
     }
 
     public Post(JsonObject json) {
