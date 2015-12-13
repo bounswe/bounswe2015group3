@@ -24,6 +24,7 @@ public class GroupController {
 
     @Autowired
     private CmpeSocialUserModel userModel = null;
+    
     @RequestMapping(value = "/groups")
     public String events(ModelMap model) {
 
@@ -58,6 +59,16 @@ public class GroupController {
         for(Map<String,Object> post: posts){
         	long pid = (int)post.get("id");
         	List<Map<String,Object>> comments = groupDAO.getAllComments(pid);
+        	
+        	for(Map<String,Object> comment: comments){
+        		long authorId = (int)comment.get("id_user");
+            	Map<String,Object> author = userModel.getUser(authorId);
+            	comment.put("author", author);
+        	}
+        	long authorId = (int)post.get("id_user");
+        	Map<String,Object> author = userModel.getUser(authorId);
+        	post.put("author", author);
+        	
         	post.put("comments", comments);
         }
         

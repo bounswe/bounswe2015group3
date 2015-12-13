@@ -134,7 +134,7 @@
 											<li class="date"><i class="icon fa fa-calendar"></i>1
 												month ago</li>
 											<li><a href="#"><i class="icon fa fa-user"></i>by
-													${post.id_user}</a></li>
+													${post.author.name} ${post.author.surname}</a></li>
 										</ul>
 										<p>${post.post_text}</p>
 										<a href="#" class="btn btn-disabled">read more</a>

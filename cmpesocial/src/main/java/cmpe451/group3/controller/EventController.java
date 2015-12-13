@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cmpe451.group3.model.CmpeSocialUserModel;
 import cmpe451.group3.model.EventModel;
 
 import java.util.List;
@@ -21,6 +22,9 @@ public class EventController {
 
     @Autowired
     private EventModel eventModel = null;
+    
+    @Autowired
+    private CmpeSocialUserModel userModel = null;
 
     @RequestMapping(value = "/events")
     public String events(ModelMap model) {
@@ -55,13 +59,22 @@ public class EventController {
         for(Map<String,Object> post: posts){
         	long pid = (int)post.get("id");
         	List<Map<String,Object>> comments = eventModel.getAllComments(pid);
+        	
+        	for(Map<String,Object> comment: comments){
+        		long authorId = (int)comment.get("id_user");
+            	Map<String,Object> author = userModel.getUser(authorId);
+            	comment.put("author", author);
+        	}
+        	long authorId = (int)post.get("id_user");
+        	Map<String,Object> author = userModel.getUser(authorId);
+        	post.put("author", author);
+        	
         	post.put("comments", comments);
         }
         
         model.put("event", event);
         model.put("participants", participants);
         model.put("posts", posts);
-        
         
         return "eventView";
     }
