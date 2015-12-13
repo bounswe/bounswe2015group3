@@ -33,6 +33,7 @@ public class ProfileFragment extends Fragment {
     private String name;
     private String surname;
     private String email;
+    private int type;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -67,6 +68,7 @@ public class ProfileFragment extends Fragment {
         name = prefs.getString("name", "def_name");
         surname = prefs.getString("surname", "def_surname");
         email = prefs.getString("email", "def_email");
+        type = prefs.getInt("type", 0);
 
         nameTextView.setText(name);
         surnameTextView.setText(surname);
@@ -107,6 +109,7 @@ public class ProfileFragment extends Fragment {
                             json.addProperty("surname", surname);
                             json.addProperty("password", password);
                             json.addProperty("email", email);
+                            json.addProperty("type", type);
                             Log.i("API", json.toString());
                             API.updateUser(json, getActivity());
                         }

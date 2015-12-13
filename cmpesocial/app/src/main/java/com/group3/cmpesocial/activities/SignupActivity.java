@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -23,6 +24,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private EditText confirmPasswordEditText;
     private Spinner roleSpinner;
+    private int type = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,12 @@ public class SignupActivity extends AppCompatActivity {
         String[] roles = {"Undergraduate", "Graduate", "Alumni", "Faculty Member", "Staff"};
         ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,roles);
         roleSpinner.setAdapter(adapter);
+        roleSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                type = position;
+            }
+        });
     }
 
     public void signup(View v){
@@ -77,6 +85,7 @@ public class SignupActivity extends AppCompatActivity {
         json.addProperty("surname", lastName);
         json.addProperty("email", email);
         json.addProperty("password", password);
+        json.addProperty("type", type);
 
         Log.i(TAG,json.toString());
 

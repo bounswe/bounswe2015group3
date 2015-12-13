@@ -26,24 +26,39 @@ public class Group {
         int id_admin = json.get("id_admin").getAsInt();
         String description = json.get("description").getAsString();
         String group_url = json.get("group_url").getAsString();
-//        String member = json.get("isMember").getAsString();
-//        String picture_url = json.get("picture_url").getAsString();
-//        String types = json.get("type").getAsString();
-//        String[] type_array = types.split(",");
+        boolean member = json.get("isMember").getAsBoolean();
+        String types = json.get("type").getAsString();
+        String[] type_array = types.split(",");
 
         this.id = id;
         this.name = name;
         this.id_user = id_admin;
         this.description = description;
         this.groupURL = group_url;
-//        if (member.equalsIgnoreCase("yes"))
-//            isMember = true;
-//        else
-//            isMember = false;
-////        this.pictureURL = picture_url;
-//        for (int i = 0; i < type_array.length; i ++){
-//            this.type[i] = Integer.parseInt(type_array[i]);
-//        }
+        this.isMember = member;
+        for (int i = 0; i < type_array.length; i ++){
+            this.type[i] = Integer.parseInt(type_array[i]);
+        }
+    }
+
+    public Group(JsonObject json, boolean isMember){
+        int id = json.get("id").getAsInt();
+        String name = json.get("name").getAsString();
+        int id_admin = json.get("id_admin").getAsInt();
+        String description = json.get("description").getAsString();
+        String group_url = json.get("group_url").getAsString();
+        String types = json.get("type").getAsString();
+        String[] type_array = types.split(",");
+
+        this.id = id;
+        this.name = name;
+        this.id_user = id_admin;
+        this.description = description;
+        this.groupURL = group_url;
+        this.isMember = isMember;
+        for (int i = 0; i < type_array.length; i ++){
+            this.type[i] = Integer.parseInt(type_array[i]);
+        }
     }
 
     public String getDescription() {

@@ -544,8 +544,6 @@ public class EventDetailActivity extends AppCompatActivity {
         String content = post;
         String content_url = "dummy";
 
-
-
         JsonObject json = new JsonObject();
         json.addProperty("id_event", id_event);
         json.addProperty("id_user", id_user);
@@ -570,8 +568,6 @@ public class EventDetailActivity extends AppCompatActivity {
         postEditTextMain.setText("");
         //Post p = posts.get(0);
         //System.out.println(p.getPost());
-
-
 
     }
 

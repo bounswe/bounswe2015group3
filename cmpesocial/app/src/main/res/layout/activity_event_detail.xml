@@ -188,6 +188,7 @@
                         android:id="@+id/spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_above="@+id/startDateEditText"
                         android:layout_alignParentTop="true"
                         android:padding="5dp"
                         android:visibility="gone" />
@@ -196,6 +197,8 @@
                         android:id="@+id/periodTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_above="@+id/startDateEditText"
+                        android:layout_alignParentTop="true"
                         android:padding="5dp"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="20sp" />
@@ -204,7 +207,7 @@
                         android:id="@+id/startDateEditText"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/spinner"
+                        android:layout_above="@+id/endDateEditText"
                         android:background="@null"
                         android:editable="false"
                         android:padding="5dp"
@@ -215,8 +218,8 @@
                         android:id="@+id/startTimeEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_above="@+id/endTimeEditText"
                         android:layout_alignParentRight="true"
-                        android:layout_below="@+id/spinner"
                         android:layout_toRightOf="@+id/startDateEditText"
                         android:background="@null"
                         android:editable="false"
@@ -228,7 +231,7 @@
                         android:id="@+id/endDateEditText"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/startDateEditText"
+                        android:layout_alignParentBottom="true"
                         android:background="@null"
                         android:editable="false"
                         android:padding="5dp"
@@ -239,8 +242,8 @@
                         android:id="@+id/endTimeEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
-                        android:layout_below="@+id/startTimeEditText"
                         android:layout_toRightOf="@+id/endDateEditText"
                         android:background="@null"
                         android:editable="false"
@@ -329,9 +332,7 @@
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <Button
                     android:id="@+id/postButton"
