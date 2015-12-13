@@ -554,7 +554,7 @@ public class API {
         try {
             JsonObject postsObject = (JsonObject) mFuture.get();
             JsonArray posts = postsObject.getAsJsonArray("posts");
-            //Log.i(TAG, posts.toString());
+            Log.i(TAG, posts.toString());
             Iterator<JsonElement> iterator = posts.iterator();
             while (iterator.hasNext()) {
                 Post post = new Post(iterator.next().getAsJsonObject());
@@ -682,8 +682,9 @@ public class API {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
+
                         if (e != null) {
-                            Log.i(TAG, "error createEventComment" + e.getMessage());
+                            Log.i(TAG, "error createEventComment " + e.getMessage());
                             returnArray[0] = ERROR;
                         } else if (result != null) {
                             String type = trimQuotes(result.get("Result").toString());
@@ -701,7 +702,8 @@ public class API {
         try {
             Log.i(TAG, "future : " + mFuture.get().toString());
         }catch (Exception e){
-            Log.i(TAG, "exception createEventComment" + e.getMessage());
+
+            Log.i(TAG, "exception createEventComment " + e.getMessage());
         }
         return returnArray[0];
     }

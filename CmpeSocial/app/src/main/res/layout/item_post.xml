@@ -7,7 +7,7 @@
         android:id="@+id/postEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:text="Name" />
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -15,20 +15,35 @@
 
         android:orientation="horizontal" >
         <Button
-            android:layout_height="wrap_content"
-            android:id="@+id/updatePost"
+            android:layout_height="35dp"
+            android:id="@+id/comment"
             android:layout_width="80dp"
+            android:text="Comment"
+            android:textSize="10sp"
+            android:layout_toLeftOf="@+id/updatePost"
+            />
+        <Button
+            android:layout_height="35dp"
+            android:id="@+id/updatePost"
+            android:layout_width="70dp"
             android:text="Update"
-
+            android:textSize="10sp"
             android:layout_toLeftOf="@+id/deletePost"
             />
         <Button
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:id="@+id/deletePost"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:text="Delete"
-
+            android:textSize="10sp"
             android:layout_alignParentRight="true"
+            />
+        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/commentList"
+            android:layout_width="match_parent"
+            android:layout_height="40dip"
+            android:textSize="20sp"
+
             />
     </RelativeLayout>
 

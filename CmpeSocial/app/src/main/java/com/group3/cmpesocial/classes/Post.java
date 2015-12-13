@@ -30,6 +30,8 @@ public class Post {
 
         id_event = json.get("id_event").getAsInt();
         //comments = json.get("comments").getAsJsonArray();
+        //System.out.println(comments.get(0));
+
 
     }
 

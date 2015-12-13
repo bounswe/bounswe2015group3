@@ -294,6 +294,9 @@ public class EventDetailActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+
+
     }
 
 
@@ -523,6 +526,10 @@ public class EventDetailActivity extends AppCompatActivity {
             b2.setTag(position);
             b2.setOnClickListener(update);
 
+            Button b3 = (Button) convertView.findViewById(R.id.comment);
+            b3.setTag(position);
+            b3.setOnClickListener(comment);
+
             t = (TextView) convertView.findViewById(R.id.postEditText);
             t.setTag(position);
             int userIDTemp = mPost.getUserID();
@@ -629,6 +636,60 @@ public class EventDetailActivity extends AppCompatActivity {
                         Collections.reverse(posts);
                         adapterPost.clear();
                         adapterPost.addAll(posts);
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+                    }
+                });
+
+                alert.show();
+
+
+
+            }
+        };
+        private View.OnClickListener comment = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = (Integer) v.getTag();
+                final Post p = adapterPost.getItem(position);
+                String text = p.getPost();
+                //e.setClickable(true);
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+                alert.setTitle("Comment");
+                alert.setMessage("You can comment on this post here");
+
+                // Set an EditText view to get user input
+                final EditText input = new EditText(getContext());
+                //input.setText(text);
+                alert.setView(input);
+
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        int id_post = p.getID();
+                        JsonObject json = new JsonObject();
+                        json.addProperty("id_post", id_post);
+                        json.addProperty("id_user", currentUser.getId());
+                        json.addProperty("id_event", p.getEventID());
+                        json.addProperty("content", "Bu da bir comment işte.");
+                        //json.addProperty("content_url", p.getContentURL());
+                        System.out.println(json.toString());
+                        API.createEventComment(json, getApplicationContext());
+                        /*API.updateEventPost(json, getContext());
+                        //API.deleteEventPost(json, getContext());
+                        JsonObject json2 = new JsonObject();
+                        json2.addProperty("id", id);
+                        API.getEvent(json2, getContext());
+                        ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+                        Collections.reverse(posts);
+                        adapterPost.clear();
+                        adapterPost.addAll(posts);*/
                     }
                 });
 
