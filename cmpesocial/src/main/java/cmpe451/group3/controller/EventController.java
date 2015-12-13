@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cmpe451.group3.model.CmpeSocialUserModel;
 import cmpe451.group3.model.EventModel;
 
 import java.util.List;
@@ -18,15 +19,17 @@ import java.util.Map;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-
 @Controller
 @Scope("request")
 public class EventController {
 
     @Autowired
     private EventModel eventModel = null;
+    
+    @Autowired
+    private CmpeSocialUserModel userModel = null;
 
-    @RequestMapping(value = "/event")
+    @RequestMapping(value = "/events")
     public String events(ModelMap model) {
         
         List<Map<String, Object>> events = eventModel.getEvents();
@@ -38,19 +41,43 @@ public class EventController {
 
     @RequestMapping(value = "/event/edit")
     public String editEvent(@RequestParam(required = false) Long id, ModelMap model) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String mail = auth.getName();
+		int userid = eventModel.getIdFromMail(mail);
         Map<String, Object> event = eventModel.getEvent(id);
-
-        model.put("event", event);
-
-        return "updateEvent";
+    	
+		if((int)event.get("id_user") == userid){
+	        model.put("event", event);
+	        return "updateEvent";
+		}
+		return "redirect:/events";
     }
     
     @RequestMapping(value = "/event/view", method = RequestMethod.GET)
     public String viewEvent(@RequestParam(required = false) Long id, ModelMap model) {
         Map<String, Object> event = eventModel.getEvent(id);
         List<Map<String,Object>> participants = eventModel.getParticipants(id);
+        
+        List<Map<String,Object>> posts = eventModel.getAllPosts(id);
+        for(Map<String,Object> post: posts){
+        	long pid = (int)post.get("id");
+        	List<Map<String,Object>> comments = eventModel.getAllComments(pid);
+        	
+        	for(Map<String,Object> comment: comments){
+        		long authorId = (int)comment.get("id_user");
+            	Map<String,Object> author = userModel.getUser(authorId);
+            	comment.put("author", author);
+        	}
+        	long authorId = (int)post.get("id_user");
+        	Map<String,Object> author = userModel.getUser(authorId);
+        	post.put("author", author);
+        	
+        	post.put("comments", comments);
+        }
+        
         model.put("event", event);
         model.put("participants", participants);
+        model.put("posts", posts);
         
         return "eventView";
     }
@@ -59,14 +86,24 @@ public class EventController {
     public String joinEvent(@RequestParam(required = false) Long id, ModelMap model) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	String mail = auth.getName();
-    	Integer userid = eventModel.getIdFromMail(mail);
+    	long userid = eventModel.getIdFromMail(mail);
     	
-    	eventModel.joinEvent((long)userid,id);
+    	eventModel.joinEvent(userid,id);
+        
+        return "redirect:/event/view?id="+id;
+    }
+    
+    @RequestMapping(value = "/event/leave", method = RequestMethod.GET)
+    public String leaveEvent(@RequestParam(required = false) Long id, ModelMap model) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	String mail = auth.getName();
+    	long userid = eventModel.getIdFromMail(mail);
+    	eventModel.leaveEvent(userid,id);
         
         return "redirect:/event/view?id="+id;
     }
 
-    @RequestMapping(value = "event/update")
+    @RequestMapping(value = "events/update")
     public String updateEvent(
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String name,
@@ -79,7 +116,8 @@ public class EventController {
     	
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	String mail = auth.getName();
-    	Integer userid = eventModel.getIdFromMail(mail);
+    	long userid = eventModel.getIdFromMail(mail);
+		
         if (id != null)
         	eventModel.updateEvent(id, name, date,end_date ,periodic, userid, location, description,type);
         else
@@ -98,8 +136,14 @@ public class EventController {
     }
 
     @RequestMapping(value = "event/delete")
-    public String deleteUser(@RequestParam(required = false) Long id) {
-    	eventModel.deleteEvent(id);
+    public String deleteEvent(@RequestParam(required = false) Long id) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String mail = auth.getName();
+		int userid = eventModel.getIdFromMail(mail);
+		Map<String, Object> event = eventModel.getEvent(id);
+    	
+		if((int)event.get("id_user") == userid)
+    		eventModel.deleteEvent(id);
 
         return "redirect:/events";
     }

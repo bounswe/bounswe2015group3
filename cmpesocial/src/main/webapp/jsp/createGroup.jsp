@@ -3,14 +3,11 @@
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}"
 	scope="application" />
 <c:set var="requestURI" value="${pageContext.request.requestURI}"
 	scope="application" />
 <!DOCTYPE html>
-<html class="no-js">
-<!--<![endif]-->
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +17,6 @@
 <link
 	href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic'
 	rel='stylesheet' type='text/css'>
-
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
 <link rel="shortcut icon" href="favicon.png">
@@ -37,7 +33,7 @@
 	var switchTo5x = true;
 </script>
 <script type="text/javascript"
-	src="http://w.sharethis.com/button/buttons.js"></script>
+	src="${contextPath}/assets/js/clone-form-td-multiple.js"></script>
 <script type="text/javascript">
 	stLight.options({
 		publisher : "ur-b4964695-8b2f-20dd-2ced-c9f6141de24c",
@@ -49,9 +45,6 @@
 </head>
 <body>
 
-	<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
 	<!-- Header -->
 	<header class="header-container">
 		<!-- Main Header  -->
@@ -59,86 +52,112 @@
 			<!-- Moblie Nav Wrapper  -->
 			<div class="mobile-nav-wrapper">
 				<div class="container ">
+					<div class="row">
+						<div id="logo" class="col-xs-2">
+							<a href="index.htm"><img class="img-responsive"
+								src="${contextPath}/assets/img/logo.png" alt=""></a>
+						</div>
+						<div class="col-xs-6 col-md-4 text-center">
+							<form class="form-inline">
+								<div class="form-group">
+									<input class="form-control"
+										placeholder="People, Events and more" type="text"
+										name="search" id="search">
+								</div>
+								<div class="form-group">
+									<select class="form-control">
+										<option>All</option>
+										<option>Event</option>
+										<option>Group</option>
+										<option>People</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<button type="submit" class="btn btn-default">
+										<i class="fa fa-search"></i>
+									</button>
+								</div>
+							</form>
+						</div>
+						<div class="col-xs-4 col-md-6">
+							<div class="mobile-menu-icon">
+								<i class="fa fa-bars"></i>
+							</div>
+							<nav class="main-nav mobile-menu">
 
-					<!-- logo  -->
-					<div id="logo">
-						<a href="${contextPath}/"><img
-							src="${contextPath}/assets/img/logo.png" alt=""></a>
-					</div>
-
-					<div id="sb-search" class="sb-search">
-						<form method="post" action="${contextPath}/search" class="form">
-							<input class="sb-search-input"
-								placeholder="People, Events and more" type="text" name="query"
-								id="query"> <input class="sb-search-submit"
-								type="submit" value=""> <span class="sb-icon-search"></span>
-						</form>
-					</div>
-					<!-- moblie-menu-icon -->
-
-					<div class="mobile-menu-icon">
-						<i class="fa fa-bars"></i>
+								<ul class="clearfix">
+									<li><a href="${contextPath}/user/home"><i
+											class="icon fa fa-user"> </i> Profile</a></li>
+									<li><a href="${contextPath}/events"><i
+											class="icon fa fa-calendar"> </i> Events</a></li>
+									<li><a href="${contextPath}/groups"><i
+											class="icon fa fa-group"> </i> Groups</a></li>
+									<li><a href="#"><i class="icon fa fa-sign-out"> </i>
+											Sign Out</a></li>
+								</ul>
+							</nav>
+						</div>
 					</div>
 					<!-- Nav -->
-					<nav class="main-nav mobile-menu">
-						<ul class="clearfix">
-							<li><a href="${contextPath}/user/home"><i
-									class="icon fa fa-user"> </i> Profile</a></li>
-							<li><a href="${contextPath}/events"><i
-									class="icon fa fa-calendar"> </i> Events</a></li>
-							<li><a href="${contextPath}/groups"><i
-									class="icon fa fa-group"> </i> Groups</a></li>
-							<li><a href="#"><i class="icon fa fa-sign-out"> </i>
-									Sign Out</a></li>
-						</ul>
-					</nav>
 				</div>
 			</div>
 		</div>
 	</header>
-	<!-- header -->
 
+	<section class="sub-banner newsection">
+		<div class="container">
+			<h2 class="title">Create Group</h2>
+		</div>
+	</section>
 
-	<!-- Event Form -->
-	<br />
-	<!-- Events -->
 	<section class="events newsection">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8">
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
-							<a href="${contextPath}/event/create"
-								class="btn btn-success btn-full"><i class="icon fa fa-lock">
-							</i> Create New Event</a>
-						</div>
-					</aside>
-					<aside id="aside" class="aside-bar-style-two clearfix">
-						<div class="widget clearfix">
-							<h2>All Events</h2>
+							<h2>Create Group</h2>
 							<hr />
-							<c:forEach var="event" items="${events}" varStatus="roop">
-								<a href="${contextPath}/event/delete?id=${event.id}">Delete</a>
-								<div class="top-ppost">
-									<div class="date">
-										<p>${event.date}</p>
-									</div>
-									<div class="content">
-										<h4 class="title">
-											<a href="${contextPath}/event/view?id=${event.id}">${event.name}</a>
-										</h4>
-										<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>${event.location}</a>
-									</div>
-								</div>
-								<br />
-							</c:forEach>
+							<form method="post" action="${contextPath}/group/update"
+								class="form">
 
+								<p>
+									<label>Group Name</label> <input type="text" value=""
+										placeholder="Name of the group" id="name" name="name"
+										class="textflied"> <i class="icon fa fa-group"></i>
+								</p>
+								<p>
+									<label>Group Image Url</label> <input type="text" value=""
+										id="group_url" name="group_url" placeholder="Link of image"
+										class="textflied"> <i class="icon fa fa-link"></i>
+								</p>
+								<p>
+									<label>Group Description</label>
+									<textarea value="" style="width: 100%" name="description"
+										id="description" rows="10">
+                                </textarea>
+								</p>
+								<p>
+									<label for="role">Who can join?</label> <select
+										class="textflied" id="type" name="type">
+										<option value="0">Everyone</option>
+										<option value="1">Under Graduate</option>
+										<option value="2">Graduate</option>
+										<option value="3">Alumni</option>
+										<option value="4">Faculty Member</option>
+										<option value="5">Staff</option>
+									</select>
+								</p>
+
+								<br />
+								<button type="submit" name="submit" id="submitButton"
+									class="btn btn-success">CREATE Group</button>
+								</p>
+							</form>
 						</div>
 					</aside>
 				</div>
-				<!-- col-md-3 -->
 				<div class="col-md-4">
-
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
 							<h3 class="title">Suggested For You</h3>
@@ -164,7 +183,7 @@
 								</div>
 								<div class="content">
 									<h4 class="title">
-										<a href="#">Orta Düzey Tenis Oyuncuları </a>
+										<a href="#">Orta DÃ¼zey Tenis OyuncularÄ± </a>
 									</h4>
 								</div>
 							</div>
@@ -185,11 +204,8 @@
 							About US</a>
 					<p>
 				</div>
-
 				<div class="widget col-md-3"></div>
-
 				<div class="widget col-md-3"></div>
-
 				<div class="widget col-md-3"></div>
 			</div>
 		</div>

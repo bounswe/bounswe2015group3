@@ -58,13 +58,13 @@ public class GroupDAO {
     }
 
     public void createGroup(String name ,Long id_admin, String type, String description, String group_url) {
-        String sql = "INSERT INTO `group`(name, id_admin, `type` , description,group_url) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO `group`(name, id_admin,type,description,group_url) VALUES(?, ?, ?, ?, ?)";
 
         this.jdbcTemplate.update(sql, name, id_admin,type, description,group_url);
     }
 
     public void updateGroup(Long id, String name ,Long id_admin, String type, String description, String group_url) {
-        String sql = "UPDATE `group` SET name = ? id_admin = ?,`type` = ? ,description = ?, group_url= ? WHERE id = ?";
+        String sql = "UPDATE `group` SET name = ? id_admin = ?,type= ? ,description = ?, group_url= ? WHERE id = ?";
 
         this.jdbcTemplate.update(sql, name, id_admin,type ,description,group_url, id);
     }
@@ -91,7 +91,7 @@ public class GroupDAO {
     }
 
     public List<Map<String, Object>> getMembers(Long id) {
-        String sql = "SELECT user.* FROM user, user_group WHERE user.id = user_group.id_user AND user_event.id_group = ? AND user_group.status = 1";
+        String sql = "SELECT user.* FROM user, user_group WHERE user.id = user_group.id_user AND user_group.id_group = ? AND user_group.status = 1";
 
         List<Map<String, Object>> participants = this.jdbcTemplate.queryForList(sql, id);
 
@@ -112,27 +112,57 @@ public class GroupDAO {
 
     }
 
-    public int createPost(Long id_user,Long id_group, String text, String content_url)
+    public int createPost(long id_user,long id_group, String text, String content_url)
     {
         String sql = "INSERT INTO post_group(id_group, id_user,post_text,post_url) VALUES(?,?,?,?)";
 
-       return this.jdbcTemplate.update(sql,id_user,id_group,text,content_url);
+       return this.jdbcTemplate.update(sql, id_group, id_user, text, content_url);
 
     }
-    public int updatePost(Long id_user,Long id_group, String text, String content_url,Long id)
+    public int updatePost(long id_user,long id_group, String text, String content_url,long id)
     {
         String sql = "UPDATE post_group SET id_group = ?, id_user=?,post_text=?,post_url=?) WHERE id= ?";
 
-        return this.jdbcTemplate.update(sql,id_user,id_group,text,content_url,id);
+        return this.jdbcTemplate.update(sql, id_group, id_user, text, content_url, id);
 
     }
-    public List<Map<String,Object>> getGroupPosts(Long id_group)
+    public List<Map<String,Object>> getGroupPosts(long id_group)
     {
         String sql ="SELECT * FROM post_group WHERE post_group.id_group = ?";
         return this.jdbcTemplate.queryForList(sql,id_group);
     }
 
-    public Boolean isAvailableForGroup(Long id_user,Long id_group){
+    public void createComment(Long id_post,Long id_group, Long id_user, String content)
+    {
+        String sql = "INSERT INTO comment_group(id_post,id_group,id_user,content) VALUES(?,?,?,?)";
+        this.jdbcTemplate.update(sql,id_group,id_user,content);
+    }
+
+    public void updateComment(Long id,Long id_post, Long id_group, Long id_user, String content){
+        String sql= "UPDATE  comment_group SET id_post=?,id_group = ? , id_user = ?, content= ? WHERE id= ?";
+        this.jdbcTemplate.update(sql,id_post,id_group,id_user,content,id);
+    }
+
+    public void deleteComment(Long id)
+    {
+        String sql = "DELETE FROM comment_group WHERE id = ?";
+        this.jdbcTemplate.update(sql,id);
+    }
+    public List<Map<String,Object>> getAllComments(Long id_post)
+    {
+        String sql = "SELECT * FROM comment_group WHERE id_post = ?";
+
+        return this.jdbcTemplate.queryForList(sql,id_post);
+    }
+
+    public Map<String,Object> getComment(Long id)
+    {
+        String sql = "SELECT * FROM comment_event WHERE id= ?";
+        return  this.jdbcTemplate.queryForMap(sql, id);
+    }
+
+    
+    public Boolean isAvailableForGroup(long id_user,long id_group){
 
         String sql2 = "SELECT * FROM `user` WHERE id = ?";
 
@@ -154,5 +184,13 @@ public class GroupDAO {
         return  Boolean.FALSE;
     }
 
-
+    public Integer getIdFromMail(String email) {
+        String sql = "SELECT id FROM user WHERE email = ? ";
+        
+        Map<String, Object> user = this.jdbcTemplate.queryForMap(sql, email);
+        
+        Integer id = (Integer) user.get("id");
+        
+        return id;
+    }
 }

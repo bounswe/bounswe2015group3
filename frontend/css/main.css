@@ -2794,12 +2794,12 @@ blockquote p{
 .btn{
 	text-transform:uppercase;
 	padding:9px 20px;
-	color:#444;
 	display:inline-block;
 	font-size:16px;
 	font-weight:700;
 	border-radius:2px;
 	border:none;
+	color:#fff;
 	outline:none;
 	white-space:normal;
 	-webkit-transition: all 0.4s ease-in-out;

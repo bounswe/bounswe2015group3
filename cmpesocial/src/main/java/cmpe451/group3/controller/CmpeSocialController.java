@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cmpe451.group3.auth.CmpeSocialAuthentication;
 import cmpe451.group3.model.CmpeSocialUserModel;
 import cmpe451.group3.model.EventModel;
+import cmpe451.group3.model.GroupDAO;
 import cmpe451.group3.model.SearchModel;
 import cmpe451.group3.utils.SecurityUtils;
 
@@ -30,6 +31,9 @@ public class CmpeSocialController {
     
     @Autowired
     private SearchModel searchModel = null;
+    
+    @Autowired
+    private GroupDAO groupDAO = null;
 
     @RequestMapping(value = "/index")
     public String index(ModelMap model) {
@@ -114,6 +118,10 @@ public class CmpeSocialController {
             List<Map<String, Object>> users = cmpeSocialUserModel.getUsers();
             // sends users List to view.
             model.put("users", users);
+            //gets groups from model
+            List<Map<String, Object>> groups = groupDAO.getAllGroups();
+            model.put("groups", groups);
+            
             return "index";
     	}
     }

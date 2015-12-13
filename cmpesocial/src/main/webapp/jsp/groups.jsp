@@ -59,13 +59,11 @@
 			<!-- Moblie Nav Wrapper  -->
 			<div class="mobile-nav-wrapper">
 				<div class="container ">
-
 					<!-- logo  -->
 					<div id="logo">
 						<a href="${contextPath}/"><img
 							src="${contextPath}/assets/img/logo.png" alt=""></a>
 					</div>
-
 					<div id="sb-search" class="sb-search">
 						<form method="post" action="${contextPath}/search" class="form">
 							<input class="sb-search-input"
@@ -75,7 +73,6 @@
 						</form>
 					</div>
 					<!-- moblie-menu-icon -->
-
 					<div class="mobile-menu-icon">
 						<i class="fa fa-bars"></i>
 					</div>
@@ -97,53 +94,47 @@
 		</div>
 	</header>
 	<!-- header -->
-
-
-	<!-- Event Form -->
 	<br />
-	<!-- Events -->
+	<!-- Groups -->
 	<section class="events newsection">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8">
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
-							<a href="${contextPath}/event/create"
+							<a href="${contextPath}/group/create"
 								class="btn btn-success btn-full"><i class="icon fa fa-lock">
-							</i> Create New Event</a>
+							</i> Create New Group </a>
 						</div>
 					</aside>
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
-							<h2>All Events</h2>
+							<h2>All Groups</h2>
 							<hr />
-							<c:forEach var="event" items="${events}" varStatus="roop">
-								<a href="${contextPath}/event/delete?id=${event.id}">Delete</a>
+							<c:forEach var="group" items="${groups}" varStatus="roop">
 								<div class="top-ppost">
 									<div class="date">
-										<p>${event.date}</p>
+										<p>
+											<span><i class="icon fa fa-group"> </i></span>
+										</p>
 									</div>
 									<div class="content">
 										<h4 class="title">
-											<a href="${contextPath}/event/view?id=${event.id}">${event.name}</a>
+											<a href="${contextPath}/group/view?id=${group.id}">${group.name}</a>
 										</h4>
-										<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>${event.location}</a>
 									</div>
 								</div>
 								<br />
 							</c:forEach>
-
 						</div>
 					</aside>
 				</div>
-				<!-- col-md-3 -->
+				<!-- suggested for you -->
 				<div class="col-md-4">
-
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
 							<h3 class="title">Suggested For You</h3>
 							<div class="top-ppost">
-
 								<div class="date">
 									<p>
 										<span><i class="icon fa fa-calendar"> </i></span>EVENT

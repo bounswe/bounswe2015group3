@@ -22,10 +22,14 @@
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
 <link rel="shortcut icon" href="favicon.png">
-<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="${contextPath}/assets/bootstrap/css/jquery.datetimepicker.css">
-<link rel="stylesheet" href="${contextPath}/assets/bootstrap/css/main.css">
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/assets/bootstrap/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/assets/bootstrap/css/jquery.datetimepicker.css">
+<link rel="stylesheet"
+	href="${contextPath}/assets/bootstrap/css/main.css">
 <script src="${contextPath}/assets/js/vendor/modernizr-2.6.2.min.js"></script>
 <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript">stLight.options({publisher: "ur-b4964695-8b2f-20dd-2ced-c9f6141de24c", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
@@ -40,7 +44,8 @@
 				<div class="container ">
 					<!-- logo  -->
 					<div id="logo">
-						<a href="${contextPath}/"><img src="${contextPath}/assets/img/logo.png" alt=""></a>
+						<a href="${contextPath}/"><img
+							src="${contextPath}/assets/img/logo.png" alt=""></a>
 					</div>
 					<div id="sb-search" class="sb-search">
 						<form method="post" action="${contextPath}/search" class="form">
@@ -57,14 +62,14 @@
 					</div>
 					<!-- Nav -->
 					<nav class="main-nav mobile-menu">
-						<ul class="clearfix">
-							<li><i class="icon fa fa-home"> </i> <a
-								href="${contextPath}/">Home</a></li>
 
+						<ul class="clearfix">
 							<li><a href="${contextPath}/user/home"><i
 									class="icon fa fa-user"> </i> Profile</a></li>
-							<li><a href="#"><i class="icon fa fa-comments"> </i>
-									Messages</a></li>
+							<li><a href="${contextPath}/events"><i
+									class="icon fa fa-calendar"> </i> Events</a></li>
+							<li><a href="${contextPath}/groups"><i
+									class="icon fa fa-group"> </i> Groups</a></li>
 							<li><a href="#"><i class="icon fa fa-sign-out"> </i>
 									Sign Out</a></li>
 						</ul>
@@ -86,8 +91,9 @@
 						<div class="widget clearfix">
 							<h2>Create Event</h2>
 							<hr />
-							<form method="post" action="${contextPath}/events/update" class="form">
-							<input type="hidden" name="id" value="${event.id}">
+							<form method="post" action="${contextPath}/events/update"
+								class="form">
+								<input type="hidden" name="id" value="${event.id}">
 								<div class="response">&nbsp;</div>
 								<p>
 									<label for="name">What are you planning?</label> <input
@@ -96,21 +102,20 @@
 								</p>
 
 								<p>
-									<label>Where?</label> <input type="text" name="location" id="location" value=""
-										placeholder="Event Location" class="textflied"> <i
-										class="icon fa fa-map-marker"></i>
+									<label>Where?</label> <input type="text" name="location"
+										id="location" value="" placeholder="Event Location"
+										class="textflied"> <i class="icon fa fa-map-marker"></i>
 								</p>
 
 								<p>
-									<label>When?</label><br /> 
-									<input name="date" id="date"
+									<label>When?</label><br /> <input name="date" id="date"
 										placeholder="YYYY/MM/DD HH:MM:SS"
 										class="date_timepicker_start"
 										style="width: 100%; height: 40px; padding: 0px 10px; border: 1px solid #c2c4cb; border-radius: 2px; outline: none;">
 
 									<i class="icon fa fa-calendar"></i>
 								</p>
-								
+
 								<p>
 									<label>Event Description</label>
 									<textarea

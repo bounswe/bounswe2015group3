@@ -116,7 +116,7 @@
 								</p>
 								<p>
 									<label for="role">Role</label> <select
-										class="textflied" id="role" name="role">
+										class="textflied" id="role" name="type">
 										<option value="1">Under Graduate</option>
 										<option value="2">Graduate</option>
 										<option value="3">Alumni</option>

@@ -3,6 +3,8 @@ package cmpe451.group3.model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -47,16 +49,16 @@ public class EventModel {
     }
 
 
-    public void createEvent(String name, String date,String end_date,int periodic, long userid, String location, String description,String type) {
-        String sql = "INSERT INTO event(name, date,end_date,periodic, id_user, location, description,type) VALUES(?, ?, ?, ?, ?, ?, ?,?)";
+    public void createEvent(String name, String date,String end_date,int periodic, long userid, String location, String description) {
+        String sql = "INSERT INTO event(name, date,end_date,periodic, id_user, location, description) VALUES(?, ?, ?, ?, ?, ?, ?)";
         
-        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description,type);
+        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description);
     }
 
-    public void updateEvent(Long id, String name, String date,String end_date,int periodic, long userid, String location, String description,String type) {
-        String sql = "UPDATE event SET name = ?, date = ?,end_date = ?,periodic = ? , id_user = ?, location = ?, description = ? , `type` = ? WHERE id = ?";
+    public void updateEvent(Long id, String name, String date,String end_date,int periodic, long userid, String location, String description) {
+        String sql = "UPDATE event SET name = ?, date = ?,end_date = ?,periodic = ? , id_user = ?, location = ?, description = ? WHERE id = ?";
 
-        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description,type ,id);
+        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description ,id);
     }
 
     public void deleteEvent(Long id) {
@@ -149,7 +151,7 @@ public class EventModel {
     }
 
     public void updateComment(Long id,Long id_post, Long id_event, Long id_user, String content){
-        String sql= "UPDATE  post_event SET id_post=?,id_event = ? , id_user = ?, content= ? WHERE id= ?";
+        String sql= "UPDATE  comment_event SET id_post=?,id_event = ? , id_user = ?, content= ? WHERE id= ?";
         this.jdbcTemplate.update(sql,id_post,id_event,id_user,content,id);
     }
 

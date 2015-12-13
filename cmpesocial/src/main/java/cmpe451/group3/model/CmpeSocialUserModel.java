@@ -87,13 +87,13 @@ public class CmpeSocialUserModel {
     }
 
     public void addUser(String name, String surname, String email, String password,String type) {
-        String sql = "INSERT INTO user(name, surname, email, password , `type` ) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user(name, surname, email, password , type ) VALUES(?, ?, ?, ?, ?)";
 
         this.jdbcTemplate.update(sql, name, surname, email, password,type);
     }
 
     public void updateUser(Long id, String name, String surname, String email, String password,String type) {
-        String sql = "UPDATE user SET name = ?, surname = ?, email = ?, password = ? , `type` = ? WHERE id = ?";
+        String sql = "UPDATE user SET name = ?, surname = ?, email = ?, password = ? , type = ? WHERE id = ?";
 
         this.jdbcTemplate.update(sql, name, surname, email, password,type, id);
     }

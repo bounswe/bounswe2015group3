@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Cmpe Social</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <script type="text/javascript">var switchTo5x=true;</script>
+	<script type="text/javascript" src="js/clone-form-td-multiple.js"></script>
+
+    <!--
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    -->
+    <script type="text/javascript">stLight.options({publisher: "ur-b4964695-8b2f-20dd-2ced-c9f6141de24c", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
+
+</head>
+<body>
+
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Header -->
+<header class="header-container">
+    <!-- Main Header  -->
+    <div class="main-header affix">
+
+        <!-- Moblie Nav Wrapper  -->
+        <div class="mobile-nav-wrapper">
+            <div class="container ">
+                <div class="row">
+                    <div id="logo" class="col-xs-2">
+                        <a href="index.htm"><img class="img-responsive" src="img/logo.png" alt=""></a>
+                    </div>
+                    <div class="col-xs-6 col-md-4 text-center">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <input class="form-control" placeholder="People, Events and more" type="text" name="search" id="search">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option>All</option>
+                                    <option>Event</option>
+                                    <option>Group</option>
+                                    <option>People</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-xs-4 col-md-6">
+                        <div class="mobile-menu-icon">
+                            <i class="fa fa-bars"></i>
+                        </div>
+                        <nav class="main-nav mobile-menu">
+
+                            <ul class="clearfix">
+                                <li ><i class="icon fa fa-home"> </i> <a href="index.html">Home</a>
+                                </li>
+
+                                <li ><a href="#"><i class="icon fa fa-user"> </i> Profile</a>
+                                </li>
+                                <li><a href="#"><i class="icon fa fa-calendar"> </i> Events</a></li>
+								<li><a href="#"><i class="icon fa fa-group"> </i> Groups</a></li>
+                                <li><a href="#"><i class="icon fa fa-sign-out"> </i> Sign Out</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Nav -->
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="sub-banner newsection">
+    <div class="container">
+        <h2 class="title">Create Group</h2>
+    </div>
+</section>
+
+<section class="events newsection">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <aside id="aside" class="aside-bar-style-two clearfix">
+
+
+                    <div class="widget clearfix">
+                        <h2>Create Group</h2>
+                        <hr/>
+                        <form method="post" action="" class="form">
+
+                            <p><label >Group Name</label>
+                                <input  type="text" value=""  placeholder="Name of the group" class="textflied">
+                                <i class="icon fa fa-group"></i></p>
+                            <p><label >Group Image Url</label>
+                                <input  type="text" value=""  placeholder="Link of image" class="textflied">
+                                <i class="icon fa fa-link"></i></p>
+								
+        
+								<div id="phone1" class="clonedInput_2">
+								  <!-- Text input-->
+								  <div class="form-group">
+									<label class="label_phone control-label" for="phone_number">Group Members</label>
+									<input id="phone_number" name="phone_number" type="tel" class="input_phone form-control" placeholder="Member Name">
+								  </div>
+								</div><!-- end #entry2 -->
+								<!-- Button (Double) -->
+								<p>
+								<button type="button" id="btnAdd_2" name="btnAdd_2" class="btn btn-primary">Add phone</button>
+								  <button type="button" id="btnDel_2" name="btnDel_2" class="btn btn-danger">Remove phone</button>
+								</p>
+
+							<br/>
+
+								
+                            <button type="submit" name="submit" id="submitButton"  class="btn btn-success">CREATE Group</button>
+                            </p>
+                        </form>
+                    </div>
+
+
+
+
+                </aside>
+            </div>
+            <div class="col-md-4">
+                <aside id="aside" class="aside-bar-style-two clearfix">
+
+
+                    <div class="widget clearfix">
+                        <h3 class="title">Suggested For You</h3>
+                        <div class="top-ppost">
+
+                            <div class="date">
+                                <p><span><i class="icon fa fa-calendar"> </i></span>EVENT</p>
+                            </div>
+                            <div class="content">
+                                <h4  class="title"><a href="#">Watching Star Wars in Kuzey Kampus Cinema </a></h4>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="top-ppost">
+                            <div class="date">
+                                <p><span><i class="icon fa fa-group"> </i></span>GROUP</p>
+                            </div>
+                            <div class="content">
+                                <h4  class="title"><a href="#">Orta Düzey Tenis Oyuncuları  </a></h4>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer -->
+<footer class="main-footer">
+    <div class="container">
+        <div class="row">
+            <div class="widget col-md-3">
+                <p> <a target ="_blank" href ="https://github.com/bounswe/bounswe2015group3/wiki"> About US</a><p>
+            </div>
+
+            <div class="widget col-md-3">
+
+            </div>
+
+            <div class="widget col-md-3">
+
+
+            </div>
+
+            <div class="widget col-md-3">
+
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="js/vendor/jquery-1.10.2.min.js"></script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
