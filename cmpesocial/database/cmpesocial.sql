@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost:3306
--- Generation Time: Dec 13, 2015 at 02:08 AM
+-- Generation Time: Dec 13, 2015 at 02:57 AM
 -- Server version: 5.5.42
 -- PHP Version: 5.6.10
 
@@ -94,15 +94,17 @@ CREATE TABLE `group` (
   `id_admin` int(11) NOT NULL,
   `type` varchar(20) COLLATE utf8_bin NOT NULL,
   `description` varchar(50) COLLATE utf8_bin NOT NULL,
-  `group_url` varchar(50) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `group_url` varchar(500) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `group`
 --
 
 INSERT INTO `group` (`id`, `name`, `date_of_creation`, `id_admin`, `type`, `description`, `group_url`) VALUES
-(11, 'asdasda', '2015-12-13 00:06:55', 5, '0', '                                asdas', 'dasdasd');
+(11, 'asdasda', '2015-12-13 00:06:55', 5, '0', '                                asdas', 'dasdasd'),
+(12, 'cemin grup', '2015-12-13 01:26:17', 4, '0', '                                cemin grup', 'https://www.petfinder.com/wp-content/uploads/2012/11/140272627-grooming-needs-senior-cat-632x475.jpg'),
+(13, 'test2', '2015-12-13 01:32:52', 4, '3', '                                asdas', 'https://www.petfinder.com/wp-content/uploads/2012/11/140272627-grooming-needs-senior-cat-632x475.jpg');
 
 -- --------------------------------------------------------
 
@@ -140,7 +142,16 @@ CREATE TABLE `post_group` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `post_text` varchar(1000) COLLATE utf8_bin NOT NULL,
   `post_url` varchar(200) COLLATE utf8_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `post_group`
+--
+
+INSERT INTO `post_group` (`id`, `id_group`, `id_user`, `date`, `post_text`, `post_url`) VALUES
+(1, 12, 4, '2015-12-13 01:27:03', 'asdsadsa', '�imdilik bo� ge�'),
+(2, 12, 4, '2015-12-13 01:27:16', 'jjj', '�imdilik bo� ge�'),
+(3, 13, 4, '2015-12-13 01:33:08', 'deneme1 2', '�imdilik bo� ge�');
 
 -- --------------------------------------------------------
 
@@ -181,6 +192,14 @@ CREATE TABLE `user_event` (
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Dumping data for table `user_event`
+--
+
+INSERT INTO `user_event` (`id_event`, `id_user`, `status`) VALUES
+(3, 4, 1),
+(4, 4, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -192,6 +211,13 @@ CREATE TABLE `user_group` (
   `id_group` int(11) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `user_group`
+--
+
+INSERT INTO `user_group` (`id_user`, `id_group`, `status`) VALUES
+(4, 12, 0);
 
 --
 -- Indexes for dumped tables
@@ -264,7 +290,7 @@ ALTER TABLE `event`
 -- AUTO_INCREMENT for table `group`
 --
 ALTER TABLE `group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `post_event`
 --
@@ -274,7 +300,7 @@ ALTER TABLE `post_event`
 -- AUTO_INCREMENT for table `post_group`
 --
 ALTER TABLE `post_group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user`
 --
