@@ -36,11 +36,17 @@ public class GroupController {
 
     @RequestMapping(value = "/group/edit")
     public String editEvent(@RequestParam(required = false) long id, ModelMap model) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String mail = auth.getName();
+		int userid = groupDAO.getIdFromMail(mail);
         Map<String, Object> group = groupDAO.getGroup(id);
 
-        model.put("group", group);
+        if((int)group.get("id_admin") == userid){
+        	model.put("group", group);
+        	return "updateGroup";
+		}
 
-        return "updateGroup";
+        return "redirect:/groups";
     }
 
     @RequestMapping(value = "/group/view", method = RequestMethod.GET)
@@ -97,7 +103,13 @@ public class GroupController {
 
     @RequestMapping(value = "group/delete")
     public String deleteGroup(@RequestParam(required = false) Long id) {
-        groupDAO.deleteGroup(id);
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String mail = auth.getName();
+		int userid = groupDAO.getIdFromMail(mail);
+		Map<String, Object> group = groupDAO.getGroup(id);
+    	
+		if((int)group.get("id_admin") == userid)
+			groupDAO.deleteGroup(id);
 
         return "redirect:/groups";
     }
@@ -125,7 +137,7 @@ public class GroupController {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String mail = auth.getName();
         Long userid = userModel.getIDUserByEmail(mail);
-    	groupDAO.createPost(userid, id_group, post_text, "þimdilik boþ geç");
+    	groupDAO.createPost(userid, id_group, post_text, "ï¿½imdilik boï¿½ geï¿½");
 
     	return "redirect:/group/view?id="+id_group;
     }
@@ -136,7 +148,7 @@ public class GroupController {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String mail = auth.getName();
         Long userid = userModel.getIDUserByEmail(mail);
-        int control =groupDAO.updatePost(userid, id_group, post_text, "þimdilik boþ geç", id);
+        int control =groupDAO.updatePost(userid, id_group, post_text, "ï¿½imdilik boï¿½ geï¿½", id);
 
         if (control != 0)
         	return "redirect:/group/view?id="+id_group;

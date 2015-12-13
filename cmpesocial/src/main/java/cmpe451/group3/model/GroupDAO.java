@@ -147,4 +147,13 @@ public class GroupDAO {
         return  Boolean.FALSE;
     }
 
+    public Integer getIdFromMail(String email) {
+        String sql = "SELECT id FROM user WHERE email = ? ";
+        
+        Map<String, Object> user = this.jdbcTemplate.queryForMap(sql, email);
+        
+        Integer id = (Integer) user.get("id");
+        
+        return id;
+    }
 }
