@@ -62,6 +62,7 @@ public class EventController {
         model.put("participants", participants);
         model.put("posts", posts);
         
+        
         return "eventView";
     }
     
@@ -72,6 +73,16 @@ public class EventController {
     	long userid = eventModel.getIdFromMail(mail);
     	
     	eventModel.joinEvent(userid,id);
+        
+        return "redirect:/event/view?id="+id;
+    }
+    
+    @RequestMapping(value = "/event/leave", method = RequestMethod.GET)
+    public String leaveEvent(@RequestParam(required = false) Long id, ModelMap model) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	String mail = auth.getName();
+    	long userid = eventModel.getIdFromMail(mail);
+    	eventModel.leaveEvent(userid,id);
         
         return "redirect:/event/view?id="+id;
     }
