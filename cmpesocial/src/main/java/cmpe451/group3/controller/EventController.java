@@ -2,7 +2,6 @@ package cmpe451.group3.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,8 +15,6 @@ import cmpe451.group3.model.EventModel;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 @Controller
 @Scope("request")
@@ -110,7 +107,7 @@ public class EventController {
             @RequestParam(required = false) String type,
             @RequestParam(required = false) String date,
             @RequestParam(required = false) String end_date,
-            @RequestParam(required = false) int periodic,
+            @RequestParam(required = false) Integer periodic,
             @RequestParam(required = false) String location,
             @RequestParam(required = false) String description) {
     	
@@ -119,9 +116,9 @@ public class EventController {
     	long userid = eventModel.getIdFromMail(mail);
 		
         if (id != null)
-        	eventModel.updateEvent(id, name, date,end_date ,periodic, userid, location, description,type);
+        	eventModel.updateEvent(id, name, date,end_date, periodic, userid, location, description, type);
         else
-        	eventModel.createEvent(name, date, end_date,periodic, userid, location, description,type);
+        	eventModel.createEvent(name, date, end_date, periodic, userid, location, description, type);
 
         return "redirect:/events";
     }
@@ -147,5 +144,19 @@ public class EventController {
 
         return "redirect:/events";
     }
+    @RequestMapping( value = "/event/create/post" , method = RequestMethod.POST)
+    public String createPost(@RequestParam long id_event, @RequestParam String post_text, @RequestParam(required = false) String post_url) {
+    	
+    	if(post_url == null){
+    		post_url="";
+    	}
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String mail = auth.getName();
+        Long userid = userModel.getIDUserByEmail(mail);
+        eventModel.createPost(id_event, userid, post_text, post_url);
+
+    	return "redirect:/event/view?id="+id_event;
+    }
+
     
 }

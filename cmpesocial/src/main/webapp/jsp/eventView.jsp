@@ -8,8 +8,6 @@
 <c:set var="requestURI" value="${pageContext.request.requestURI}"
 	scope="application" />
 <!DOCTYPE html>
-<html class="no-js">
-<!--<![endif]-->
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,19 +17,16 @@
 <link
 	href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900,300italic,400italic,600italic,700italic'
 	rel='stylesheet' type='text/css'>
+
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png">
 <link rel="shortcut icon" href="favicon.png">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/assets/bootstrap/css/jquery.datetimepicker.css">
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/assets/bootstrap/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
 	href="${contextPath}/assets/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
-	href="${contextPath}/assets/bootstracss/easy-responsive-tabs.css">
-<link rel="stylesheet" type="text/css"
-	href="${contextPath}/assets/bootstrap/css/owl.carousel.css">
+	href="${contextPath}/assets/bootstrap/css/jquery.datetimepicker.css">
 <link rel="stylesheet"
 	href="${contextPath}/assets/bootstrap/css/main.css">
 <script src="${contextPath}/assets/js/vendor/modernizr-2.6.2.min.js"></script>
@@ -50,23 +45,17 @@
 </script>
 </head>
 <body>
-	<!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
 	<!-- Header -->
 	<header class="header-container">
 		<!-- Main Header  -->
 		<div class="main-header affix">
-
 			<!-- Moblie Nav Wrapper  -->
 			<div class="mobile-nav-wrapper">
 				<div class="container ">
-					<!-- logo  -->
 					<div id="logo">
 						<a href="${contextPath}/"><img
 							src="${contextPath}/assets/img/logo.png" alt=""></a>
 					</div>
-
 					<div id="sb-search" class="sb-search">
 						<form method="post" action="${contextPath}/search" class="form">
 							<input class="sb-search-input"
@@ -76,20 +65,18 @@
 						</form>
 					</div>
 					<!-- moblie-menu-icon -->
-
 					<div class="mobile-menu-icon">
 						<i class="fa fa-bars"></i>
 					</div>
 					<!-- Nav -->
 					<nav class="main-nav mobile-menu">
 						<ul class="clearfix">
-							<li><i class="icon fa fa-home"> </i> <a
-								href="${contextPath}/">Home</a></li>
-
 							<li><a href="${contextPath}/user/home"><i
 									class="icon fa fa-user"> </i> Profile</a></li>
-							<li><a href="#"><i class="icon fa fa-comments"> </i>
-									Messages</a></li>
+							<li><a href="${contextPath}/events"><i
+									class="icon fa fa-calendar"> </i> Events</a></li>
+							<li><a href="${contextPath}/groups"><i
+									class="icon fa fa-group"> </i> Groups</a></li>
 							<li><a href="#"><i class="icon fa fa-sign-out"> </i>
 									Sign Out</a></li>
 						</ul>
@@ -104,13 +91,10 @@
 			<h2 class="title">Event Detail</h2>
 		</div>
 	</section>
-
-	<!-- Events -->
 	<section class="events text-left newsection">
 		<div class="container">
 			<div class="row">
-				<!-- col-md-9 -->
-				<div class="col-md-9 col-sm-9">
+				<div class="col-md-8">
 					<!--Event Detail  -->
 					<section class="event-detail newsection">
 						<h2 class="main-title ">${event.name}</h2>
@@ -126,91 +110,116 @@
 						</div>
 						<h3 class="title">Description</h3>
 						<p>${event.description}</p>
-						<!-- Social Icon -->
-						<div class="social-icon">
-							<a href="#" class="facebook fa fa-facebook"></a> <a href="#"
-								class="twitter fa fa-twitter"></a> <a href="#"
-								class=" googleplus fa fa-google-plus"></a> <a href="#"
-								class="vimeo fa fa-vimeo-square"></a> <a href="#"
-								class="linkedin fa fa-linkedin"></a>
+						<aside id="aside" class="aside-bar-style-two clearfix">
+							<div class="widget clearfix">
+								<div class="well">
+									<form class="form-horizontal" method="post"
+										action="${contextPath}/group/create/post?id_group=${group.id}">
+										<h4>Write Post</h4>
+										<div class="form-group" style="padding: 14px;">
+											<textarea class="form-control" id="post_text"
+												name="post_text" placeholder="Write something.."></textarea>
+										</div>
+										<button class="btn btn-pri pull-right" type="submit">Post</button>
+										<ul class="list-inline">
+											<li><a href=""><i class="icon fa fa-upload"></i></a></li>
+											<li><a href=""><i class="icon fa fa-camera"></i></a></li>
+											<li><a href=""><i class="icon fa fa-map-marker"></i></a></li>
+										</ul>
+										<br />
+									</form>
+								</div>
+							</div>
+						</aside>
+						<br />
+						<div class="clearfix">
+							<c:forEach var="post" items="${posts}" varStatus="roop">
+								<div class="event-container clearfix">
+									<div class="event clearfix">
+										<div class="event-content">
+											<ul class="meta">
+												<li class="date"><i class="icon fa fa-calendar"></i>1
+													month ago</li>
+												<li><a href="${contextPath}/user/home?id=${post.author.id}"><i class="icon fa fa-user"></i>by
+														${post.author.name} ${post.author.surname}</a></li>
+											</ul>
+											<p>${post.content}</p>
+										</div>
+									</div>
+								</div>
+							</c:forEach>
 						</div>
 					</section>
-					<section class="speaker-event newsection">
-						<h2 class="title">Participants of Event</h2>
-						<!-- owl slider  -->
-						<div class="owl-team">
+				</div>
+				<!-- Col-md-3 -->
+				<div class="col-md-4">
+					<br />
+					<aside id="aside" class="aside-bar-style-two clearfix">
+						<br />
+						<br />
+						<br />
+						<br />
+						<!-- Tag Ekleme basliyor-->
+						<div class="widget news">
+							<form>
+								<div class="form-group">
+									<input type="text" placeholder="Add tag to this event" id="">
+									<button class="icon fa fa-tags"></button>
+								</div>
+							</form>
+						</div>
+						<!-- Tag Ekleme bitti-->
+						<!-- Tag goruntuleme basliyor-->
+						<div class="widget tag">
+
+							<h3 class="title">Tags</h3>
+							<a href="#">Event</a><a href="#">Fashion</a><a href="#">Design</a><a
+								href="#">Hotels</a><a href="#">Up Coming</a><a href="#">Venue</a><a
+								href="#">Speaker</a><a href="#">Conference</a>
+						</div>
+						<!-- Tag goruntuleme bitti-->
+
+						<div class="widget clearfix">
+							<a href="${contextPath}/event/join?id=${event.id}"
+								class="btn btn-success btn-full"> <i class="icon fa fa-plus">
+							</i> Join Event
+							</a>
+						</div>
+						<div class="widget clearfix">
+							<a href="${contextPath}/event/leave?id=${event.id}"
+								class="btn btn-danger btn-full"><i
+								class="icon fa fa-sign-out"> </i> Leave Event</a>
+						</div>
+						<div class="widget">
+							<h3 class="title">Organizer</h3>
+							<div class="top-ppost">
+								<div class="date">
+									<p>
+										<span><i class="icon fa fa-user"> </i></span>
+									</p>
+								</div>
+								<div class="content">
+									<h4 class="title">
+										<a href="#">Umut Afacan</a>
+									</h4>
+								</div>
+							</div>
+							<br />
+						</div>
+						<div class="widget clearfix">
+							<h3 class="title">Event Participants</h3>
 							<c:forEach var="participant" items="${participants}"
 								varStatus="roop">
 								<div class="event">
 									<div class="event-content">
 										<h3 class="title">${participant.name}
 											${participant.surname}</h3>
-										<p class="job">Senior CmpE Student</p>
-										<a href="${contextPath}/user/home?id=${user.id}">See Profile</a>
-									</div>
-									<div class="social-icon">
-										<a href="#" class="email fa fa-envelope-o"></a><a href="#"
-											class="facebook fa fa-facebook"></a><a href="#"
-											class="fa linkedin fa-linkedin"></a><a href="#"
-											class="googleplus fa fa-google-plus"></a><a href="#"
-											class="twitter fa fa-twitter"></a>
+										<p class="job">${participant.type}</p>
+										<a href="${contextPath}/user/home?id=${user.id}">See
+											Profile</a>
 									</div>
 								</div>
 							</c:forEach>
-							
-							<c:forEach var="post" items="${posts}"
-								varStatus="roop">
-								<div class="event">
-									<div class="event-content">
-										<h3 class="title">${post.content}
-											</h3>
-										<c:forEach var="comment" items="${post.comments}" varStatus="roop">
-											<p class="job">${comment.content}</p>
-										</c:forEach>
-									</div>
-								</div>
-							</c:forEach>
-							
-							
-						</div>
-					</section>
-					<!-- speakers-tabs -->
-				</div>
-				<!-- Col-md-3 -->
-				<div class="col-md-3 col-sm-3">
-					<aside id="aside" class="aside-bar-style-two clearfix">
-
-						<div class="widget border-remove">
-							<div id="contact-map" class="map"></div>
-
-							<div class="clearfix">
-								<div class="main-example">
-									<div class="countdown-container" id="upcomeing-events"></div>
-								</div>
-							</div>
-						</div>
-						<div class="widget clearfix">
-							<a href="${contextPath}/event/join?id=${event.id}"
-								class="btn btn-pri btn-full"> Join Event</a>
-						</div>
-						<div class="widget">
-							<h3 class="title">Organizer</h3>
-							<p>
-								Organized by <b>Umut Afacan</b>
-							</p>
-							<a href="#" class="btn btn-black contact-button"><i
-								class="button-icon fa fa-envelope-o"></i>Contact the Organizer</a>
-							<ul class="social-icon">
-								<li class="email"><a href="#"><i
-										class=" icon fa fa-user"></i>
-										<div class="content">View Profile of EventOrganizer</div></a></li>
-								<li class="facebook"><a href="#"><i
-										class="icon fa fa-facebook"></i>
-										<div class="content">facebook.com/EventOrganizer</div></a></li>
-								<li class="twitter"><a href="#"><i
-										class=" icon fa fa-twitter"></i>
-										<div class="content">twitter.com/EventOrganizer</div></a></li>
-							</ul>
 						</div>
 					</aside>
 				</div>
@@ -234,12 +243,8 @@
 			</div>
 		</div>
 	</footer>
-
 	<script src="${contextPath}/assets/js/vendor/jquery-1.10.2.min.js"></script>
-	<script src="http://maps.googleapis.com/maps/api/js?sensor=false"
-		type="text/javascript"></script>
 	<script src="${contextPath}/assets/js/plugins.js"></script>
 	<script src="${contextPath}/assets/js/main.js"></script>
-
 </body>
 </html>

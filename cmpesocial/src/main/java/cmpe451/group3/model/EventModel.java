@@ -123,8 +123,8 @@ public class EventModel {
 
     public void createPost(Long id_event, Long id_user, String content, String content_url )
     {
-        String sql = "INSERT INTO post_event(id_event,id_user,content,content_url) VALUES(?,?,?,?)";
-        this.jdbcTemplate.update(sql,id_event,id_user,content,content_url);
+        String sql = "INSERT INTO post_event(id_event, id_user, content, content_url) VALUES(?,?,?,?)";
+        this.jdbcTemplate.update(sql, id_event, id_user, content, content_url);
     }
 
     public void updatePost(Long id, Long id_event, Long id_user, String content, String content_url){

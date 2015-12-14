@@ -108,10 +108,12 @@
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
 							<div class="well">
-								<form class="form-horizontal" method="post" action="${contextPath}/group/create/post?id_group=${group.id}">
+								<form class="form-horizontal" method="post"
+									action="${contextPath}/group/create/post?id_group=${group.id}">
 									<h4>Write Post</h4>
 									<div class="form-group" style="padding: 14px;">
-										<textarea class="form-control" id="post_text" name="post_text" placeholder="Write something.."></textarea>
+										<textarea class="form-control" id="post_text" name="post_text"
+											placeholder="Write something.."></textarea>
 									</div>
 									<button class="btn btn-pri pull-right" type="submit">Post</button>
 									<ul class="list-inline">
@@ -129,39 +131,18 @@
 						<c:forEach var="post" items="${posts}" varStatus="roop">
 							<div class="event-container clearfix">
 								<div class="event clearfix">
-									<div class="event-content">										
+									<div class="event-content">
 										<ul class="meta">
 											<li class="date"><i class="icon fa fa-calendar"></i>1
 												month ago</li>
-											<li><a href="#"><i class="icon fa fa-user"></i>by
+											<li><a href="${contextPath}/user/home?id=${post.author.id}"><i class="icon fa fa-user"></i>by
 													${post.author.name} ${post.author.surname}</a></li>
 										</ul>
 										<p>${post.post_text}</p>
-										<a href="#" class="btn btn-disabled">read more</a>
 									</div>
 								</div>
 							</div>
 						</c:forEach>
-						<div class="event-container clearfix">
-							<div class="event clearfix">
-								<div class="event-content">
-									<h3 class="title">
-										<a href="#">Continually reinvent economically </a>
-									</h3>
-									<ul class="meta">
-										<li class="date"><i class="icon fa fa-calendar"></i>1
-											month ago</li>
-										<li><a href="#"><i class="icon fa fa-user"></i>by Can
-												Kurtan</a></li>
-									</ul>
-									<p>Nullam facilisis metus quis nunc rhoncus fringilla.
-										Donec nec nisl nisl, vel tincidunt urna. Donec erat erat,
-										suscipit vitae tristique non, posuere nec mi. In faucibus
-										lobortis pharetra.. [...]</p>
-									<a href="#" class="btn btn-disabled">read more</a>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 				<!-- col-md-3 -->
@@ -169,8 +150,9 @@
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
 							<a href="${contextPath}/group/join?id=${group.id}"
-								class="btn btn-success btn-full">
-								<i class="icon fa fa-plus"> </i> Join Group</a>
+								class="btn btn-success btn-full"> <i class="icon fa fa-plus">
+							</i> Join Group
+							</a>
 						</div>
 						<div class="widget clearfix">
 							<a href="${contextPath}/group/leave?id=${group.id}"
@@ -187,10 +169,10 @@
 									<div class="event-content">
 										<h3 class="title">${participant.name}
 											${participant.surname}</h3>
-										<p class="job">Senior CmpE Student</p>
+										<p class="job">${participant.type}</p>
 										<a href="${contextPath}/user/home?id=${user.id}">See
 											Profile</a>
-									</div>									
+									</div>
 								</div>
 							</c:forEach>
 						</div>

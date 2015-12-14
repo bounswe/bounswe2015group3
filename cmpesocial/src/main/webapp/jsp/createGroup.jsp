@@ -143,8 +143,8 @@
 										<option value="0">Everyone</option>
 										<option value="1">Under Graduate</option>
 										<option value="2">Graduate</option>
-										<option value="3">Alumni</option>
-										<option value="4">Faculty Member</option>
+										<option value="3">Faculty Member</option>
+										<option value="4">Alumni</option>
 										<option value="5">Staff</option>
 									</select>
 								</p>

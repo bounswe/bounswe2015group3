@@ -152,11 +152,14 @@ public class GroupController {
 
     @RequestMapping( value = "/group/create/post" , method = RequestMethod.POST)
     public String createPost(@RequestParam long id_group, @RequestParam String post_text, @RequestParam(required = false) String post_url) {
-
+    	
+    	if(post_url == null){
+    		post_url="";
+    	}
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String mail = auth.getName();
         Long userid = userModel.getIDUserByEmail(mail);
-    	groupDAO.createPost(userid, id_group, post_text, "�imdilik bo� ge�");
+    	groupDAO.createPost(userid, id_group, post_text, post_url);
 
     	return "redirect:/group/view?id="+id_group;
     }
@@ -164,10 +167,13 @@ public class GroupController {
     @RequestMapping( value = "/groups/update/post" , method = RequestMethod.POST)
     public String updatePost(@RequestParam Long id, @RequestParam Long id_group, @RequestParam String post_text, @RequestParam(required = false) String post_url) {
     	
+    	if(post_url == null){
+    		post_url="";
+    	}
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String mail = auth.getName();
         Long userid = userModel.getIDUserByEmail(mail);
-        int control =groupDAO.updatePost(userid, id_group, post_text, "�imdilik bo� ge�", id);
+        int control =groupDAO.updatePost(userid, id_group, post_text, post_url, id);
 
         if (control != 0)
         	return "redirect:/group/view?id="+id_group;

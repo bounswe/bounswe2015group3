@@ -96,24 +96,43 @@
 								<input type="hidden" name="id" value="${event.id}">
 								<div class="response">&nbsp;</div>
 								<p>
-									<label for="name">What are you planning?</label> <input
+									<label for="name">Event Name:</label> <input
 										id="name" type="text" value="" name="name"
 										placeholder="Event Title" class="textflied">
 								</p>
 
 								<p>
-									<label>Where?</label> <input type="text" name="location"
+									<label>Place:</label> <input type="text" name="location"
 										id="location" value="" placeholder="Event Location"
 										class="textflied"> <i class="icon fa fa-map-marker"></i>
 								</p>
 
 								<p>
-									<label>When?</label><br /> <input name="date" id="date"
+									<label>Start Date:</label><br /> <input name="date" id="date"
 										placeholder="YYYY/MM/DD HH:MM:SS"
 										class="date_timepicker_start"
 										style="width: 100%; height: 40px; padding: 0px 10px; border: 1px solid #c2c4cb; border-radius: 2px; outline: none;">
 
 									<i class="icon fa fa-calendar"></i>
+								</p>
+								
+								<p>
+									<label>End Date:</label><br /> <input name="end_date" id="end_date"
+										placeholder="YYYY/MM/DD HH:MM:SS"
+										class="date_timepicker_start"
+										style="width: 100%; height: 40px; padding: 0px 10px; border: 1px solid #c2c4cb; border-radius: 2px; outline: none;">
+
+									<i class="icon fa fa-calendar"></i>
+								</p>
+								
+								<p>
+									<label for="role">Is periodic?</label> <select
+										class="textflied" id="periodic" name="periodic">
+										<option value="0">Not Periodic</option>
+										<option value="1">Weekly</option>
+										<option value="2">Monthly</option>
+										<option value="3">Yearly</option>
+									</select>
 								</p>
 
 								<p>
@@ -123,9 +142,19 @@
 										name="description" id="description" rows="10">
                                 </textarea>
 								</p>
+								<p>
+									<label for="role">Who can join?</label> <select
+										class="textflied" id="type" name="type">
+										<option value="0">Everyone</option>
+										<option value="1">Under Graduate</option>
+										<option value="2">Graduate</option>
+										<option value="3">Faculty Member</option>
+										<option value="4">Alumni</option>
+										<option value="5">Staff</option>
+									</select>
+								</p>
 								<button type="submit" name="submit" id="submitButton"
 									class="btn btn-success">CREATE Event</button>
-								</p>
 							</form>
 						</div>
 					</aside>
