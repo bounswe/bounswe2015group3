@@ -41,6 +41,7 @@ public class GroupDetailActivity extends AppCompatActivity {
 //    private RecyclerView eventsRecyclerView;
     private ImageButton editButton;
     private ImageButton deleteButton;
+    private ImageButton roleButton;
     private ImageButton inviteButton;
     private Button doneButton;
     private Button joinButton;
@@ -74,6 +75,7 @@ public class GroupDetailActivity extends AppCompatActivity {
 //        eventsRecyclerView = (RecyclerView) findViewById(R.id.eventsRecyclerView);
         editButton = (ImageButton) findViewById(R.id.editButton);
         deleteButton = (ImageButton) findViewById(R.id.deleteButton);
+        roleButton = (ImageButton) findViewById(R.id.roleButton);
         inviteButton = (ImageButton) findViewById(R.id.inviteButton);
         doneButton = (Button) findViewById(R.id.doneButton);
         joinButton = (Button) findViewById(R.id.joinButton);
@@ -109,7 +111,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         }
 
         JsonObject tagsJson = new JsonObject();
-        json.addProperty("id", id);
+        tagsJson.addProperty("id", id);
         tags = API.getGroupTags(tagsJson, this);
         Iterator iterator = tags.iterator();
         String tagsString = "";
@@ -182,6 +184,8 @@ public class GroupDetailActivity extends AppCompatActivity {
     public void editGroup(View v){
         Toast.makeText(this, "edit", Toast.LENGTH_LONG).show();
         editButton.setVisibility(View.GONE);
+        deleteButton.setVisibility(View.GONE);
+        roleButton.setVisibility(View.VISIBLE);
         doneButton.setVisibility(View.VISIBLE);
 
         enableEditTexts(true);
@@ -190,6 +194,8 @@ public class GroupDetailActivity extends AppCompatActivity {
     public void saveGroup(View v){
         Toast.makeText(this, "done", Toast.LENGTH_LONG).show();
         editButton.setVisibility(View.VISIBLE);
+        deleteButton.setVisibility(View.VISIBLE);
+        roleButton.setVisibility(View.GONE);
         doneButton.setVisibility(View.GONE);
 
         enableEditTexts(false);

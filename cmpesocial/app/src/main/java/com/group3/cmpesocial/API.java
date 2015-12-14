@@ -198,7 +198,7 @@ public class API {
     // Event API methods
     //
 
-    public static int createEvent(JsonObject json, Context context) {
+    public static int createEvent(JsonObject json, Context context, String tags) {
         Log.d(TAG, "createEvent json " + json.toString());
 
         final int[] returnArray = new int[1];
@@ -224,6 +224,17 @@ public class API {
                 });
         try {
             Log.d(TAG, "future : " + mFuture.get().toString());
+            if (!tags.equals("")) {
+                JsonObject eventJson = ((JsonObject) mFuture.get()).getAsJsonObject("event");
+                int id = eventJson.get("id").getAsInt();
+                String[] tagsArray = tags.split(" ");
+                for (int i = 0; i < tagsArray.length; i++) {
+                    JsonObject tagsJson = new JsonObject();
+                    tagsJson.addProperty("id_event", id);
+                    tagsJson.addProperty("tag", tagsArray[i]);
+                    API.addEventTag(tagsJson, context);
+                }
+            }
         } catch (Exception e) {
             Log.d(TAG, "exception createEvent" + e.getMessage());
         }
@@ -852,6 +863,7 @@ public class API {
     }
 
     public static int addEventTag(JsonObject json, Context context) {
+        Log.d(TAG, "addEventTag json " + json.toString());
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/tag/add")
@@ -886,6 +898,8 @@ public class API {
     }
 
     public static int deleteEventTag(JsonObject json, Context context) {
+        Log.d(TAG, "deleteEventTag json " + json.toString());
+
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(baseURI + "events/tag/delete")
@@ -920,6 +934,7 @@ public class API {
     }
 
     public static ArrayList<String> getEventTags(JsonObject json, Context context) {
+        Log.d(TAG, "getEventTags json" + json.toString());
         final int[] returnArray = new int[1];
         ArrayList<String> tags = new ArrayList<>();
         Future mFuture = Ion.with(context)
@@ -949,14 +964,16 @@ public class API {
         try {
             JsonObject result = (JsonObject) mFuture.get();
             Log.d(TAG, "future : " + result.toString());
-            JsonArray usersJsonArray = result.getAsJsonArray("Users");
-            Iterator<JsonElement> iterator = usersJsonArray.iterator();
+            JsonArray tagsJsonArray = result.getAsJsonArray("tags");
+            Log.d(TAG, "tags array " + tagsJsonArray.toString());
+            Iterator<JsonElement> iterator = tagsJsonArray.iterator();
             while (iterator.hasNext()) {
-                String tag = iterator.next().getAsString();
+                JsonObject tagJsonObject = iterator.next().getAsJsonObject();
+                String tag = tagJsonObject.get("tag").getAsString();
                 tags.add(tag);
             }
         } catch (Exception e) {
-            Log.d(TAG, "exception getEventTags" + e.getMessage());
+            Log.d(TAG, "exception getEventTags " + e.getMessage());
         }
         return tags;
     }
@@ -966,7 +983,7 @@ public class API {
     // Group API Methods
     //
 
-    public static int createGroup(JsonObject json, Context context) {
+    public static int createGroup(JsonObject json, Context context, String tags) {
         Log.d(TAG, "createGroup json " + json.toString());
 
         final int[] returnArray = new int[1];
@@ -992,6 +1009,17 @@ public class API {
                 });
         try {
             Log.d(TAG, "future : " + mFuture.get().toString());
+            if (!tags.equals("")) {
+                JsonObject groupJson = ((JsonObject) mFuture.get()).getAsJsonObject("group");
+                int id = groupJson.get("id").getAsInt();
+                String[] tagsArray = tags.split(" ");
+                for (int i = 0; i < tagsArray.length; i++) {
+                    JsonObject tagsJson = new JsonObject();
+                    tagsJson.addProperty("id_event", id);
+                    tagsJson.addProperty("tag", tagsArray[i]);
+                    API.addGroupTag(tagsJson, context);
+                }
+            }
         } catch (Exception e) {
             Log.d(TAG, "exception createGroup" + e.getMessage());
         }
@@ -1757,8 +1785,8 @@ public class API {
         try {
             JsonObject result = (JsonObject) mFuture.get();
             Log.d(TAG, "future : " + result.toString());
-            JsonArray usersJsonArray = result.getAsJsonArray("Users");
-            Iterator<JsonElement> iterator = usersJsonArray.iterator();
+            JsonArray tagsJsonArray = result.getAsJsonArray("tags");
+            Iterator<JsonElement> iterator = tagsJsonArray.iterator();
             while (iterator.hasNext()) {
                 String tag = iterator.next().getAsString();
                 tags.add(tag);
@@ -1857,7 +1885,7 @@ public class API {
             JsonArray eventsJsonArray = result.getAsJsonArray("Events");
             Iterator<JsonElement> iterator = eventsJsonArray.iterator();
             while (iterator.hasNext()) {
-                Event event = new Event(iterator.next().getAsJsonObject());
+                Event event = new Event(iterator.next().getAsJsonObject(), false);
                 events.add(event);
             }
         } catch (Exception e) {

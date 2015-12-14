@@ -21,6 +21,7 @@ public class NewGroupActivity extends AppCompatActivity {
     private static final String TAG = NewGroupActivity.class.getSimpleName();
 
     private EditText nameEditText;
+    private EditText tagsEditText;
     private EditText descriptionEditText;
 
     private Toolbar toolbar;
@@ -36,6 +37,7 @@ public class NewGroupActivity extends AppCompatActivity {
         user_id = getSharedPreferences("prefsCMPE", MODE_PRIVATE).getInt("user_id", 0);
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
+        tagsEditText = (EditText) findViewById(R.id.tagsEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
 
         toolbar  = (Toolbar) findViewById(R.id.toolbar);
@@ -72,7 +74,11 @@ public class NewGroupActivity extends AppCompatActivity {
 
         Log.i(TAG, json.toString());
 
-        int result = API.createGroup(json, this);
+        String tags = "";
+        if (tagsEditText.getText() != null && !tagsEditText.getText().toString().trim().equals("")){
+            tags = tagsEditText.getText().toString().trim();
+        }
+        int result = API.createGroup(json, this, tags);
         if (result == API.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }else if (result == API.SUCCESS){

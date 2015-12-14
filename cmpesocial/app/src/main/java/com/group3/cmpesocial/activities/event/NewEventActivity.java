@@ -39,6 +39,7 @@ public class NewEventActivity extends AppCompatActivity {
     private TextView endDateEditText;
     private TextView endTimeEditText;
     private EditText locationEditText;
+    private EditText tagsEditText;
     private EditText descriptionEditText;
     private Spinner spinner;
     private Toolbar toolbar;
@@ -67,6 +68,7 @@ public class NewEventActivity extends AppCompatActivity {
         endDateEditText = (EditText) findViewById(R.id.endDateEditText);
         endTimeEditText = (EditText) findViewById(R.id.endTimeEditText);
         locationEditText = (EditText) findViewById(R.id.locationEditText);
+        tagsEditText = (EditText) findViewById(R.id.tagsEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -76,6 +78,11 @@ public class NewEventActivity extends AppCompatActivity {
         startDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                View view = NewEventActivity.this.getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
                 pickDate(v, true);
             }
         });
@@ -173,7 +180,11 @@ public class NewEventActivity extends AppCompatActivity {
 
         Log.i(TAG, json.toString());
 
-        int result = API.createEvent(json, this);
+        String tags = "";
+        if (tagsEditText.getText() != null && !tagsEditText.getText().toString().trim().equals("")){
+            tags = tagsEditText.getText().toString().trim();
+        }
+        int result = API.createEvent(json, this, tags);
         if (result == API.ERROR) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         } else if (result == API.SUCCESS) {

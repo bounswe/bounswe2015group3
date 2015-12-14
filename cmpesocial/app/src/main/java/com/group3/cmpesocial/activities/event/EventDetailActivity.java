@@ -69,6 +69,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private Spinner spinner;
     private ImageButton editButton;
     private ImageButton deleteButton;
+    private ImageButton roleButton;
     private ImageButton inviteButton;
     private Button doneButton;
     private Button joinButton;
@@ -140,6 +141,7 @@ public class EventDetailActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         editButton = (ImageButton) findViewById(R.id.editButton);
         deleteButton = (ImageButton) findViewById(R.id.deleteButton);
+        roleButton = (ImageButton) findViewById(R.id.roleButton);
         inviteButton = (ImageButton) findViewById(R.id.inviteButton);
         doneButton = (Button) findViewById(R.id.doneButton);
         postButton = (Button) findViewById(R.id.postButton);
@@ -174,7 +176,8 @@ public class EventDetailActivity extends AppCompatActivity {
         }
 
         JsonObject tagsJson = new JsonObject();
-        json.addProperty("id", id);
+        tagsJson.addProperty("id", id);
+        Log.d(TAG, "tagsJson " + tagsJson.toString());
         tags = API.getEventTags(tagsJson, this);
         Iterator iterator = tags.iterator();
         String tagsString = "";
@@ -265,7 +268,7 @@ public class EventDetailActivity extends AppCompatActivity {
         //json2.addProperty("id_user", user_id);
         //API.getEvent(json2, getApplicationContext());
         ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
-        System.out.println(posts.get(0).getPost());
+//        System.out.println(posts.get(0).getPost());
         Collections.reverse(posts);
         adapterPost = new PostAdapter(this,posts);
         listView.setAdapter(adapterPost);
@@ -308,6 +311,8 @@ public class EventDetailActivity extends AppCompatActivity {
     public void editEvent(View v){
         Toast.makeText(this, "edit", Toast.LENGTH_LONG).show();
         editButton.setVisibility(View.GONE);
+        deleteButton.setVisibility(View.GONE);
+        roleButton.setVisibility(View.VISIBLE);
         doneButton.setVisibility(View.VISIBLE);
 
         enableEditTexts(true);
@@ -346,6 +351,8 @@ public class EventDetailActivity extends AppCompatActivity {
     public void saveEvent(View v){
         Toast.makeText(this, "done", Toast.LENGTH_LONG).show();
         editButton.setVisibility(View.VISIBLE);
+        deleteButton.setVisibility(View.VISIBLE);
+        roleButton.setVisibility(View.GONE);
         doneButton.setVisibility(View.GONE);
 
         enableEditTexts(false);
@@ -531,18 +538,19 @@ public class EventDetailActivity extends AppCompatActivity {
         while (iterator.hasNext()){
             String tag = (String) iterator.next();
             JsonObject json = new JsonObject();
-            json.addProperty("id_group", id);
+            json.addProperty("id_event", id);
             json.addProperty("tag", tag);
-            API.deleteGroupTag(json, this);
+            Log.i(TAG, "delete event tag " + json.toString());
+            API.deleteEventTag(json, this);
         }
         if (!tagsString.equals("")){
             String[] tagsArray = tagsString.split(" ");
             for (int i = 0; i < tagsArray.length; i++){
                 if (!tags.contains(tagsArray[i])){
                     JsonObject json = new JsonObject();
-                    json.addProperty("id_group", id);
+                    json.addProperty("id_event", id);
                     json.addProperty("tag", tagsArray[i]);
-                    API.addGroupTag(json, this);
+                    API.addEventTag(json, this);
                 }
             }
         }

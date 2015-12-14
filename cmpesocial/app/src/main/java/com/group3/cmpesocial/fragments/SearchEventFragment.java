@@ -84,6 +84,8 @@ public class SearchEventFragment extends Fragment {
         JsonObject json = new JsonObject();
         json.addProperty("text",input);
         eventsArray = API.searchEvents(json, getContext());
+        adapter.addAll(eventsArray);
+        Log.d(TAG, "eventsarray lenght " + eventsArray.size());
     }
 
     public class EventAdapter extends ArrayAdapter<Event> {
