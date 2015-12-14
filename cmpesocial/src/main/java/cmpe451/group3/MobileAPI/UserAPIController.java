@@ -144,7 +144,7 @@ public class UserAPIController {
         return  gson.toJson(result);
     }
     //gets tags for user id
-    @RequestMapping(value = "/groups/tag/getTags" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @RequestMapping(value = "/user/tag/getTags" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String getTagsForUser(@RequestBody EventIDRequestModel tagModel)
     {
