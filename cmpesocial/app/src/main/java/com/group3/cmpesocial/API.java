@@ -444,7 +444,7 @@ public class API {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.d(TAG, "error getEvent" + e.getMessage());
+                            Log.d(TAG, "error getEvent " + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equalsIgnoreCase("SUCCESS")) {
@@ -616,6 +616,7 @@ public class API {
 
         try {
             JsonObject postsObject = (JsonObject) mFuture.get();
+            Log.i(TAG, postsObject.toString());
             JsonArray posts = postsObject.getAsJsonArray("posts");
             Log.i(TAG, posts.toString());
             Iterator<JsonElement> iterator = posts.iterator();
@@ -623,6 +624,7 @@ public class API {
                 Post post = new Post(iterator.next().getAsJsonObject());
                 eventPosts.add(post);
             }
+
 
 
             Log.i(TAG, "future : " + mFuture.get().toString());
