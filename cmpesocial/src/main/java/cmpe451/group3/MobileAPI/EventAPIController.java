@@ -11,6 +11,7 @@ import java.util.Map;
 
 import cmpe451.group3.auth.CmpeSocialAuthentication;
 import cmpe451.group3.model.EventIDRequestModel;
+import cmpe451.group3.model.TagDAO;
 import cmpe451.group3.utils.SecurityUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -60,6 +61,12 @@ public class EventAPIController {
     @Qualifier("eventModel")
     @Autowired
     private EventModel eventModel = null;
+
+    @Qualifier("tagDAO")
+    @Autowired
+    private TagDAO tagDAO = null;
+
+
 
 
     @RequestMapping( value = "/events/create" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
@@ -315,6 +322,53 @@ public class EventAPIController {
         return gson.toJson(result);
     }
 
+    @RequestMapping(value = "/events/tag/add" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String addTag(@RequestBody EventTagCreateModel tagModel)
+    {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+        tagDAO.addTagToEvent(tagModel.id_event,tagModel.tag);
+        result.put("Result","Success");
+        return  gson.toJson(result);
+    }
+
+    @RequestMapping(value = "/events/tag/delete" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String deleteTag(@RequestBody EventTagCreateModel tagModel)
+    {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+
+        tagDAO.deleteTagFromEvent(tagModel.id_event, tagModel.tag);
+
+        result.put("Result","Success");
+        return  gson.toJson(result);
+    }
+    //get groups has this tag
+    @RequestMapping(value = "/events/tag/getEvents" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String addTag(@RequestBody SimpleTagModel tagModel)
+    {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+        result.put("groups", tagDAO.getTaggedFromEvents(tagModel.tag));
+        result.put("Result","Success");
+        return  gson.toJson(result);
+    }
+    //gets tags for group id
+    @RequestMapping(value = "/events/tag/getTags" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String addTag(@RequestBody EventIDRequestModel tagModel)
+    {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+        result.put("tags", tagDAO.getTagsForEvent(tagModel.id));
+        result.put("Result","Success");
+        return  gson.toJson(result);
+
+    }
 
 
 }

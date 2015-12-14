@@ -71,9 +71,25 @@ public class TagDAO {
         return  this.jdbcTemplate.queryForList(sql,id_event);
     }
 
+    public void addTagToUser(long id_user,String tag){
+        String sql = "INSERT INTO tag_user(id_user,tag) VALUES(?,?)";
+        this.jdbcTemplate.update(sql,id_user,tag);
+    }
+    public void deleteTagFromUser(long id_user,String tag){
+        String sql = "DELETE FROM tag_user WHERE id_user=? AND tag = ? ";
+        this.jdbcTemplate.update(sql,id_user,tag);
 
+    }
 
+    public List<Map<String,Object>> getTaggedFromUsers(String tag){
+        String sql = "SELECT user.* FROM user, tag_user WHERE user.id = tag_user.id_user AND tag_user.tag = ? ";
+        return this.jdbcTemplate.queryForList(sql, tag);
 
+    }
+    public List<Map<String,Object>> getTagsForUser(long id_user){
+        String sql = "SELECT * FROM tag_user WHERE tag_user.id_user = ?";
+        return  this.jdbcTemplate.queryForList(sql,id_user);
+    }
 
 
 

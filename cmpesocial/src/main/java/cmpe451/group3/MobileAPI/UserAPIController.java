@@ -8,6 +8,7 @@ import java.util.Map;
 
 import cmpe451.group3.auth.CmpeSocialAuthentication;
 import cmpe451.group3.model.EventIDRequestModel;
+import cmpe451.group3.model.TagDAO;
 import cmpe451.group3.utils.SecurityUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -40,6 +41,11 @@ public class UserAPIController {
     @Qualifier("cmpeSocialUserModel")
     @Autowired
     private CmpeSocialUserModel cmpeSocialUserModel = null;
+
+
+    @Qualifier("tagDAO")
+    @Autowired
+    private TagDAO tagDAO = null;
 
     @RequestMapping( value = "/login" , method = RequestMethod.POST,produces ={ "text/plain;charset=UTF-8"} )
     @ResponseBody
@@ -102,12 +108,52 @@ public class UserAPIController {
     public String updateUser(@RequestBody EventIDRequestModel userRequestModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
-
-
         result = cmpeSocialUserModel.getUser(userRequestModel.id);
-
-
         return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/user/tag/add" , method = RequestMethod.POST,produces = {"text/plain;charset=UTF-8"} )
+    @ResponseBody
+    public String addTagToUser(@RequestBody UserTagModel tagModel) {
+        Gson gson = new Gson();
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("Result","Success");
+        tagDAO.addTagToUser(tagModel.id_user,tagModel.tag);
+        return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/user/tag/delete" , method = RequestMethod.POST,produces = {"text/plain;charset=UTF-8"} )
+    @ResponseBody
+    public String deleteTagToUser(@RequestBody UserTagModel tagModel) {
+        Gson gson = new Gson();
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("Result","Success");
+        tagDAO.deleteTagFromUser(tagModel.id_user,tagModel.tag);
+        return gson.toJson(result);
+    }
+
+    //get users has this tag
+    @RequestMapping(value = "/user/tag/getUsers" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String getUsersForTag(@RequestBody SimpleTagModel tagModel)
+    {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+        result.put("users", tagDAO.getTaggedFromUsers(tagModel.tag));
+        result.put("Result","Success");
+        return  gson.toJson(result);
+    }
+    //gets tags for user id
+    @RequestMapping(value = "/groups/tag/getTags" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String getTagsForUser(@RequestBody EventIDRequestModel tagModel)
+    {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+        result.put("tags", tagDAO.getTagsForUser(tagModel.id));
+        result.put("Result","Success");
+        return  gson.toJson(result);
+
     }
 
 }
