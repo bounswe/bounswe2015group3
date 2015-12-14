@@ -32,7 +32,7 @@ public class API {
     public static final int RESULT_EMPTY = -3;
     public static final int NO_ACCESS = -4;
     private static final String TAG = API.class.getSimpleName();
-    private static final String baseURI = "http://54.148.86.208:8080/cmpesocial-temp/api/";
+    private static final String baseURI = "http://54.148.86.208:8080/cmpesocial/api/";
 
     //
     // User API methods
@@ -1546,11 +1546,82 @@ public class API {
         return groupsMembers;
     }
 
-    public static ArrayList<Event> getGroupEvents(JsonObject json, Context context){
-        Log.d(TAG, "getGroupEvents json " + json.toString());
-
-        return null;
+    public static int addGroupTag(JsonObject json, Context context) {
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "groups/tag/add")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.d(TAG, "error addGroupTag" + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equalsIgnoreCase("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.d(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.d(TAG, "future : " + mFuture.get().toString());
+        } catch (Exception e) {
+            Log.d(TAG, "exception addGroupTag" + e.getMessage());
+        }
+        return returnArray[0];
     }
+
+    public static int deleteGroupTag(JsonObject json, Context context) {
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(baseURI + "groups/tag/delete")
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.d(TAG, "error deleteGroupTag" + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equalsIgnoreCase("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.d(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.d(TAG, "future : " + mFuture.get().toString());
+        } catch (Exception e) {
+            Log.d(TAG, "exception deleteGroupTag" + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+
+
+//
+//    public static ArrayList<Event> getGroupEvents(JsonObject json, Context context){
+//        Log.d(TAG, "getGroupEvents json " + json.toString());
+//
+//        return null;
+//    }
 
     //
     // Search API

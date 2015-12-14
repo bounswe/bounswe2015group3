@@ -89,4 +89,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         notifyItemRemoved(position);
     }
 
+    private boolean containsUser(int id_user){
+
+    }
+
 }

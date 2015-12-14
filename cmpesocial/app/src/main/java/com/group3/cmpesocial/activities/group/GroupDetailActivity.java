@@ -20,9 +20,7 @@ import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.activities.event.NewEventActivity;
-import com.group3.cmpesocial.adapters.EventAdapter;
 import com.group3.cmpesocial.adapters.UserAdapter;
-import com.group3.cmpesocial.classes.Event;
 import com.group3.cmpesocial.classes.Group;
 import com.group3.cmpesocial.classes.User;
 
@@ -39,10 +37,10 @@ public class GroupDetailActivity extends AppCompatActivity {
     private EditText tagsEditText;
     private EditText descriptionEditText;
     private RecyclerView membersRecyclerView;
-    private RecyclerView eventsRecyclerView;
+//    private RecyclerView eventsRecyclerView;
     private ImageButton editButton;
     private ImageButton deleteButton;
-    private Button inviteButton;
+    private ImageButton inviteButton;
     private Button doneButton;
     private Button joinButton;
     private Button leaveButton;
@@ -50,7 +48,7 @@ public class GroupDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     private UserAdapter userAdapter;
-    private EventAdapter eventAdapter;
+//    private EventAdapter eventAdapter;
 
     private int id;
     private int user_id;
@@ -71,10 +69,10 @@ public class GroupDetailActivity extends AppCompatActivity {
         tagsEditText = (EditText) findViewById(R.id.tagsEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         membersRecyclerView = (RecyclerView) findViewById(R.id.membersRecyclerView);
-        eventsRecyclerView = (RecyclerView) findViewById(R.id.eventsRecyclerView);
+//        eventsRecyclerView = (RecyclerView) findViewById(R.id.eventsRecyclerView);
         editButton = (ImageButton) findViewById(R.id.editButton);
         deleteButton = (ImageButton) findViewById(R.id.deleteButton);
-        inviteButton = (Button) findViewById(R.id.inviteButton);
+        inviteButton = (ImageButton) findViewById(R.id.inviteButton);
         doneButton = (Button) findViewById(R.id.doneButton);
         joinButton = (Button) findViewById(R.id.joinButton);
         leaveButton = (Button) findViewById(R.id.leaveButton);
@@ -107,6 +105,7 @@ public class GroupDetailActivity extends AppCompatActivity {
             joinButton.setVisibility(View.VISIBLE);
             leaveButton.setVisibility(View.GONE);
         }
+        Log.d(TAG, "isMember " + mGroup.isMember());
 
         String name = mGroup.getName();
         String description = mGroup.getDescription();
@@ -126,24 +125,25 @@ public class GroupDetailActivity extends AppCompatActivity {
         if (members == null)
             members = new ArrayList<>();
 
+        Log.d(TAG, members.toString());
         membersRecyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         membersRecyclerView.setLayoutManager(mLayoutManager);
         userAdapter = new UserAdapter(members,this);
         membersRecyclerView.setAdapter(userAdapter);
 
-        JsonObject eventsJson = new JsonObject();
-        eventsJson.addProperty("id_group", id);
-        json.addProperty("id_user", user_id);
-        ArrayList<Event> events = API.getGroupEvents(eventsJson, this);
-        if (events == null)
-            events = new ArrayList<>();
+//        JsonObject eventsJson = new JsonObject();
+//        eventsJson.addProperty("id_group", id);
+//        json.addProperty("id_user", user_id);
+//        ArrayList<Event> events = API.getGroupEvents(eventsJson, this);
+//        if (events == null)
+//            events = new ArrayList<>();
 
-        eventsRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager eLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        eventsRecyclerView.setLayoutManager(eLayoutManager);
-        eventAdapter = new EventAdapter(events, this);
-        eventsRecyclerView.setAdapter(eventAdapter);
+//        eventsRecyclerView.setHasFixedSize(true);
+//        LinearLayoutManager eLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+//        eventsRecyclerView.setLayoutManager(eLayoutManager);
+//        eventAdapter = new EventAdapter(events, this);
+//        eventsRecyclerView.setAdapter(eventAdapter);
 
         enableEditTexts(false);
     }
