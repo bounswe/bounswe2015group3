@@ -21,7 +21,6 @@ import com.group3.cmpesocial.activities.group.GroupDetailActivity;
 import com.group3.cmpesocial.classes.Event;
 import com.group3.cmpesocial.classes.Group;
 import com.group3.cmpesocial.classes.User;
-import com.group3.cmpesocial.fragments.GroupsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,3 +135,5 @@ public class UserDetailActivity extends AppCompatActivity {
             return convertView;
 
         }
+    }
+}

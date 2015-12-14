@@ -25,6 +25,7 @@ import com.group3.cmpesocial.classes.Group;
 import com.group3.cmpesocial.classes.User;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class GroupDetailActivity extends AppCompatActivity {
 
@@ -54,6 +55,7 @@ public class GroupDetailActivity extends AppCompatActivity {
     private int user_id;
 
     private ArrayList<Integer> allowedRoles;
+    private ArrayList<String> tags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +107,15 @@ public class GroupDetailActivity extends AppCompatActivity {
             joinButton.setVisibility(View.VISIBLE);
             leaveButton.setVisibility(View.GONE);
         }
-        Log.d(TAG, "isMember " + mGroup.isMember());
+
+        JsonObject tagsJson = new JsonObject();
+        json.addProperty("id", id);
+        tags = API.getGroupTags(tagsJson, this);
+        Iterator iterator = tags.iterator();
+        String tagsString = "";
+        while (iterator.hasNext())
+            tagsString += iterator.next() + " ";
+        tagsEditText.setText(tagsString);
 
         String name = mGroup.getName();
         String description = mGroup.getDescription();
@@ -150,6 +160,7 @@ public class GroupDetailActivity extends AppCompatActivity {
 
     public void enableEditTexts(boolean enabled){
         nameEditText.setEnabled(enabled);
+        tagsEditText.setEnabled(enabled);
         descriptionEditText.setEnabled(enabled);
     }
 
@@ -183,7 +194,16 @@ public class GroupDetailActivity extends AppCompatActivity {
 
         enableEditTexts(false);
 
+        if (nameEditText.getText() == null || nameEditText.getText().equals("")
+                || descriptionEditText.getText() == null || descriptionEditText.getText().equals("")){
+            Toast.makeText(this, "Please don't leave any empty fields", Toast.LENGTH_SHORT).show();
+        }
+
         String name = nameEditText.getText().toString().trim();
+        String tagsString = "";
+        if (tagsEditText.getText() != null) {
+            tagsString = tagsEditText.getText().toString().trim();
+        }
         String description = descriptionEditText.getText().toString().trim();
         String type = "";
         if (allowedRoles != null) {
@@ -213,6 +233,8 @@ public class GroupDetailActivity extends AppCompatActivity {
         }else if (result == API.RESULT_EMPTY){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
+
+        updateTags(tagsString, this.tags);
     }
 
     public void joinGroup(View v){
@@ -291,5 +313,8 @@ public class GroupDetailActivity extends AppCompatActivity {
         builder.show();
     }
 
+    public void updateTags(String typesString, ArrayList<String> tags){
+
+    }
 
 }
