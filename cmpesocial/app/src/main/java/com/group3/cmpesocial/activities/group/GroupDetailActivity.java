@@ -313,8 +313,26 @@ public class GroupDetailActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public void updateTags(String typesString, ArrayList<String> tags){
-
+    public void updateTags(String tagsString, ArrayList<String> tags){
+        Iterator iterator = tags.iterator();
+        while (iterator.hasNext()){
+            String tag = (String) iterator.next();
+            JsonObject json = new JsonObject();
+            json.addProperty("id_group", id);
+            json.addProperty("tag", tag);
+            API.deleteGroupTag(json, this);
+        }
+        if (!tagsString.equals("")){
+            String[] tagsArray = tagsString.split(" ");
+            for (int i = 0; i < tagsArray.length; i++){
+                if (!tags.contains(tagsArray[i])){
+                    JsonObject json = new JsonObject();
+                    json.addProperty("id_group", id);
+                    json.addProperty("tag", tagsArray[i]);
+                    API.addGroupTag(json, this);
+                }
+            }
+        }
     }
 
 }

@@ -44,6 +44,7 @@ import com.group3.cmpesocial.classes.User;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class EventDetailActivity extends AppCompatActivity {
@@ -85,6 +86,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private ArrayList<Post> postsArray;
     private ArrayList<Integer> allowedRoles;
+    private ArrayList<String> tags;
 
     private int id;
     private int user_id;
@@ -170,6 +172,15 @@ public class EventDetailActivity extends AppCompatActivity {
             joinButton.setVisibility(View.VISIBLE);
             leaveButton.setVisibility(View.GONE);
         }
+
+        JsonObject tagsJson = new JsonObject();
+        json.addProperty("id", id);
+        tags = API.getEventTags(tagsJson, this);
+        Iterator iterator = tags.iterator();
+        String tagsString = "";
+        while (iterator.hasNext())
+            tagsString += iterator.next() + " ";
+        tagsEditText.setText(tagsString);
 
         String name = mEvent.getName();
         int id_user = mEvent.getId_user();
@@ -340,6 +351,10 @@ public class EventDetailActivity extends AppCompatActivity {
         enableEditTexts(false);
 
         String name = nameEditText.getText().toString().trim();
+        String tagsString = "";
+        if (tagsEditText.getText() != null) {
+            tagsString = tagsEditText.getText().toString().trim();
+        }
         String location = locationEditText.getText().toString().trim();
         String description = descriptionEditText.getText().toString().trim();
         String date = new_start_date + " " + new_start_time;
@@ -376,6 +391,8 @@ public class EventDetailActivity extends AppCompatActivity {
         }else if (result == API.RESULT_EMPTY){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
+
+        updateTags(tagsString, this.tags);
     }
 
     public void joinEvent(View v){
@@ -508,6 +525,29 @@ public class EventDetailActivity extends AppCompatActivity {
         timePickerDialog.updateTime(time[0], time[1]);
         timePickerDialog.show();
     }
+
+    public void updateTags(String tagsString, ArrayList<String> tags){
+        Iterator iterator = tags.iterator();
+        while (iterator.hasNext()){
+            String tag = (String) iterator.next();
+            JsonObject json = new JsonObject();
+            json.addProperty("id_group", id);
+            json.addProperty("tag", tag);
+            API.deleteGroupTag(json, this);
+        }
+        if (!tagsString.equals("")){
+            String[] tagsArray = tagsString.split(" ");
+            for (int i = 0; i < tagsArray.length; i++){
+                if (!tags.contains(tagsArray[i])){
+                    JsonObject json = new JsonObject();
+                    json.addProperty("id_group", id);
+                    json.addProperty("tag", tagsArray[i]);
+                    API.addGroupTag(json, this);
+                }
+            }
+        }
+    }
+
     public class PostAdapter extends ArrayAdapter<Post> {
         TextView t;
         //Button b2;

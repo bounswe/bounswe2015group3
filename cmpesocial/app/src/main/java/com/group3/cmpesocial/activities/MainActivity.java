@@ -30,6 +30,7 @@ import com.group3.cmpesocial.fragments.HomeFragment;
 import com.group3.cmpesocial.fragments.InvitesFragment;
 import com.group3.cmpesocial.fragments.ProfileFragment;
 import com.group3.cmpesocial.fragments.RecommendationsFragment;
+import com.group3.cmpesocial.fragments.SearchEventFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity
     private final int EVENTS = 3;
     private final int PROFILE = 4;
     private final int INVITES = 5;
+    private final int SEARCH_EVENT = 6;
+    private final int SEARCH_GROUP = 7;
     FragmentTransaction fragmentTransaction;
     private boolean searching = false;
     private Toolbar toolbar;
@@ -54,7 +57,9 @@ public class MainActivity extends AppCompatActivity
     private EventsFragment fragment_events;
     private ProfileFragment fragment_profile;
     private InvitesFragment fragment_invites;
-    private Fragment[] fragments = {fragment_home, fragment_groups, fragment_events, fragment_profile, fragment_invites};
+    private SearchEventFragment fragment_search_event;
+//    private SearchGroupFragment fragment_search_group;
+    private Fragment[] fragments = {fragment_home, fragment_groups, fragment_events, fragment_profile, fragment_invites, fragment_search_event};
     private int currentScreen;
     private String currentTitle;
 
@@ -69,6 +74,8 @@ public class MainActivity extends AppCompatActivity
         fragment_events = new EventsFragment();
         fragment_profile = new ProfileFragment();
         fragment_invites = new InvitesFragment();
+        fragment_search_event = new SearchEventFragment();
+//        fragment_search_group = new SearchGroupFragment();
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -287,11 +294,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void searchEvents(){
-
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment_search_event);
+        fragmentTransaction.commit();
+        currentScreen = SEARCH_EVENT;
     }
 
     public void searchGroups(){
-
+//        fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.fragment_container, fragment_search_event);
+//        fragmentTransaction.commit();
+//        currentScreen = SEARCH_EVENT;
     }
 
 }

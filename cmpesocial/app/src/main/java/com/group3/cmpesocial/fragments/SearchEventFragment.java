@@ -4,21 +4,22 @@ package com.group3.cmpesocial.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.activities.event.EventDetailActivity;
-import com.group3.cmpesocial.activities.event.NewEventActivity;
 import com.group3.cmpesocial.classes.Event;
 
 import java.util.ArrayList;
@@ -27,18 +28,18 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventsFragment extends Fragment {
+public class SearchEventFragment extends Fragment {
 
-    private static final String TAG = EventsFragment.class.getSimpleName();
+    private static final String TAG = SearchEventFragment.class.getSimpleName();
 
-    private final String title = "Events";
+    public boolean searching = false;
 
-    private FloatingActionButton createEventButton;
     private ListView listView;
+    private EditText searchEditText;
     private ArrayList<Event> eventsArray;
     private EventAdapter adapter;
 
-    public EventsFragment() {
+    public SearchEventFragment() {
         // Required empty public constructor
     }
 
@@ -48,16 +49,24 @@ public class EventsFragment extends Fragment {
         // Inflate the layout for this fragment
         View mView = inflater.inflate(R.layout.fragment_events, container, false);
 
-        createEventButton = (FloatingActionButton) mView.findViewById(R.id.createEventButton);
-        createEventButton.setOnClickListener(new View.OnClickListener() {
+        listView = (ListView) mView.findViewById(R.id.listView);
+        searchEditText = (EditText) getActivity().findViewById(R.id.searchEditText);
+        searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewEventActivity.class);
-                startActivity(intent);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String input = s.toString();
+                refreshList(input);
             }
         });
-
-        listView = (ListView) mView.findViewById(R.id.listView);
 
         eventsArray = new ArrayList<>();
 
@@ -68,34 +77,13 @@ public class EventsFragment extends Fragment {
         return mView;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        refreshList();
-    }
-
-    @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    public void refreshList() {
+    public void refreshList(String input) {
         Log.i(TAG, "refresh");
         eventsArray.clear();
         adapter.clear();
-        int result = API.allEvents(getContext(), adapter);
-        if(result == -1){
-            Toast.makeText(getContext(), "something went wrong", Toast.LENGTH_SHORT).show();
-        }
+        JsonObject json = new JsonObject();
+        json.addProperty("text",input);
+        eventsArray = API.searchEvents(json, getContext());
     }
 
     public class EventAdapter extends ArrayAdapter<Event> {
@@ -133,5 +121,6 @@ public class EventsFragment extends Fragment {
             return convertView;
         }
     }
+
 
 }
