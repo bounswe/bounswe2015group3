@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API;
 import com.group3.cmpesocial.R;
+import com.group3.cmpesocial.classes.User;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -41,10 +42,15 @@ public class SignupActivity extends AppCompatActivity {
         String[] roles = {"Undergraduate", "Graduate", "Alumni", "Faculty Member", "Staff"};
         ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,roles);
         roleSpinner.setAdapter(adapter);
-        roleSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 type = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                type = User.UNDERGRADUATE;
             }
         });
     }

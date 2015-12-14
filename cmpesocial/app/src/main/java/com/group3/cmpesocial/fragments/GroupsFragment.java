@@ -120,6 +120,7 @@ public class GroupsFragment extends Fragment {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("group fragment", "here");
                     Intent intent = new Intent(getActivity(), GroupDetailActivity.class);
                     intent.putExtra("id", mGroup.getId());
                     startActivity(intent);

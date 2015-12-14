@@ -1121,24 +1121,25 @@ public class API {
         try {
             JsonObject result = (JsonObject) mFuture.get();
             Log.d(TAG, "future : " + result.toString());
-            JsonObject groupJson = result.getAsJsonObject("group");
-            boolean isMember = result.get("isMember").getAsBoolean();
-            Log.i("groupjson", groupJson.toString());
-            Group mGroup = new Group(groupJson, isMember);
-            Log.i("here1", "here1");
-            return mGroup;
+            if (returnArray[0] == NO_ACCESS) {
+                Log.d(TAG, "group not visible to the user because of his role");
+                Toast.makeText(context, "You cannot view this group.", Toast.LENGTH_SHORT).show();
+                return null;
+            } else if (returnArray[0] != SUCCESS){
+                Log.d(TAG, returnArray[0] + "getGroup unknown error");
+                return null;
+            } else {
+                JsonObject groupJson = result.getAsJsonObject("group");
+                boolean isMember = result.get("isMember").getAsBoolean();
+                Log.i("groupjson", groupJson.toString());
+                Group mGroup = new Group(groupJson, isMember);
+                Log.i("here1", "here1");
+                return mGroup;
+            }
         } catch (Exception e) {
             Log.d(TAG, "exception getGroup" + e.getMessage());
         }
-
-        if (returnArray[0] == NO_ACCESS) {
-            Log.d(TAG, "group not visible to the user because of his role");
-            Toast.makeText(context, "You cannot view this group.", Toast.LENGTH_SHORT).show();
-            return null;
-        } else {
-            Log.d(TAG, returnArray[0] + "getGroup unknown error");
-            return null;
-        }
+        return new Group();
     }
 
     public static int joinGroup(JsonObject json, Context context) {
@@ -1510,13 +1511,13 @@ public class API {
         Future mFuture = Ion.with(context)
                 .load(baseURI + "groups/getMembers")
                 .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, JsonArray result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.d(TAG, "error getGroup" + e.getMessage());
+                            Log.d(TAG, "error getGroupMembers" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equalsIgnoreCase("SUCCESS")) {

@@ -7,12 +7,12 @@ import com.google.gson.JsonObject;
  */
 public class User {
 
-    private static final int ALL = 0;
-    private static final int UNDERGRADUATE = 1;
-    private static final int GRADUATE = 2;
-    private static final int FACULTY_MEMBER = 3;
-    private static final int STAFF = 4;
-    private static final int ALUMNI = 5;
+    public static final int ALL = 0;
+    public static final int UNDERGRADUATE = 1;
+    public static final int GRADUATE = 2;
+    public static final int FACULTY_MEMBER = 3;
+    public static final int STAFF = 4;
+    public static final int ALUMNI = 5;
 
     private int id;
     private String name;

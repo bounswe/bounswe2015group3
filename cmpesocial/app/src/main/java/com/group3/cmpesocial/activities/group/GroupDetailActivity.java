@@ -42,7 +42,7 @@ public class GroupDetailActivity extends AppCompatActivity {
     private RecyclerView eventsRecyclerView;
     private ImageButton editButton;
     private ImageButton deleteButton;
-    private ImageButton inviteButton;
+    private Button inviteButton;
     private Button doneButton;
     private Button joinButton;
     private Button leaveButton;
@@ -74,7 +74,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         eventsRecyclerView = (RecyclerView) findViewById(R.id.eventsRecyclerView);
         editButton = (ImageButton) findViewById(R.id.editButton);
         deleteButton = (ImageButton) findViewById(R.id.deleteButton);
-        inviteButton = (ImageButton) findViewById(R.id.inviteButton);
+        inviteButton = (Button) findViewById(R.id.inviteButton);
         doneButton = (Button) findViewById(R.id.doneButton);
         joinButton = (Button) findViewById(R.id.joinButton);
         leaveButton = (Button) findViewById(R.id.leaveButton);
@@ -95,8 +95,11 @@ public class GroupDetailActivity extends AppCompatActivity {
         mUser = API.getUser(userJson, this);
 
         JsonObject json = new JsonObject();
-        json.addProperty("id", id);
+        json.addProperty("id_group", id);
+        json.addProperty("id_user", user_id);
         mGroup = API.getGroup(json, getApplicationContext());
+        if (mGroup == null)
+            return;
         if (mGroup.isMember()){
             joinButton.setVisibility(View.GONE);
             leaveButton.setVisibility(View.VISIBLE);
@@ -104,9 +107,6 @@ public class GroupDetailActivity extends AppCompatActivity {
             joinButton.setVisibility(View.VISIBLE);
             leaveButton.setVisibility(View.GONE);
         }
-
-        if (mGroup == null)
-            return;
 
         String name = mGroup.getName();
         String description = mGroup.getDescription();
@@ -133,7 +133,8 @@ public class GroupDetailActivity extends AppCompatActivity {
         membersRecyclerView.setAdapter(userAdapter);
 
         JsonObject eventsJson = new JsonObject();
-        eventsJson.addProperty("id", id);
+        eventsJson.addProperty("id_group", id);
+        json.addProperty("id_user", user_id);
         ArrayList<Event> events = API.getGroupEvents(eventsJson, this);
         if (events == null)
             events = new ArrayList<>();
