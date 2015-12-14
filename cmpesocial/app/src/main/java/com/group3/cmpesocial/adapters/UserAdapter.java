@@ -14,6 +14,7 @@ import com.group3.cmpesocial.activities.UserDetailActivity;
 import com.group3.cmpesocial.classes.User;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
 
@@ -78,19 +79,25 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         return users.size();
     }
 
-    public void add(User item) {
-        users.add(item);
+    public void add(User user) {
+        Iterator<User> iterator = users.iterator();
+        while (iterator.hasNext()){
+            if (user.getId() == iterator.next().getId())
+                return;
+        }
+        users.add(user);
         notifyItemInserted(getItemCount());
     }
 
-    public void remove(User item) {
-        int position = users.indexOf(item);
-        users.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    private boolean containsUser(int id_user){
-
+    public void remove(User user) {
+        Iterator<User> iterator = users.iterator();
+        while (iterator.hasNext()){
+            if (user.getId() == iterator.next().getId()){
+                int position = users.indexOf(user);
+                users.remove(position);
+                notifyItemRemoved(position);
+            }
+        }
     }
 
 }
