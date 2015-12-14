@@ -10,7 +10,4 @@ This project is developed by the people going with the name "bounswe2015group3".
 The current version of our platform can be seen at:
 http://ec2-54-148-86-208.us-west-2.compute.amazonaws.com:8080/cmpesocial/
 
-The beta version of our project can be seen at:
-http://ec2-54-148-86-208.us-west-2.compute.amazonaws.com:8080/cmpesocial-temp/
-
-!! Beware the bugs of the beta version
+The apk for our android application is stored as app-debug.apk. As the name suggests, it is still under development.

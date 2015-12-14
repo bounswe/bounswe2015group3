@@ -46,7 +46,7 @@ public class TagDAO {
     }
 
     public void deleteTagFromEvent(long id_event,String tag){
-        String sql = "DELETE FROM tag_event WHERE id_events=? AND tag = ? ";
+        String sql = "DELETE FROM tag_event WHERE id_event=? AND tag = ? ";
         this.jdbcTemplate.update(sql,id_event,tag);
     }
 
