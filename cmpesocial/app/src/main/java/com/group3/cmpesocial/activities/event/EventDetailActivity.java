@@ -67,7 +67,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private Spinner spinner;
     private ImageButton editButton;
     private ImageButton deleteButton;
-    private Button inviteButton;
+    private ImageButton inviteButton;
     private Button doneButton;
     private Button joinButton;
     private Button leaveButton;
@@ -137,7 +137,7 @@ public class EventDetailActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         editButton = (ImageButton) findViewById(R.id.editButton);
         deleteButton = (ImageButton) findViewById(R.id.deleteButton);
-        inviteButton = (Button) findViewById(R.id.inviteButton);
+        inviteButton = (ImageButton) findViewById(R.id.inviteButton);
         doneButton = (Button) findViewById(R.id.doneButton);
         postButton = (Button) findViewById(R.id.postButton);
         joinButton = (Button) findViewById(R.id.joinButton);

@@ -42,7 +42,7 @@ public class GroupDetailActivity extends AppCompatActivity {
     private RecyclerView eventsRecyclerView;
     private ImageButton editButton;
     private ImageButton deleteButton;
-    private Button inviteButton;
+    private ImageButton inviteButton;
     private Button doneButton;
     private Button joinButton;
     private Button leaveButton;
@@ -74,7 +74,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         eventsRecyclerView = (RecyclerView) findViewById(R.id.eventsRecyclerView);
         editButton = (ImageButton) findViewById(R.id.editButton);
         deleteButton = (ImageButton) findViewById(R.id.deleteButton);
-        inviteButton = (Button) findViewById(R.id.inviteButton);
+        inviteButton = (ImageButton) findViewById(R.id.inviteButton);
         doneButton = (Button) findViewById(R.id.doneButton);
         joinButton = (Button) findViewById(R.id.joinButton);
         leaveButton = (Button) findViewById(R.id.leaveButton);
