@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -227,29 +228,39 @@ public class EventDetailActivity extends AppCompatActivity {
 
 
         // Construct the data source
-        postsArray = new ArrayList<Post>();
+        //postsArray = new ArrayList<Post>();
         // Create the adapter to convert the array to views
-        adapterPost = new PostAdapter(this, postsArray);
+        //adapterPost = new PostAdapter(this, postsArray);
 
 
         // Attach the adapter to a ListView
 
-        listView.setAdapter(adapterPost);
+        //listView.setAdapter(adapterPost);
         //postsArray.add(newPost1);
         //postsArray.add(newPost2);
         //adapterPost.addAll(postsArray);
 
+        //JsonObject json2 = new JsonObject();
+        //json2.addProperty("id_event", id);
+        //json2.addProperty("id_user", user_id);
+        //API.getEvent(json2, this);
+
+
+        //ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+
+
         JsonObject json2 = new JsonObject();
-        json2.addProperty("id_event", id);
-        json2.addProperty("id_user", user_id);
-        API.getEvent(json2, this);
-
-
+        json2.addProperty("id", id);
+        //json2.addProperty("id_user", user_id);
+        //API.getEvent(json2, getApplicationContext());
         ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
-
-        Log.i(TAG, json2.toString());
+        System.out.println(posts.get(0).getPost());
         Collections.reverse(posts);
-        adapterPost.addAll(posts);
+        adapterPost = new PostAdapter(this,posts);
+        listView.setAdapter(adapterPost);
+        //Collections.reverse(posts);
+        //adapterPost.clear();
+        //adapterPost.addAll(posts);
     }
 
     public void enableEditTexts(boolean enabled){
@@ -497,9 +508,215 @@ public class EventDetailActivity extends AppCompatActivity {
         timePickerDialog.updateTime(time[0], time[1]);
         timePickerDialog.show();
     }
-
-
     public class PostAdapter extends ArrayAdapter<Post> {
+        TextView t;
+        //Button b2;
+        public PostAdapter(Context context, List objects) {
+            super(context, R.layout.item_post, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
+            }
+
+            Post mPost = getItem(position);
+
+            TextView postTextView = (TextView) convertView.findViewById(R.id.postEditText);
+            Button b = (Button) convertView.findViewById(R.id.deletePost);
+            b.setTag(position);
+            b.setOnClickListener(delete);
+
+            Button b2 = (Button) convertView.findViewById(R.id.updatePost);
+            b2.setTag(position);
+            b2.setOnClickListener(update);
+
+            Button b3 = (Button) convertView.findViewById(R.id.comment);
+            b3.setTag(position);
+            b3.setOnClickListener(comment);
+
+            t = (TextView) convertView.findViewById(R.id.postEditText);
+            t.setTag(position);
+            int userIDTemp = mPost.getUserID();
+
+            //b.setTag(position);
+            JsonObject json = new JsonObject();
+            json.addProperty("id", userIDTemp);
+            User userTemp = API.getUser(json, getContext());
+            String userNameTemp = userTemp.getName();
+            String userSurnameTemp = userTemp.getSurname();
+            String nameTemp = " - " + userNameTemp + " " + userSurnameTemp;
+            //System.out.println(nameTemp);
+            String post = mPost.getPost();
+            SpannableString ss1 = new SpannableString(post + nameTemp);
+            //System.out.println(ss1);
+
+            ss1.setSpan(new StyleSpan(Typeface.BOLD_ITALIC),
+                    post.length() + 1, ss1.length(), 0);
+            ss1.setSpan(new ForegroundColorSpan(Color.BLUE), post.length() + 1, ss1.length(), 0);
+
+
+            //postTextView.setText(post + nameTemp);
+            postTextView.setText(ss1);
+
+
+            return convertView;
+        }
+
+        private View.OnClickListener delete = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = (Integer) v.getTag();
+                // System.out.println(position);
+                int size = adapterPost.getCount();
+                //System.out.println(size-position);
+                //int id_post = size-position;
+                Post p = adapterPost.getItem(position);
+                int id_post = p.getID();
+                //   System.out.println(id_post);
+
+
+                JsonObject json = new JsonObject();
+                json.addProperty("id", id_post);
+                API.deleteEventPost(json, getContext());
+
+
+                JsonObject json2 = new JsonObject();
+                //json2.addProperty("id_user", user_id);
+                json2.addProperty("id", id);
+                //API.getEvent(json2, getContext());
+
+                ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+
+                //Log.i(TAG, json2.toString());
+                Collections.reverse(posts);
+                adapterPost.clear();
+                adapterPost.addAll(posts);
+
+
+                /*int result = API.deleteEvent(json, getApplicationContext());
+                if (result == API.ERROR){
+                    Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+                }else if (result == API.SUCCESS){
+                    Log.i(TAG, "event deleted");
+                    finish();
+                }else if (result == API.RESULT_EMPTY){
+                    Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+                }*/
+            }
+        };
+        private View.OnClickListener update = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = (Integer) v.getTag();
+                final Post p = adapterPost.getItem(position);
+                String text = p.getPost();
+                //e.setClickable(true);
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+                alert.setTitle("Update Post");
+                alert.setMessage("You can make changes on your post");
+
+                // Set an EditText view to get user input
+                final EditText input = new EditText(getContext());
+                input.setText(text);
+                alert.setView(input);
+
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        int id_post = p.getID();
+                        JsonObject json = new JsonObject();
+                        json.addProperty("id", id_post);
+                        json.addProperty("id_user", p.getUserID());
+                        json.addProperty("id_event", p.getEventID());
+                        json.addProperty("content", input.getText().toString());
+                        json.addProperty("content_url", p.getContentURL());
+                        API.updateEventPost(json, getContext());
+                        //API.deleteEventPost(json, getContext());
+                        JsonObject json2 = new JsonObject();
+                        json2.addProperty("id", p.getEventID());
+                        //json2.addProperty("id_user", user_id);
+                        //API.getEvent(json2, getContext());
+                        ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+                        Collections.reverse(posts);
+                        adapterPost.clear();
+                        adapterPost.addAll(posts);
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+                    }
+                });
+
+                alert.show();
+
+
+
+            }
+        };
+        private View.OnClickListener comment = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = (Integer) v.getTag();
+                final Post p = adapterPost.getItem(position);
+                String text = p.getPost();
+                //e.setClickable(true);
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+
+                alert.setTitle("Comment");
+                alert.setMessage("You can comment on this post here");
+
+                // Set an EditText view to get user input
+                final EditText input = new EditText(getContext());
+                //input.setText(text);
+                alert.setView(input);
+
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        int id_post = p.getID();
+                        JsonObject json = new JsonObject();
+                        json.addProperty("id_post", id_post);
+                        json.addProperty("id_user", user_id);
+                        json.addProperty("id_event", p.getEventID());
+                        json.addProperty("content", "Bu da bir comment işte.");
+                        //json.addProperty("content_url", p.getContentURL());
+                        System.out.println(json.toString());
+                        API.createEventComment(json, getApplicationContext());
+                        /*API.updateEventPost(json, getContext());
+                        //API.deleteEventPost(json, getContext());
+                        JsonObject json2 = new JsonObject();
+                        json2.addProperty("id", id);
+                        API.getEvent(json2, getContext());
+                        ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+                        Collections.reverse(posts);
+                        adapterPost.clear();
+                        adapterPost.addAll(posts);*/
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+                    }
+                });
+
+                alert.show();
+
+
+
+            }
+        };
+    }
+
+
+    /*public class PostAdapter extends ArrayAdapter<Post> {
         public PostAdapter(Context context, List objects) {
             super(context, R.layout.item_post, objects);
         }
@@ -584,10 +801,10 @@ public class EventDetailActivity extends AppCompatActivity {
                 }else if (result == API.RESULT_EMPTY){
                     Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
                 }*/
-            }
-        };
+            //}
+        //};
 
-    }
+    //}*/
 
     public void postButton() {
         String post = postEditTextMain.getText().toString();
@@ -596,13 +813,13 @@ public class EventDetailActivity extends AppCompatActivity {
         //adapterPost.clear();
         //adapterPost.addAll(postsArray);
         //listView.setAdapter(adapterPost);
-        adapterPost = new PostAdapter(this, postsArray);
+        //adapterPost = new PostAdapter(this, postsArray);
 
 
         // Attach the adapter to a ListView
 
-        listView.setAdapter(adapterPost);
-        postsArray.add(0,newPost);
+        //listView.setAdapter(adapterPost);
+        //postsArray.add(0,newPost);
 
 
         long id_event = id;
@@ -622,7 +839,8 @@ public class EventDetailActivity extends AppCompatActivity {
 
         JsonObject json2 = new JsonObject();
         json2.addProperty("id", id_event);
-        API.getEvent(json2, this);
+        //json2.addProperty("id_user", user_id);
+        //API.getEvent(json2, this);
 
 
         ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
