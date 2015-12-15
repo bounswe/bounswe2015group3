@@ -152,7 +152,7 @@ public class EventModel {
     public void createComment(Long id_post,Long id_event, Long id_user, String content)
     {
         String sql = "INSERT INTO comment_event(id_post,id_event,id_user,content) VALUES(?,?,?,?)";
-        this.jdbcTemplate.update(sql,id_event,id_user,content);
+        this.jdbcTemplate.update(sql,id_post,id_event,id_user,content);
     }
 
     public void updateComment(Long id,Long id_post, Long id_event, Long id_user, String content){
