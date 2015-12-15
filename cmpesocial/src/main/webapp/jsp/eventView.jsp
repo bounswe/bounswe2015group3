@@ -94,7 +94,7 @@
 	<section class="events text-left newsection">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="blog col-md-8">
 					<!--Event Detail  -->
 					<section class="event-detail newsection">
 						<h2 class="main-title ">${event.name}</h2>
