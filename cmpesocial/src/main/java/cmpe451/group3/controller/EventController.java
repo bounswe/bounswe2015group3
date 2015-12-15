@@ -76,7 +76,11 @@ public class EventController {
     	String mail = auth.getName();
     	long userid = eventModel.getIdFromMail(mail);
     	boolean going = eventModel.isGoingToEvent(userid, id);
-    	
+    	boolean isOwner = false;
+    	if((int)userid == (int)event.get("id_user")){
+    		isOwner = true;
+    	}
+    	model.put("isOwner", isOwner);
         model.put("going", going);
         model.put("event", event);
         model.put("participants", participants);
