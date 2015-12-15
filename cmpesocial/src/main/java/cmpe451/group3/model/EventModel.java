@@ -208,11 +208,12 @@ public class EventModel {
         List<Map<String,Object>> membership = this.jdbcTemplate.queryForList(sql,id_user, id_event);
 
 
-        if (membership.isEmpty())
-            return   Boolean.FALSE;
-        else
-            return   Boolean.TRUE;
-
+        if (!membership.isEmpty() && (int)membership.get(0).get("status") == 1){
+        	return   Boolean.TRUE;
+        }
+        else	{
+        	return   Boolean.FALSE;
+        }
     }
 
 

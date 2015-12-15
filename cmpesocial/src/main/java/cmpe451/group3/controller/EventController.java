@@ -72,6 +72,12 @@ public class EventController {
         	post.put("comments", comments);
         }
         
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	String mail = auth.getName();
+    	long userid = eventModel.getIdFromMail(mail);
+    	boolean going = eventModel.isGoingToEvent(userid, id);
+    	
+        model.put("going", going);
         model.put("event", event);
         model.put("participants", participants);
         model.put("posts", posts);

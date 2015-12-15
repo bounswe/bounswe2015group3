@@ -178,18 +178,23 @@
 								href="#">Speaker</a><a href="#">Conference</a>
 						</div>
 						<!-- Tag goruntuleme bitti-->
-
-						<div class="widget clearfix">
-							<a href="${contextPath}/event/join?id=${event.id}"
-								class="btn btn-success btn-full"> <i class="icon fa fa-plus">
-							</i> Join Event
-							</a>
-						</div>
-						<div class="widget clearfix">
-							<a href="${contextPath}/event/leave?id=${event.id}"
-								class="btn btn-danger btn-full"><i
-								class="icon fa fa-sign-out"> </i> Leave Event</a>
-						</div>
+						<c:choose>
+						<c:when test="${going == false}">
+							<div class="widget clearfix">
+								<a href="${contextPath}/event/join?id=${event.id}"
+									class="btn btn-success btn-full"> <i class="icon fa fa-plus">
+								</i> Join Event
+								</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="widget clearfix">
+								<a href="${contextPath}/event/leave?id=${event.id}"
+									class="btn btn-danger btn-full"><i
+									class="icon fa fa-sign-out"> </i> Leave Event</a>
+							</div>
+						</c:otherwise>
+						</c:choose>
 						<div class="widget">
 							<h3 class="title">Organizer</h3>
 							<div class="top-ppost">
