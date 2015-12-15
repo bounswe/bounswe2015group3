@@ -72,6 +72,12 @@ public class GroupController {
         	post.put("comments", comments);
         }
         
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	String mail = auth.getName();
+    	long userid = groupDAO.getIdFromMail(mail);
+    	boolean isMember = groupDAO.isMemberOfGroup(userid, id);
+        
+    	model.put("isMember", isMember);
         model.put("group", group);
         model.put("members", members);
         model.put("posts",posts);
