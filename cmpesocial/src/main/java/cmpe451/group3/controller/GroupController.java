@@ -76,7 +76,10 @@ public class GroupController {
     	String mail = auth.getName();
     	long userid = groupDAO.getIdFromMail(mail);
     	boolean isMember = groupDAO.isMemberOfGroup(userid, id);
-        
+    	boolean isOwner = false;
+    	if((int)userid == (int)group.get("id_admin")){
+    		isOwner = true;
+    	}
     	model.put("isMember", isMember);
         model.put("group", group);
         model.put("members", members);
