@@ -148,17 +148,23 @@
 				<!-- col-md-3 -->
 				<div class="col-md-4">
 					<aside id="aside" class="aside-bar-style-two clearfix">
-						<div class="widget clearfix">
-							<a href="${contextPath}/group/join?id=${group.id}"
-								class="btn btn-success btn-full"> <i class="icon fa fa-plus">
-							</i> Join Group
-							</a>
-						</div>
-						<div class="widget clearfix">
-							<a href="${contextPath}/group/leave?id=${group.id}"
-								class="btn btn-danger btn-full"><i
-								class="icon fa fa-sign-out"> </i> Leave Group</a>
-						</div>
+						<c:choose>
+						<c:when test="${isMember == false}">
+							<div class="widget clearfix">
+								<a href="${contextPath}/group/join?id=${group.id}"
+									class="btn btn-success btn-full"> <i class="icon fa fa-plus">
+								</i> Join Group
+								</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="widget clearfix">
+								<a href="${contextPath}/group/leave?id=${group.id}"
+									class="btn btn-danger btn-full"><i
+									class="icon fa fa-sign-out"> </i> Leave Group</a>
+							</div>
+						</c:otherwise>
+						</c:choose>
 					</aside>
 					<br />
 					<aside id="aside" class="aside-bar-style-two clearfix">

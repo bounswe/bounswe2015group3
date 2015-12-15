@@ -108,10 +108,10 @@ public class GroupDAO {
        List<Map<String,Object>> membership = this.jdbcTemplate.queryForList(sql,id_user, id_group);
 
 
-        if (membership.isEmpty())
-            return   Boolean.FALSE;
-        else
+        if (!membership.isEmpty() && (int)membership.get(0).get("status") == 1)
             return   Boolean.TRUE;
+        else
+            return   Boolean.FALSE;
 
     }
 
