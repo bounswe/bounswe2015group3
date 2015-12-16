@@ -18,6 +18,8 @@ public class EventBaseModel {
     public String location;
     public String description;
     public String type;
+    public Long id_group;
+    public String url;
 
 
     public EventBaseModel mapModel(Map<String, Object> event)
@@ -34,7 +36,8 @@ public class EventBaseModel {
         eventModel.location = event.get("location").toString();
         eventModel.description = event.get("description").toString();
         eventModel.type = event.get("type").toString();
-
+        eventModel.id_group = Long.parseLong(event.get("id_group").toString());
+        eventModel.url = event.get("url").toString();
         return eventModel;
 
     }

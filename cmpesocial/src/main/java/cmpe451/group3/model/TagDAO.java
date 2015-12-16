@@ -56,6 +56,35 @@ public class TagDAO {
 
     }
 
+/*
+
+SELECT event.*
+FROM event,tag_event
+WHERE tag_event.id_event = event.id
+AND tag_event.tag = "donut"
+AND event.date > NOW()
+AND NOT EXISTS
+    ( SELECT user_event.*
+        FROM user_event
+         WHERE user_event.id_user = 1 AND user_event.id_event = event.id )
+
+ */
+    public List<Map<String,Object>> getTaggedFromEventsNotJoinedUpdate(String tag, long id_user){
+        String sql = "SELECT event.* FROM event, tag_event " +
+                "WHERE event.id = tag_event.id_event AND tag_event.tag = ?  AND event.date > NOW() AND NOT EXISTS (" +
+                " SELECT user_event.* FROM user_event WHERE user_event.id_user = ? AND user_event.id_event = event.id)";
+        return this.jdbcTemplate.queryForList(sql,tag,id_user);
+
+    }
+
+    public List<Map<String,Object>> getTaggedFromGroupsNotMembership(String tag, long id_user){
+        String sql = "SELECT `group`.* FROM `group`, tag_group " +
+                "WHERE `group`.id = tag_group.id_group AND tag_group.tag = ?  AND NOT EXISTS (" +
+                " SELECT user_group.* FROM user_group WHERE user_group.id_user = ? AND user_group.id_group = `group`.id)";
+        return this.jdbcTemplate.queryForList(sql,tag,id_user);
+    }
+
+
     public List<Map<String,Object>> getTaggedFromGroups(String tag){
         String sql = "SELECT `group`.* FROM `group`, tag_group WHERE `group`.id = tag_group.id_group AND tag_group.tag = ? ";
         return  this.jdbcTemplate.queryForList(sql,tag);

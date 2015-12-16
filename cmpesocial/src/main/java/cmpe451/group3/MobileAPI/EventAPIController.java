@@ -74,7 +74,7 @@ public class EventAPIController {
     public String createEvent(@RequestBody EventCreateRequestModel eventCreateRequestModel) {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
-        eventModel.createEvent(eventCreateRequestModel.name, eventCreateRequestModel.date,eventCreateRequestModel.end_date,eventCreateRequestModel.periodic, eventCreateRequestModel.id_user, eventCreateRequestModel.location, eventCreateRequestModel.description,eventCreateRequestModel.type);
+        eventModel.createEvent(eventCreateRequestModel.name, eventCreateRequestModel.date,eventCreateRequestModel.end_date,eventCreateRequestModel.periodic, eventCreateRequestModel.id_user, eventCreateRequestModel.location, eventCreateRequestModel.description,eventCreateRequestModel.type, eventCreateRequestModel.id_group,eventCreateRequestModel.url);
         result.put("Result", "SUCCESS");
         result.put("event", eventModel.getEventForName(eventCreateRequestModel.name));
 
@@ -167,7 +167,7 @@ public class EventAPIController {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        eventModel.updateEvent(eventBaseModel.id, eventBaseModel.name, eventBaseModel.date,eventBaseModel.end_date,eventBaseModel.periodic ,eventBaseModel.id_user, eventBaseModel.location, eventBaseModel.description,eventBaseModel.type);
+        eventModel.updateEvent(eventBaseModel.id, eventBaseModel.name, eventBaseModel.date,eventBaseModel.end_date,eventBaseModel.periodic ,eventBaseModel.id_user, eventBaseModel.location, eventBaseModel.description,eventBaseModel.type,eventBaseModel.id_group,eventBaseModel.url);
         result.put("Result","SUCCESS");
 
         return gson.toJson(result);
@@ -353,7 +353,7 @@ public class EventAPIController {
     {
         Gson gson = new Gson();
         Map<String,Object> result = new HashMap<>();
-        result.put("groups", tagDAO.getTaggedFromEvents(tagModel.tag));
+        result.put("events", tagDAO.getTaggedFromEvents(tagModel.tag));
         result.put("Result","Success");
         return  gson.toJson(result);
     }

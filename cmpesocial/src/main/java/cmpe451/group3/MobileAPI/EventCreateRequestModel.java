@@ -15,6 +15,8 @@ public class EventCreateRequestModel {
     public String location;
     public String description;
     public String type;
+    public String url;
+    public long id_group;
 
 
 }

@@ -54,16 +54,22 @@ public class EventModel {
     }
 
 
-    public void createEvent(String name, String date,String end_date,int periodic, long userid, String location, String description,String type) {
-        String sql = "INSERT INTO event(name, date,end_date,periodic, id_user, location, description,type) VALUES(?, ?, ?, ?, ?, ?, ?,?)";
+    public void createEvent(String name, String date,String end_date,int periodic, long userid, String location, String description,String type, Long id_group, String url) {
+        String sql = "INSERT INTO event(name, date,end_date,periodic, id_user, location, description,type,id_group,url) VALUES(?, ?, ?, ?, ?, ?, ?,?,?,?)";
         
-        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description,type);
+        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description,type,id_group,url);
     }
 
-    public void updateEvent(Long id, String name, String date,String end_date,int periodic, long userid, String location, String description, String type) {
-        String sql = "UPDATE event SET name = ?, date = ?,end_date = ?,periodic = ? , id_user = ?, location = ?, description = ?, type = ? WHERE id = ?";
+    public void updateEvent(Long id, String name, String date,String end_date,int periodic, long userid, String location, String description, String type, Long id_group, String url) {
+        String sql = "UPDATE event SET name = ?, date = ?,end_date = ?,periodic = ? , id_user = ?, location = ?, description = ?, type = ?, id_group= ? , url = ? WHERE id = ?";
 
-        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description ,type,id);
+        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description ,type,id_group,url,id);
+    }
+
+    public List<Map<String,Object>> getEventsOfGroup(long id_group)
+    {
+        String sql = "SELECT event.* FROM event WHERE event.id_group = ?";
+       return this.jdbcTemplate.queryForList(sql,id_group);
     }
 
     public void deleteEvent(Long id) {
