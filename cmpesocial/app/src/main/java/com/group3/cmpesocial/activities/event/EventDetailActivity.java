@@ -452,10 +452,10 @@ public class EventDetailActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                                 if (isChecked) {
                                     // If the user checked the item, add it to the selected items
-                                    allowedRoles.add(which);
-                                } else if (allowedRoles.contains(which)) {
+                                    allowedRoles.add(which+1);
+                                } else if (allowedRoles.contains(which+1)) {
                                     // Else, if the item is already in the array, remove it
-                                    allowedRoles.remove(Integer.valueOf(which));
+                                    allowedRoles.remove(Integer.valueOf(which+1));
                                 }
                             }
                         })
@@ -565,9 +565,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
-            }
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
 
             Post mPost = getItem(position);
 

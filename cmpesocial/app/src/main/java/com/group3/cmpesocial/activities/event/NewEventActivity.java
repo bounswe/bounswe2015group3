@@ -210,10 +210,10 @@ public class NewEventActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                                 if (isChecked) {
                                     // If the user checked the item, add it to the selected items
-                                    allowedRoles.add(which);
-                                } else if (allowedRoles.contains(which)) {
+                                    allowedRoles.add(which+1);
+                                } else if (allowedRoles.contains(which+1)) {
                                     // Else, if the item is already in the array, remove it
-                                    allowedRoles.remove(Integer.valueOf(which));
+                                    allowedRoles.remove(Integer.valueOf(which+1));
                                 }
                             }
                         })
