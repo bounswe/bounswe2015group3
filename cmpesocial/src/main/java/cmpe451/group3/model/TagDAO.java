@@ -31,7 +31,7 @@ public class TagDAO {
     }
 
     public void addTagToEvent(long id_event,String tag){
-        String sql = "INSERT INTO tag_event(id_event,tag) VALUES(?,?)";
+        String sql = "INSERT INTO tag_event(id_event,tag) VALUES(?,? )";
         this.jdbcTemplate.update(sql,id_event,tag);
     }
     public void addTagToGroup(long id_group,String tag){
@@ -101,7 +101,7 @@ AND NOT EXISTS
     }
 
     public void addTagToUser(long id_user,String tag){
-        String sql = "INSERT INTO tag_user(id_user,tag) VALUES(?,?)";
+        String sql = "INSERT INTO tag_user(id_user,tag,hidden) VALUES(?,?,FALSE )";
         this.jdbcTemplate.update(sql,id_user,tag);
     }
     public void deleteTagFromUser(long id_user,String tag){
@@ -116,10 +116,16 @@ AND NOT EXISTS
 
     }
     public List<Map<String,Object>> getTagsForUser(long id_user){
-        String sql = "SELECT * FROM tag_user WHERE tag_user.id_user = ?";
+        String sql = "SELECT tag_user.id_user,tag_user.tag FROM tag_user WHERE tag_user.id_user = ? AND tag_user.hidden = FALSE";
         return  this.jdbcTemplate.queryForList(sql,id_user);
     }
 
+    public List<Map<String,Object>> getTagsForUserWithHidden(long id_user)
+    {
 
+        String sql = "SELECT * FROM tag_user WHERE tag_user.id_user = ?";
+        return  this.jdbcTemplate.queryForList(sql,id_user);
+
+    }
 
 }

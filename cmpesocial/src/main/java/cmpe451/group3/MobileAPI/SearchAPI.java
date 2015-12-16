@@ -71,7 +71,7 @@ public class SearchAPI {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        List<Map<String,Object>> tagsOfUser = tagDAO.getTagsForUser(idModel.id);
+        List<Map<String,Object>> tagsOfUser = tagDAO.getTagsForUserWithHidden(idModel.id);
 
         List<List<Map<String ,Object>>> listOfListofEvents  = new ArrayList<>();
 
@@ -118,7 +118,7 @@ public class SearchAPI {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        List<Map<String,Object>> tagsOfUser = tagDAO.getTagsForUser(idModel.id);
+        List<Map<String,Object>> tagsOfUser = tagDAO.getTagsForUserWithHidden(idModel.id);
 
         List<List<Map<String ,Object>>> listOfListofEvents  = new ArrayList<>();
 

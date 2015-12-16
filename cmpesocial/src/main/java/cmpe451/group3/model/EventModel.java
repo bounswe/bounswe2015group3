@@ -80,6 +80,9 @@ public class EventModel {
     public void joinEvent(Long userid, Long eventid) {
         String sql = "INSERT INTO user_event(id_user,id_event,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = 1";
         this.jdbcTemplate.update(sql, userid, eventid, 1);
+
+        addTagFromEventToUser(userid,eventid);
+
     }
 
     public void leaveEvent(Long id_user, Long id_event){
@@ -222,5 +225,20 @@ public class EventModel {
         }
     }
 
+
+
+    public void addTagFromEventToUser(long id_user,long id_event)
+    {
+        String sql = "SELECT tag_event.tag FROM tag_event WHERE tag_event.id_event = ?";
+        List<Map<String,Object>> tag_list = this.jdbcTemplate.queryForList(sql, id_event);
+
+        for (Map<String,Object> tag_map :tag_list)
+        {
+            String tag = tag_map.get("tag").toString();
+            String sqlUser = "INSERT INTO tag_user(id_user,tag,hidden) VALUES(?,?,TRUE)";
+            this.jdbcTemplate.update(sqlUser,id_user,tag);
+        }
+
+    }
 
 }
