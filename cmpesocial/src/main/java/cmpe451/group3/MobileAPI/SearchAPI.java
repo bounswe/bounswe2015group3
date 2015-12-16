@@ -200,4 +200,89 @@ public class SearchAPI {
         return target;
     }
 
+    //get groups
+    public List<Map<String,Object>> getRecommendGroups(long id_user) {
+
+
+
+        List<Map<String,Object>> tagsOfUser = tagDAO.getTagsForUserWithHidden(id_user);
+
+        List<List<Map<String ,Object>>> listOfListofEvents  = new ArrayList<>();
+
+        for (Map<String,Object> tagmap : tagsOfUser)
+        {
+            listOfListofEvents.add(tagDAO.getTaggedFromGroupsNotMembership(tagmap.get("tag").toString(),id_user));
+        }
+
+        Map<Long,Integer> weightList = new HashMap<>();
+
+        for(List<Map<String,Object>> list : listOfListofEvents)
+            for(Map<String,Object> map : list)
+            {
+                Long id_event = Long.parseLong(map.get("id").toString());
+                if ( weightList.get(id_event) != null){
+                    Integer weight = weightList.get(id_event);
+                    weight++;
+                    weightList.put(id_event,weight);
+                }else
+                {
+                    weightList.put(id_event,1);
+                }
+            }
+        weightList = sortByComparator(weightList);
+        weightList = putFirstEntries(5, weightList);
+        List<Map<String,Object>> groups = new ArrayList<>();
+        for(Long id :  weightList.keySet())
+        {
+            groups.add(groupDAO.getGroup(id));
+        }
+
+        return groups;
+    }
+
+    //recommended events
+    public List<Map<String,Object>> getRecommendEvents(long id_user) {
+
+
+        List<Map<String,Object>> tagsOfUser = tagDAO.getTagsForUserWithHidden(id_user);
+
+        List<List<Map<String ,Object>>> listOfListofEvents  = new ArrayList<>();
+
+        for (Map<String,Object> tagmap : tagsOfUser)
+        {
+            listOfListofEvents.add(tagDAO.getTaggedFromEventsNotJoinedUpdate(tagmap.get("tag").toString(),id_user));
+        }
+
+        Map<Long,Integer> weightList = new HashMap<>();
+
+        for(List<Map<String,Object>> list : listOfListofEvents)
+            for(Map<String,Object> map : list)
+            {
+                Long id_event = Long.parseLong(map.get("id").toString());
+                if ( weightList.get(id_event) != null){
+
+                    Integer weight = weightList.get(id_event);
+                    weight++;
+                    weightList.put(id_event,weight);
+
+                }else
+                {
+                    weightList.put(id_event,1);
+
+                }
+
+            }
+        weightList = sortByComparator(weightList);
+        weightList = putFirstEntries(5, weightList);
+        List<Map<String,Object>> events = new ArrayList<>();
+        for(Long id :  weightList.keySet())
+        {
+            events.add(eventModel.getEvent(id));
+        }
+
+        return events;
+    }
+
+
+
 }
