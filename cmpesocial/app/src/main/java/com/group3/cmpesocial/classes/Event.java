@@ -25,6 +25,8 @@ public class Event {
     private String description;
     private ArrayList<Integer> type;
     private boolean hasJoined;
+    private String url;
+    private int id_group;
 
     public Event() {
         startDate = new int[3];
@@ -48,6 +50,8 @@ public class Event {
         String types = json.get("type").getAsString();
         String[] type_array = types.split(",");
         boolean joined = json.get("hasJoined").getAsBoolean();
+        String url = json.get("url").getAsString();
+        int id_group = json.get("id_group").getAsInt();
 
         String start_date = start_date_year_hour.substring(0, start_date_year_hour.indexOf(','));
         String start_month_name = start_date.substring(0, 3).trim();
@@ -85,6 +89,8 @@ public class Event {
         } else {
             type.add(0);
         }
+        this.url = url;
+        this.id_group = id_group;
     }
 
     public Event(JsonObject json, boolean hasJoined) {
@@ -264,6 +270,26 @@ public class Event {
 
     public void setType(ArrayList<Integer> type) {
         this.type = type;
+    }
+
+    public boolean isHasJoined() {
+        return hasJoined;
+    }
+
+    public int getId_group() {
+        return id_group;
+    }
+
+    public void setId_group(int id_group) {
+        this.id_group = id_group;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getStartDateString() {

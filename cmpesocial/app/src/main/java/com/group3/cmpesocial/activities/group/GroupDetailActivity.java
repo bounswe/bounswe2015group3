@@ -17,7 +17,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.group3.cmpesocial.API;
+import com.group3.cmpesocial.API.GroupAPI;
+import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.activities.event.NewEventActivity;
 import com.group3.cmpesocial.adapters.UserAdapter;
@@ -94,12 +95,12 @@ public class GroupDetailActivity extends AppCompatActivity {
 
         JsonObject userJson = new JsonObject();
         userJson.addProperty("id", user_id);
-        mUser = API.getUser(userJson, this);
+        mUser = UserAPI.getUser(userJson, this);
 
         JsonObject json = new JsonObject();
         json.addProperty("id_group", id);
         json.addProperty("id_user", user_id);
-        mGroup = API.getGroup(json, getApplicationContext());
+        mGroup = GroupAPI.getGroup(json, getApplicationContext());
         if (mGroup == null)
             return;
         if (mGroup.isMember()){
@@ -112,7 +113,7 @@ public class GroupDetailActivity extends AppCompatActivity {
 
         JsonObject tagsJson = new JsonObject();
         tagsJson.addProperty("id", id);
-        tags = API.getGroupTags(tagsJson, this);
+        tags = GroupAPI.getGroupTags(tagsJson, this);
         Iterator iterator = tags.iterator();
         String tagsString = "";
         while (iterator.hasNext())
@@ -133,7 +134,7 @@ public class GroupDetailActivity extends AppCompatActivity {
 
         JsonObject membersJson = new JsonObject();
         membersJson.addProperty("id", id);
-        ArrayList<User> members = API.getGroupMembers(membersJson, this);
+        ArrayList<User> members = GroupAPI.getGroupMembers(membersJson, this);
         if (members == null)
             members = new ArrayList<>();
 
@@ -170,13 +171,13 @@ public class GroupDetailActivity extends AppCompatActivity {
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
 
-        int result = API.deleteGroup(json, getApplicationContext());
-        if (result == API.ERROR){
+        int result = GroupAPI.deleteGroup(json, getApplicationContext());
+        if (result == GroupAPI.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-        }else if (result == API.SUCCESS){
+        }else if (result == GroupAPI.SUCCESS){
             Log.i(TAG, "event deleted");
             finish();
-        }else if (result == API.RESULT_EMPTY){
+        }else if (result == GroupAPI.RESULT_EMPTY){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
@@ -231,12 +232,12 @@ public class GroupDetailActivity extends AppCompatActivity {
 
         Log.i(TAG, json.toString());
 
-        int result = API.updateGroup(json, this);
-        if (result == API.ERROR){
+        int result = GroupAPI.updateGroup(json, this);
+        if (result == GroupAPI.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-        }else if (result == API.SUCCESS){
+        }else if (result == GroupAPI.SUCCESS){
             Log.i(TAG, "event updated");
-        }else if (result == API.RESULT_EMPTY){
+        }else if (result == GroupAPI.RESULT_EMPTY){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
 
@@ -248,13 +249,13 @@ public class GroupDetailActivity extends AppCompatActivity {
         json.addProperty("id_user", user_id);
         json.addProperty("id_group", id);
 
-        int result = API.joinGroup(json, this);
-        if (result == API.SUCCESS) {
+        int result = GroupAPI.joinGroup(json, this);
+        if (result == GroupAPI.SUCCESS) {
             Toast.makeText(this, "joined group", Toast.LENGTH_SHORT).show();
             userAdapter.add(mUser);
             joinButton.setVisibility(View.GONE);
             leaveButton.setVisibility(View.VISIBLE);
-        }else if (result == API.NO_ACCESS){
+        }else if (result == GroupAPI.NO_ACCESS){
             Toast.makeText(this, "You cannot join this event unless you are invited.", Toast.LENGTH_SHORT).show();
         }
     }
@@ -264,13 +265,13 @@ public class GroupDetailActivity extends AppCompatActivity {
         json.addProperty("id_user", user_id);
         json.addProperty("id_group", id);
 
-        int result = API.leaveGroup(json, this);
-        if (result == API.SUCCESS) {
+        int result = GroupAPI.leaveGroup(json, this);
+        if (result == GroupAPI.SUCCESS) {
             Toast.makeText(this, "left group", Toast.LENGTH_SHORT).show();
             userAdapter.remove(mUser);
             joinButton.setVisibility(View.VISIBLE);
             leaveButton.setVisibility(View.GONE);
-        }else if (result == API.NO_ACCESS){
+        }else if (result == GroupAPI.NO_ACCESS){
             Toast.makeText(this, "You cannot join this event unless you are invited.", Toast.LENGTH_SHORT).show();
         }
     }
@@ -326,7 +327,7 @@ public class GroupDetailActivity extends AppCompatActivity {
             JsonObject json = new JsonObject();
             json.addProperty("id_group", id);
             json.addProperty("tag", tag);
-            API.deleteGroupTag(json, this);
+            GroupAPI.deleteGroupTag(json, this);
         }
         if (!tagsString.equals("")){
             String[] tagsArray = tagsString.split(" ");
@@ -335,7 +336,7 @@ public class GroupDetailActivity extends AppCompatActivity {
                     JsonObject json = new JsonObject();
                     json.addProperty("id_group", id);
                     json.addProperty("tag", tagsArray[i]);
-                    API.addGroupTag(json, this);
+                    GroupAPI.addGroupTag(json, this);
                 }
             }
         }

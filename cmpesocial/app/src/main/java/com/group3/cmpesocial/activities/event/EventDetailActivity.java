@@ -34,7 +34,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.group3.cmpesocial.API;
+import com.group3.cmpesocial.API.EventAPI;
+import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.adapters.UserAdapter;
 import com.group3.cmpesocial.classes.Event;
@@ -160,13 +161,13 @@ public class EventDetailActivity extends AppCompatActivity {
 
         JsonObject userJson = new JsonObject();
         userJson.addProperty("id", user_id);
-        mUser = API.getUser(userJson, this);
+        mUser = UserAPI.getUser(userJson, this);
 
         JsonObject json = new JsonObject();
         json.addProperty("id_event", id);
         json.addProperty("id_user", user_id);
-        mEvent = API.getEvent(json, getApplicationContext());
-        ArrayList<User> participants = API.getEventParticipants(json, getApplicationContext());
+        mEvent = EventAPI.getEvent(json, getApplicationContext());
+        ArrayList<User> participants = EventAPI.getEventParticipants(json, getApplicationContext());
         if(mEvent.getHasJoined()){
             joinButton.setVisibility(View.GONE);
             leaveButton.setVisibility(View.VISIBLE);
@@ -178,7 +179,7 @@ public class EventDetailActivity extends AppCompatActivity {
         JsonObject tagsJson = new JsonObject();
         tagsJson.addProperty("id", id);
         Log.d(TAG, "tagsJson " + tagsJson.toString());
-        tags = API.getEventTags(tagsJson, this);
+        tags = EventAPI.getEventTags(tagsJson, this);
         Iterator iterator = tags.iterator();
         String tagsString = "";
         while (iterator.hasNext())
@@ -267,7 +268,7 @@ public class EventDetailActivity extends AppCompatActivity {
         json2.addProperty("id", id);
         //json2.addProperty("id_user", user_id);
         //API.getEvent(json2, getApplicationContext());
-        ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+        ArrayList<Post> posts = EventAPI.getAllEventPosts(json2, getApplicationContext());
 //        System.out.println(posts.get(0).getPost());
         Collections.reverse(posts);
         adapterPost = new PostAdapter(this,posts);
@@ -297,13 +298,13 @@ public class EventDetailActivity extends AppCompatActivity {
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
 
-        int result = API.deleteEvent(json, getApplicationContext());
-        if (result == API.ERROR){
+        int result = EventAPI.deleteEvent(json, getApplicationContext());
+        if (result == EventAPI.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-        }else if (result == API.SUCCESS){
+        }else if (result == EventAPI.SUCCESS){
             Log.i(TAG, "event deleted");
             finish();
-        }else if (result == API.RESULT_EMPTY){
+        }else if (result == EventAPI.RESULT_EMPTY){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
@@ -327,7 +328,6 @@ public class EventDetailActivity extends AppCompatActivity {
         startTimeEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("API start time", mEvent.getStartTime()[0] + ":" + mEvent.getStartTime()[1]);
                 pickTime(v, mEvent.getStartTime(), true);
             }
         });
@@ -342,7 +342,6 @@ public class EventDetailActivity extends AppCompatActivity {
         endTimeEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("API end time", mEvent.getEndTime()[0] + ":" + mEvent.getEndTime()[1]);
                 pickTime(v, mEvent.getEndTime(), false);
             }
         });
@@ -387,15 +386,17 @@ public class EventDetailActivity extends AppCompatActivity {
         json.addProperty("location", location);
         json.addProperty("description", description);
         json.addProperty("type", type);
+        json.addProperty("url", mEvent.getUrl());
+        json.addProperty("id_group", mEvent.getId_group());
 
         Log.i(TAG, json.toString());
 
-        int result = API.updateEvent(json, this);
-        if (result == API.ERROR){
+        int result = EventAPI.updateEvent(json, this);
+        if (result == EventAPI.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-        }else if (result == API.SUCCESS){
+        }else if (result == EventAPI.SUCCESS){
             Log.i(TAG, "event updated");
-        }else if (result == API.RESULT_EMPTY){
+        }else if (result == EventAPI.RESULT_EMPTY){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
 
@@ -406,15 +407,15 @@ public class EventDetailActivity extends AppCompatActivity {
         JsonObject json = new JsonObject();
         json.addProperty("id_user", user_id);
         json.addProperty("id_event", id);
-        int result = API.joinEvent(json, this);
+        int result = EventAPI.joinEvent(json, this);
         Log.i(TAG, ""+result);
-        if (result == API.SUCCESS) {
+        if (result == EventAPI.SUCCESS) {
             Toast.makeText(this, "joined event", Toast.LENGTH_SHORT).show();
             adapter.add(mUser);
             joinButton.setVisibility(View.GONE);
             leaveButton.setVisibility(View.VISIBLE);
-        }else if (result == API.NO_ACCESS){
-            Toast.makeText(this, "You cannot join this event unless you are invited.", Toast.LENGTH_SHORT).show();
+        }else if (result == EventAPI.NO_ACCESS){
+            Toast.makeText(this, "You cannot join this event.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -422,9 +423,9 @@ public class EventDetailActivity extends AppCompatActivity {
         JsonObject json = new JsonObject();
         json.addProperty("id_user", user_id);
         json.addProperty("id_event", id);
-        int result = API.leaveEvent(json, this);
+        int result = EventAPI.leaveEvent(json, this);
         Log.i(TAG, ""+result);
-        if (result == API.SUCCESS) {
+        if (result == EventAPI.SUCCESS) {
             Toast.makeText(this, "left event", Toast.LENGTH_SHORT).show();
             adapter.add(mUser);
             joinButton.setVisibility(View.VISIBLE);
@@ -541,7 +542,7 @@ public class EventDetailActivity extends AppCompatActivity {
             json.addProperty("id_event", id);
             json.addProperty("tag", tag);
             Log.i(TAG, "delete event tag " + json.toString());
-            API.deleteEventTag(json, this);
+            EventAPI.deleteEventTag(json, this);
         }
         if (!tagsString.equals("")){
             String[] tagsArray = tagsString.split(" ");
@@ -550,7 +551,7 @@ public class EventDetailActivity extends AppCompatActivity {
                     JsonObject json = new JsonObject();
                     json.addProperty("id_event", id);
                     json.addProperty("tag", tagsArray[i]);
-                    API.addEventTag(json, this);
+                    EventAPI.addEventTag(json, this);
                 }
             }
         }
@@ -589,7 +590,7 @@ public class EventDetailActivity extends AppCompatActivity {
             //b.setTag(position);
             JsonObject json = new JsonObject();
             json.addProperty("id", userIDTemp);
-            User userTemp = API.getUser(json, getContext());
+            User userTemp = UserAPI.getUser(json, getContext());
             String userNameTemp = userTemp.getName();
             String userSurnameTemp = userTemp.getSurname();
             String nameTemp = " - " + userNameTemp + " " + userSurnameTemp;
@@ -625,7 +626,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
                 JsonObject json = new JsonObject();
                 json.addProperty("id", id_post);
-                API.deleteEventPost(json, getContext());
+                EventAPI.deleteEventPost(json, getContext());
 
 
                 JsonObject json2 = new JsonObject();
@@ -633,7 +634,7 @@ public class EventDetailActivity extends AppCompatActivity {
                 json2.addProperty("id", id);
                 //API.getEvent(json2, getContext());
 
-                ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+                ArrayList<Post> posts = EventAPI.getAllEventPosts(json2, getApplicationContext());
 
                 //Log.i(TAG, json2.toString());
                 Collections.reverse(posts);
@@ -680,13 +681,13 @@ public class EventDetailActivity extends AppCompatActivity {
                         json.addProperty("id_event", p.getEventID());
                         json.addProperty("content", input.getText().toString());
                         json.addProperty("content_url", p.getContentURL());
-                        API.updateEventPost(json, getContext());
+                        EventAPI.updateEventPost(json, getContext());
                         //API.deleteEventPost(json, getContext());
                         JsonObject json2 = new JsonObject();
                         json2.addProperty("id", p.getEventID());
                         //json2.addProperty("id_user", user_id);
                         //API.getEvent(json2, getContext());
-                        ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+                        ArrayList<Post> posts = EventAPI.getAllEventPosts(json2, getApplicationContext());
                         Collections.reverse(posts);
                         adapterPost.clear();
                         adapterPost.addAll(posts);
@@ -734,7 +735,7 @@ public class EventDetailActivity extends AppCompatActivity {
                         json.addProperty("content", "Bu da bir comment işte.");
                         //json.addProperty("content_url", p.getContentURL());
                         System.out.println(json.toString());
-                        API.createEventComment(json, getApplicationContext());
+                        EventAPI.createEventComment(json, getApplicationContext());
                         /*API.updateEventPost(json, getContext());
                         //API.deleteEventPost(json, getContext());
                         JsonObject json2 = new JsonObject();
@@ -881,7 +882,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
         Log.i(TAG, json.toString());
 
-        API.createEventPost(json, this);
+        EventAPI.createEventPost(json, this);
 
         JsonObject json2 = new JsonObject();
         json2.addProperty("id", id_event);
@@ -889,7 +890,7 @@ public class EventDetailActivity extends AppCompatActivity {
         //API.getEvent(json2, this);
 
 
-        ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+        ArrayList<Post> posts = EventAPI.getAllEventPosts(json2, getApplicationContext());
 
         Log.i(TAG, json2.toString());
         Collections.reverse(posts);

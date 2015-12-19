@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.group3.cmpesocial.API;
+import com.group3.cmpesocial.API.GroupAPI;
 import com.group3.cmpesocial.R;
 
 import java.util.ArrayList;
@@ -78,13 +78,13 @@ public class NewGroupActivity extends AppCompatActivity {
         if (tagsEditText.getText() != null && !tagsEditText.getText().toString().trim().equals("")){
             tags = tagsEditText.getText().toString().trim();
         }
-        int result = API.createGroup(json, this, tags);
-        if (result == API.ERROR){
+        int result = GroupAPI.createGroup(json, this, tags);
+        if (result == GroupAPI.ERROR){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-        }else if (result == API.SUCCESS){
+        }else if (result == GroupAPI.SUCCESS){
             Log.i(TAG, "group created");
             finish();
-        }else if (result == API.RESULT_EMPTY){
+        }else if (result == GroupAPI.RESULT_EMPTY){
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
     }

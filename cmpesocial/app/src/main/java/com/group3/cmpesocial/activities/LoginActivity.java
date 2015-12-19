@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.group3.cmpesocial.API;
+import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -54,18 +54,18 @@ public class LoginActivity extends AppCompatActivity {
 
         Log.i(TAG, json.toString());
 
-        int result = API.login(json, getApplicationContext());
+        int result = UserAPI.login(json, getApplicationContext());
 
-        if (result == API.ERROR){
+        if (result == UserAPI.ERROR){
             Toast.makeText(getApplicationContext(), "an error occured, please try again", Toast.LENGTH_SHORT).show();
-        }else if (result == API.SUCCESS){
+        }else if (result == UserAPI.SUCCESS){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        }else if (result == API.WRONG_PASSWORD){
+        }else if (result == UserAPI.WRONG_PASSWORD){
             Toast.makeText(getApplicationContext(), "wrong password", Toast.LENGTH_LONG).show();
             passwordEditText.setText("");
-        }else if (result == API.RESULT_EMPTY){
+        }else if (result == UserAPI.RESULT_EMPTY){
             emptyFields();
             Toast.makeText(getApplicationContext(), "result empty", Toast.LENGTH_LONG).show();
         }

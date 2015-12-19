@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.group3.cmpesocial.API;
+import com.group3.cmpesocial.API.GroupAPI;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.activities.group.GroupDetailActivity;
 import com.group3.cmpesocial.activities.group.NewGroupActivity;
@@ -94,7 +94,7 @@ public class GroupsFragment extends Fragment {
         Log.i(TAG, "refresh");
         groupsArray.clear();
         adapter.clear();
-        int result = API.allGroups(getContext(), adapter);
+        int result = GroupAPI.allGroups(getContext(), adapter);
         if(result == -1){
             Toast.makeText(getContext(), "something went wrong", Toast.LENGTH_SHORT).show();
         }

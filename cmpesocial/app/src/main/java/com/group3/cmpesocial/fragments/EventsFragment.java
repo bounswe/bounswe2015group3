@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.group3.cmpesocial.API;
+import com.group3.cmpesocial.API.EventAPI;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.activities.event.EventDetailActivity;
 import com.group3.cmpesocial.activities.event.NewEventActivity;
@@ -92,8 +92,8 @@ public class EventsFragment extends Fragment {
         Log.i(TAG, "refresh");
         eventsArray.clear();
         adapter.clear();
-        int result = API.allEvents(getContext(), adapter);
-        if(result == -1){
+        int result = EventAPI.allEvents(getContext(), adapter);
+        if(result != EventAPI.SUCCESS){
             Toast.makeText(getContext(), "something went wrong", Toast.LENGTH_SHORT).show();
         }
     }

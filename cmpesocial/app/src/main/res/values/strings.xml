@@ -10,4 +10,71 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_update_user">UpdateUserActivity</string>
+
+
+    <string name="baseURI">http://54.148.86.208:8080/cmpesocial/api/</string>
+
+    <!--User API-->
+    <string name="login">login</string>
+    <string name="signup">signup</string>
+    <string name="updateUser">updateUser</string>
+    <string name="getUser">getUser</string>
+    <string name="userAddTag">user/tag/add</string>
+    <string name="userDeleteTag">user/tag/delete</string>
+    <string name="getTaggedUsers">user/tag/getUsers</string>
+    <string name="getUserTags">user/tag/getTags</string>
+
+    <!--Event API-->
+    <string name="createEvent">events/create</string>
+    <string name="getAllEvents">events/all</string>
+    <string name="getMyEvents">events/viewByOwned</string>
+    <string name="getJoinedEvents">events/viewJoined</string>
+    <string name="getEvent">events/viewDetail</string>
+    <string name="updateEvent">events/update</string>
+    <string name="deleteEvent">events/delete</string>
+    <string name="getEventParticipants">events/getParticipants</string>
+    <string name="joinEvent">events/join</string>
+    <string name="leaveEvent">events/leave</string>
+    <string name="createEventPost">events/createPost</string>
+    <string name="updateEventPost">events/updatePost</string>
+    <string name="deleteEventPost">events/deletePost</string>
+    <string name="getAllEventPosts">events/getAllPosts</string>
+    <string name="createEventComment">events/createComment</string>
+    <string name="deleteEventComment">events/deleteComment</string>
+    <string name="updateEventComment">events/updateComment</string>
+    <string name="addEventTag">events/tag/add</string>
+    <string name="deleteEventTag">events/tag/delete</string>
+    <string name="getTaggedEvents">events/tag/getEvents</string>
+    <string name="getEventTags">events/tag/getTags</string>
+
+    <!--Group API-->
+    <string name="createGroup">groups/create</string>
+    <string name="getAllGroups">groups/all</string>
+    <string name="getGroup">groups/view</string>
+    <string name="getMyGroups">groups/viewOwned</string>
+    <string name="getJoinedGroups">groups/viewWithMembership</string>
+    <string name="updateGroup">groups/update</string>
+    <string name="deleteGroup">groups/delete</string>
+    <string name="getGroupMembers">groups/getMembers</string>
+    <string name="joinGroup">groups/join</string>
+    <string name="inviteToGroup">groups/invite</string>
+    <string name="createGroupPost">groups/createPost</string>
+    <string name="updateGroupPost">groups/updatePost</string>
+    <string name="deleteGroupPost">groups/deletePost</string>
+    <string name="getGroupPosts">groups/getPosts</string>
+    <string name="leaveGroup">groups/leave</string>
+    <string name="createGroupComment">groups/createComment</string>
+    <string name="updateGroupComment">groups/updateComment</string>
+    <string name="deleteGroupComment">groups/deleteComment</string>
+    <string name="addGroupTag">groups/tag/add</string>
+    <string name="deleteGroupTag">groups/tag/delete</string>
+    <string name="getTaggedGroups">groups/tag/getGroups</string>
+    <string name="getGroupTags">groups/tag/getTags</string>
+
+    <!--Search API-->
+    <string name="searchUsers">search/users</string>
+    <string name="searchEvents">search/events</string>
+    <string name="recommendedEvents">search/recommendEvents</string>
+    <string name="recommendedGroups">search/recommendGroups</string>
+
 </resources>

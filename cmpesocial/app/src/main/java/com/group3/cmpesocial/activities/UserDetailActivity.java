@@ -14,7 +14,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.group3.cmpesocial.API;
+import com.group3.cmpesocial.API.EventAPI;
+import com.group3.cmpesocial.API.GroupAPI;
+import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.activities.event.EventDetailActivity;
 import com.group3.cmpesocial.activities.group.GroupDetailActivity;
@@ -51,9 +53,9 @@ public class UserDetailActivity extends AppCompatActivity {
 
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
-        mUser = API.getUser(json, this);
-        events = API.getJoinedEvents(json, this);
-        groups = API.viewJoinedGroups(json, this);
+        mUser = UserAPI.getUser(json, this);
+        events = EventAPI.getJoinedEvents(json, this);
+        groups = GroupAPI.viewJoinedGroups(json, this);
 
         profileImageView = (ImageView) findViewById(R.id.profileImageView);
         nameTextView = (TextView) findViewById(R.id.nameTextView);

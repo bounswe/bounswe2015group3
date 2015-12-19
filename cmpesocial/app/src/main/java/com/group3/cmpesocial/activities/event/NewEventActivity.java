@@ -22,7 +22,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.group3.cmpesocial.API;
+import com.group3.cmpesocial.API.EventAPI;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.classes.Event;
 
@@ -52,6 +52,8 @@ public class NewEventActivity extends AppCompatActivity {
     private String new_end_time;
     private int periodic;
     private ArrayList<Integer> allowedRoles;
+    private String url = "";
+    private int id_group = 0;
 
     private int user_id;
 
@@ -177,6 +179,8 @@ public class NewEventActivity extends AppCompatActivity {
         json.addProperty("location", location);
         json.addProperty("description", description);
         json.addProperty("type", type);
+        json.addProperty("url", url);
+        json.addProperty("id_group", id_group);
 
         Log.i(TAG, json.toString());
 
@@ -184,13 +188,13 @@ public class NewEventActivity extends AppCompatActivity {
         if (tagsEditText.getText() != null && !tagsEditText.getText().toString().trim().equals("")){
             tags = tagsEditText.getText().toString().trim();
         }
-        int result = API.createEvent(json, this, tags);
-        if (result == API.ERROR) {
+        int result = EventAPI.createEvent(json, this, tags);
+        if (result == EventAPI.ERROR) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-        } else if (result == API.SUCCESS) {
+        } else if (result == EventAPI.SUCCESS) {
             Log.i(TAG, "event created");
             finish();
-        } else if (result == API.RESULT_EMPTY) {
+        } else if (result == EventAPI.RESULT_EMPTY) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
 

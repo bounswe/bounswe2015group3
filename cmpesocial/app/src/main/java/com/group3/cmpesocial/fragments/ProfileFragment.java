@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.group3.cmpesocial.API;
+import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
 
 
@@ -110,8 +110,7 @@ public class ProfileFragment extends Fragment {
                             json.addProperty("password", password);
                             json.addProperty("email", email);
                             json.addProperty("type", type);
-                            Log.i("API", json.toString());
-                            API.updateUser(json, getActivity());
+                            UserAPI.updateUser(json, getActivity());
                         }
                     }
                 });

@@ -11,7 +11,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
-import com.group3.cmpesocial.API;
+import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.classes.User;
 
@@ -95,12 +95,12 @@ public class SignupActivity extends AppCompatActivity {
 
         Log.i(TAG,json.toString());
 
-        int result = API.signup(json, getApplicationContext());
-        if(result == API.ERROR){
+        int result = UserAPI.signup(json, getApplicationContext());
+        if(result == UserAPI.ERROR){
             Toast.makeText(this, "something went wrong, try again", Toast.LENGTH_SHORT).show();
-        }else if (result == API.SUCCESS){
+        }else if (result == UserAPI.SUCCESS){
             Toast.makeText(getApplicationContext(), "Signup successful, please wait for your confirmation email", Toast.LENGTH_LONG).show();
-        }else if(result == API.RESULT_EMPTY){
+        }else if(result == UserAPI.RESULT_EMPTY){
             Log.i(TAG, "result empty");
             Toast.makeText(this, "something went wrong, try again", Toast.LENGTH_SHORT).show();
         }
