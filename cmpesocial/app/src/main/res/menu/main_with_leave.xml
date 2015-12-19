@@ -2,6 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/invite"
+        android:title="invite"
+        android:icon="@drawable/ic_person_add_white_24dp"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/leave"
+        android:title="Leave"
+        app:showAsAction="ifRoom"/>
+
     <!--<item-->
         <!--android:id="@+id/action_settings"-->
         <!--android:orderInCategory="100"-->

@@ -1,6 +1,8 @@
 package com.group3.cmpesocial.activities.group;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,13 +10,22 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API.GroupAPI;
 import com.group3.cmpesocial.R;
+import com.group3.cmpesocial.imgur.helpers.DocumentHelper;
+import com.group3.cmpesocial.imgur.imgurmodel.ImageResponse;
+import com.group3.cmpesocial.imgur.services.UploadService;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class NewGroupActivity extends AppCompatActivity {
 
@@ -25,9 +36,12 @@ public class NewGroupActivity extends AppCompatActivity {
     private EditText descriptionEditText;
 
     private Toolbar toolbar;
+    private ProgressBar progressBar;
 
     private int user_id;
     private ArrayList<Integer> allowedRoles;
+    private String url = "";
+    private File chosenFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +53,39 @@ public class NewGroupActivity extends AppCompatActivity {
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         tagsEditText = (EditText) findViewById(R.id.tagsEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
+        progressBar =(ProgressBar) findViewById(R.id.progressBar);
 
         toolbar  = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        url = "";
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Uri returnUri;
+
+        if (requestCode != 100) {
+            return;
+        }
+
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+
+        returnUri = data.getData();
+        String filePath = DocumentHelper.getPath(this, returnUri);
+        //Safety check to prevent null pointer exception
+        if (filePath == null || filePath.isEmpty()) return;
+        chosenFile = new File(filePath);
+        Log.d(TAG, "got file");
+
+        new UploadService(this).Execute(chosenFile, new UiCallback());
+        progressBar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "here");
     }
 
     public void createGroup(View v) {
@@ -127,6 +171,34 @@ public class NewGroupActivity extends AppCompatActivity {
                 });
 
         builder.show();
+    }
+
+    public void setImage(View v){
+        Log.d(TAG, "setImage");
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, 100);
+    }
+
+    private class UiCallback implements Callback<ImageResponse> {
+
+        @Override
+        public void success(ImageResponse imageResponse, Response response) {
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(NewGroupActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+            url = imageResponse.data.link;
+            Log.d(TAG, imageResponse.data.link);
+        }
+
+        @Override
+        public void failure(RetrofitError error) {
+            //Assume we have no connection, since error is null
+            if (error == null) {
+                Toast.makeText(NewGroupActivity.this, "No internet connection", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(NewGroupActivity.this, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

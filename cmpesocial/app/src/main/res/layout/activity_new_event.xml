@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true"
     tools:context=".activities.event.NewEventActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -33,9 +34,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:background="@android:color/transparent"
+                android:onClick="setRoles"
                 android:padding="@dimen/activity_vertical_margin"
-                android:src="@drawable/ic_face_white_24dp"
-                android:onClick="setRoles"/>
+                android:src="@drawable/ic_face_white_24dp" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:onClick="setImage"
+                android:padding="@dimen/activity_vertical_margin"
+                android:src="@drawable/ic_camera_alt_white_24dp" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -50,13 +60,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:indeterminateOnly="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -80,7 +99,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -89,78 +110,84 @@
                     android:padding="@dimen/activity_horizontal_margin"
                     android:src="@drawable/ic_schedule_black_24dp" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <Spinner
                         android:id="@+id/spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
                         android:padding="5dp" />
 
-                    <EditText
-                        android:id="@+id/startDateEditText"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/spinner"
-                        android:background="@null"
-                        android:editable="false"
-                        android:hint="start date"
-                        android:padding="5dp"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/startTimeEditText"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/spinner"
-                        android:layout_toRightOf="@+id/startDateEditText"
-                        android:background="@null"
-                        android:editable="false"
-                        android:hint="start time"
-                        android:padding="5dp"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="20sp" />
+                        android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/endDateEditText"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/startDateEditText"
-                        android:background="@null"
-                        android:editable="false"
-                        android:hint="end date"
-                        android:padding="5dp"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="20sp" />
+                        <EditText
+                            android:id="@+id/startDateEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp"
+                            android:hint="start date"/>
 
-                    <EditText
-                        android:id="@+id/endTimeEditText"
+                        <EditText
+                            android:id="@+id/startTimeEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp"
+                            android:hint="start time"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/startTimeEditText"
-                        android:layout_toRightOf="@+id/endDateEditText"
-                        android:background="@null"
-                        android:editable="false"
-                        android:hint="end time"
-                        android:padding="5dp"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="20sp" />
+                        android:layout_height="wrap_content">
 
+                        <EditText
+                            android:id="@+id/endDateEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp"
+                            android:hint="end date"/>
 
-                </RelativeLayout>
+                        <EditText
+                            android:id="@+id/endTimeEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp"
+                            android:hint="end time"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -185,31 +212,35 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/activity_vertical_margin"
-                    android:src="@drawable/ic_label_black_24dp"/>
+                    android:src="@drawable/ic_label_black_24dp" />
 
                 <EditText
                     android:id="@+id/tagsEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Touch to add tags"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="20sp"
-                    android:padding="5dp"
+                    android:layout_gravity="center_vertical"
                     android:background="@null"
-                    android:layout_gravity="center_vertical" />
+                    android:hint="Touch to add tags"
+                    android:padding="5dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
 
                 <ImageView
                     android:layout_width="wrap_content"

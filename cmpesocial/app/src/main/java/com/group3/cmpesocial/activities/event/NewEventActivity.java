@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -25,9 +28,17 @@ import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API.EventAPI;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.classes.Event;
+import com.group3.cmpesocial.imgur.helpers.DocumentHelper;
+import com.group3.cmpesocial.imgur.imgurmodel.ImageResponse;
+import com.group3.cmpesocial.imgur.services.UploadService;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class NewEventActivity extends AppCompatActivity {
 
@@ -43,6 +54,7 @@ public class NewEventActivity extends AppCompatActivity {
     private EditText descriptionEditText;
     private Spinner spinner;
     private Toolbar toolbar;
+    private ProgressBar progressBar;
 
     private String new_start_date;
     private int[] new_start_date_array = new int[3];
@@ -56,6 +68,7 @@ public class NewEventActivity extends AppCompatActivity {
     private int id_group = 0;
 
     private int user_id;
+    private File chosenFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +86,12 @@ public class NewEventActivity extends AppCompatActivity {
         tagsEditText = (EditText) findViewById(R.id.tagsEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         spinner = (Spinner) findViewById(R.id.spinner);
+        progressBar =(ProgressBar) findViewById(R.id.progressBar);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         startDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +156,33 @@ public class NewEventActivity extends AppCompatActivity {
         new_end_date = "";
         new_start_time = "";
         new_end_time = "";
+        url = "";
+        id_group = 0;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Uri returnUri;
+
+        if (requestCode != 100) {
+            return;
+        }
+
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+
+        returnUri = data.getData();
+        String filePath = DocumentHelper.getPath(this, returnUri);
+        //Safety check to prevent null pointer exception
+        if (filePath == null || filePath.isEmpty()) return;
+        chosenFile = new File(filePath);
+        Log.d(TAG, "got file");
+
+        new UploadService(this).Execute(chosenFile, new UiCallback());
+        progressBar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "here");
     }
 
     public void createEvent(View v) {
@@ -240,6 +283,13 @@ public class NewEventActivity extends AppCompatActivity {
         builder.show();
     }
 
+    public void setImage(View v){
+        Log.d(TAG, "setImage");
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, 100);
+    }
+
     public void pickDate(View v, final boolean start) {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -304,6 +354,27 @@ public class NewEventActivity extends AppCompatActivity {
         if (!start)
             timePickerDialog.updateTime(new_start_time_array[0] + 1, new_start_time_array[1]);
         timePickerDialog.show();
+    }
+
+    private class UiCallback implements Callback<ImageResponse> {
+
+        @Override
+        public void success(ImageResponse imageResponse, Response response) {
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(NewEventActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+            url = imageResponse.data.link;
+            Log.d(TAG, imageResponse.data.link);
+        }
+
+        @Override
+        public void failure(RetrofitError error) {
+            //Assume we have no connection, since error is null
+            if (error == null) {
+                Toast.makeText(NewEventActivity.this, "No internet connection", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(NewEventActivity.this, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

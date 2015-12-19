@@ -55,7 +55,7 @@ public class UserDetailActivity extends AppCompatActivity {
         json.addProperty("id", id);
         mUser = UserAPI.getUser(json, this);
         events = EventAPI.getJoinedEvents(json, this);
-        groups = GroupAPI.viewJoinedGroups(json, this);
+        groups = GroupAPI.getJoinedGroups(json, this);
 
         profileImageView = (ImageView) findViewById(R.id.profileImageView);
         nameTextView = (TextView) findViewById(R.id.nameTextView);

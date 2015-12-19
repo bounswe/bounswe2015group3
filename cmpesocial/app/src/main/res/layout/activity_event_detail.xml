@@ -6,103 +6,43 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
-    tools:context=".activities.event.EventDetailActivity">
+    tools:context="com.group3.cmpesocial.activities.event.EventDetailActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBar"
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/colorPrimaryDark"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <ImageButton
-                android:id="@+id/deleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:background="@android:color/transparent"
-                android:onClick="deleteEvent"
-                android:src="@drawable/ic_delete_white_24dp"
-                android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax" />
 
-            <ImageButton
-                android:id="@+id/editButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:background="@android:color/transparent"
-                android:onClick="editEvent"
-                android:src="@drawable/ic_mode_edit_white_24dp"
-                android:visibility="gone"/>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            <ImageButton
-                android:id="@+id/roleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@android:color/transparent"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_face_white_24dp"
-                android:onClick="setRoles"
-                android:visibility="gone"/>
-
-            <ImageButton
-                android:id="@+id/inviteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@android:color/transparent"
-                android:onClick="invite"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_person_add_white_24dp"/>
-
-            <Button
-                android:id="@+id/joinButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@android:color/transparent"
-                android:onClick="joinEvent"
-                android:text="Join"
-                android:textColor="@android:color/white" />
-
-            <Button
-                android:id="@+id/leaveButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@android:color/transparent"
-                android:onClick="leaveEvent"
-                android:text="Leave"
-                android:textColor="@android:color/white"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/doneButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@android:color/transparent"
-                android:drawableRight="@drawable/ic_check_white_24dp"
-                android:onClick="saveEvent"
-                android:paddingRight="@dimen/activity_vertical_margin"
-                android:text="Done"
-                android:textColor="@android:color/white"
-                android:visibility="gone" />
-
-        </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -113,6 +53,14 @@
             android:background="@null"
             android:orientation="vertical"
             android:padding="16dp">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:indeterminateOnly="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -180,7 +128,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -190,79 +138,85 @@
                     android:padding="@dimen/activity_horizontal_margin"
                     android:src="@drawable/ic_schedule_black_24dp" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/startDateEditText"
-                        android:layout_alignParentTop="true"
-                        android:padding="5dp"
-                        android:visibility="gone" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/periodTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_above="@+id/startDateEditText"
-                        android:layout_alignParentTop="true"
                         android:padding="5dp"
+                        android:text="AA"
                         android:textColor="@color/colorPrimaryText"
                         android:textSize="20sp" />
 
-                    <EditText
-                        android:id="@+id/startDateEditText"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/endDateEditText"
-                        android:background="@null"
-                        android:editable="false"
-                        android:padding="5dp"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/startTimeEditText"
+                    <Spinner
+                        android:id="@+id/spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_above="@+id/endTimeEditText"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/startDateEditText"
-                        android:background="@null"
-                        android:editable="false"
                         android:padding="5dp"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="20sp" />
+                        android:visibility="gone" />
 
-                    <EditText
-                        android:id="@+id/endDateEditText"
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:background="@null"
-                        android:editable="false"
-                        android:padding="5dp"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/endTimeEditText"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/endDateEditText"
-                        android:background="@null"
-                        android:editable="false"
-                        android:padding="5dp"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="20sp" />
+                        android:orientation="horizontal">
 
+                        <EditText
+                            android:id="@+id/startDateEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:editable="false"
+                            android:padding="5dp"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
 
-                </RelativeLayout>
+                        <EditText
+                            android:id="@+id/startTimeEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:editable="false"
+                            android:padding="5dp"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/endDateEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:editable="false"
+                            android:padding="5dp"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
+
+                        <EditText
+                            android:id="@+id/endTimeEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:editable="false"
+                            android:padding="5dp"
+                            android:textColor="@color/colorPrimaryText"
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -363,6 +317,60 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="deleteEvent"
+        android:src="@drawable/ic_delete_white_24dp"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_anchor="@id/appBarLayout"
+        app:layout_anchorGravity="bottom|right" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="60dp"
+        android:onClick="editEvent"
+        android:src="@drawable/ic_mode_edit_white_24dp"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_anchor="@id/appBarLayout"
+        app:layout_anchorGravity="bottom|right" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/roleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="120dp"
+        android:onClick="setRoles"
+        android:src="@drawable/ic_face_white_24dp"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_anchor="@id/appBarLayout"
+        app:layout_anchorGravity="bottom|right" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="180dp"
+        android:onClick="setImage"
+        android:src="@drawable/ic_camera_alt_white_24dp"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_anchor="@id/appBarLayout"
+        app:layout_anchorGravity="bottom|right" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/doneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="saveEvent"
+        android:src="@drawable/ic_check_white_24dp"
+        android:visibility="gone"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_anchor="@id/appBarLayout"
+        app:layout_anchorGravity="bottom|right" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -2,6 +2,7 @@ package com.group3.cmpesocial.activities.group;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -10,23 +11,35 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API.GroupAPI;
 import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
+import com.group3.cmpesocial.activities.event.EventDetailActivity;
 import com.group3.cmpesocial.activities.event.NewEventActivity;
 import com.group3.cmpesocial.adapters.UserAdapter;
 import com.group3.cmpesocial.classes.Group;
 import com.group3.cmpesocial.classes.User;
+import com.group3.cmpesocial.imgur.helpers.DocumentHelper;
+import com.group3.cmpesocial.imgur.imgurmodel.ImageResponse;
+import com.group3.cmpesocial.imgur.services.UploadService;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class GroupDetailActivity extends AppCompatActivity {
 
@@ -49,15 +62,19 @@ public class GroupDetailActivity extends AppCompatActivity {
     private Button leaveButton;
     private FloatingActionButton createEventButton;
     private Toolbar toolbar;
+    private ProgressBar progressBar;
 
     private UserAdapter userAdapter;
 //    private EventAdapter eventAdapter;
 
     private int id;
     private int user_id;
+    private boolean isMember;
 
     private ArrayList<Integer> allowedRoles;
     private ArrayList<String> tags;
+    private File chosenFile;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +106,12 @@ public class GroupDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        progressBar =(ProgressBar) findViewById(R.id.progressBar);
 
         toolbar  = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         JsonObject userJson = new JsonObject();
         userJson.addProperty("id", user_id);
@@ -103,13 +123,8 @@ public class GroupDetailActivity extends AppCompatActivity {
         mGroup = GroupAPI.getGroup(json, getApplicationContext());
         if (mGroup == null)
             return;
-        if (mGroup.isMember()){
-            joinButton.setVisibility(View.GONE);
-            leaveButton.setVisibility(View.VISIBLE);
-        } else {
-            joinButton.setVisibility(View.VISIBLE);
-            leaveButton.setVisibility(View.GONE);
-        }
+        isMember = mGroup.isMember();
+        url = mGroup.getGroupURL();
 
         JsonObject tagsJson = new JsonObject();
         tagsJson.addProperty("id", id);
@@ -159,6 +174,58 @@ public class GroupDetailActivity extends AppCompatActivity {
 //        eventsRecyclerView.setAdapter(eventAdapter);
 
         enableEditTexts(false);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        if (isMember){
+            getMenuInflater().inflate(R.menu.main_with_leave, menu);
+        }else{
+            getMenuInflater().inflate(R.menu.main_with_join, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.join:
+                joinGroup();
+                break;
+
+            case R.id.leave:
+                leaveGroup();
+                break;
+        }
+
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Uri returnUri;
+
+        if (requestCode != 100) {
+            return;
+        }
+
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+
+        returnUri = data.getData();
+        String filePath = DocumentHelper.getPath(this, returnUri);
+        //Safety check to prevent null pointer exception
+        if (filePath == null || filePath.isEmpty()) return;
+        chosenFile = new File(filePath);
+        Log.d(TAG, "got file");
+
+        new UploadService(this).Execute(chosenFile, new UiCallback());
+        progressBar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "here");
     }
 
     public void enableEditTexts(boolean enabled){
@@ -229,6 +296,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         json.addProperty("id_admin", user_id);
         json.addProperty("description", description);
         json.addProperty("type", type);
+        json.addProperty("group_url", url);
 
         Log.i(TAG, json.toString());
 
@@ -244,7 +312,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         updateTags(tagsString, this.tags);
     }
 
-    public void joinGroup(View v){
+    public void joinGroup(){
         JsonObject json = new JsonObject();
         json.addProperty("id_user", user_id);
         json.addProperty("id_group", id);
@@ -260,7 +328,7 @@ public class GroupDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void leaveGroup(View v){
+    public void leaveGroup(){
         JsonObject json = new JsonObject();
         json.addProperty("id_user", user_id);
         json.addProperty("id_group", id);
@@ -320,6 +388,13 @@ public class GroupDetailActivity extends AppCompatActivity {
         builder.show();
     }
 
+    public void setImage(View v){
+        Log.d(TAG, "setImage");
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, 100);
+    }
+
     public void updateTags(String tagsString, ArrayList<String> tags){
         Iterator iterator = tags.iterator();
         while (iterator.hasNext()){
@@ -338,6 +413,27 @@ public class GroupDetailActivity extends AppCompatActivity {
                     json.addProperty("tag", tagsArray[i]);
                     GroupAPI.addGroupTag(json, this);
                 }
+            }
+        }
+    }
+
+    private class UiCallback implements Callback<ImageResponse> {
+
+        @Override
+        public void success(ImageResponse imageResponse, Response response) {
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(GroupDetailActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+            url = imageResponse.data.link;
+            Log.d(TAG, imageResponse.data.link);
+        }
+
+        @Override
+        public void failure(RetrofitError error) {
+            //Assume we have no connection, since error is null
+            if (error == null) {
+                Toast.makeText(GroupDetailActivity.this, "No internet connection", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(GroupDetailActivity.this, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
             }
         }
     }

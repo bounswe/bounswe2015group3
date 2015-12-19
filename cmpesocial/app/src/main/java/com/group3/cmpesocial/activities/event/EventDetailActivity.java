@@ -7,7 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +21,8 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +31,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -41,12 +46,20 @@ import com.group3.cmpesocial.adapters.UserAdapter;
 import com.group3.cmpesocial.classes.Event;
 import com.group3.cmpesocial.classes.Post;
 import com.group3.cmpesocial.classes.User;
+import com.group3.cmpesocial.imgur.helpers.DocumentHelper;
+import com.group3.cmpesocial.imgur.imgurmodel.ImageResponse;
+import com.group3.cmpesocial.imgur.services.UploadService;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class EventDetailActivity extends AppCompatActivity {
 
@@ -55,7 +68,6 @@ public class EventDetailActivity extends AppCompatActivity {
     private Event mEvent;
     private User mUser;
 
-    private EditText nameEditText;
     private EditText tagsEditText;
     private TextView periodTextView;
     private EditText startDateEditText;
@@ -68,18 +80,19 @@ public class EventDetailActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ListView listView;
     private Spinner spinner;
-    private ImageButton editButton;
-    private ImageButton deleteButton;
-    private ImageButton roleButton;
-    private ImageButton inviteButton;
-    private Button doneButton;
-    private Button joinButton;
-    private Button leaveButton;
+    private FloatingActionButton editButton;
+    private FloatingActionButton deleteButton;
+    private FloatingActionButton roleButton;
+    private FloatingActionButton imageButton;
+    private FloatingActionButton doneButton;
     private Button postButton;
+    private Toolbar toolbar;
+    private ProgressBar progressBar;
 
     private UserAdapter adapter;
     private PostAdapter adapterPost;
 
+    private String url;
     private String new_start_date;
     private String new_start_time;
     private String new_end_date;
@@ -92,8 +105,9 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private int id;
     private int user_id;
-
-    private Toolbar toolbar;
+    private boolean isOwner = false;
+    private boolean hasJoined = false;
+    private File chosenFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +142,6 @@ public class EventDetailActivity extends AppCompatActivity {
         id = (int) extras.get("id");
         user_id = getSharedPreferences("prefsCMPE", MODE_PRIVATE).getInt("user_id", 0);
 
-        nameEditText = (EditText) findViewById(R.id.nameEditText);
         tagsEditText = (EditText) findViewById(R.id.tagsEditText);
         periodTextView = (TextView) findViewById(R.id.periodTextView);
         startDateEditText = (EditText) findViewById(R.id.startDateEditText);
@@ -140,14 +153,13 @@ public class EventDetailActivity extends AppCompatActivity {
         postEditTextMain = (EditText) findViewById(R.id.postEditTextMain);
         spinner = (Spinner) findViewById(R.id.spinner);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        editButton = (ImageButton) findViewById(R.id.editButton);
-        deleteButton = (ImageButton) findViewById(R.id.deleteButton);
-        roleButton = (ImageButton) findViewById(R.id.roleButton);
-        inviteButton = (ImageButton) findViewById(R.id.inviteButton);
-        doneButton = (Button) findViewById(R.id.doneButton);
+        editButton = (FloatingActionButton) findViewById(R.id.editButton);
+        deleteButton = (FloatingActionButton) findViewById(R.id.deleteButton);
+        roleButton = (FloatingActionButton) findViewById(R.id.roleButton);
+        imageButton = (FloatingActionButton) findViewById(R.id.imageButton);
+        doneButton = (FloatingActionButton) findViewById(R.id.doneButton);
         postButton = (Button) findViewById(R.id.postButton);
-        joinButton = (Button) findViewById(R.id.joinButton);
-        leaveButton = (Button) findViewById(R.id.leaveButton);
+        progressBar =(ProgressBar) findViewById(R.id.progressBar);
 
         postButton.setOnClickListener(new View.OnClickListener(){
                         @Override
@@ -156,8 +168,22 @@ public class EventDetailActivity extends AppCompatActivity {
             }
         });
 
+        if (isOwner){
+            editButton.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.VISIBLE);
+            roleButton.setVisibility(View.VISIBLE);
+            imageButton.setVisibility(View.VISIBLE);
+        }else{
+            editButton.setVisibility(View.GONE);
+            deleteButton.setVisibility(View.GONE);
+            roleButton.setVisibility(View.GONE);
+            imageButton.setVisibility(View.GONE);
+        }
+
         toolbar  = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         JsonObject userJson = new JsonObject();
         userJson.addProperty("id", user_id);
@@ -169,16 +195,11 @@ public class EventDetailActivity extends AppCompatActivity {
         mEvent = EventAPI.getEvent(json, getApplicationContext());
         ArrayList<User> participants = EventAPI.getEventParticipants(json, getApplicationContext());
         if(mEvent.getHasJoined()){
-            joinButton.setVisibility(View.GONE);
-            leaveButton.setVisibility(View.VISIBLE);
-        }else{
-            joinButton.setVisibility(View.VISIBLE);
-            leaveButton.setVisibility(View.GONE);
+            hasJoined = true;
         }
 
         JsonObject tagsJson = new JsonObject();
         tagsJson.addProperty("id", id);
-        Log.d(TAG, "tagsJson " + tagsJson.toString());
         tags = EventAPI.getEventTags(tagsJson, this);
         Iterator iterator = tags.iterator();
         String tagsString = "";
@@ -196,7 +217,9 @@ public class EventDetailActivity extends AppCompatActivity {
         String location = mEvent.getLocation();
         String description = mEvent.getDescription();
 
-        nameEditText.setText(name);
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
+        collapsingToolbarLayout.setTitle(name);
+
         periodTextView.setText(Event.periods[periodic]);
         startDateEditText.setText(start_date);
         startTimeEditText.setText(start_time);
@@ -206,8 +229,7 @@ public class EventDetailActivity extends AppCompatActivity {
         descriptionEditText.setText(description);
 
         if(user_id == id_user){
-            editButton.setVisibility(View.VISIBLE);
-            deleteButton.setVisibility(View.VISIBLE);
+            isOwner = true;
         }
 
         recyclerView.setHasFixedSize(true);
@@ -236,6 +258,7 @@ public class EventDetailActivity extends AppCompatActivity {
         new_start_time = mEvent.getStartTimeString();
         new_end_date = mEvent.getEndDateString();
         new_end_time = mEvent.getEndTimeString();
+        url = mEvent.getUrl();
 
         // Add item to adapter
         Post newPost1 = new Post("Can'ın odasını boyamayı gönülden istiyorum.");
@@ -278,8 +301,59 @@ public class EventDetailActivity extends AppCompatActivity {
         //adapterPost.addAll(posts);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        if (hasJoined){
+            getMenuInflater().inflate(R.menu.main_with_leave, menu);
+        }else{
+            getMenuInflater().inflate(R.menu.main_with_join, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.join:
+                joinEvent();
+                break;
+
+            case R.id.leave:
+                leaveEvent();
+                break;
+        }
+
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Uri returnUri;
+
+        if (requestCode != 100) {
+            return;
+        }
+
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+
+        returnUri = data.getData();
+        String filePath = DocumentHelper.getPath(this, returnUri);
+        //Safety check to prevent null pointer exception
+        if (filePath == null || filePath.isEmpty()) return;
+        chosenFile = new File(filePath);
+        Log.d(TAG, "got file");
+
+        new UploadService(this).Execute(chosenFile, new UiCallback());
+        progressBar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "here");
+    }
+
     public void enableEditTexts(boolean enabled){
-        nameEditText.setEnabled(enabled);
         tagsEditText.setEnabled(enabled);
         startDateEditText.setEnabled(enabled);
         startTimeEditText.setEnabled(enabled);
@@ -287,11 +361,14 @@ public class EventDetailActivity extends AppCompatActivity {
         endTimeEditText.setEnabled(enabled);
         locationEditText.setEnabled(enabled);
         descriptionEditText.setEnabled(enabled);
-        spinner.setEnabled(enabled);
-        if (enabled)
+        if (enabled) {
             periodTextView.setVisibility(View.GONE);
-        else
+            spinner.setVisibility(View.VISIBLE);
+        }else {
             periodTextView.setVisibility(View.VISIBLE);
+            spinner.setVisibility(View.GONE);
+        }
+        spinner.setEnabled(enabled);
     }
 
     public void deleteEvent(View v){
@@ -313,6 +390,7 @@ public class EventDetailActivity extends AppCompatActivity {
         Toast.makeText(this, "edit", Toast.LENGTH_LONG).show();
         editButton.setVisibility(View.GONE);
         deleteButton.setVisibility(View.GONE);
+        imageButton.setVisibility(View.VISIBLE);
         roleButton.setVisibility(View.VISIBLE);
         doneButton.setVisibility(View.VISIBLE);
 
@@ -351,12 +429,13 @@ public class EventDetailActivity extends AppCompatActivity {
         Toast.makeText(this, "done", Toast.LENGTH_LONG).show();
         editButton.setVisibility(View.VISIBLE);
         deleteButton.setVisibility(View.VISIBLE);
+        imageButton.setVisibility(View.GONE);
         roleButton.setVisibility(View.GONE);
         doneButton.setVisibility(View.GONE);
 
         enableEditTexts(false);
 
-        String name = nameEditText.getText().toString().trim();
+        String name = mEvent.getName();
         String tagsString = "";
         if (tagsEditText.getText() != null) {
             tagsString = tagsEditText.getText().toString().trim();
@@ -374,7 +453,6 @@ public class EventDetailActivity extends AppCompatActivity {
         }else{
             type = "0";
         }
-        Log.i("type", type);
 
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
@@ -386,7 +464,11 @@ public class EventDetailActivity extends AppCompatActivity {
         json.addProperty("location", location);
         json.addProperty("description", description);
         json.addProperty("type", type);
-        json.addProperty("url", mEvent.getUrl());
+        if (url == null) {
+            json.addProperty("url", mEvent.getUrl());
+        } else {
+            json.addProperty("url", url);
+        }
         json.addProperty("id_group", mEvent.getId_group());
 
         Log.i(TAG, json.toString());
@@ -403,7 +485,7 @@ public class EventDetailActivity extends AppCompatActivity {
         updateTags(tagsString, this.tags);
     }
 
-    public void joinEvent(View v){
+    public void joinEvent(){
         JsonObject json = new JsonObject();
         json.addProperty("id_user", user_id);
         json.addProperty("id_event", id);
@@ -412,14 +494,14 @@ public class EventDetailActivity extends AppCompatActivity {
         if (result == EventAPI.SUCCESS) {
             Toast.makeText(this, "joined event", Toast.LENGTH_SHORT).show();
             adapter.add(mUser);
-            joinButton.setVisibility(View.GONE);
-            leaveButton.setVisibility(View.VISIBLE);
+            hasJoined = true;
+            invalidateOptionsMenu();
         }else if (result == EventAPI.NO_ACCESS){
             Toast.makeText(this, "You cannot join this event.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void leaveEvent(View v){
+    public void leaveEvent(){
         JsonObject json = new JsonObject();
         json.addProperty("id_user", user_id);
         json.addProperty("id_event", id);
@@ -428,8 +510,8 @@ public class EventDetailActivity extends AppCompatActivity {
         if (result == EventAPI.SUCCESS) {
             Toast.makeText(this, "left event", Toast.LENGTH_SHORT).show();
             adapter.add(mUser);
-            joinButton.setVisibility(View.VISIBLE);
-            leaveButton.setVisibility(View.GONE);
+            hasJoined = false;
+            invalidateOptionsMenu();
         }else {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
@@ -477,6 +559,13 @@ public class EventDetailActivity extends AppCompatActivity {
                 });
 
         builder.show();
+    }
+
+    public void setImage(View v){
+        Log.d(TAG, "setImage");
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, 100);
     }
 
     public void pickDate(View v, int[] date, final boolean start){
@@ -553,6 +642,27 @@ public class EventDetailActivity extends AppCompatActivity {
                     json.addProperty("tag", tagsArray[i]);
                     EventAPI.addEventTag(json, this);
                 }
+            }
+        }
+    }
+
+    private class UiCallback implements Callback<ImageResponse> {
+
+        @Override
+        public void success(ImageResponse imageResponse, Response response) {
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(EventDetailActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+            url = imageResponse.data.link;
+            Log.d(TAG, imageResponse.data.link);
+        }
+
+        @Override
+        public void failure(RetrofitError error) {
+            //Assume we have no connection, since error is null
+            if (error == null) {
+                Toast.makeText(EventDetailActivity.this, "No internet connection", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(EventDetailActivity.this, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -901,6 +1011,5 @@ public class EventDetailActivity extends AppCompatActivity {
         //System.out.println(p.getPost());
 
     }
-
 
 }

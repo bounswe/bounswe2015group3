@@ -37,6 +37,15 @@
                 android:src="@drawable/ic_face_white_24dp"
                 android:onClick="setRoles"/>
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@android:color/transparent"
+                android:onClick="setImage"
+                android:padding="@dimen/activity_vertical_margin"
+                android:src="@drawable/ic_camera_alt_white_24dp" />
+
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
@@ -52,6 +61,14 @@
             android:background="@null"
             android:orientation="vertical"
             android:padding="16dp">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:indeterminateOnly="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
