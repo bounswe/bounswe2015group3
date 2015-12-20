@@ -1,28 +1,21 @@
 package com.group3.cmpesocial.fragments;
 
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.group3.cmpesocial.API.GroupAPI;
 import com.group3.cmpesocial.R;
-import com.group3.cmpesocial.activities.group.GroupDetailActivity;
-import com.group3.cmpesocial.activities.group.NewGroupActivity;
+import com.group3.cmpesocial.adapters.GroupAdapter;
 import com.group3.cmpesocial.classes.Group;
 
 import java.util.ArrayList;
-import java.util.List;
 
 //import com.group3.cmpesocial.GroupDetailActivity;
 
@@ -35,7 +28,7 @@ public class GroupsFragment extends Fragment {
 
     private final String title = "Groups";
 
-    private FloatingActionButton createGroupButton;
+    private View mView;
     private ListView listView;
     private ArrayList<Group> groupsArray;
     private GroupAdapter adapter;
@@ -48,16 +41,7 @@ public class GroupsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View mView = inflater.inflate(R.layout.fragment_groups, container, false);
-
-        createGroupButton = (FloatingActionButton) mView.findViewById(R.id.createGroupButton);
-        createGroupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewGroupActivity.class);
-                startActivity(intent);
-            }
-        });
+        mView = inflater.inflate(R.layout.fragment_groups, container, false);
 
         listView = (ListView) mView.findViewById(R.id.listView);
 
@@ -100,35 +84,7 @@ public class GroupsFragment extends Fragment {
         }
     }
 
-    public class GroupAdapter extends ArrayAdapter<Group> {
-
-        public GroupAdapter(Context context, List objects) {
-            super(context, R.layout.item_group, objects);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_group, parent, false);
-
-            final Group mGroup = getItem(position);
-
-            TextView titleTextView = (TextView) convertView.findViewById(R.id.titleTextView);
-
-            Log.d(TAG, mGroup.getName());
-            titleTextView.setText(mGroup.getName());
-
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d("group fragment", "here");
-                    Intent intent = new Intent(getActivity(), GroupDetailActivity.class);
-                    intent.putExtra("id", mGroup.getId());
-                    startActivity(intent);
-                }
-            });
-
-            return convertView;
-        }
+    public View getmView() {
+        return mView;
     }
-
 }

@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -42,13 +44,14 @@ import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API.EventAPI;
 import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
-import com.group3.cmpesocial.adapters.UserAdapter;
+import com.group3.cmpesocial.adapters.RVUserAdapter;
 import com.group3.cmpesocial.classes.Event;
 import com.group3.cmpesocial.classes.Post;
 import com.group3.cmpesocial.classes.User;
 import com.group3.cmpesocial.imgur.helpers.DocumentHelper;
 import com.group3.cmpesocial.imgur.imgurmodel.ImageResponse;
 import com.group3.cmpesocial.imgur.services.UploadService;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -68,6 +71,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private Event mEvent;
     private User mUser;
 
+    private ImageView image;
     private EditText tagsEditText;
     private TextView periodTextView;
     private EditText startDateEditText;
@@ -89,7 +93,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ProgressBar progressBar;
 
-    private UserAdapter adapter;
+    private RVUserAdapter adapter;
     private PostAdapter adapterPost;
 
     private String url;
@@ -108,6 +112,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private boolean isOwner = false;
     private boolean hasJoined = false;
     private File chosenFile;
+    private boolean isEditing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +147,7 @@ public class EventDetailActivity extends AppCompatActivity {
         id = (int) extras.get("id");
         user_id = getSharedPreferences("prefsCMPE", MODE_PRIVATE).getInt("user_id", 0);
 
+        image = (ImageView) findViewById(R.id.image);
         tagsEditText = (EditText) findViewById(R.id.tagsEditText);
         periodTextView = (TextView) findViewById(R.id.periodTextView);
         startDateEditText = (EditText) findViewById(R.id.startDateEditText);
@@ -157,33 +163,63 @@ public class EventDetailActivity extends AppCompatActivity {
         deleteButton = (FloatingActionButton) findViewById(R.id.deleteButton);
         roleButton = (FloatingActionButton) findViewById(R.id.roleButton);
         imageButton = (FloatingActionButton) findViewById(R.id.imageButton);
-        doneButton = (FloatingActionButton) findViewById(R.id.doneButton);
         postButton = (Button) findViewById(R.id.postButton);
-        progressBar =(ProgressBar) findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        postButton.setOnClickListener(new View.OnClickListener(){
-                        @Override
-                      public void onClick(View v) {
-                               postButton();
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isEditing) {
+                    editButton.setImageResource(R.drawable.ic_mode_edit_white_24dp);
+                    editEvent();
+                } else {
+                    editButton.setImageResource(R.drawable.ic_check_white_24dp);
+                    saveEvent();
+                }
             }
         });
 
-        if (isOwner){
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postButton();
+            }
+        });
+
+        if (isOwner) {
             editButton.setVisibility(View.VISIBLE);
             deleteButton.setVisibility(View.VISIBLE);
             roleButton.setVisibility(View.VISIBLE);
             imageButton.setVisibility(View.VISIBLE);
-        }else{
+        } else {
+            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) editButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            editButton.setLayoutParams(p);
             editButton.setVisibility(View.GONE);
+            p = (CoordinatorLayout.LayoutParams) deleteButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            deleteButton.setLayoutParams(p);
             deleteButton.setVisibility(View.GONE);
+            p = (CoordinatorLayout.LayoutParams) roleButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            roleButton.setLayoutParams(p);
             roleButton.setVisibility(View.GONE);
+            p = (CoordinatorLayout.LayoutParams) imageButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            imageButton.setLayoutParams(p);
             imageButton.setVisibility(View.GONE);
         }
 
-        toolbar  = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "navigation click");
+                finish();
+            }
+        });
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         JsonObject userJson = new JsonObject();
         userJson.addProperty("id", user_id);
@@ -193,19 +229,19 @@ public class EventDetailActivity extends AppCompatActivity {
         json.addProperty("id_event", id);
         json.addProperty("id_user", user_id);
         mEvent = EventAPI.getEvent(json, getApplicationContext());
-        ArrayList<User> participants = EventAPI.getEventParticipants(json, getApplicationContext());
-        if(mEvent.getHasJoined()){
-            hasJoined = true;
-        }
 
-        JsonObject tagsJson = new JsonObject();
-        tagsJson.addProperty("id", id);
-        tags = EventAPI.getEventTags(tagsJson, this);
+        json = new JsonObject();
+        json.addProperty("id", id);
+        tags = EventAPI.getEventTags(json, this);
         Iterator iterator = tags.iterator();
         String tagsString = "";
         while (iterator.hasNext())
             tagsString += iterator.next() + " ";
         tagsEditText.setText(tagsString);
+        ArrayList<User> participants = EventAPI.getEventParticipants(json, getApplicationContext());
+        if (mEvent.getHasJoined()) {
+            hasJoined = true;
+        }
 
         String name = mEvent.getName();
         int id_user = mEvent.getId_user();
@@ -228,14 +264,14 @@ public class EventDetailActivity extends AppCompatActivity {
         locationEditText.setText(location);
         descriptionEditText.setText(description);
 
-        if(user_id == id_user){
+        if (user_id == id_user) {
             isOwner = true;
         }
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new UserAdapter(participants, this);
+        adapter = new RVUserAdapter(participants, this);
         recyclerView.setAdapter(adapter);
 
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Event.periods));
@@ -294,7 +330,7 @@ public class EventDetailActivity extends AppCompatActivity {
         ArrayList<Post> posts = EventAPI.getAllEventPosts(json2, getApplicationContext());
 //        System.out.println(posts.get(0).getPost());
         Collections.reverse(posts);
-        adapterPost = new PostAdapter(this,posts);
+        adapterPost = new PostAdapter(this, posts);
         listView.setAdapter(adapterPost);
         //Collections.reverse(posts);
         //adapterPost.clear();
@@ -304,9 +340,9 @@ public class EventDetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        if (hasJoined){
+        if (hasJoined) {
             getMenuInflater().inflate(R.menu.main_with_leave, menu);
-        }else{
+        } else {
             getMenuInflater().inflate(R.menu.main_with_join, menu);
         }
         return true;
@@ -315,13 +351,17 @@ public class EventDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id){
+        switch (id) {
             case R.id.join:
                 joinEvent();
                 break;
 
             case R.id.leave:
                 leaveEvent();
+                break;
+
+            case android.R.id.home:
+                finish();
                 break;
         }
 
@@ -353,7 +393,7 @@ public class EventDetailActivity extends AppCompatActivity {
         Log.d(TAG, "here");
     }
 
-    public void enableEditTexts(boolean enabled){
+    public void enableEditTexts(boolean enabled) {
         tagsEditText.setEnabled(enabled);
         startDateEditText.setEnabled(enabled);
         startTimeEditText.setEnabled(enabled);
@@ -364,36 +404,30 @@ public class EventDetailActivity extends AppCompatActivity {
         if (enabled) {
             periodTextView.setVisibility(View.GONE);
             spinner.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             periodTextView.setVisibility(View.VISIBLE);
             spinner.setVisibility(View.GONE);
         }
         spinner.setEnabled(enabled);
     }
 
-    public void deleteEvent(View v){
+    public void deleteEvent(View v) {
         JsonObject json = new JsonObject();
         json.addProperty("id", id);
 
         int result = EventAPI.deleteEvent(json, getApplicationContext());
-        if (result == EventAPI.ERROR){
+        if (result == EventAPI.ERROR) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-        }else if (result == EventAPI.SUCCESS){
+        } else if (result == EventAPI.SUCCESS) {
             Log.i(TAG, "event deleted");
             finish();
-        }else if (result == EventAPI.RESULT_EMPTY){
+        } else if (result == EventAPI.RESULT_EMPTY) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void editEvent(View v){
+    public void editEvent() {
         Toast.makeText(this, "edit", Toast.LENGTH_LONG).show();
-        editButton.setVisibility(View.GONE);
-        deleteButton.setVisibility(View.GONE);
-        imageButton.setVisibility(View.VISIBLE);
-        roleButton.setVisibility(View.VISIBLE);
-        doneButton.setVisibility(View.VISIBLE);
-
         enableEditTexts(true);
 
         startDateEditText.setOnClickListener(new View.OnClickListener() {
@@ -425,14 +459,8 @@ public class EventDetailActivity extends AppCompatActivity {
         });
     }
 
-    public void saveEvent(View v){
+    public void saveEvent() {
         Toast.makeText(this, "done", Toast.LENGTH_LONG).show();
-        editButton.setVisibility(View.VISIBLE);
-        deleteButton.setVisibility(View.VISIBLE);
-        imageButton.setVisibility(View.GONE);
-        roleButton.setVisibility(View.GONE);
-        doneButton.setVisibility(View.GONE);
-
         enableEditTexts(false);
 
         String name = mEvent.getName();
@@ -450,7 +478,7 @@ public class EventDetailActivity extends AppCompatActivity {
                 type += String.valueOf(allowedRoles.get(i)) + ",";
             }
             type = type.substring(0, type.length() - 1);
-        }else{
+        } else {
             type = "0";
         }
 
@@ -474,54 +502,54 @@ public class EventDetailActivity extends AppCompatActivity {
         Log.i(TAG, json.toString());
 
         int result = EventAPI.updateEvent(json, this);
-        if (result == EventAPI.ERROR){
+        if (result == EventAPI.ERROR) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-        }else if (result == EventAPI.SUCCESS){
+        } else if (result == EventAPI.SUCCESS) {
             Log.i(TAG, "event updated");
-        }else if (result == EventAPI.RESULT_EMPTY){
+        } else if (result == EventAPI.RESULT_EMPTY) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
 
         updateTags(tagsString, this.tags);
     }
 
-    public void joinEvent(){
+    public void joinEvent() {
         JsonObject json = new JsonObject();
         json.addProperty("id_user", user_id);
         json.addProperty("id_event", id);
         int result = EventAPI.joinEvent(json, this);
-        Log.i(TAG, ""+result);
+        Log.i(TAG, "" + result);
         if (result == EventAPI.SUCCESS) {
             Toast.makeText(this, "joined event", Toast.LENGTH_SHORT).show();
             adapter.add(mUser);
             hasJoined = true;
             invalidateOptionsMenu();
-        }else if (result == EventAPI.NO_ACCESS){
+        } else if (result == EventAPI.NO_ACCESS) {
             Toast.makeText(this, "You cannot join this event.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void leaveEvent(){
+    public void leaveEvent() {
         JsonObject json = new JsonObject();
         json.addProperty("id_user", user_id);
         json.addProperty("id_event", id);
         int result = EventAPI.leaveEvent(json, this);
-        Log.i(TAG, ""+result);
+        Log.i(TAG, "" + result);
         if (result == EventAPI.SUCCESS) {
             Toast.makeText(this, "left event", Toast.LENGTH_SHORT).show();
-            adapter.add(mUser);
+            adapter.remove(mUser);
             hasJoined = false;
             invalidateOptionsMenu();
-        }else {
+        } else {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void invite(View v){
+    public void invite(View v) {
 
     }
 
-    public void setRoles(View v){
+    public void setRoles(View v) {
         Toast.makeText(this, "roles", Toast.LENGTH_SHORT).show();
         allowedRoles = new ArrayList();  // Where we track the selected items
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -535,10 +563,10 @@ public class EventDetailActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                                 if (isChecked) {
                                     // If the user checked the item, add it to the selected items
-                                    allowedRoles.add(which+1);
-                                } else if (allowedRoles.contains(which+1)) {
+                                    allowedRoles.add(which + 1);
+                                } else if (allowedRoles.contains(which + 1)) {
                                     // Else, if the item is already in the array, remove it
-                                    allowedRoles.remove(Integer.valueOf(which+1));
+                                    allowedRoles.remove(Integer.valueOf(which + 1));
                                 }
                             }
                         })
@@ -561,14 +589,14 @@ public class EventDetailActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public void setImage(View v){
+    public void setImage(View v) {
         Log.d(TAG, "setImage");
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         startActivityForResult(intent, 100);
     }
 
-    public void pickDate(View v, int[] date, final boolean start){
+    public void pickDate(View v, int[] date, final boolean start) {
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         final int month = c.get(Calendar.MONTH);
@@ -577,11 +605,11 @@ public class EventDetailActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                if (start){
-                    new_start_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                if (start) {
+                    new_start_date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
                     startDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
-                }else{
-                    new_end_date = year + "-" + (monthOfYear+1) + "-" + dayOfMonth;
+                } else {
+                    new_end_date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
                     endDateEditText.setText(dayOfMonth + " " + Event.getMonthName(monthOfYear) + " " + year);
                 }
 
@@ -591,7 +619,7 @@ public class EventDetailActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    public void pickTime(View v, int[] time, final boolean start){
+    public void pickTime(View v, int[] time, final boolean start) {
         final Calendar c = Calendar.getInstance();
         final int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
@@ -600,19 +628,19 @@ public class EventDetailActivity extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                if(start) {
-                    if(minute < 10){
+                if (start) {
+                    if (minute < 10) {
                         new_start_time = hourOfDay + ":0" + minute + ":00";
                         startTimeEditText.setText(hourOfDay + ":0" + minute);
-                    }else {
+                    } else {
                         new_start_time = hourOfDay + ":" + minute + ":00";
                         startTimeEditText.setText(hourOfDay + ":" + minute);
                     }
-                }else{
-                    if(minute < 10){
+                } else {
+                    if (minute < 10) {
                         new_end_time = hourOfDay + ":0" + minute + ":00";
                         endTimeEditText.setText(hourOfDay + ":0" + minute);
-                    }else {
+                    } else {
                         new_end_time = hourOfDay + ":" + minute + ":00";
                         endTimeEditText.setText(hourOfDay + ":" + minute);
                     }
@@ -623,9 +651,9 @@ public class EventDetailActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    public void updateTags(String tagsString, ArrayList<String> tags){
+    public void updateTags(String tagsString, ArrayList<String> tags) {
         Iterator iterator = tags.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             String tag = (String) iterator.next();
             JsonObject json = new JsonObject();
             json.addProperty("id_event", id);
@@ -633,10 +661,10 @@ public class EventDetailActivity extends AppCompatActivity {
             Log.i(TAG, "delete event tag " + json.toString());
             EventAPI.deleteEventTag(json, this);
         }
-        if (!tagsString.equals("")){
+        if (!tagsString.equals("")) {
             String[] tagsArray = tagsString.split(" ");
-            for (int i = 0; i < tagsArray.length; i++){
-                if (!tags.contains(tagsArray[i])){
+            for (int i = 0; i < tagsArray.length; i++) {
+                if (!tags.contains(tagsArray[i])) {
                     JsonObject json = new JsonObject();
                     json.addProperty("id_event", id);
                     json.addProperty("tag", tagsArray[i]);
@@ -644,6 +672,55 @@ public class EventDetailActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void postButton() {
+        String post = postEditTextMain.getText().toString();
+        Post newPost = new Post(post);
+        //postsArray.add(newPost);
+        //adapterPost.clear();
+        //adapterPost.addAll(postsArray);
+        //listView.setAdapter(adapterPost);
+        //adapterPost = new PostAdapter(this, postsArray);
+
+
+        // Attach the adapter to a ListView
+
+        //listView.setAdapter(adapterPost);
+        //postsArray.add(0,newPost);
+
+
+        long id_event = id;
+        long id_user = mUser.getId();
+        String content = post;
+        String content_url = "dummy";
+
+        JsonObject json = new JsonObject();
+        json.addProperty("id_event", id_event);
+        json.addProperty("id_user", id_user);
+        json.addProperty("content", content);
+        json.addProperty("content_url", content_url);
+
+        Log.i(TAG, json.toString());
+
+        EventAPI.createEventPost(json, this);
+
+        JsonObject json2 = new JsonObject();
+        json2.addProperty("id", id_event);
+        //json2.addProperty("id_user", user_id);
+        //API.getEvent(json2, this);
+
+
+        ArrayList<Post> posts = EventAPI.getAllEventPosts(json2, getApplicationContext());
+
+        Log.i(TAG, json2.toString());
+        Collections.reverse(posts);
+        adapterPost.clear();
+        adapterPost.addAll(posts);
+        postEditTextMain.setText("");
+        //Post p = posts.get(0);
+        //System.out.println(p.getPost());
+
     }
 
     private class UiCallback implements Callback<ImageResponse> {
@@ -654,6 +731,9 @@ public class EventDetailActivity extends AppCompatActivity {
             Toast.makeText(EventDetailActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
             url = imageResponse.data.link;
             Log.d(TAG, imageResponse.data.link);
+
+            Picasso.with(EventDetailActivity.this).load(url).into(image);
+            saveEvent();
         }
 
         @Override
@@ -661,57 +741,50 @@ public class EventDetailActivity extends AppCompatActivity {
             //Assume we have no connection, since error is null
             if (error == null) {
                 Toast.makeText(EventDetailActivity.this, "No internet connection", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 Toast.makeText(EventDetailActivity.this, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    public class PostAdapter extends ArrayAdapter<Post> {
-        TextView t;
-        //Button b2;
+
+    /*public class PostAdapter extends ArrayAdapter<Post> {
         public PostAdapter(Context context, List objects) {
             super(context, R.layout.item_post, objects);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
+            }
 
             Post mPost = getItem(position);
 
             TextView postTextView = (TextView) convertView.findViewById(R.id.postEditText);
             Button b = (Button) convertView.findViewById(R.id.deletePost);
             b.setTag(position);
-            b.setOnClickListener(delete);
+            b.setOnClickListener(myButtonClickListener);
 
-            Button b2 = (Button) convertView.findViewById(R.id.updatePost);
-            b2.setTag(position);
-            b2.setOnClickListener(update);
-
-            Button b3 = (Button) convertView.findViewById(R.id.comment);
-            b3.setTag(position);
-            b3.setOnClickListener(comment);
-
-            t = (TextView) convertView.findViewById(R.id.postEditText);
-            t.setTag(position);
             int userIDTemp = mPost.getUserID();
 
             //b.setTag(position);
             JsonObject json = new JsonObject();
             json.addProperty("id", userIDTemp);
-            User userTemp = UserAPI.getUser(json, getContext());
+            User userTemp = API.getUser(json, getContext());
             String userNameTemp = userTemp.getName();
             String userSurnameTemp = userTemp.getSurname();
             String nameTemp = " - " + userNameTemp + " " + userSurnameTemp;
             //System.out.println(nameTemp);
             String post = mPost.getPost();
-            SpannableString ss1 = new SpannableString(post + nameTemp);
+            SpannableString ss1=  new SpannableString(post + nameTemp);
             //System.out.println(ss1);
 
-            ss1.setSpan(new StyleSpan(Typeface.BOLD_ITALIC),
-                    post.length() + 1, ss1.length(), 0);
-            ss1.setSpan(new ForegroundColorSpan(Color.BLUE), post.length() + 1, ss1.length(), 0);
+            ss1.setSpan(new StyleSpan(android.graphics.Typeface.BOLD_ITALIC),
+                    post.length()+1,ss1.length(), 0);
+            ss1.setSpan(new ForegroundColorSpan(Color.BLUE), post.length()+1, ss1.length(), 0);
+
+
 
 
             //postTextView.setText(post + nameTemp);
@@ -720,7 +793,53 @@ public class EventDetailActivity extends AppCompatActivity {
 
             return convertView;
         }
+        private View.OnClickListener myButtonClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = (Integer) v.getTag();
+                System.out.println(position);
+                int size = adapterPost.getCount();
+                //System.out.println(size-position);
+                //int id_post = size-position;
+                Post p = adapterPost.getItem(position);
+                int id_post = p.getID();
+                System.out.println(id_post);
 
+
+                JsonObject json = new JsonObject();
+                json.addProperty("id", id_post);
+                API.deleteEventPost(json, getContext());
+
+
+
+                JsonObject json2 = new JsonObject();
+                json2.addProperty("id", id);
+                API.getEvent(json2, getContext());
+
+                ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
+
+                //Log.i(TAG, json2.toString());
+                Collections.reverse(posts);
+                adapterPost.clear();
+                adapterPost.addAll(posts);
+
+
+                /*int result = API.deleteEvent(json, getApplicationContext());
+                if (result == API.ERROR){
+                    Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+                }else if (result == API.SUCCESS){
+                    Log.i(TAG, "event deleted");
+                    finish();
+                }else if (result == API.RESULT_EMPTY){
+                    Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
+                }*/
+    //}
+    //};
+
+    //}*/
+
+    public class PostAdapter extends ArrayAdapter<Post> {
+        TextView t;
         private View.OnClickListener delete = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -813,7 +932,6 @@ public class EventDetailActivity extends AppCompatActivity {
                 alert.show();
 
 
-
             }
         };
         private View.OnClickListener comment = new View.OnClickListener() {
@@ -867,49 +985,51 @@ public class EventDetailActivity extends AppCompatActivity {
                 alert.show();
 
 
-
             }
         };
-    }
-
-
-    /*public class PostAdapter extends ArrayAdapter<Post> {
+        //Button b2;
         public PostAdapter(Context context, List objects) {
             super(context, R.layout.item_post, objects);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
-            }
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_post, parent, false);
 
             Post mPost = getItem(position);
 
             TextView postTextView = (TextView) convertView.findViewById(R.id.postEditText);
             Button b = (Button) convertView.findViewById(R.id.deletePost);
             b.setTag(position);
-            b.setOnClickListener(myButtonClickListener);
+            b.setOnClickListener(delete);
 
+            Button b2 = (Button) convertView.findViewById(R.id.updatePost);
+            b2.setTag(position);
+            b2.setOnClickListener(update);
+
+            Button b3 = (Button) convertView.findViewById(R.id.comment);
+            b3.setTag(position);
+            b3.setOnClickListener(comment);
+
+            t = (TextView) convertView.findViewById(R.id.postEditText);
+            t.setTag(position);
             int userIDTemp = mPost.getUserID();
 
             //b.setTag(position);
             JsonObject json = new JsonObject();
             json.addProperty("id", userIDTemp);
-            User userTemp = API.getUser(json, getContext());
+            User userTemp = UserAPI.getUser(json, getContext());
             String userNameTemp = userTemp.getName();
             String userSurnameTemp = userTemp.getSurname();
             String nameTemp = " - " + userNameTemp + " " + userSurnameTemp;
             //System.out.println(nameTemp);
             String post = mPost.getPost();
-            SpannableString ss1=  new SpannableString(post + nameTemp);
+            SpannableString ss1 = new SpannableString(post + nameTemp);
             //System.out.println(ss1);
 
-            ss1.setSpan(new StyleSpan(android.graphics.Typeface.BOLD_ITALIC),
-                    post.length()+1,ss1.length(), 0);
-            ss1.setSpan(new ForegroundColorSpan(Color.BLUE), post.length()+1, ss1.length(), 0);
-
-
+            ss1.setSpan(new StyleSpan(Typeface.BOLD_ITALIC),
+                    post.length() + 1, ss1.length(), 0);
+            ss1.setSpan(new ForegroundColorSpan(Color.BLUE), post.length() + 1, ss1.length(), 0);
 
 
             //postTextView.setText(post + nameTemp);
@@ -918,98 +1038,6 @@ public class EventDetailActivity extends AppCompatActivity {
 
             return convertView;
         }
-        private View.OnClickListener myButtonClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = (Integer) v.getTag();
-                System.out.println(position);
-                int size = adapterPost.getCount();
-                //System.out.println(size-position);
-                //int id_post = size-position;
-                Post p = adapterPost.getItem(position);
-                int id_post = p.getID();
-                System.out.println(id_post);
-
-
-                JsonObject json = new JsonObject();
-                json.addProperty("id", id_post);
-                API.deleteEventPost(json, getContext());
-
-
-
-                JsonObject json2 = new JsonObject();
-                json2.addProperty("id", id);
-                API.getEvent(json2, getContext());
-
-                ArrayList<Post> posts = API.getAllEventPosts(json2, getApplicationContext());
-
-                //Log.i(TAG, json2.toString());
-                Collections.reverse(posts);
-                adapterPost.clear();
-                adapterPost.addAll(posts);
-
-
-                /*int result = API.deleteEvent(json, getApplicationContext());
-                if (result == API.ERROR){
-                    Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-                }else if (result == API.SUCCESS){
-                    Log.i(TAG, "event deleted");
-                    finish();
-                }else if (result == API.RESULT_EMPTY){
-                    Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-                }*/
-            //}
-        //};
-
-    //}*/
-
-    public void postButton() {
-        String post = postEditTextMain.getText().toString();
-        Post newPost = new Post(post);
-        //postsArray.add(newPost);
-        //adapterPost.clear();
-        //adapterPost.addAll(postsArray);
-        //listView.setAdapter(adapterPost);
-        //adapterPost = new PostAdapter(this, postsArray);
-
-
-        // Attach the adapter to a ListView
-
-        //listView.setAdapter(adapterPost);
-        //postsArray.add(0,newPost);
-
-
-        long id_event = id;
-        long id_user = mUser.getId();
-        String content = post;
-        String content_url = "dummy";
-
-        JsonObject json = new JsonObject();
-        json.addProperty("id_event", id_event);
-        json.addProperty("id_user", id_user);
-        json.addProperty("content", content);
-        json.addProperty("content_url", content_url);
-
-        Log.i(TAG, json.toString());
-
-        EventAPI.createEventPost(json, this);
-
-        JsonObject json2 = new JsonObject();
-        json2.addProperty("id", id_event);
-        //json2.addProperty("id_user", user_id);
-        //API.getEvent(json2, this);
-
-
-        ArrayList<Post> posts = EventAPI.getAllEventPosts(json2, getApplicationContext());
-
-        Log.i(TAG, json2.toString());
-        Collections.reverse(posts);
-        adapterPost.clear();
-        adapterPost.addAll(posts);
-        postEditTextMain.setText("");
-        //Post p = posts.get(0);
-        //System.out.println(p.getPost());
-
     }
 
 }

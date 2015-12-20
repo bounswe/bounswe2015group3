@@ -70,29 +70,6 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:src="@drawable/ic_mode_edit_black_24dp" />
-
-                <EditText
-                    android:id="@+id/nameEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@null"
-                    android:padding="5dp"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:padding="@dimen/activity_vertical_margin"
                     android:src="@drawable/ic_label_black_24dp" />
 
@@ -325,7 +302,6 @@
         android:layout_height="wrap_content"
         android:onClick="deleteEvent"
         android:src="@drawable/ic_delete_white_24dp"
-        app:backgroundTint="@color/colorPrimaryDark"
         app:layout_anchor="@id/appBarLayout"
         app:layout_anchorGravity="bottom|right" />
 
@@ -334,9 +310,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="60dp"
-        android:onClick="editEvent"
         android:src="@drawable/ic_mode_edit_white_24dp"
-        app:backgroundTint="@color/colorPrimaryDark"
         app:layout_anchor="@id/appBarLayout"
         app:layout_anchorGravity="bottom|right" />
 
@@ -347,7 +321,6 @@
         android:layout_marginRight="120dp"
         android:onClick="setRoles"
         android:src="@drawable/ic_face_white_24dp"
-        app:backgroundTint="@color/colorPrimaryDark"
         app:layout_anchor="@id/appBarLayout"
         app:layout_anchorGravity="bottom|right" />
 
@@ -358,18 +331,6 @@
         android:layout_marginRight="180dp"
         android:onClick="setImage"
         android:src="@drawable/ic_camera_alt_white_24dp"
-        app:backgroundTint="@color/colorPrimaryDark"
-        app:layout_anchor="@id/appBarLayout"
-        app:layout_anchorGravity="bottom|right" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/doneButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="saveEvent"
-        android:src="@drawable/ic_check_white_24dp"
-        android:visibility="gone"
-        app:backgroundTint="@color/colorPrimaryDark"
         app:layout_anchor="@id/appBarLayout"
         app:layout_anchorGravity="bottom|right" />
 

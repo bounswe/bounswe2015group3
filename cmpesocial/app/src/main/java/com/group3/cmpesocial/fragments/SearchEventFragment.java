@@ -1,8 +1,6 @@
 package com.group3.cmpesocial.fragments;
 
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -11,19 +9,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API.SearchAPI;
 import com.group3.cmpesocial.R;
-import com.group3.cmpesocial.activities.event.EventDetailActivity;
+import com.group3.cmpesocial.adapters.EventAdapter;
 import com.group3.cmpesocial.classes.Event;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,42 +82,5 @@ public class SearchEventFragment extends Fragment {
         adapter.addAll(eventsArray);
         Log.d(TAG, "eventsarray lenght " + eventsArray.size());
     }
-
-    public class EventAdapter extends ArrayAdapter<Event> {
-
-        public EventAdapter(Context context, List objects) {
-            super(context, R.layout.item_event, objects);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_event, parent, false);
-
-            final Event mEvent = getItem(position);
-
-            TextView dateTextView = (TextView) convertView.findViewById(R.id.dateTextView);
-            TextView titleTextView = (TextView) convertView.findViewById(R.id.titleTextView);
-            TextView placeTextView = (TextView) convertView.findViewById(R.id.placeTextView);
-
-            int[] eventStartDate = mEvent.getStartDate();
-            String date = Event.getMonthName(eventStartDate[1]) + " " + eventStartDate[0];
-
-            dateTextView.setText(date);
-            titleTextView.setText(mEvent.getName());
-            placeTextView.setText(mEvent.getLocation());
-
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-                    intent.putExtra("id", mEvent.getId());
-                    startActivity(intent);
-                }
-            });
-
-            return convertView;
-        }
-    }
-
 
 }

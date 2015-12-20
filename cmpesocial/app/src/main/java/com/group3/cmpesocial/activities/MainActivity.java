@@ -3,7 +3,9 @@ package com.group3.cmpesocial.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.group3.cmpesocial.R;
+import com.group3.cmpesocial.activities.event.NewEventActivity;
+import com.group3.cmpesocial.activities.group.NewGroupActivity;
 import com.group3.cmpesocial.fragments.EventsFragment;
 import com.group3.cmpesocial.fragments.GroupsFragment;
 import com.group3.cmpesocial.fragments.HomeFragment;
@@ -31,6 +35,9 @@ import com.group3.cmpesocial.fragments.InvitesFragment;
 import com.group3.cmpesocial.fragments.ProfileFragment;
 import com.group3.cmpesocial.fragments.RecommendationsFragment;
 import com.group3.cmpesocial.fragments.SearchEventFragment;
+import com.group3.cmpesocial.imgur.helpers.DocumentHelper;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,11 +52,16 @@ public class MainActivity extends AppCompatActivity
     private final int INVITES = 5;
     private final int SEARCH_EVENT = 6;
     private final int SEARCH_GROUP = 7;
+
     FragmentTransaction fragmentTransaction;
+
     private boolean searching = false;
+
     private Toolbar toolbar;
     private ImageButton searchButton;
     private EditText searchEditText;
+    private FloatingActionButton createButton;
+
     private FragmentManager fragmentManager;
     private HomeFragment fragment_home;
     private RecommendationsFragment fragment_recommendations;
@@ -89,6 +101,20 @@ public class MainActivity extends AppCompatActivity
 
         searchButton = (ImageButton) findViewById(R.id.searchButton);
         searchEditText = (EditText) findViewById(R.id.searchEditText);
+
+        createButton = (FloatingActionButton) findViewById(R.id.createButton);
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentScreen == EVENTS){
+                    Intent intent = new Intent(MainActivity.this, NewEventActivity.class);
+                    startActivity(intent);
+                } else if (currentScreen == GROUPS){
+                    Intent intent = new Intent(MainActivity.this, NewGroupActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
 
         searchEditText.setVisibility(View.GONE);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +180,30 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Uri returnUri;
+
+        if (requestCode != 100) {
+            return;
+        }
+
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+
+        if (requestCode == 451) {
+            returnUri = data.getData();
+            String filePath = DocumentHelper.getPath(this, returnUri);
+            //Safety check to prevent null pointer exception
+            if (filePath == null || filePath.isEmpty()) return;
+            File chosenFile = new File(filePath);
+            Log.d(TAG, "got file");
+            fragment_profile.uploadImage(chosenFile);
         }
     }
 

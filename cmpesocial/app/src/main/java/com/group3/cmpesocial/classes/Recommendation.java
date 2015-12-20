@@ -9,11 +9,13 @@ public class Recommendation {
     public static final int TYPE_GROUP = 1;
 
     private int type;
+    private int id;
     private String title;
 
-    public Recommendation(int type, String title) {
+    public Recommendation(int type, int id, String title) {
         this.title = title;
         this.type = type;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -30,5 +32,13 @@ public class Recommendation {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

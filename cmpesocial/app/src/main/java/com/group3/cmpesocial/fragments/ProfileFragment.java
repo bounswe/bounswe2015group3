@@ -2,38 +2,65 @@ package com.group3.cmpesocial.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
+import com.group3.cmpesocial.adapters.ViewPagerAdapter;
+import com.group3.cmpesocial.classes.User;
+import com.group3.cmpesocial.imgur.imgurmodel.ImageResponse;
+import com.group3.cmpesocial.imgur.services.UploadService;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.util.ArrayList;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class ProfileFragment extends Fragment {
 
+    private final static String TAG = ProfileFragment.class.getSimpleName();
+    private static MyEventsFragment myEventsFragment;
+    private static JoinedEventsFragment joinedEventsFragment;
+    private static MyGroupsFragment myGroupsFragment;
+    private static JoinedGroupsFragment joinedGroupsFragment;
     private final String title = "Profile";
-    private ImageView profileImageView;
     private TextView nameTextView;
-    private TextView surnameTextView;
-    private TextView emailTextView;
-    private Button changePasswordButton;
+    private ImageView profileImageView;
+    private TextView roleTextView;
+    private ProgressBar progressBar;
+    private FloatingActionButton changePasswordButton;
+    private FloatingActionButton changePictureButton;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
     private int id;
     private String name;
     private String surname;
     private String email;
     private int type;
+    private String url;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -50,16 +77,24 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View mView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        profileImageView = (ImageView) mView.findViewById(R.id.profileImageView);
         nameTextView = (TextView) mView.findViewById(R.id.nameTextView);
-        surnameTextView = (TextView) mView.findViewById(R.id.surnameTextView);
-        emailTextView = (TextView) mView.findViewById(R.id.emailTextView);
-
-        changePasswordButton = (Button) mView.findViewById(R.id.changePasswordButton);
+        profileImageView = (ImageView) mView.findViewById(R.id.profileImageView);
+        roleTextView = (TextView) mView.findViewById(R.id.roleTextView);
+        progressBar = (ProgressBar) mView.findViewById(R.id.progressBar);
+        tabLayout = (TabLayout) mView.findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) mView.findViewById(R.id.viewPager);
+        changePictureButton = (FloatingActionButton) mView.findViewById(R.id.changePictureButton);
+        changePasswordButton = (FloatingActionButton) mView.findViewById(R.id.changePasswordButton);
+        changePictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changePicture();
+            }
+        });
         changePasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changePassword(v);
+                changePassword();
             }
         });
 
@@ -68,20 +103,46 @@ public class ProfileFragment extends Fragment {
         name = prefs.getString("name", "def_name");
         surname = prefs.getString("surname", "def_surname");
         email = prefs.getString("email", "def_email");
+        url = prefs.getString("url", "");
         type = prefs.getInt("type", 0);
 
-        nameTextView.setText(name);
-        surnameTextView.setText(surname);
-        emailTextView.setText(email);
+        nameTextView.setText(name + " " + surname);
+        roleTextView.setText(User.TYPES[type]);
+        if (url != null && !url.equals(""))
+            Picasso.with(getContext()).load(url).into(profileImageView);
+
+        myEventsFragment = new MyEventsFragment();
+        myEventsFragment.setUserID(id);
+        joinedEventsFragment = new JoinedEventsFragment();
+        joinedEventsFragment.setUserID(id);
+        myGroupsFragment = new MyGroupsFragment();
+        myGroupsFragment.setUserID(id);
+        joinedGroupsFragment = new JoinedGroupsFragment();
+        joinedGroupsFragment.setUserID(id);
+
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        ArrayList<String> titles = new ArrayList<>();
+        fragments.add(myEventsFragment);
+        fragments.add(joinedEventsFragment);
+        fragments.add(myGroupsFragment);
+        fragments.add(joinedGroupsFragment);
+        titles.add(myEventsFragment.getTitle());
+        titles.add(joinedEventsFragment.getTitle());
+        titles.add(myGroupsFragment.getTitle());
+        titles.add(joinedGroupsFragment.getTitle());
+
+        viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), fragments, titles);
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
 
         return mView;
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
 
-    public void changePassword(View v){
+    public void changePassword() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
         alertDialog.setTitle("Change your password");
         alertDialog.setMessage("Enter new password");
@@ -99,9 +160,9 @@ public class ProfileFragment extends Fragment {
                         if (input.getText() == null)
                             dialog.cancel();
                         String password = input.getText().toString();
-                        if (password.length() == 0){
+                        if (password.length() == 0) {
                             dialog.cancel();
-                        }else{
+                        } else {
                             password = password.trim();
                             JsonObject json = new JsonObject();
                             json.addProperty("id", id);
@@ -109,6 +170,7 @@ public class ProfileFragment extends Fragment {
                             json.addProperty("surname", surname);
                             json.addProperty("password", password);
                             json.addProperty("email", email);
+                            json.addProperty("profile_pic_link", url);
                             json.addProperty("type", type);
                             UserAPI.updateUser(json, getActivity());
                         }
@@ -123,6 +185,42 @@ public class ProfileFragment extends Fragment {
                 });
 
         alertDialog.show();
+    }
+
+    public void changePicture() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, 451);
+    }
+
+    public void uploadImage(File chosenFile) {
+        new UploadService(getContext()).Execute(chosenFile, new UiCallback());
+        progressBar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "here");
+    }
+
+    private class UiCallback implements Callback<ImageResponse> {
+
+        @Override
+        public void success(ImageResponse imageResponse, Response response) {
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(getContext(), "Image uploaded", Toast.LENGTH_SHORT).show();
+            url = imageResponse.data.link;
+            Log.d(TAG, imageResponse.data.link);
+
+            Picasso.with(getContext()).load(url).into(profileImageView);
+
+        }
+
+        @Override
+        public void failure(RetrofitError error) {
+            //Assume we have no connection, since error is null
+            if (error == null) {
+                Toast.makeText(getContext(), "No internet connection", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 }

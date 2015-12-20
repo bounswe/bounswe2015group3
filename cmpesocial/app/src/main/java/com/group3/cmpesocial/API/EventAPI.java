@@ -243,10 +243,10 @@ public class EventAPI {
         Future mFuture = Ion.with(context)
                 .load(context.getString(R.string.baseURI) + context.getString(R.string.getJoinedEvents))
                 .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, JsonArray result) {
                         // do stuff with the result or error
                         if (e != null) {
                             Log.d(TAG, "error getJoinedEvents" + e.getMessage());

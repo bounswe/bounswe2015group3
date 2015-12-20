@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.classes.Event;
+import com.group3.cmpesocial.classes.Group;
 import com.group3.cmpesocial.classes.User;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
@@ -156,10 +157,10 @@ public class SearchAPI {
         return events;
     }
 
-    public static ArrayList<Event> getRecommendedGroups(JsonObject json, Context context){
-        Log.d(TAG, "searchEvents json " + json.toString());
+    public static ArrayList<Group> getRecommendedGroups(JsonObject json, Context context){
+        Log.d(TAG, "getRecommendedGroups json " + json.toString());
 
-        ArrayList<Event> events = new ArrayList<>();
+        ArrayList<Group> groups = new ArrayList<>();
         Future mFuture = Ion.with(context)
                 .load(context.getString(R.string.baseURI) + context.getString(R.string.recommendedGroups))
                 .setJsonObjectBody(json)
@@ -169,7 +170,7 @@ public class SearchAPI {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.d(TAG, "error searchEvents" + e.getMessage());
+                            Log.d(TAG, "error getRecommendedGroups" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equalsIgnoreCase("SUCCESS")) {
@@ -187,16 +188,16 @@ public class SearchAPI {
         try {
             JsonObject result = (JsonObject) mFuture.get();
             Log.d(TAG, "future : " + result.toString());
-            JsonArray eventsJsonArray = result.getAsJsonArray("Events");
-            Iterator<JsonElement> iterator = eventsJsonArray.iterator();
+            JsonArray groupsJsonArray = result.getAsJsonArray("Events");
+            Iterator<JsonElement> iterator = groupsJsonArray.iterator();
             while (iterator.hasNext()) {
-                Event event = new Event(iterator.next().getAsJsonObject(), false);
-                events.add(event);
+                Group group = new Group(iterator.next().getAsJsonObject(), false);
+                groups.add(group);
             }
         } catch (Exception e) {
             Log.d(TAG, "searchEvents exception" + e.getMessage());
         }
-        return events;
+        return groups;
     }
 
     protected static String trimQuotes(String s) {

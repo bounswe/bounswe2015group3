@@ -198,19 +198,19 @@ public class GroupAPI {
     }
 
     public static ArrayList<Group> getMyGroups(JsonObject json, Context context) {
-        Log.d(TAG, "viewMyGroups json " + json.toString());
+        Log.d(TAG, "getMyGroups json " + json.toString());
 
         ArrayList<Group> mGroups = new ArrayList<>();
         Future mFuture = Ion.with(context)
                 .load(context.getString(R.string.baseURI) + context.getString(R.string.getMyGroups))
                 .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, JsonArray result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.d(TAG, "error viewMyGroups" + e.getMessage());
+                            Log.d(TAG, "error getMyGroups" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equalsIgnoreCase("SUCCESS")) {
@@ -224,34 +224,33 @@ public class GroupAPI {
                     }
                 });
         try {
-            JsonObject result = (JsonObject) mFuture.get();
+            JsonArray result = (JsonArray) mFuture.get();
             Log.d(TAG, "future : " + result.toString());
-            JsonArray groupsJson = result.getAsJsonArray("groups");
-            Iterator<JsonElement> iterator = groupsJson.iterator();
+            Iterator<JsonElement> iterator = result.iterator();
             while (iterator.hasNext()) {
                 Group group = new Group(iterator.next().getAsJsonObject());
                 mGroups.add(group);
             }
         } catch (Exception e) {
-            Log.d(TAG, "exception viewMyGroups" + e.getMessage());
+            Log.d(TAG, "exception getMyGroups" + e.getMessage());
         }
         return mGroups;
     }
 
     public static ArrayList<Group> getJoinedGroups(JsonObject json, Context context) {
-        Log.d(TAG, "viewJoinedGroups json " + json.toString());
+        Log.d(TAG, "getJoinedGroups json " + json.toString());
 
         ArrayList<Group> mGroups = new ArrayList<>();
         Future mFuture = Ion.with(context)
                 .load(context.getString(R.string.baseURI) + context.getString(R.string.getJoinedGroups))
                 .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
                     @Override
-                    public void onCompleted(Exception e, JsonObject result) {
+                    public void onCompleted(Exception e, JsonArray result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.d(TAG, "error viewJoinedGroups" + e.getMessage());
+                            Log.d(TAG, "error getJoinedGroups" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equalsIgnoreCase("SUCCESS")) {
@@ -273,7 +272,7 @@ public class GroupAPI {
                 mGroups.add(group);
             }
         } catch (Exception e) {
-            Log.d(TAG, "exception viewJoinedGroups" + e.getMessage());
+            Log.d(TAG, "exception getJoinedGroups" + e.getMessage());
         }
         return mGroups;
     }

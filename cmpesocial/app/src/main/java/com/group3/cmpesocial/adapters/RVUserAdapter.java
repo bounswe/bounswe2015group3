@@ -16,7 +16,7 @@ import com.group3.cmpesocial.classes.User;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
+public class RVUserAdapter extends RecyclerView.Adapter<RVUserAdapter.ViewHolder>{
 
     private ArrayList<User> users;
     private Context context;
@@ -49,14 +49,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public UserAdapter(ArrayList<User> users, Context context) {
+    public RVUserAdapter(ArrayList<User> users, Context context) {
         this.users = users;
         this.context = context;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public UserAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RVUserAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event_detail_user, parent, false);
         return new ViewHolder(v);

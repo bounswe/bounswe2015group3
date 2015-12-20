@@ -13,6 +13,7 @@ public class User {
     public static final int FACULTY_MEMBER = 3;
     public static final int STAFF = 4;
     public static final int ALUMNI = 5;
+    public static final String[] TYPES = {"God", "Undergraduate", "Graduate", "Faculty Member", "Staff", "Alumni"};
 
     private int id;
     private String name;
@@ -48,7 +49,11 @@ public class User {
         surname = json.get("surname").getAsString();
         email = json.get("email").getAsString();
         password = json.get("password").getAsString();
-        //profilePictureURL = json.get("profilePictureURL").getAsString();
+        if (json.has("profile_pic_link")) {
+            profilePictureURL = json.get("profile_pic_link").getAsString();
+        }else{
+            profilePictureURL = "";
+        }
         type = json.get("type").getAsInt();
     }
 
