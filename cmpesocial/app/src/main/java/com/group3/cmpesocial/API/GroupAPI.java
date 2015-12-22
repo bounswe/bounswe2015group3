@@ -228,7 +228,7 @@ public class GroupAPI {
             Log.d(TAG, "future : " + result.toString());
             Iterator<JsonElement> iterator = result.iterator();
             while (iterator.hasNext()) {
-                Group group = new Group(iterator.next().getAsJsonObject());
+                Group group = new Group(iterator.next().getAsJsonObject(), true);
                 mGroups.add(group);
             }
         } catch (Exception e) {
@@ -268,7 +268,7 @@ public class GroupAPI {
             JsonArray groupsJson = (JsonArray) mFuture.get();
             Iterator<JsonElement> iterator = groupsJson.iterator();
             while (iterator.hasNext()) {
-                Group group = new Group(iterator.next().getAsJsonObject());
+                Group group = new Group(iterator.next().getAsJsonObject(), true);
                 mGroups.add(group);
             }
         } catch (Exception e) {

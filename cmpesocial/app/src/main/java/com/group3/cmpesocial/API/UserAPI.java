@@ -48,7 +48,7 @@ public class UserAPI {
                                 String surname = trimQuotes(user.get("surname").toString());
                                 String password = trimQuotes(user.get("password").toString());
                                 String email = trimQuotes(user.get("email").toString());
-                                String url = trimQuotes(user.get("profile_pic_link").toString());
+//                                String url = trimQuotes(user.get("profile_pic_link").toString());
                                 int user_type = Integer.parseInt(user.get("id").toString());
 
                                 SharedPreferences.Editor editor = context.getSharedPreferences("prefsCMPE", context.MODE_PRIVATE).edit();
@@ -57,7 +57,7 @@ public class UserAPI {
                                 editor.putString("name", name);
                                 editor.putString("surname", surname);
                                 editor.putString("email", email);
-                                editor.putString("url", url);
+                                editor.putString("url", "");
                                 editor.putInt("type", user_type);
                                 editor.apply();
 

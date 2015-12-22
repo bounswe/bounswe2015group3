@@ -267,7 +267,7 @@ public class EventAPI {
             Log.d(TAG, "future : " + result.toString());
             Iterator<JsonElement> iterator = result.iterator();
             while (iterator.hasNext()) {
-                Event event = new Event(iterator.next().getAsJsonObject());
+                Event event = new Event(iterator.next().getAsJsonObject(), true);
                 mEvents.add(event);
             }
         } catch (Exception e) {

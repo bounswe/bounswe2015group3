@@ -1,6 +1,7 @@
 package com.group3.cmpesocial.fragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  */
 public class RecommendationsFragment extends Fragment {
 
-    private final String title = "Recommendatios";
+    private final String title = "Recommendations";
 
     private RecommendedEventsFragment eventsFragment;
     private RecommendedGroupsFragment groupsFragment;
@@ -40,8 +41,9 @@ public class RecommendationsFragment extends Fragment {
         // Inflate the layout for this fragment
         View mView = inflater.inflate(R.layout.fragment_recommendations, container, false);
 
-        tabLayout = (TabLayout) mView.findViewById(R.id.tabLayout);
         viewPager = (ViewPager) mView.findViewById(R.id.viewPager);
+        tabLayout = (TabLayout) mView.findViewById(R.id.tabLayout);
+        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
 
         eventsFragment = new RecommendedEventsFragment();
         groupsFragment = new RecommendedGroupsFragment();

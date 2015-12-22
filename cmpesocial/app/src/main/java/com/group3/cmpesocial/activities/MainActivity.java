@@ -112,6 +112,12 @@ public class MainActivity extends AppCompatActivity
                 } else if (currentScreen == GROUPS){
                     Intent intent = new Intent(MainActivity.this, NewGroupActivity.class);
                     startActivity(intent);
+                } else if (currentScreen == SEARCH_EVENT) {
+                    Intent intent = new Intent(MainActivity.this, NewEventActivity.class);
+                    startActivity(intent);
+                } else if (currentScreen == SEARCH_GROUP) {
+                    Intent intent = new Intent(MainActivity.this, NewGroupActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -274,6 +280,7 @@ public class MainActivity extends AppCompatActivity
     public void setHomeFragment() {
         searchButton.setVisibility(View.VISIBLE);
         searchEditText.setVisibility(View.GONE);
+        createButton.setVisibility(View.GONE);
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_home);
@@ -284,8 +291,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setRecommendationsFragment() {
-        searchButton.setVisibility(View.VISIBLE);
+        searchButton.setVisibility(View.GONE);
         searchEditText.setVisibility(View.GONE);
+        createButton.setVisibility(View.GONE);
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_recommendations);
@@ -298,6 +306,7 @@ public class MainActivity extends AppCompatActivity
     public void setGroupsFragment() {
         searchButton.setVisibility(View.VISIBLE);
         searchEditText.setVisibility(View.GONE);
+        createButton.setVisibility(View.VISIBLE);
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_groups);
@@ -310,6 +319,7 @@ public class MainActivity extends AppCompatActivity
     public void setEventsFragment() {
         searchButton.setVisibility(View.VISIBLE);
         searchEditText.setVisibility(View.GONE);
+        createButton.setVisibility(View.VISIBLE);
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_events);
@@ -322,6 +332,7 @@ public class MainActivity extends AppCompatActivity
     public void setProfileFragment() {
         searchButton.setVisibility(View.GONE);
         searchEditText.setVisibility(View.GONE);
+        createButton.setVisibility(View.GONE);
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_profile);
@@ -334,6 +345,7 @@ public class MainActivity extends AppCompatActivity
     public void setInvitesFragment() {
         searchButton.setVisibility(View.GONE);
         searchEditText.setVisibility(View.GONE);
+        createButton.setVisibility(View.GONE);
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_invites);
@@ -344,6 +356,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void searchEvents(){
+        createButton.setVisibility(View.VISIBLE);
+
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment_search_event);
         fragmentTransaction.commit();
