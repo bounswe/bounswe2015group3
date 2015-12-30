@@ -86,6 +86,22 @@
 		</div>
 	</header>
 	<br />
+	<section class="events newsection">
+		<div class="container">
+			<c:choose>
+				<c:when test="${isOwner == true}">
+					<div class="widget clearfix">
+						<h3>Admin Section</h3>
+						<br /> <a href="${contextPath}/group/edit?id=${group.id}"
+							class="btn btn-info"><i class="fa fa-pencil-square-o">
+							</i> EDIT GROUP </a> <a href="${contextPath}/group/delete?id=${group.id}"
+							class="btn btn-danger"><i class="fa fa-times">
+							</i> Delete Group </a>
+					</div>
+				</c:when>
+			</c:choose>
+		</div>
+	</section>
 	<section class="background clearfix newsection">
 		<div class="container">
 			<div class="panel panel-default">
@@ -135,8 +151,10 @@
 										<ul class="meta">
 											<li class="date"><i class="icon fa fa-calendar"></i>1
 												month ago</li>
-											<li><a href="${contextPath}/user/home?id=${post.author.id}"><i class="icon fa fa-user"></i>by
-													${post.author.name} ${post.author.surname}</a></li>
+											<li><a
+												href="${contextPath}/user/home?id=${post.author.id}"><i
+													class="icon fa fa-user"></i>by ${post.author.name}
+													${post.author.surname}</a></li>
 										</ul>
 										<p>${post.post_text}</p>
 									</div>
@@ -149,21 +167,21 @@
 				<div class="col-md-4">
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<c:choose>
-						<c:when test="${isMember == false}">
-							<div class="widget clearfix">
-								<a href="${contextPath}/group/join?id=${group.id}"
-									class="btn btn-success btn-full"> <i class="icon fa fa-plus">
-								</i> Join Group
-								</a>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div class="widget clearfix">
-								<a href="${contextPath}/group/leave?id=${group.id}"
-									class="btn btn-danger btn-full"><i
-									class="icon fa fa-sign-out"> </i> Leave Group</a>
-							</div>
-						</c:otherwise>
+							<c:when test="${isMember == false}">
+								<div class="widget clearfix">
+									<a href="${contextPath}/group/join?id=${group.id}"
+										class="btn btn-success btn-full"> <i
+										class="icon fa fa-plus"> </i> Join Group
+									</a>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="widget clearfix">
+									<a href="${contextPath}/group/leave?id=${group.id}"
+										class="btn btn-danger btn-full"><i
+										class="icon fa fa-sign-out"> </i> Leave Group</a>
+								</div>
+							</c:otherwise>
 						</c:choose>
 					</aside>
 					<br />

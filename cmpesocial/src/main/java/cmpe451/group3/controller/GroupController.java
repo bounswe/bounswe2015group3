@@ -44,7 +44,7 @@ public class GroupController {
 
         if((int)group.get("id_admin") == userid){
         	model.put("group", group);
-        	return "updateGroup";
+        	return "editGroup";
 		}
 
         return "redirect:/groups";
@@ -80,6 +80,7 @@ public class GroupController {
     	if((int)userid == (int)group.get("id_admin")){
     		isOwner = true;
     	}
+    	model.put("isOwner", isOwner);
     	model.put("isMember", isMember);
         model.put("group", group);
         model.put("members", members);
@@ -122,9 +123,9 @@ public class GroupController {
         String mail = auth.getName();
         Long userid = userModel.getIDUserByEmail(mail);
         if (id != null)
-            groupDAO.updateGroup(id, name,userid ,type,description,group_url);
+            groupDAO.updateGroup(id, name, userid, type, description, group_url);
         else
-            groupDAO.createGroup(name,userid, type, description, group_url);
+            groupDAO.createGroup(name, userid, type, description, group_url);
 
         return "redirect:/groups";
     }
