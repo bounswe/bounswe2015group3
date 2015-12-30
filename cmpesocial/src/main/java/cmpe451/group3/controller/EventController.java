@@ -126,9 +126,9 @@ public class EventController {
     	long userid = eventModel.getIdFromMail(mail);
 		
         if (id != null)
-        	eventModel.updateEvent(id, name, date,end_date, periodic, userid, location, description, type,null,null);
+        	eventModel.updateEvent(id, name, date, end_date, periodic, userid, location, description, type, null, null);
         else
-        	eventModel.createEvent(name, date, end_date, periodic, userid, location, description, type,null,null);
+        	eventModel.createEvent(name, date, end_date, periodic, userid, location, description, type, null, null);
 
         return "redirect:/events";
     }

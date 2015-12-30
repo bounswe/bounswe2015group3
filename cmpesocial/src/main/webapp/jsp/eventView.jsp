@@ -86,6 +86,22 @@
 		</div>
 	</header>
 	<!-- Sub-banner -->
+	<section class="events newsection">
+		<div class="container">
+			<c:choose>
+				<c:when test="${isOwner == true}">
+					<div class="widget clearfix">
+						<h3>Admin Section</h3>
+						<br /> <a href="${contextPath}/event/edit?id=${event.id}"
+							class="btn btn-info"><i class="fa fa-pencil-square-o">
+							</i> EDIT EVENT </a> <a href="${contextPath}/event/delete?id=${event.id}"
+							class="btn btn-danger"><i class="fa fa-times">
+							</i> DELETE EVENT </a>
+					</div>
+				</c:when>
+			</c:choose>
+		</div>
+	</section>
 	<section class="sub-banner newsection">
 		<div class="container">
 			<h2 class="title">Event Detail</h2>

@@ -56,14 +56,14 @@ public class EventModel {
 
     public void createEvent(String name, String date,String end_date,int periodic, long userid, String location, String description,String type, Long id_group, String url) {
         String sql = "INSERT INTO event(name, date,end_date,periodic, id_user, location, description,type,id_group,url) VALUES(?, ?, ?, ?, ?, ?, ?,?,?,?)";
-        
+        //bug is here
         this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description,type,id_group,url);
     }
 
     public void updateEvent(Long id, String name, String date,String end_date,int periodic, long userid, String location, String description, String type, Long id_group, String url) {
-        String sql = "UPDATE event SET name = ?, date = ?,end_date = ?,periodic = ? , id_user = ?, location = ?, description = ?, type = ?, id_group= ? , url = ? WHERE id = ?";
-
-        this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description ,type,id_group,url,id);
+        String sql = "UPDATE event SET name = ?, date = ?, end_date = ?, periodic = ?, id_user = ?, location = ?, description = ?, type = ?, id_group= ?, url = ? WHERE id = ?";
+        //bug is here
+        this.jdbcTemplate.update(sql, name, date, end_date, periodic, userid, location, description, type, id_group, url, id);
     }
 
     public List<Map<String,Object>> getEventsOfGroup(long id_group)

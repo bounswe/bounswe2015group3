@@ -52,12 +52,10 @@
 			<!-- Moblie Nav Wrapper  -->
 			<div class="mobile-nav-wrapper">
 				<div class="container ">
-					<!-- logo  -->
 					<div id="logo">
-						<a href="index.htm"><img
+						<a href="${contextPath}/"><img
 							src="${contextPath}/assets/img/logo.png" alt=""></a>
 					</div>
-
 					<div id="sb-search" class="sb-search">
 						<form method="post" action="${contextPath}/search" class="form">
 							<input class="sb-search-input"
@@ -73,11 +71,12 @@
 					<!-- Nav -->
 					<nav class="main-nav mobile-menu">
 						<ul class="clearfix">
-							<li><i class="icon fa fa-home"> </i> <a href="index.html">Home</a>
-							</li>
-							<li><a href="${contextPath}/user/home"><i class="icon fa fa-user"> </i> Profile</a></li>
-							<li><a href="#"><i class="icon fa fa-comments"> </i>
-									Messages</a></li>
+							<li><a href="${contextPath}/user/home"><i
+									class="icon fa fa-user"> </i> Profile</a></li>
+							<li><a href="${contextPath}/events"><i
+									class="icon fa fa-calendar"> </i> Events</a></li>
+							<li><a href="${contextPath}/groups"><i
+									class="icon fa fa-group"> </i> Groups</a></li>
 							<li><a href="#"><i class="icon fa fa-sign-out"> </i>
 									Sign Out</a></li>
 						</ul>
@@ -99,81 +98,73 @@
 						<div class="widget clearfix">
 							<h2>Update Event</h2>
 							<hr />
-							<form method="post" action="${contextPath}/events/update"
+							<form method="post"
+								action="${contextPath}/events/update?id=${event.id}"
 								class="form">
 								<input type="hidden" name="id" value="${event.id}">
 								<div class="response">&nbsp;</div>
 								<p>
-									<label for="name">What are you planning?</label> <input
-										type="text" name="name" id="name" value="${event.name}"
-										class="textflied">
+									<label for="name">Event Name:</label> <input
+										id="name" type="text" value="${event.name}" name="name"
+										placeholder="Event Title" class="textflied">
+								</p>
+								<p>
+									<label>Place:</label> <input type="text" name="location"
+										id="location" value="${event.location}" placeholder="Event Location"
+										class="textflied"> <i class="icon fa fa-map-marker"></i>
 								</p>
 
 								<p>
-									<label>Where?</label> <input type="text" name="location"
-										id="location" value="${event.location}" class="textflied">
-									<i class="icon fa fa-map-marker"></i>
-								</p>
-
-								<p>
-									<label>When?</label><br /> <input name="date" id="date"
-										value="${event.date}" class="date_timepicker_start"
+									<label>Start Date:</label><br /> <input name="date" id="date"
+										value="${event.date}"
+										placeholder="YYYY/MM/DD HH:MM:SS"
+										class="date_timepicker_start"
 										style="width: 100%; height: 40px; padding: 0px 10px; border: 1px solid #c2c4cb; border-radius: 2px; outline: none;">
 
 									<i class="icon fa fa-calendar"></i>
 								</p>
 
 								<p>
-									<label>Change Photo</label> <input type="file"
-										class="textflied"> <i class="icon fa fa-photo"></i>
+									<label>End Date:</label><br /> <input name="end_date"
+										id="end_date" 
+										value="${event.end_date}" placeholder="YYYY/MM/DD HH:MM:SS"
+										class="date_timepicker_start"
+										style="width: 100%; height: 40px; padding: 0px 10px; border: 1px solid #c2c4cb; border-radius: 2px; outline: none;">
+
+									<i class="icon fa fa-calendar"></i>
+								</p>
+								<p>
+									<label for="role">Is periodic?</label> <select
+										class="textflied" id="periodic" name="periodic">
+										<option value="0">Not Periodic</option>
+										<option value="1">Weekly</option>
+										<option value="2">Monthly</option>
+										<option value="3">Yearly</option>
+									</select>
 								</p>
 
 								<p>
 									<label>Event Description</label>
 									<textarea name="description" id="description"
-										value="${event.description}"
 										style="width: 100%; padding: 0px 10px; border: 1px solid #c2c4cb; border-radius: 2px; outline: none;"
-										name="description" rows="20">
-                                                 
-								</textarea>
+										name="description" rows="20">${event.description}
+										</textarea>
+								</p>
+								<p>
+									<label for="role">Who can join?</label> <select
+										class="textflied" id="type" name="type">
+										<option value="0">Everyone</option>
+										<option value="1">Under Graduate</option>
+										<option value="2">Graduate</option>
+										<option value="3">Faculty Member</option>
+										<option value="4">Alumni</option>
+										<option value="5">Staff</option>
+									</select>
 								</p>
 								<button type="submit" name="submit" id="submitButton"
 									class="btn btn-pri">Update Event</button>
 								</p>
 							</form>
-						</div>
-					</aside>
-				</div>
-				<div class="col-md-4">
-					<aside id="aside" class="aside-bar-style-two clearfix">
-						<div class="widget clearfix">
-							<h3 class="title">Suggested For You</h3>
-							<div class="top-ppost">
-
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-calendar"> </i></span>EVENT
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Watching Star Wars in Kuzey Kampus Cinema </a>
-									</h4>
-								</div>
-							</div>
-							<hr />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-group"> </i></span>GROUP
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Orta Düzey Tenis Oyuncuları </a>
-									</h4>
-								</div>
-							</div>
 						</div>
 					</aside>
 				</div>
