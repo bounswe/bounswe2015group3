@@ -130,7 +130,7 @@
 							<div class="widget clearfix">
 								<div class="well">
 									<form class="form-horizontal" method="post"
-										action="${contextPath}/group/create/post?id_group=${group.id}">
+										action="${contextPath}/event/create/post?id_event=${event.id}">
 										<h4>Write Post</h4>
 										<div class="form-group" style="padding: 14px;">
 											<textarea class="form-control" id="post_text"
