@@ -65,10 +65,17 @@ public class CmpeSocialController {
             @RequestParam(required = false) String password,
             @RequestParam String type )   {
 
-        if (id != null)
+        if (id != null)	{
         	cmpeSocialUserModel.updateUser(id, name, surname, email, SecurityUtils.getHashed(password),type);
-        else
-        	cmpeSocialUserModel.addUser(name, surname, email, SecurityUtils.getHashed(password),type);
+        }
+        else	{
+        	if(!cmpeSocialUserModel.checkEmail(email)){
+            	cmpeSocialUserModel.addUser(name, surname, email, SecurityUtils.getHashed(password),type);
+        	}	else	{
+        		System.out.println("This email address is already being used.");
+                return "redirect:/user/new";
+        	}
+        }
 
         return "redirect:/user/login";
     }
