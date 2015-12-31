@@ -20,4 +20,8 @@ public class CmpeSocialAuthentication {
 		System.out.println("Successfully authenticated. Security context contains: " +
 				SecurityContextHolder.getContext().getAuthentication());
 	}
+	
+	public static void removeAuthentication(){
+		SecurityContextHolder.getContext().setAuthentication(null);
+	}
 }

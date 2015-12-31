@@ -79,7 +79,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 									Profile</a></li>
 							<li><a href="#"><i class="icon fa fa-comments"> </i>
 									Messages</a></li>
-							<li><a href="#"><i class="icon fa fa-sign-out"> </i>
+							<li><a href="${contextPath}/user/logout"><i class="icon fa fa-sign-out"> </i>
 									Sign Out</a></li>
 						</ul>
 					</nav>

@@ -148,6 +148,12 @@ public class CmpeSocialController {
         	return "login";
     }
     
+    @RequestMapping(value = "user/logout")
+    public String logout() {
+    	CmpeSocialAuthentication.removeAuthentication();
+    	return "redirect:/";
+    }
+    
     @RequestMapping(value = "/search")
     public String search(@RequestParam(required = false) String query, ModelMap model) {
     	if(query != null){

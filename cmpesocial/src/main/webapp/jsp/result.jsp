@@ -92,7 +92,7 @@
 									Profile</a></li>
 							<li><a href="contact.html"><i
 									class="icon fa fa-comments"> </i> Messages</a></li>
-							<li><a href="contact.html"><i
+							<li><a href="${contextPath}/user/logout"><i
 									class="icon fa fa-sign-out"> </i> Sign Out</a></li>
 						</ul>
 					</nav>

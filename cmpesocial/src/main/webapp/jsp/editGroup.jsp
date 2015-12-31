@@ -92,7 +92,7 @@
 											class="icon fa fa-calendar"> </i> Events</a></li>
 									<li><a href="${contextPath}/groups"><i
 											class="icon fa fa-group"> </i> Groups</a></li>
-									<li><a href="#"><i class="icon fa fa-sign-out"> </i>
+									<li><a href="${contextPath}/user/logout"><i class="icon fa fa-sign-out"> </i>
 											Sign Out</a></li>
 								</ul>
 							</nav>
