@@ -54,7 +54,7 @@
 				<div class="container ">
 					<div class="row">
 						<div id="logo" class="col-xs-2">
-							<a href="index.htm"><img class="img-responsive"
+							<a href="${contextPath}/"><img class="img-responsive"
 								src="${contextPath}/assets/img/logo.png" alt=""></a>
 						</div>
 						<div class="col-xs-6 col-md-4 text-center">
