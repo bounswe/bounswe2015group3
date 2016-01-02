@@ -34,6 +34,12 @@ public class SearchAPI {
     @Autowired
     private TagDAO tagDAO = null;
 
+
+    @Qualifier("userModel")
+    @Autowired
+    private CmpeSocialUserModel userModel = null;
+
+
     @Qualifier("eventModel")
     @Autowired
     private EventModel eventModel = null;
@@ -124,7 +130,7 @@ public class SearchAPI {
 
         for (Map<String,Object> tagmap : tagsOfUser)
         {
-            listOfListofEvents.add(tagDAO.getTaggedFromGroupsNotMembership(tagmap.get("tag").toString(),idModel.id));
+            listOfListofEvents.add(tagDAO.getTaggedFromGroupsNotMembership(tagmap.get("tag").toString(), idModel.id));
         }
 
         Map<Long,Integer> weightList = new HashMap<>();
@@ -153,6 +159,47 @@ public class SearchAPI {
         return gson.toJson(result);
     }
 
+    //Get recommended users
+    @RequestMapping( value = "/search/recommendUsers" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String recommendUser(@RequestBody EventIDRequestModel idModel) {
+        Gson gson = new Gson();
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        List<Map<String,Object>> tagsOfUser = tagDAO.getTagsForUserWithHidden(idModel.id);
+
+        List<List<Map<String ,Object>>> listOfListofEvents  = new ArrayList<>();
+
+        for (Map<String,Object> tagmap : tagsOfUser)
+        {
+            listOfListofEvents.add(tagDAO.getTaggedFromUsers(tagmap.get("tag").toString()));
+        }
+
+        Map<Long,Integer> weightList = new HashMap<>();
+
+        for(List<Map<String,Object>> list : listOfListofEvents)
+            for(Map<String,Object> map : list)
+            {
+                Long id_event = Long.parseLong(map.get("id").toString());
+                if ( weightList.get(id_event) != null){
+                    Integer weight = weightList.get(id_event);
+                    weight++;
+                    weightList.put(id_event,weight);
+                }else
+                {
+                    weightList.put(id_event,1);
+                }
+            }
+        weightList = sortByComparator(weightList);
+        weightList = putFirstEntries(5, weightList);
+        List<Map<String,Object>> events = new ArrayList<>();
+        for(Long id :  weightList.keySet())
+        {
+            events.add(userModel.getUser(id));
+        }
+        result.put("Users",events);
+        return gson.toJson(result);
+    }
 
     public List<UserTagModel> makeTagModelArray(List<Map<String,Object>> mapList)
     {
