@@ -89,6 +89,7 @@
         android:src="@drawable/ic_camera_alt_white_24dp"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_above="@+id/tabLayout"/>
+        android:layout_below="@+id/infoLayout"
+        android:layout_marginTop="-50dp"/>
 
 </RelativeLayout>

@@ -56,13 +56,9 @@ public class MyEventsFragment extends Fragment{
         json = new JsonObject();
         json.addProperty("id", user_id);
 
-        return mView;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         refreshList();
+
+        return mView;
     }
 
     @Override
@@ -72,11 +68,6 @@ public class MyEventsFragment extends Fragment{
 
     public String getTitle() {
         return title;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     public void refreshList() {

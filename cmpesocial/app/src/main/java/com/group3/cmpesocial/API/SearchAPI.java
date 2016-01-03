@@ -115,7 +115,7 @@ public class SearchAPI {
     }
 
     public static ArrayList<Event> getRecommendedEvents(JsonObject json, Context context){
-        Log.d(TAG, "searchEvents json " + json.toString());
+        Log.d(TAG, "getRecommendedEvents json " + json.toString());
 
         ArrayList<Event> events = new ArrayList<>();
         Future mFuture = Ion.with(context)
@@ -127,7 +127,7 @@ public class SearchAPI {
                     public void onCompleted(Exception e, JsonObject result) {
                         // do stuff with the result or error
                         if (e != null) {
-                            Log.d(TAG, "error searchEvents" + e.getMessage());
+                            Log.d(TAG, "error getRecommendedEvents" + e.getMessage());
                         } else if (result != null) {
 //                            String type = trimQuotes(result.get("Result").toString());
 //                            if (type.equalsIgnoreCase("SUCCESS")) {
@@ -152,7 +152,7 @@ public class SearchAPI {
                 events.add(event);
             }
         } catch (Exception e) {
-            Log.d(TAG, "searchEvents exception" + e.getMessage());
+            Log.d(TAG, "getRecommendedEvents exception" + e.getMessage());
         }
         return events;
     }

@@ -41,10 +41,14 @@ import retrofit.client.Response;
 public class ProfileFragment extends Fragment {
 
     private final static String TAG = ProfileFragment.class.getSimpleName();
-    private static MyEventsFragment myEventsFragment;
-    private static JoinedEventsFragment joinedEventsFragment;
-    private static MyGroupsFragment myGroupsFragment;
-    private static JoinedGroupsFragment joinedGroupsFragment;
+    private final static int MY_EVENTS = 0;
+    private final static int JOINED_EVENTS = 1;
+    private final static int MY_GROUPS = 2;
+    private final static int JOINED_GROUPS = 3;
+    private MyEventsFragment myEventsFragment;
+    private JoinedEventsFragment joinedEventsFragment;
+    private MyGroupsFragment myGroupsFragment;
+    private JoinedGroupsFragment joinedGroupsFragment;
     private final String title = "Profile";
     private TextView nameTextView;
     private ImageView profileImageView;
@@ -135,11 +139,20 @@ public class ProfileFragment extends Fragment {
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        refresh();
+
         return mView;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public void refresh(){
+        myEventsFragment.refreshList();
+        joinedEventsFragment.refreshList();
+        myGroupsFragment.refreshList();
+        joinedGroupsFragment.refreshList();
     }
 
     public void changePassword() {

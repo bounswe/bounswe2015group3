@@ -56,13 +56,9 @@ public class MyGroupsFragment extends Fragment {
         json = new JsonObject();
         json.addProperty("id", user_id);
 
-        return mView;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         refreshList();
+
+        return mView;
     }
 
     @Override

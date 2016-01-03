@@ -50,8 +50,12 @@ public class Event {
         String types = json.get("type").getAsString();
         String[] type_array = types.split(",");
         boolean joined = json.get("hasJoined").getAsBoolean();
-        String url = json.get("url").getAsString();
-        int id_group = json.get("id_group").getAsInt();
+        String url = "";
+        if (json.has("url"))
+            url = json.get("url").getAsString();
+        int id_group = -1;
+        if (json.has("id_group"))
+            id_group = json.get("id_group").getAsInt();
 
         String start_date = start_date_year_hour.substring(0, start_date_year_hour.indexOf(','));
         String start_month_name = start_date.substring(0, 3).trim();

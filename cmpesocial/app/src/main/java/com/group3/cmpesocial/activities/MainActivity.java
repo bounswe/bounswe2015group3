@@ -175,8 +175,6 @@ public class MainActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         TextView headerName = (TextView) header.findViewById(R.id.headerName);
         headerName.setText(name + " " + surname);
-
-        setEventsFragment();
     }
 
     @Override
@@ -228,11 +226,11 @@ public class MainActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_home:
                 if (currentScreen != HOME) {
-                    setEventsFragment();
+                    setHomeFragment();
                 }
                 break;
             case R.id.nav_recommendations:
-                if (currentScreen != HOME) {
+                if (currentScreen != RECOMMENDATIONS) {
                     setRecommendationsFragment();
                 }
                 break;
