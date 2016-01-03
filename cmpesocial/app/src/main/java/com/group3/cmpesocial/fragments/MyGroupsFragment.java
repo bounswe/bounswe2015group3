@@ -2,7 +2,6 @@ package com.group3.cmpesocial.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +20,10 @@ import java.util.ArrayList;
  */
 public class MyGroupsFragment extends Fragment {
     private static final String TAG = MyGroupsFragment.class.getSimpleName();
-
+    private ArrayList<Group> groupsArray;
     private final String title = "My Groups";
-
     private View mView;
     private ListView listView;
-    private static ArrayList<Group> groupsArray;
     private GroupAdapter adapter;
     private JsonObject json;
     private int user_id;
@@ -35,7 +32,7 @@ public class MyGroupsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public void setUserID(int id){
+    public void setUserID(int id) {
         this.user_id = id;
     }
 
@@ -56,7 +53,10 @@ public class MyGroupsFragment extends Fragment {
         json = new JsonObject();
         json.addProperty("id", user_id);
 
-        refreshList();
+        if (groupsArray.size() == 0) {
+            groupsArray = GroupAPI.getMyGroups(json, getContext());
+            adapter.addAll(groupsArray);
+        }
 
         return mView;
     }
@@ -73,14 +73,6 @@ public class MyGroupsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-    }
-
-    public void refreshList() {
-        Log.i(TAG, "refresh");
-        groupsArray.clear();
-        adapter.clear();
-        groupsArray = GroupAPI.getMyGroups(json, getContext());
-        adapter.addAll(groupsArray);
     }
 
     public View getmView() {

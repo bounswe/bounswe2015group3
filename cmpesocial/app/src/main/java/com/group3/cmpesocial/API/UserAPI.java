@@ -42,23 +42,17 @@ public class UserAPI {
                         } else if (result != null) {
                             String type = trimQuotes(result.get("type").toString());
                             if (type.equalsIgnoreCase("SUCCESS")) {
-                                JsonObject user = result.getAsJsonObject("user");
-                                int user_id = Integer.parseInt(user.get("id").toString());
-                                String name = trimQuotes(user.get("name").toString());
-                                String surname = trimQuotes(user.get("surname").toString());
-                                String password = trimQuotes(user.get("password").toString());
-                                String email = trimQuotes(user.get("email").toString());
-//                                String url = trimQuotes(user.get("profile_pic_link").toString());
-                                int user_type = Integer.parseInt(user.get("id").toString());
+                                JsonObject userJson = result.getAsJsonObject("user");
+                                User mUser = new User(userJson);
 
                                 SharedPreferences.Editor editor = context.getSharedPreferences("prefsCMPE", context.MODE_PRIVATE).edit();
                                 editor.putBoolean("user_exists", true);
-                                editor.putInt("user_id", user_id);
-                                editor.putString("name", name);
-                                editor.putString("surname", surname);
-                                editor.putString("email", email);
-                                editor.putString("url", "");
-                                editor.putInt("type", user_type);
+                                editor.putInt("user_id", mUser.getId());
+                                editor.putString("name", mUser.getName());
+                                editor.putString("surname", mUser.getSurname());
+                                editor.putString("email", mUser.getEmail());
+                                editor.putString("url", mUser.getProfilePictureURL());
+                                editor.putInt("type", mUser.getType());
                                 editor.apply();
 
                                 returnArray[0] = SUCCESS;

@@ -108,7 +108,7 @@ public class ProfileFragment extends Fragment {
         surname = prefs.getString("surname", "def_surname");
         email = prefs.getString("email", "def_email");
         url = prefs.getString("url", "");
-        type = prefs.getInt("type", 0);
+        type = prefs.getInt("type", 1);
 
         nameTextView.setText(name + " " + surname);
         roleTextView.setText(User.TYPES[type]);
@@ -139,8 +139,6 @@ public class ProfileFragment extends Fragment {
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        refresh();
-
         return mView;
     }
 
@@ -148,11 +146,16 @@ public class ProfileFragment extends Fragment {
         return title;
     }
 
-    public void refresh(){
-        myEventsFragment.refreshList();
-        joinedEventsFragment.refreshList();
-        myGroupsFragment.refreshList();
-        joinedGroupsFragment.refreshList();
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume");
     }
 
     public void changePassword() {

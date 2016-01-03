@@ -2,7 +2,6 @@ package com.group3.cmpesocial.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ public class JoinedGroupsFragment extends Fragment {
 
     private View mView;
     private ListView listView;
-    private static ArrayList<Group> groupsArray;
+    private ArrayList<Group> groupsArray;
     private GroupAdapter adapter;
     private JsonObject json;
     private int user_id;
@@ -57,7 +56,10 @@ public class JoinedGroupsFragment extends Fragment {
         json = new JsonObject();
         json.addProperty("id", user_id);
 
-        refreshList();
+        if (groupsArray.size() == 0) {
+            groupsArray = GroupAPI.getJoinedGroups(json, getContext());
+            adapter.addAll(groupsArray);
+        }
 
         return mView;
     }
@@ -74,14 +76,6 @@ public class JoinedGroupsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-    }
-
-    public void refreshList() {
-        Log.i(TAG, "refresh");
-        groupsArray.clear();
-        adapter.clear();
-        groupsArray = GroupAPI.getJoinedGroups(json, getContext());
-        adapter.addAll(groupsArray);
     }
 
     public View getmView() {

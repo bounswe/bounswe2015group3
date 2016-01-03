@@ -23,8 +23,22 @@ public class User {
     private String profilePictureURL;
     private int type;
 
-    public User(){
+    public User() {
 
+    }
+
+    public User(JsonObject json) {
+        id = json.get("id").getAsInt();
+        name = json.get("name").getAsString();
+        surname = json.get("surname").getAsString();
+        email = json.get("email").getAsString();
+        password = json.get("password").getAsString();
+        if (json.has("profile_pic_link")) {
+            profilePictureURL = json.get("profile_pic_link").getAsString();
+        } else {
+            profilePictureURL = "";
+        }
+        type = json.get("type").getAsInt();
     }
 
     public String getProfilePictureURL() {
@@ -41,20 +55,6 @@ public class User {
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public User(JsonObject json){
-        id = json.get("id").getAsInt();
-        name = json.get("name").getAsString();
-        surname = json.get("surname").getAsString();
-        email = json.get("email").getAsString();
-        password = json.get("password").getAsString();
-        if (json.has("profile_pic_link")) {
-            profilePictureURL = json.get("profile_pic_link").getAsString();
-        }else{
-            profilePictureURL = "";
-        }
-        type = json.get("type").getAsInt();
     }
 
     public int getId() {

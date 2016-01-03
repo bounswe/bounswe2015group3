@@ -2,7 +2,6 @@ package com.group3.cmpesocial.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ public class MyEventsFragment extends Fragment{
 
     private View mView;
     private ListView listView;
-    private static ArrayList<Event> eventsArray;
+    private ArrayList<Event> eventsArray;
     private EventAdapter adapter;
     private JsonObject json;
     private int user_id;
@@ -56,8 +55,10 @@ public class MyEventsFragment extends Fragment{
         json = new JsonObject();
         json.addProperty("id", user_id);
 
-        refreshList();
-
+        if (eventsArray.size() == 0) {
+            eventsArray = EventAPI.getMyEvents(json, getContext());
+            adapter.addAll(eventsArray);
+        }
         return mView;
     }
 
@@ -68,14 +69,6 @@ public class MyEventsFragment extends Fragment{
 
     public String getTitle() {
         return title;
-    }
-
-    public void refreshList() {
-        Log.i(TAG, "refresh");
-        eventsArray.clear();
-        adapter.clear();
-        eventsArray = EventAPI.getMyEvents(json, getContext());
-        adapter.addAll(eventsArray);
     }
 
     public View getmView() {
