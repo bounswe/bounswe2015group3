@@ -190,9 +190,9 @@
 						<div class="widget tag">
 
 							<h3 class="title">Tags</h3>
-							<a href="#">Event</a><a href="#">Fashion</a><a href="#">Design</a><a
-								href="#">Hotels</a><a href="#">Up Coming</a><a href="#">Venue</a><a
-								href="#">Speaker</a><a href="#">Conference</a>
+							<c:forEach var="tag" items="${tags}" varStatus="roop">
+								<a href="#">${tag.tag}</a>
+							</c:forEach>
 						</div>
 						<!-- Tag goruntuleme bitti-->
 						<c:choose>
