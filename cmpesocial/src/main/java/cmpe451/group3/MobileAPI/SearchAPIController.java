@@ -25,7 +25,7 @@ import java.util.*;
 @Controller
 @RequestMapping("api")
 @Scope("request")
-public class SearchAPI {
+public class SearchAPIController {
     @Qualifier("searchModel")
     @Autowired
     private SearchModel searchModel =null;
@@ -34,12 +34,12 @@ public class SearchAPI {
     @Autowired
     private TagDAO tagDAO = null;
 
-
-    @Qualifier("userModel")
+/*
+    @Qualifier("userModels")
     @Autowired
     private CmpeSocialUserModel userModel = null;
 
-
+*/
     @Qualifier("eventModel")
     @Autowired
     private EventModel eventModel = null;
@@ -159,6 +159,7 @@ public class SearchAPI {
         return gson.toJson(result);
     }
 
+    /*
     //Get recommended users
     @RequestMapping( value = "/search/recommendUsers" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
@@ -201,6 +202,7 @@ public class SearchAPI {
         return gson.toJson(result);
     }
 
+*/
     public List<UserTagModel> makeTagModelArray(List<Map<String,Object>> mapList)
     {
         List<UserTagModel> tagList = new ArrayList<>();
