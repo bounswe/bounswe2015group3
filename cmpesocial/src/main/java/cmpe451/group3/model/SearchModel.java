@@ -28,6 +28,13 @@ public class SearchModel {
 
         return this.jdbcTemplate.queryForList(sql, query, query, query);
     }
+
+    public List<Map<String, Object>> getGroups(String query) {
+        query = "%" +query.toLowerCase()+ "%";
+        String sql = "SELECT * FROM `group` WHERE (LOWER(name) LIKE ? OR LOWER(description) LIKE ?)";
+
+        return this.jdbcTemplate.queryForList(sql, query, query, query);
+    }
     
     public List<Map<String, Object>> getUsers(String query) {
     	String sql = "SELECT * FROM user WHERE (name = ? OR surname = ?)";
@@ -49,11 +56,5 @@ public class SearchModel {
         }
         return result;
     }
-    
-    public List<Map<String, Object>> getGroups(String query) {
-        //Group search will come here
-    	//String sql = "SELECT * FROM group WHERE (name LIKE %?% OR description LIKE %?%)";
 
-        return null;
-    }
 }

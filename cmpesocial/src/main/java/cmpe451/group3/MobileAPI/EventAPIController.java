@@ -86,7 +86,7 @@ public class EventAPIController {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
         List<Map<String, Object>> events = new ArrayList<>();
-        result.put("Result","SUCCESS");
+        result.put("Result", "SUCCESS");
         events = eventModel.getEvents();
 
         for(Map<String, Object> event : events){
@@ -209,6 +209,25 @@ public class EventAPIController {
         {
             result.put("Result","Failure");
             result.put("Message","User has not access to join.");
+
+        }
+
+        return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/events/invite" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String eventInvite(@RequestBody EventParticipateModel partModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
+
+        if(eventModel.isAvailableForEvent(partModel.id_event,partModel.id_user)) {
+            eventModel.invite(partModel.id_user, partModel.id_event);
+            result.put("Result","Success");
+        }else
+        {
+            result.put("Result","Failure");
+            result.put("Message","User is not eligable to invited to this event.");
 
         }
 

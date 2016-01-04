@@ -70,6 +70,17 @@ public class SearchAPIController {
         return gson.toJson(result);
     }
 
+    @RequestMapping( value = "/search/groups" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String searchGroups(@RequestBody SearchRequestModel requestModel) {
+        Gson gson = new Gson();
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        result.put("Result","Success");
+        result.put("Events", searchModel.getGroups(requestModel.text));
+        return gson.toJson(result);
+    }
+
 
     @RequestMapping( value = "/search/recommendEvents" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
