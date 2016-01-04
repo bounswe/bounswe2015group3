@@ -2,6 +2,7 @@ package cmpe451.group3.controller;
 
 import cmpe451.group3.model.CmpeSocialUserModel;
 import cmpe451.group3.model.GroupDAO;
+import cmpe451.group3.model.TagDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
@@ -24,6 +25,9 @@ public class GroupController {
 
     @Autowired
     private CmpeSocialUserModel userModel = null;
+    
+    @Autowired
+    private TagDAO tagModel = null;
     
     @RequestMapping(value = "/groups")
     public String events(ModelMap model) {
@@ -191,5 +195,16 @@ public class GroupController {
             return "redirect:/group/updatePost" ;
 
     }
+    
+    @RequestMapping( value = "/group/tag/add" , method = RequestMethod.POST)
+    public String addTag(@RequestParam long id_group, @RequestParam String tag) {
+    	
+    	if(tag == null){
+    		return "redirect:/group/view?id="+id_group;
+    	}
+        tagModel.addTagToGroup(id_group, tag);
+    	return "redirect:/group/view?id="+id_group;
+    }
+    
 }
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cmpe451.group3.model.CmpeSocialUserModel;
 import cmpe451.group3.model.EventModel;
+import cmpe451.group3.model.TagDAO;
 
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,9 @@ public class EventController {
     
     @Autowired
     private CmpeSocialUserModel userModel = null;
+    
+    @Autowired
+    private TagDAO tagModel = null;
 
     @RequestMapping(value = "/events")
     public String events(ModelMap model) {
@@ -168,5 +172,14 @@ public class EventController {
     	return "redirect:/event/view?id="+id_event;
     }
 
+    @RequestMapping( value = "/event/tag/add" , method = RequestMethod.POST)
+    public String addTag(@RequestParam long id_event, @RequestParam String tag) {
+    	
+    	if(tag == null){
+    		return "redirect:/event/view?id="+id_event;
+    	}
+        tagModel.addTagToEvent(id_event, tag);
+    	return "redirect:/event/view?id="+id_event;
+    }
     
 }
