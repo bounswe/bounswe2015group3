@@ -166,6 +166,32 @@
 				<!-- col-md-3 -->
 				<div class="col-md-4">
 					<aside id="aside" class="aside-bar-style-two clearfix">
+						<br />
+						<br />
+						<br />
+						<br />
+						<!-- Tag Ekleme basliyor-->
+						<div class="widget news">
+							<form method="post" action="${contextPath}/group/tag/add">
+								<div class="form-group">
+									<input type="text" placeholder="Add tag to this group" id="tag" name="tag">
+									<input type="hidden" id="id_group" name="id_group" value="${group.id}">
+									<button type="submit" class="icon fa fa-tags"></button>
+								</div>
+							</form>
+						</div>
+						<!-- Tag Ekleme bitti-->
+						<!-- Tag goruntuleme basliyor-->
+						<div class="widget tag">
+
+							<h3 class="title">Tags</h3>
+							<a href="#">Event</a><a href="#">Fashion</a><a href="#">Design</a><a
+								href="#">Hotels</a><a href="#">Up Coming</a><a href="#">Venue</a><a
+								href="#">Speaker</a><a href="#">Conference</a>
+						</div>
+						<!-- Tag goruntuleme bitti-->
+						
+						
 						<c:choose>
 							<c:when test="${isMember == false}">
 								<div class="widget clearfix">
