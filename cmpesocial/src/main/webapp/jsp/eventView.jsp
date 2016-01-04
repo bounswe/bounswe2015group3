@@ -177,10 +177,11 @@
 						<br />
 						<!-- Tag Ekleme basliyor-->
 						<div class="widget news">
-							<form>
+							<form method="post" action="${contextPath}/event/tag/add">
 								<div class="form-group">
-									<input type="text" placeholder="Add tag to this event" id="">
-									<button class="icon fa fa-tags"></button>
+									<input type="text" placeholder="Add tag to this event" id="tag" name="tag">
+									<input type="hidden" id="id_event" name="id_event" value="${event.id}">
+									<button type="submit" class="icon fa fa-tags"></button>
 								</div>
 							</form>
 						</div>
