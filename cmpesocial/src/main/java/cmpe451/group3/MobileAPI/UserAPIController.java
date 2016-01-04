@@ -29,6 +29,7 @@ import  cmpe451.group3.MobileAPI.UserLoginRequestModel;
  * API Controller Class
  * This class includes following functions
  */
+
 @Controller
 @RequestMapping("api")
 @Scope("request")

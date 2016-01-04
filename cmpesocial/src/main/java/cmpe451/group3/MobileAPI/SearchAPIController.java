@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.security.acl.Group;
 import java.util.*;
 
+
 @Controller
 @RequestMapping("api")
 @Scope("request")
@@ -34,12 +35,12 @@ public class SearchAPIController {
     @Autowired
     private TagDAO tagDAO = null;
 
-/*
-    @Qualifier("userModels")
-    @Autowired
-    private CmpeSocialUserModel userModel = null;
 
-*/
+    @Qualifier("cmpeSocialUserModel")
+    @Autowired
+    public CmpeSocialUserModel cmpeSocialUserModel = null;
+
+
     @Qualifier("eventModel")
     @Autowired
     private EventModel eventModel = null;
@@ -170,7 +171,7 @@ public class SearchAPIController {
         return gson.toJson(result);
     }
 
-    /*
+
     //Get recommended users
     @RequestMapping( value = "/search/recommendUsers" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
@@ -207,13 +208,13 @@ public class SearchAPIController {
         List<Map<String,Object>> events = new ArrayList<>();
         for(Long id :  weightList.keySet())
         {
-            events.add(userModel.getUser(id));
+            events.add(cmpeSocialUserModel.getUser(id));
         }
         result.put("Users",events);
         return gson.toJson(result);
     }
 
-*/
+
     public List<UserTagModel> makeTagModelArray(List<Map<String,Object>> mapList)
     {
         List<UserTagModel> tagList = new ArrayList<>();

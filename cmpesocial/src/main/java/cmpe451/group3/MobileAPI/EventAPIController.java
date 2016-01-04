@@ -140,6 +140,15 @@ public class EventAPIController {
         return gson.toJson(result);
     }
 
+    @RequestMapping( value = "/events/viewInvited" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String viewEventsInvited(@RequestBody EventIDRequestModel eventIDModel) {
+        Gson gson = new Gson();
+        List<Map<String, Object>> result = eventModel.getEventsInvited(eventIDModel.id);
+
+        return gson.toJson(result);
+    }
+
     @RequestMapping( value = "/events/viewDetail" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String viewEventDetail(@RequestBody EventParticipateModel eventParticipateModel) {

@@ -80,6 +80,16 @@ public class GroupDAO {
     public void joinGroup(Long userid, Long groupid) {
         String sql = "INSERT INTO user_group(id_user,id_group,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = 1";
         this.jdbcTemplate.update(sql, userid, groupid,1);
+
+        addTagFromGroupToUser(userid, groupid);
+    }
+
+    public List<Map<String, Object>> getGroupsInvited(Long id) {
+        String sql = "SELECT `group`.* from `group`, user_group WHERE `group`.id = user_group.id_group AND user_group.id_user = ? AND user_group.status = 2";
+
+        List<Map<String, Object>> groups = this.jdbcTemplate.queryForList(sql, id);
+
+        return groups;
     }
 
     public void leaveGroup(Long id_user, Long id_group)

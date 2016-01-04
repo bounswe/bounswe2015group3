@@ -81,13 +81,13 @@ public class EventModel {
         String sql = "INSERT INTO user_event(id_user,id_event,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = 1";
         this.jdbcTemplate.update(sql, userid, eventid, 1);
 
-        addTagFromEventToUser(userid,eventid);
+        addTagFromEventToUser(userid, eventid);
 
     }
 
     public void leaveEvent(Long id_user, Long id_event){
         String sql = "INSERT INTO user_event(id_user,id_event,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = 0";
-        this.jdbcTemplate.update(sql,id_user,id_event,0);
+        this.jdbcTemplate.update(sql, id_user, id_event, 0);
 
     }
     
@@ -115,7 +115,16 @@ public class EventModel {
         
         return participants;
     }
-    
+
+    public List<Map<String, Object>> getEventsInvited(Long id) {
+        String sql = "SELECT event.* from event, user_event WHERE event.id = user_event.id_event AND user_event.id_user = ? AND user_event.status = 2";
+
+        List<Map<String, Object>> events = this.jdbcTemplate.queryForList(sql, id);
+
+        return events;
+    }
+
+
     /**
      * Gets the all events from database that user is joined.
      * 

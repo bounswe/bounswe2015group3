@@ -101,7 +101,7 @@ AND NOT EXISTS
     }
 
     public void addTagToUser(long id_user,String tag){
-        String sql = "INSERT INTO tag_user(id_user,tag,hidden) VALUES(?,?,FALSE )";
+        String sql = "INSERT INTO tag_user(id_user,tag,hidden) VALUES(?,?,FALSE ) ON DUPLICATE KEY UPDATE hidden = FALSE";
         this.jdbcTemplate.update(sql,id_user,tag);
     }
     public void deleteTagFromUser(long id_user,String tag){

@@ -106,9 +106,18 @@ public class GroupAPIController {
     }
     @RequestMapping( value = "/groups/viewWithMembership" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
-    public String viewEventsWithMembership(@RequestBody EventIDRequestModel eventIDModel) {
+    public String viewGroupsWithMembership(@RequestBody EventIDRequestModel eventIDModel) {
         Gson gson = new Gson();
         List<Map<String, Object>> result = groupDAO.getGroupWithMembership(eventIDModel.id);
+
+        return gson.toJson(result);
+    }
+
+    @RequestMapping( value = "/groups/viewInvited" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String viewGroupInvited(@RequestBody EventIDRequestModel eventIDModel) {
+        Gson gson = new Gson();
+        List<Map<String, Object>> result = groupDAO.getGroupsInvited(eventIDModel.id);
 
         return gson.toJson(result);
     }
