@@ -84,6 +84,10 @@ public class GroupController {
     	if((int)userid == (int)group.get("id_admin")){
     		isOwner = true;
     	}
+    	
+    	List<Map<String,Object>> tags = tagModel.getTagsForGroup(id);
+    	model.put("tags", tags);
+    	
     	model.put("isOwner", isOwner);
     	model.put("isMember", isMember);
         model.put("group", group);
