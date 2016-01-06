@@ -127,16 +127,17 @@ public class EventController {
             @RequestParam(required = false) String end_date,
             @RequestParam(required = false) Integer periodic,
             @RequestParam(required = false) String location,
-            @RequestParam(required = false) String description) {
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) String photo_url) {
 
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	String mail = auth.getName();
     	long userid = eventModel.getIdFromMail(mail);
 		
         if (id != null)
-        	eventModel.updateEvent(id, name, date, end_date, periodic, userid, location, description, type, null, null);
+        	eventModel.updateEvent(id, name, date, end_date, periodic, userid, location, description, type, null, photo_url);
         else
-        	eventModel.createEvent(name, date, end_date, periodic, userid, location, description, type, null, null);
+        	eventModel.createEvent(name, date, end_date, periodic, userid, location, description, type, null, photo_url);
 
         return "redirect:/events";
     }

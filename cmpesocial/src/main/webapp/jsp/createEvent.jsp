@@ -135,16 +135,17 @@
 									</select>
 								</p>
 								
-								<p><label >Event Photo</label>
- -                                <input  type="file"  class="textflied">
- -                                <i class="icon fa fa-photo"></i></p> 
+								<p>
+									<label>Event Image Url</label> <input type="text" value=""
+										id="photo_url" name="photo_url" placeholder="Link of image"
+										class="textflied"> <i class="icon fa fa-link"></i>
+								</p> 
 
 								<p>
 									<label>Event Description</label>
 									<textarea
 										style="width: 100%; padding: 0px 10px; border: 1px solid #c2c4cb; border-radius: 2px; outline: none;"
-										name="description" id="description" rows="10">
-                                </textarea>
+										name="description" id="description" rows="10"></textarea>
 								</p>
 								<p>
 									<label for="role">Who can join?</label> <select

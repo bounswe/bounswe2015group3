@@ -141,7 +141,13 @@
 										<option value="2">Monthly</option>
 										<option value="3">Yearly</option>
 									</select>
-								</p>
+								</p>								
+								
+								<p>
+									<label>Event Image Url</label> <input type="text" value="${event.url}"
+										id="photo_url" name="photo_url" placeholder="Link of image"
+										class="textflied"> <i class="icon fa fa-link"></i>
+								</p> 
 
 								<p>
 									<label>Event Description</label>

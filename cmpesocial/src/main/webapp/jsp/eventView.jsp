@@ -121,9 +121,11 @@
 							<li>${event.location}</li>
 						</ul>
 						<!-- event-detail-img -->
-						<div class="event-detail-img">
-							<img src="${contextPath}/assets/img/TableTennis2.gif" alt="">
-						</div>
+						<c:choose>
+						<c:when test="${event.url != null}">
+							<img src="${event.url}" alt="">
+						</c:when>
+						</c:choose>
 						<h3 class="title">Description</h3>
 						<p>${event.description}</p>
 						<aside id="aside" class="aside-bar-style-two clearfix">
