@@ -128,46 +128,21 @@
 						<div class="widget clearfix">
 							<h3 class="title">Groups:</h3>
 
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-group"> </i></span>GROUP
-									</p>
+							<c:forEach var="group" items="${groups}" varStatus="roop">
+								<div class="top-ppost">
+									<div class="date">
+										<p>
+											<span><i class="icon fa fa-group"> </i></span>
+										</p>
+									</div>
+									<div class="content">
+										<h4 class="title">
+											<a href="${contextPath}/group/view?id=${group.id}">${group.name}</a>
+										</h4>
+									</div>
 								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Orta DÃ¼zey Tenis OyuncularÄ± </a>
-									</h4>
-								</div>
-							</div>
-							<br />
-							<hr />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-group"> </i></span>GROUP
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">CmpE451 Ekibi </a>
-									</h4>
-								</div>
-							</div>
-							<br />
-							<hr />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-group"> </i></span>GROUP
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Weekend Software Developers</a>
-									</h4>
-								</div>
-							</div>
+								<br />
+							</c:forEach>
 						</div>
 					</aside>
 					<br />

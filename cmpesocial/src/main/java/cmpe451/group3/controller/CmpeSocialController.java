@@ -89,13 +89,17 @@ public class CmpeSocialController {
     		int userid = cmpeSocialUserModel.getIdFromMail(mail);
     		Map<String, Object> user = cmpeSocialUserModel.getUser((long)userid);
     		List<Map<String, Object>> events = eventModel.getEventsOfUser((long)userid);
+    		List<Map<String, Object>> groups = groupDAO.getGroupWithMembership(id);
+    		
     		model.put("user", user);
     		model.put("events", events);
+    		model.put("groups", groups);
     	}
     	else{
     		Map<String, Object> user = cmpeSocialUserModel.getUser(id);
     		List<Map<String, Object>> events = eventModel.getEventsOfUser(id);
-            List<Map<String, Object>> groups = groupDAO.getGroupOwned(id);
+            List<Map<String, Object>> groups = groupDAO.getGroupWithMembership(id);
+            
     		model.put("user", user);
     		model.put("events", events);
             model.put("groups", groups);
