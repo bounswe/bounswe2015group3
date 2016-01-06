@@ -33,7 +33,7 @@ public class SearchModel {
         query = "%" +query.toLowerCase()+ "%";
         String sql = "SELECT * FROM `group` WHERE (LOWER(name) LIKE ? OR LOWER(description) LIKE ?)";
 
-        return this.jdbcTemplate.queryForList(sql, query, query, query);
+        return this.jdbcTemplate.queryForList(sql, query, query);
     }
     
     public List<Map<String, Object>> getUsers(String query) {

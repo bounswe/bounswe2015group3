@@ -160,9 +160,11 @@ public class CmpeSocialController {
     	if(query != null){
     		List<Map<String, Object>> users = searchModel.getUsers(query.trim());
     		List<Map<String, Object>> events = searchModel.getEvents(query.trim());
+    		List<Map<String, Object>> groups = searchModel.getGroups(query.trim());
     		model.put("query", query);
     		model.put("users", users);
     		model.put("events", events);
+    		model.put("groups", groups);
     	}
         return "searchResult";
     }

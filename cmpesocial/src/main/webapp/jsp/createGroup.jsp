@@ -52,53 +52,38 @@
 			<!-- Moblie Nav Wrapper  -->
 			<div class="mobile-nav-wrapper">
 				<div class="container ">
-					<div class="row">
-						<div id="logo" class="col-xs-2">
-							<a href="${contextPath}/"><img class="img-responsive"
-								src="${contextPath}/assets/img/logo.png" alt=""></a>
-						</div>
-						<div class="col-xs-6 col-md-4 text-center">
-							<form class="form-inline">
-								<div class="form-group">
-									<input class="form-control"
-										placeholder="People, Events and more" type="text"
-										name="search" id="search">
-								</div>
-								<div class="form-group">
-									<select class="form-control">
-										<option>All</option>
-										<option>Event</option>
-										<option>Group</option>
-										<option>People</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<button type="submit" class="btn btn-default">
-										<i class="fa fa-search"></i>
-									</button>
-								</div>
-							</form>
-						</div>
-						<div class="col-xs-4 col-md-6">
-							<div class="mobile-menu-icon">
-								<i class="fa fa-bars"></i>
-							</div>
-							<nav class="main-nav mobile-menu">
+					<!-- logo  -->
+					<div id="logo">
+						<a href="${contextPath}/"><img
+							src="${contextPath}/assets/img/logo.png" alt=""></a>
+					</div>
+					<div id="sb-search" class="sb-search">
+						<form method="post" action="${contextPath}/search" class="form">
+							<input class="sb-search-input"
+								placeholder="People, Events and more" type="text" name="query"
+								id="query"> <input class="sb-search-submit"
+								type="submit" value=""> <span class="sb-icon-search"></span>
+						</form>
+					</div>
+					<!-- moblie-menu-icon -->
 
-								<ul class="clearfix">
-									<li><a href="${contextPath}/user/home"><i
-											class="icon fa fa-user"> </i> Profile</a></li>
-									<li><a href="${contextPath}/events"><i
-											class="icon fa fa-calendar"> </i> Events</a></li>
-									<li><a href="${contextPath}/groups"><i
-											class="icon fa fa-group"> </i> Groups</a></li>
-									<li><a href="${contextPath}/user/logout"><i class="icon fa fa-sign-out"> </i>
-											Sign Out</a></li>
-								</ul>
-							</nav>
-						</div>
+					<div class="mobile-menu-icon">
+						<i class="fa fa-bars"></i>
 					</div>
 					<!-- Nav -->
+					<nav class="main-nav mobile-menu">
+
+						<ul class="clearfix">
+							<li><a href="${contextPath}/user/home"><i
+									class="icon fa fa-user"> </i> Profile</a></li>
+							<li><a href="${contextPath}/events"><i
+									class="icon fa fa-calendar"> </i> Events</a></li>
+							<li><a href="${contextPath}/groups"><i
+									class="icon fa fa-group"> </i> Groups</a></li>
+							<li><a href="${contextPath}/user/logout"><i class="icon fa fa-sign-out"> </i>
+									Sign Out</a></li>
+						</ul>
+					</nav>
 				</div>
 			</div>
 		</div>
@@ -134,8 +119,7 @@
 								<p>
 									<label>Group Description</label>
 									<textarea value="" style="width: 100%" name="description"
-										id="description" rows="10">
-                                </textarea>
+										id="description" rows="10"></textarea>
 								</p>
 								<p>
 									<label for="role">Who can join?</label> <select
@@ -154,39 +138,6 @@
 									class="btn btn-success">CREATE Group</button>
 								</p>
 							</form>
-						</div>
-					</aside>
-				</div>
-				<div class="col-md-4">
-					<aside id="aside" class="aside-bar-style-two clearfix">
-						<div class="widget clearfix">
-							<h3 class="title">Suggested For You</h3>
-							<div class="top-ppost">
-
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-calendar"> </i></span>EVENT
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Watching Star Wars in Kuzey Kampus Cinema </a>
-									</h4>
-								</div>
-							</div>
-							<hr />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-group"> </i></span>GROUP
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Orta DÃ¼zey Tenis OyuncularÄ± </a>
-									</h4>
-								</div>
-							</div>
 						</div>
 					</aside>
 				</div>

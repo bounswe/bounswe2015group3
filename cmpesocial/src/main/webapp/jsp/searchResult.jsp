@@ -136,31 +136,21 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 						<div class="widget clearfix">
 							<h3 class="title">Groups</h3>
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-group"> </i></span>GROUP
-									</p>
+							<c:forEach var="group" items="${groups}" varStatus="roop">
+								<div class="top-ppost">
+									<div class="date">
+										<p>
+											<span><i class="icon fa fa-group"> </i></span>
+										</p>
+									</div>
+									<div class="content">
+										<h4 class="title">
+											<a href="${contextPath}/group/view?id=${group.id}">${group.name}</a>
+										</h4>
+									</div>
 								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Kare Block Orta Düzey Tenis Oyuncuları </a>
-									</h4>
-								</div>
-							</div>
-							<hr />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-group"> </i></span>GROUP
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Liseden beri masa tenisi oynayanlar </a>
-									</h4>
-								</div>
-							</div>
+								<br />
+							</c:forEach>
 						</div>
 						<br/>
 					</aside>
