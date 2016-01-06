@@ -126,7 +126,7 @@
 										<h4 class="title">
 											<a href="${contextPath}/event/view?id=${event.id}">${event.name}</a>
 										</h4>
-										<span style="color:gray; font-size: 12pt"><i class="icon fa fa-map-marker"></i> ${event.location}</span>
+										<h5 style="color:gray"><i class="icon fa fa-map-marker"></i> ${event.location}</h5>
 									</div>
 								</div>
 								<br />

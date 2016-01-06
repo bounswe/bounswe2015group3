@@ -119,7 +119,6 @@
 							<h2>All Events</h2>
 							<hr />
 							<c:forEach var="event" items="${events}" varStatus="roop">
-								<a href="${contextPath}/event/delete?id=${event.id}">Delete</a>
 								<div class="top-ppost">
 									<div class="date">
 										<p>${event.date}</p>
@@ -128,7 +127,7 @@
 										<h4 class="title">
 											<a href="${contextPath}/event/view?id=${event.id}">${event.name}</a>
 										</h4>
-										<a href="#" class="meta"><i class="icon fa fa-map-marker"></i>${event.location}</a>
+										<h5 style="color:gray"><i class="icon fa fa-map-marker"></i> ${event.location}</h5>
 									</div>
 								</div>
 								<br />
