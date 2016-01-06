@@ -83,7 +83,7 @@ public class UserAPIController {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        cmpeSocialUserModel.addUser(userSignupRequestModel.name, userSignupRequestModel.surname, userSignupRequestModel.email,SecurityUtils.getHashed(userSignupRequestModel.password),userSignupRequestModel.type );
+        cmpeSocialUserModel.addUser(userSignupRequestModel.name, userSignupRequestModel.surname, userSignupRequestModel.email,SecurityUtils.getHashed(userSignupRequestModel.password),"",userSignupRequestModel.type );
 
         result.put("Result","SUCCESS");
 
@@ -97,7 +97,7 @@ public class UserAPIController {
         Gson gson = new Gson();
         Map<String, Object> result = new HashMap<String, Object>();
 
-        cmpeSocialUserModel.updateUser(userRequestModel.id, userRequestModel.name, userRequestModel.surname, userRequestModel.email, SecurityUtils.getHashed(userRequestModel.password),userRequestModel.type);
+        cmpeSocialUserModel.updateUser(userRequestModel.id, userRequestModel.name, userRequestModel.surname, userRequestModel.email, SecurityUtils.getHashed(userRequestModel.password),"",userRequestModel.type);
 
         result.put("Result","SUCCESS");
 
