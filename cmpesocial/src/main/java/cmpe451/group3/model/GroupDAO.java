@@ -44,7 +44,7 @@ public class GroupDAO {
     }
 
     public List<Map<String,Object>>  getGroupWithMembership(Long id_user){
-        String sql = "SELECT `group`.* FROM `group`, user_group WHERE group.id = user_group.id_group AND user_group.id_user = ? ";
+        String sql = "SELECT `group`.* FROM `group`, user_group WHERE group.id = user_group.id_group AND user_group.id_user = ? AND user_group.status = 1";
         return this.jdbcTemplate.queryForList(sql,id_user);
     }
 
