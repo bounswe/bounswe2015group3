@@ -440,6 +440,47 @@ public class GroupAPI {
         return returnArray[0];
     }
 
+    public static ArrayList<Group> getInvitedGroups(JsonObject json, Context context) {
+        Log.d(TAG, "getInvitedGroups json " + json.toString());
+
+        ArrayList<Group> mGroups = new ArrayList<>();
+        Future mFuture = Ion.with(context)
+                .load(context.getString(R.string.baseURI) + context.getString(R.string.viewInvitedGroups))
+                .setJsonObjectBody(json)
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.d(TAG, "error getInvitedGroups" + e.getMessage());
+                        } else if (result != null) {
+//                            String type = trimQuotes(result.get("Result").toString());
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
+//                                returnArray[0] = SUCCESS;
+//                            } else {
+//                                returnArray[0] = ERROR;
+//                            }
+                        } else {
+                            Log.d(TAG, "result empty");
+                        }
+                    }
+                });
+        try {
+            Log.d(TAG, "future : " + mFuture.get().toString());
+            JsonArray groupsJson = (JsonArray) mFuture.get();
+            Iterator<JsonElement> iterator = groupsJson.iterator();
+            while (iterator.hasNext()) {
+                Group group = new Group(iterator.next().getAsJsonObject(), true);
+                mGroups.add(group);
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "exception getInvitedGroups" + e.getMessage());
+        }
+        return mGroups;
+    }
+
+
     public static ArrayList<Object> getAllGroupPosts(JsonObject json, Context context) {
         Log.d(TAG, "getAllGroupPosts json " + json.toString());
 

@@ -135,7 +135,7 @@ public class ProfileFragment extends Fragment {
         titles.add(myGroupsFragment.getTitle());
         titles.add(joinedGroupsFragment.getTitle());
 
-        viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), fragments, titles);
+        viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), fragments, titles);
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 

@@ -43,6 +43,7 @@ public class RecommendationsFragment extends Fragment {
 
         viewPager = (ViewPager) mView.findViewById(R.id.viewPager);
         tabLayout = (TabLayout) mView.findViewById(R.id.tabLayout);
+        tabLayout.setSelectedTabIndicatorColor(Color.WHITE);
         tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
 
         eventsFragment = new RecommendedEventsFragment();

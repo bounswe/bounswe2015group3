@@ -426,6 +426,82 @@ public class EventAPI {
         return returnArray[0];
     }
 
+    public static int inviteToEvent(JsonObject json, Context context) {
+        Log.d(TAG, "inviteToEvent json " + json.toString());
+
+        final int[] returnArray = new int[1];
+        Future mFuture = Ion.with(context)
+                .load(context.getString(R.string.baseURI) + context.getString(R.string.inviteToEvent))
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.d(TAG, "error inviteToEvent" + e.getMessage());
+                            returnArray[0] = ERROR;
+                        } else if (result != null) {
+                            String type = trimQuotes(result.get("Result").toString());
+                            if (type.equalsIgnoreCase("SUCCESS")) {
+                                returnArray[0] = SUCCESS;
+                            } else {
+                                returnArray[0] = ERROR;
+                            }
+                        } else {
+                            Log.d(TAG, "result empty");
+                            returnArray[0] = RESULT_EMPTY;
+                        }
+                    }
+                });
+        try {
+            Log.d(TAG, "future : " + mFuture.get().toString());
+        } catch (Exception e) {
+            Log.d(TAG, "exception inviteToEvent" + e.getMessage());
+        }
+        return returnArray[0];
+    }
+
+    public static ArrayList<Event> getInvitedEvents(JsonObject json, Context context) {
+        Log.d(TAG, "getInvitedEvents json " + json.toString());
+
+        ArrayList<Event> mEvents = new ArrayList<>();
+        Future mFuture = Ion.with(context)
+                .load(context.getString(R.string.baseURI) + context.getString(R.string.viewInvitedEvents))
+                .setJsonObjectBody(json)
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.d(TAG, "error getInvitedEvents" + e.getMessage());
+                        } else if (result != null) {
+//                            String type = trimQuotes(result.get("Result").toString());
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
+//                                returnArray[0] = SUCCESS;
+//                            } else {
+//                                returnArray[0] = ERROR;
+//                            }
+                        } else {
+                            Log.d(TAG, "result empty");
+                        }
+                    }
+                });
+        try {
+            JsonArray result = (JsonArray) mFuture.get();
+            Log.d(TAG, "future : " + result.toString());
+            Iterator<JsonElement> iterator = result.iterator();
+            while (iterator.hasNext()) {
+                Event event = new Event(iterator.next().getAsJsonObject(), true);
+                mEvents.add(event);
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "exception getInvitedEvents" + e.getMessage());
+        }
+        return mEvents;
+    }
+
     public static ArrayList<Post> getAllEventPosts(JsonObject json, Context context) {
         ArrayList<Post> eventPosts = new ArrayList<>();
         final int[] returnArray = new int[1];

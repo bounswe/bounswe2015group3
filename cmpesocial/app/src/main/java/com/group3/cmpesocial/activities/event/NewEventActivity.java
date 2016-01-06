@@ -27,8 +27,10 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API.EventAPI;
+import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.classes.Event;
+import com.group3.cmpesocial.classes.User;
 import com.group3.cmpesocial.imgur.helpers.DocumentHelper;
 import com.group3.cmpesocial.imgur.imgurmodel.ImageResponse;
 import com.group3.cmpesocial.imgur.services.UploadService;
@@ -70,6 +72,7 @@ public class NewEventActivity extends AppCompatActivity {
 
     private int user_id;
     private File chosenFile;
+    private User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,9 @@ public class NewEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_event);
 
         user_id = getSharedPreferences("prefsCMPE", MODE_PRIVATE).getInt("user_id", 0);
+        JsonObject json = new JsonObject();
+        json.addProperty("id", user_id);
+        mUser = UserAPI.getUser(json, this);
 
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         startDateEditText = (EditText) findViewById(R.id.startDateEditText);
@@ -216,12 +222,15 @@ public class NewEventActivity extends AppCompatActivity {
         String end_date = new_end_date + " " + new_end_time;
         String type = "";
         if (allowedRoles != null) {
+            if (!allowedRoles.contains(mUser.getType())){
+                allowedRoles.add(mUser.getType());
+            }
             for (int i = 0; i < allowedRoles.size(); i++) {
                 type += String.valueOf(allowedRoles.get(i)) + ",";
             }
             type = type.substring(0, type.length() - 1);
         }else{
-            type = "0";
+            type = "1,2,3,4,5";
         }
         Log.i("type", type);
 

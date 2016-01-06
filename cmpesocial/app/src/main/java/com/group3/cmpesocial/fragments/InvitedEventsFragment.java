@@ -1,5 +1,6 @@
 package com.group3.cmpesocial.fragments;
 
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.google.gson.JsonObject;
-import com.group3.cmpesocial.API.SearchAPI;
+import com.group3.cmpesocial.API.EventAPI;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.adapters.EventAdapter;
 import com.group3.cmpesocial.classes.Event;
@@ -19,11 +20,11 @@ import com.group3.cmpesocial.classes.Event;
 import java.util.ArrayList;
 
 /**
- * Created by Tuba on 20/12/15.
+ * A simple {@link Fragment} subclass.
  */
-public class RecommendedEventsFragment extends Fragment {
+public class InvitedEventsFragment extends Fragment {
 
-    private static final String TAG = RecommendedEventsFragment.class.getSimpleName();
+    private static final String TAG = InvitedEventsFragment.class.getSimpleName();
 
     private final String title = "Events";
 
@@ -34,7 +35,7 @@ public class RecommendedEventsFragment extends Fragment {
     private JsonObject json;
     private int user_id;
 
-    public RecommendedEventsFragment() {
+    public InvitedEventsFragment() {
         // Required empty public constructor
     }
 
@@ -67,11 +68,6 @@ public class RecommendedEventsFragment extends Fragment {
         refreshList();
     }
 
-    @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-    }
-
     public String getTitle() {
         return title;
     }
@@ -85,7 +81,7 @@ public class RecommendedEventsFragment extends Fragment {
         Log.i(TAG, "refresh");
         eventsArray.clear();
         adapter.clear();
-        eventsArray = SearchAPI.getRecommendedEvents(json, getContext());
+        eventsArray = EventAPI.getInvitedEvents(json, getContext());
         adapter.addAll(eventsArray);
     }
 

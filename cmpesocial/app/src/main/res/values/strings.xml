@@ -37,6 +37,8 @@
     <string name="deleteEvent">events/delete</string>
     <string name="getEventParticipants">events/getParticipants</string>
     <string name="joinEvent">events/join</string>
+    <string name="inviteToEvent">events/invite</string>
+    <string name="viewInvitedEvents">events/viewInvited</string>
     <string name="leaveEvent">events/leave</string>
     <string name="createEventPost">events/createPost</string>
     <string name="updateEventPost">events/updatePost</string>
@@ -61,6 +63,7 @@
     <string name="getGroupMembers">groups/getMembers</string>
     <string name="joinGroup">groups/join</string>
     <string name="inviteToGroup">groups/invite</string>
+    <string name="viewInvitedGroups">groups/viewInvited</string>
     <string name="createGroupPost">groups/createPost</string>
     <string name="updateGroupPost">groups/updatePost</string>
     <string name="deleteGroupPost">groups/deletePost</string>
@@ -77,6 +80,8 @@
     <!--Search API-->
     <string name="searchUsers">search/users</string>
     <string name="searchEvents">search/events</string>
+    <string name="searchGroups">search/groups</string>
+    <string name="recommendedUsers">search/recommendUsers</string>
     <string name="recommendedEvents">search/recommendEvents</string>
     <string name="recommendedGroups">search/recommendGroups</string>
 

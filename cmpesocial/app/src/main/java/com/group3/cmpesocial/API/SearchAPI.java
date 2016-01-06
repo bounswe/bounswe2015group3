@@ -71,6 +71,49 @@ public class SearchAPI {
         return users;
     }
 
+    public static ArrayList<Group> searchGroups(JsonObject json, Context context){
+        Log.d(TAG, "searchGroups json " + json.toString());
+
+        ArrayList<Group> groups = new ArrayList<>();
+        Future mFuture = Ion.with(context)
+                .load(context.getString(R.string.baseURI) + context.getString(R.string.searchGroups))
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.d(TAG, "error searchGroups" + e.getMessage());
+                        } else if (result != null) {
+//                            String type = trimQuotes(result.get("Result").toString());
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
+//                                returnArray[0] = SUCCESS;
+//                            } else if (type.equalsIgnoreCase("Failure")) {
+//                                returnArray[0] = NO_ACCESS;
+//                            } else {
+//                                returnArray[0] = ERROR;
+//                            }
+                        } else {
+                            Log.d(TAG, "result empty");
+                        }
+                    }
+                });
+        try {
+            JsonObject result = (JsonObject) mFuture.get();
+            Log.d(TAG, "future : " + result.toString());
+            JsonArray groupsJsonArray = result.getAsJsonArray("Events");
+            Iterator<JsonElement> iterator = groupsJsonArray.iterator();
+            while (iterator.hasNext()) {
+                Group group = new Group(iterator.next().getAsJsonObject(), false);
+                groups.add(group);
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "searchGroups exception" + e.getMessage());
+        }
+        return groups;
+    }
+
     public static ArrayList<Event> searchEvents(JsonObject json, Context context){
         Log.d(TAG, "searchEvents json " + json.toString());
 
@@ -113,6 +156,7 @@ public class SearchAPI {
         }
         return events;
     }
+
 
     public static ArrayList<Event> getRecommendedEvents(JsonObject json, Context context){
         Log.d(TAG, "getRecommendedEvents json " + json.toString());
@@ -157,6 +201,49 @@ public class SearchAPI {
         return events;
     }
 
+    public static ArrayList<User> getRecommendedUsers(JsonObject json, Context context){
+        Log.d(TAG, "getRecommendedUsers json " + json.toString());
+
+        ArrayList<User> users = new ArrayList<>();
+        Future mFuture = Ion.with(context)
+                .load(context.getString(R.string.baseURI) + context.getString(R.string.recommendedUsers))
+                .setJsonObjectBody(json)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        // do stuff with the result or error
+                        if (e != null) {
+                            Log.d(TAG, "error getRecommendedUsers" + e.getMessage());
+                        } else if (result != null) {
+//                            String type = trimQuotes(result.get("Result").toString());
+//                            if (type.equalsIgnoreCase("SUCCESS")) {
+//                                returnArray[0] = SUCCESS;
+//                            } else if (type.equalsIgnoreCase("Failure")) {
+//                                returnArray[0] = NO_ACCESS;
+//                            } else {
+//                                returnArray[0] = ERROR;
+//                            }
+                        } else {
+                            Log.d(TAG, "result empty");
+                        }
+                    }
+                });
+        try {
+            JsonObject result = (JsonObject) mFuture.get();
+            Log.d(TAG, "future : " + result.toString());
+            JsonArray usersJsonArray = result.getAsJsonArray("Events");
+            Iterator<JsonElement> iterator = usersJsonArray.iterator();
+            while (iterator.hasNext()) {
+                User user = new User(iterator.next().getAsJsonObject());
+                users.add(user);
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "getRecommendedUsers exception" + e.getMessage());
+        }
+        return users;
+    }
+
     public static ArrayList<Group> getRecommendedGroups(JsonObject json, Context context){
         Log.d(TAG, "getRecommendedGroups json " + json.toString());
 
@@ -195,10 +282,11 @@ public class SearchAPI {
                 groups.add(group);
             }
         } catch (Exception e) {
-            Log.d(TAG, "searchEvents exception" + e.getMessage());
+            Log.d(TAG, "getRecommendedGroups exception" + e.getMessage());
         }
         return groups;
     }
+
 
     protected static String trimQuotes(String s) {
         if (s.charAt(0) == '\"' && s.charAt(s.length() - 1) == '\"')

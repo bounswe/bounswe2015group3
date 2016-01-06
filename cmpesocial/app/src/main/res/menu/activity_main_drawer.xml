@@ -33,9 +33,6 @@
         <item
             android:id="@+id/nav_about_us"
             android:title="About Us" />
-        <item
-            android:id="@+id/nav_send_feedback"
-            android:title="Send Feedback" />
     </group>
 
     <item android:title="Communicate"

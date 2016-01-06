@@ -44,6 +44,7 @@ import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API.EventAPI;
 import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
+import com.group3.cmpesocial.activities.InviteUserActivity;
 import com.group3.cmpesocial.adapters.RVUserAdapter;
 import com.group3.cmpesocial.classes.Event;
 import com.group3.cmpesocial.classes.Post;
@@ -88,7 +89,6 @@ public class EventDetailActivity extends AppCompatActivity {
     private FloatingActionButton deleteButton;
     private FloatingActionButton roleButton;
     private FloatingActionButton imageButton;
-    private FloatingActionButton doneButton;
     private Button postButton;
     private Toolbar toolbar;
     private ProgressBar progressBar;
@@ -109,7 +109,6 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private int id;
     private int user_id;
-    private boolean isOwner = false;
     private boolean hasJoined = false;
     private File chosenFile;
     private boolean isEditing = false;
@@ -186,30 +185,6 @@ public class EventDetailActivity extends AppCompatActivity {
             }
         });
 
-        if (isOwner) {
-            editButton.setVisibility(View.VISIBLE);
-            deleteButton.setVisibility(View.VISIBLE);
-            roleButton.setVisibility(View.VISIBLE);
-            imageButton.setVisibility(View.VISIBLE);
-        } else {
-            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) editButton.getLayoutParams();
-            p.setAnchorId(View.NO_ID);
-            editButton.setLayoutParams(p);
-            editButton.setVisibility(View.GONE);
-            p = (CoordinatorLayout.LayoutParams) deleteButton.getLayoutParams();
-            p.setAnchorId(View.NO_ID);
-            deleteButton.setLayoutParams(p);
-            deleteButton.setVisibility(View.GONE);
-            p = (CoordinatorLayout.LayoutParams) roleButton.getLayoutParams();
-            p.setAnchorId(View.NO_ID);
-            roleButton.setLayoutParams(p);
-            roleButton.setVisibility(View.GONE);
-            p = (CoordinatorLayout.LayoutParams) imageButton.getLayoutParams();
-            p.setAnchorId(View.NO_ID);
-            imageButton.setLayoutParams(p);
-            imageButton.setVisibility(View.GONE);
-        }
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -264,8 +239,23 @@ public class EventDetailActivity extends AppCompatActivity {
         locationEditText.setText(location);
         descriptionEditText.setText(description);
 
-        if (user_id == id_user) {
-            isOwner = true;
+        if (user_id != id_user) {
+            CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) editButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            editButton.setLayoutParams(p);
+            editButton.setVisibility(View.GONE);
+            p = (CoordinatorLayout.LayoutParams) deleteButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            deleteButton.setLayoutParams(p);
+            deleteButton.setVisibility(View.GONE);
+            p = (CoordinatorLayout.LayoutParams) roleButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            roleButton.setLayoutParams(p);
+            roleButton.setVisibility(View.GONE);
+            p = (CoordinatorLayout.LayoutParams) imageButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            imageButton.setLayoutParams(p);
+            imageButton.setVisibility(View.GONE);
         }
 
         recyclerView.setHasFixedSize(true);
@@ -358,6 +348,10 @@ public class EventDetailActivity extends AppCompatActivity {
 
             case R.id.leave:
                 leaveEvent();
+                break;
+
+            case R.id.invite:
+                invite();
                 break;
 
             case android.R.id.home:
@@ -545,8 +539,11 @@ public class EventDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void invite(View v) {
-
+    public void invite() {
+        Intent intent = new Intent(this, InviteUserActivity.class);
+        intent.putExtra("id", id);
+        intent.putExtra("isEvent", true);
+        startActivity(intent);
     }
 
     public void setRoles(View v) {

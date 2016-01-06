@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API.GroupAPI;
+import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
+import com.group3.cmpesocial.classes.User;
 import com.group3.cmpesocial.imgur.helpers.DocumentHelper;
 import com.group3.cmpesocial.imgur.imgurmodel.ImageResponse;
 import com.group3.cmpesocial.imgur.services.UploadService;
@@ -40,6 +42,7 @@ public class NewGroupActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private int user_id;
+    private User mUser;
     private ArrayList<Integer> allowedRoles;
     private String url = "";
     private File chosenFile;
@@ -54,13 +57,16 @@ public class NewGroupActivity extends AppCompatActivity {
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         tagsEditText = (EditText) findViewById(R.id.tagsEditText);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
-        progressBar =(ProgressBar) findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        toolbar  = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         setSupportActionBar(toolbar);
 
         url = "";
+        JsonObject json = new JsonObject();
+        json.addProperty("id", user_id);
+        mUser = UserAPI.getUser(json, this);
     }
 
     @Override
@@ -102,7 +108,7 @@ public class NewGroupActivity extends AppCompatActivity {
 
     public void createGroup(View v) {
         if (nameEditText.getText() == null || nameEditText.getText().length() == 0 ||
-                descriptionEditText.getText() == null || descriptionEditText.getText().length() == 0 ){
+                descriptionEditText.getText() == null || descriptionEditText.getText().length() == 0) {
             Toast.makeText(this, "Please fill every field", Toast.LENGTH_LONG).show();
             return;
         }
@@ -111,14 +117,16 @@ public class NewGroupActivity extends AppCompatActivity {
         String description = descriptionEditText.getText().toString().trim();
         String type = "";
         if (allowedRoles != null) {
+            if (!allowedRoles.contains(mUser.getType())){
+                allowedRoles.add(mUser.getType());
+            }
             for (int i = 0; i < allowedRoles.size(); i++) {
                 type += String.valueOf(allowedRoles.get(i)) + ",";
             }
             type = type.substring(0, type.length() - 1);
-        }else{
-            type = "0";
+        } else {
+            type = "1,2,3,4,5";
         }
-        Log.i("type", type);
 
         JsonObject json = new JsonObject();
         json.addProperty("name", name);
@@ -131,21 +139,21 @@ public class NewGroupActivity extends AppCompatActivity {
         Log.i(TAG, json.toString());
 
         String tags = "";
-        if (tagsEditText.getText() != null && !tagsEditText.getText().toString().trim().equals("")){
+        if (tagsEditText.getText() != null && !tagsEditText.getText().toString().trim().equals("")) {
             tags = tagsEditText.getText().toString().trim();
         }
         int result = GroupAPI.createGroup(json, this, tags);
-        if (result == GroupAPI.ERROR){
+        if (result == GroupAPI.ERROR) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
-        }else if (result == GroupAPI.SUCCESS){
+        } else if (result == GroupAPI.SUCCESS) {
             Log.i(TAG, "group created");
             finish();
-        }else if (result == GroupAPI.RESULT_EMPTY){
+        } else if (result == GroupAPI.RESULT_EMPTY) {
             Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void setRoles(View v){
+    public void setRoles(View v) {
         Toast.makeText(this, "roles", Toast.LENGTH_SHORT).show();
         allowedRoles = new ArrayList();  // Where we track the selected items
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -159,10 +167,10 @@ public class NewGroupActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                                 if (isChecked) {
                                     // If the user checked the item, add it to the selected items
-                                    allowedRoles.add(which+1);
-                                } else if (allowedRoles.contains(which+1)) {
+                                    allowedRoles.add(which + 1);
+                                } else if (allowedRoles.contains(which + 1)) {
                                     // Else, if the item is already in the array, remove it
-                                    allowedRoles.remove(Integer.valueOf(which+1));
+                                    allowedRoles.remove(Integer.valueOf(which + 1));
                                 }
                             }
                         })
@@ -185,7 +193,7 @@ public class NewGroupActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public void setImage(View v){
+    public void setImage(View v) {
         Log.d(TAG, "setImage");
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
@@ -207,7 +215,7 @@ public class NewGroupActivity extends AppCompatActivity {
             //Assume we have no connection, since error is null
             if (error == null) {
                 Toast.makeText(NewGroupActivity.this, "No internet connection", Toast.LENGTH_SHORT).show();
-            }else{
+            } else {
                 Toast.makeText(NewGroupActivity.this, "Something went wrong, please try again", Toast.LENGTH_SHORT).show();
             }
         }

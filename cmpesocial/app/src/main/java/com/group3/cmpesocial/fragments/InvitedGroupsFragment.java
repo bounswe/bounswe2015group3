@@ -1,5 +1,6 @@
 package com.group3.cmpesocial.fragments;
 
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,30 +12,31 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.google.gson.JsonObject;
-import com.group3.cmpesocial.API.SearchAPI;
+import com.group3.cmpesocial.API.GroupAPI;
 import com.group3.cmpesocial.R;
-import com.group3.cmpesocial.adapters.EventAdapter;
-import com.group3.cmpesocial.classes.Event;
+import com.group3.cmpesocial.adapters.GroupAdapter;
+import com.group3.cmpesocial.classes.Group;
 
 import java.util.ArrayList;
 
 /**
- * Created by Tuba on 20/12/15.
+ * A simple {@link Fragment} subclass.
  */
-public class RecommendedEventsFragment extends Fragment {
+public class InvitedGroupsFragment extends Fragment {
 
-    private static final String TAG = RecommendedEventsFragment.class.getSimpleName();
 
-    private final String title = "Events";
+    private static final String TAG = InvitedGroupsFragment.class.getSimpleName();
+
+    private final String title = "Groups";
 
     private View mView;
     private ListView listView;
-    private static ArrayList<Event> eventsArray;
-    private EventAdapter adapter;
+    private static ArrayList<Group> groupsArray;
+    private GroupAdapter adapter;
     private JsonObject json;
     private int user_id;
 
-    public RecommendedEventsFragment() {
+    public InvitedGroupsFragment() {
         // Required empty public constructor
     }
 
@@ -42,13 +44,13 @@ public class RecommendedEventsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_events, container, false);
+        mView = inflater.inflate(R.layout.fragment_groups, container, false);
 
         listView = (ListView) mView.findViewById(R.id.listView);
 
-        eventsArray = new ArrayList<>();
+        groupsArray = new ArrayList<>();
 
-        adapter = new EventAdapter(getContext(), eventsArray);
+        adapter = new GroupAdapter(getContext(), groupsArray);
         adapter.setNotifyOnChange(true);
         listView.setAdapter(adapter);
 
@@ -83,10 +85,15 @@ public class RecommendedEventsFragment extends Fragment {
 
     public void refreshList() {
         Log.i(TAG, "refresh");
-        eventsArray.clear();
+        groupsArray.clear();
         adapter.clear();
-        eventsArray = SearchAPI.getRecommendedEvents(json, getContext());
-        adapter.addAll(eventsArray);
+        groupsArray = GroupAPI.getInvitedGroups(json, getContext());
+        adapter.addAll(groupsArray);
     }
+
+    public View getmView() {
+        return mView;
+    }
+
 
 }

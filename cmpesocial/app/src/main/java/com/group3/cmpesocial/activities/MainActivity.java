@@ -35,6 +35,7 @@ import com.group3.cmpesocial.fragments.InvitesFragment;
 import com.group3.cmpesocial.fragments.ProfileFragment;
 import com.group3.cmpesocial.fragments.RecommendationsFragment;
 import com.group3.cmpesocial.fragments.SearchEventFragment;
+import com.group3.cmpesocial.fragments.SearchGroupFragment;
 import com.group3.cmpesocial.imgur.helpers.DocumentHelper;
 
 import java.io.File;
@@ -70,8 +71,8 @@ public class MainActivity extends AppCompatActivity
     private ProfileFragment fragment_profile;
     private InvitesFragment fragment_invites;
     private SearchEventFragment fragment_search_event;
-//    private SearchGroupFragment fragment_search_group;
-    private Fragment[] fragments = {fragment_home, fragment_groups, fragment_events, fragment_profile, fragment_invites, fragment_search_event};
+    private SearchGroupFragment fragment_search_group;
+    private Fragment[] fragments = {fragment_home, fragment_groups, fragment_events, fragment_profile, fragment_invites, fragment_search_event, fragment_search_group};
     private int currentScreen;
     private String currentTitle;
 
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity
         fragment_profile = new ProfileFragment();
         fragment_invites = new InvitesFragment();
         fragment_search_event = new SearchEventFragment();
-//        fragment_search_group = new SearchGroupFragment();
+        fragment_search_group = new SearchGroupFragment();
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -265,9 +266,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_about_us:
                 Toast.makeText(this, "About Us", Toast.LENGTH_LONG).show();
                 break;
-            case R.id.nav_send_feedback:
-                Toast.makeText(this, "Send Feedback", Toast.LENGTH_LONG).show();
-                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -363,10 +361,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void searchGroups(){
-//        fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.fragment_container, fragment_search_event);
-//        fragmentTransaction.commit();
-//        currentScreen = SEARCH_EVENT;
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment_search_group);
+        fragmentTransaction.commit();
+        currentScreen = SEARCH_GROUP;
     }
 
 }

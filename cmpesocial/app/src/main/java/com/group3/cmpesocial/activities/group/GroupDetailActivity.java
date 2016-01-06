@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -26,6 +25,7 @@ import com.google.gson.JsonObject;
 import com.group3.cmpesocial.API.GroupAPI;
 import com.group3.cmpesocial.API.UserAPI;
 import com.group3.cmpesocial.R;
+import com.group3.cmpesocial.activities.InviteUserActivity;
 import com.group3.cmpesocial.activities.event.NewEventActivity;
 import com.group3.cmpesocial.adapters.RVEventAdapter;
 import com.group3.cmpesocial.adapters.RVUserAdapter;
@@ -59,8 +59,6 @@ public class GroupDetailActivity extends AppCompatActivity {
     private FloatingActionButton deleteButton;
     private FloatingActionButton roleButton;
     private FloatingActionButton imageButton;
-    private FloatingActionButton doneButton;
-    private ImageButton inviteButton;
     private FloatingActionButton createEventButton;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private Toolbar toolbar;
@@ -98,7 +96,6 @@ public class GroupDetailActivity extends AppCompatActivity {
         deleteButton = (FloatingActionButton) findViewById(R.id.deleteButton);
         roleButton = (FloatingActionButton) findViewById(R.id.roleButton);
         imageButton = (FloatingActionButton) findViewById(R.id.imageButton);
-//        inviteButton = (ImageButton) findViewById(R.id.inviteButton);
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,10 +157,7 @@ public class GroupDetailActivity extends AppCompatActivity {
 
         descriptionEditText.setText(description);
 
-        if (user_id == id_user) {
-            editButton.setVisibility(View.VISIBLE);
-            deleteButton.setVisibility(View.VISIBLE);
-        } else {
+        if (user_id != id_user) {
             CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) editButton.getLayoutParams();
             p.setAnchorId(View.NO_ID);
             editButton.setLayoutParams(p);
@@ -172,6 +166,14 @@ public class GroupDetailActivity extends AppCompatActivity {
             p.setAnchorId(View.NO_ID);
             deleteButton.setLayoutParams(p);
             deleteButton.setVisibility(View.GONE);
+            p = (CoordinatorLayout.LayoutParams) roleButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            roleButton.setLayoutParams(p);
+            roleButton.setVisibility(View.GONE);
+            p = (CoordinatorLayout.LayoutParams) imageButton.getLayoutParams();
+            p.setAnchorId(View.NO_ID);
+            imageButton.setLayoutParams(p);
+            imageButton.setVisibility(View.GONE);
         }
 
         JsonObject membersJson = new JsonObject();
@@ -224,6 +226,11 @@ public class GroupDetailActivity extends AppCompatActivity {
 
             case R.id.leave:
                 leaveGroup();
+                break;
+
+            case R.id.invite:
+                Log.i(TAG, "invite");
+                invite();
                 break;
 
             case android.R.id.home:
@@ -286,7 +293,7 @@ public class GroupDetailActivity extends AppCompatActivity {
     }
 
     public void saveGroup() {
-        Toast.makeText(this, "done", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "group updated", Toast.LENGTH_LONG).show();
         enableEditTexts(false);
 
         if (descriptionEditText.getText() == null || descriptionEditText.getText().equals("")) {
@@ -344,7 +351,7 @@ public class GroupDetailActivity extends AppCompatActivity {
             isMember = true;
             invalidateOptionsMenu();
         } else if (result == GroupAPI.NO_ACCESS) {
-            Toast.makeText(this, "You cannot join this event unless you are invited.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You cannot join this group due to your user type.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -364,8 +371,11 @@ public class GroupDetailActivity extends AppCompatActivity {
         }
     }
 
-    public void invite(View v) {
-
+    public void invite() {
+        Intent intent = new Intent(this, InviteUserActivity.class);
+        intent.putExtra("id", id);
+        intent.putExtra("isEvent", false);
+        startActivity(intent);
     }
 
     public void setRoles(View v) {
