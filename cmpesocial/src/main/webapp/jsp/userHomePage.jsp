@@ -82,7 +82,8 @@
 	<section class="sub-banner newsection">
 		<div class="container">
 			<h3 class="title">
-				<b>${user.name} ${user.surname}</b>
+				<b>${user.name} ${user.surname}</b></br>
+				<img src="${contextPath}/assets/img/default_profile_pic.jpg" alt="" style="width: 200px; height: 200px">
 			</h3>
 		</div>
 	</section>
