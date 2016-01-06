@@ -115,6 +115,11 @@
 									<i class="icon fa fa-lock"></i>
 								</p>
 								<p>
+									<label>Profile Picture URL</label> <input type="text" value=""
+										id="photo_url" name="photo_url" placeholder="Link of image"
+										class="textflied"> <i class="icon fa fa-link"></i>
+								</p> 
+								<p>
 									<label for="role">Role</label> <select
 										class="textflied" id="role" name="type">
 										<option value="1">Under Graduate</option>

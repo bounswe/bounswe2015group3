@@ -83,7 +83,14 @@
 		<div class="container">
 			<h3 class="title">
 				<b>${user.name} ${user.surname}</b></br>
+		<c:choose>
+			<c:when test="${not empty user.profile_pic_link}">
+				<img src="${user.profile_pic_link}" alt=""  style="width: 200px; height: 200px">
+			</c:when>
+			<c:otherwise>
 				<img src="${contextPath}/assets/img/default_profile_pic.jpg" alt="" style="width: 200px; height: 200px">
+			</c:otherwise>
+		</c:choose>
 			</h3>
 		</div>
 	</section>

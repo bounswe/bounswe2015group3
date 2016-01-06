@@ -86,16 +86,16 @@ public class CmpeSocialUserModel {
         return password;
     }
 
-    public void addUser(String name, String surname, String email, String password,String type) {
-        String sql = "INSERT INTO user(name, surname, email, password , type ) VALUES(?, ?, ?, ?, ?)";
+    public void addUser(String name, String surname, String email, String password, String photo_url, String type) {
+        String sql = "INSERT INTO user(name, surname, email, password, profile_pic_link, type) VALUES(?, ?, ?, ?, ?, ?)";
 
-        this.jdbcTemplate.update(sql, name, surname, email, password,type);
+        this.jdbcTemplate.update(sql, name, surname, email, password, photo_url, type);
     }
 
-    public void updateUser(Long id, String name, String surname, String email, String password,String type) {
-        String sql = "UPDATE user SET name = ?, surname = ?, email = ?, password = ? , type = ? WHERE id = ?";
+    public void updateUser(Long id, String name, String surname, String email, String password, String photo_url, String type) {
+        String sql = "UPDATE user SET name = ?, surname = ?, email = ?, password = ?, profile_pic_link = ?, type = ? WHERE id = ?";
 
-        this.jdbcTemplate.update(sql, name, surname, email, password,type, id);
+        this.jdbcTemplate.update(sql, name, surname, email, password, photo_url, type, id);
     }
 
     public void deleteUser(Long id) {
