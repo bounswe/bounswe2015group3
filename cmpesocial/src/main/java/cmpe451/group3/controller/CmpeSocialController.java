@@ -95,8 +95,10 @@ public class CmpeSocialController {
     	else{
     		Map<String, Object> user = cmpeSocialUserModel.getUser(id);
     		List<Map<String, Object>> events = eventModel.getEventsOfUser(id);
+            List<Map<String, Object>> groups = groupDAO.getGroupOwned(id);
     		model.put("user", user);
     		model.put("events", events);
+            model.put("groups", groups);
     	}
         return "userHomePage";
     }
