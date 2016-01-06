@@ -30,7 +30,7 @@ public class EventModel {
     }
 
     public List<Map<String,Object>> getEventsJoined(long id_user){
-        String sql = "SELECT `event`.* FROM `event`, user_event WHERE event.id = user_event.id_event AND user_event.id_user = ? ORDER BY event.date ASC";
+        String sql = "SELECT `event`.* FROM `event`, user_event WHERE event.id = user_event.id_event AND user_event.id_user = ? AND user_event.status = 1 ORDER BY event.date ASC";
         return this.jdbcTemplate.queryForList(sql,id_user);
     }
 
