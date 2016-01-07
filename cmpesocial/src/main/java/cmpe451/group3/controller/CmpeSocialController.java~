@@ -21,6 +21,14 @@ import java.util.Map;
 
 @Controller
 @Scope("request")
+/**
+* this class contains main functionilities of the system
+* @author Can Kurtan
+* @author Umut Afacan 
+* @author Cem Özen
+
+
+*/
 public class CmpeSocialController {
 
     @Autowired
@@ -36,6 +44,9 @@ public class CmpeSocialController {
     private GroupDAO groupDAO = null;
 
     @RequestMapping(value = "/index")
+/**
+method for geting all users
+*/
     public String index(ModelMap model) {
 
         // gets users from model.

@@ -16,7 +16,12 @@ import cmpe451.group3.model.TagDAO;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+* <h2>This class basically contains functions about events</h2>
+* @author Can Kurtan
+* @author Umut Afacan 
+* @author Cem Ozen
+*/
 @Controller
 @Scope("request")
 public class EventController {
@@ -29,7 +34,9 @@ public class EventController {
     
     @Autowired
     private TagDAO tagModel = null;
-
+    /**
+     * Method for getting all events
+     */
     @RequestMapping(value = "/events")
     public String events(ModelMap model) {
         
@@ -39,6 +46,9 @@ public class EventController {
 
         return "events";
     }
+    /**
+     * Method for edit events
+     */
 
     @RequestMapping(value = "/event/edit")
     public String editEvent(@RequestParam(required = false) Long id, ModelMap model) {
@@ -53,7 +63,9 @@ public class EventController {
 		}
 		return "redirect:/events";
     }
-    
+    /**
+     * Method for view of an event
+     */
     @RequestMapping(value = "/event/view", method = RequestMethod.GET)
     public String viewEvent(@RequestParam(required = false) Long id, ModelMap model) {
         Map<String, Object> event = eventModel.getEvent(id);
@@ -96,7 +108,9 @@ public class EventController {
         
         return "eventView";
     }
-    
+    /**
+     * Method for join an event
+     */
     @RequestMapping(value = "/event/join", method = RequestMethod.GET)
     public String joinEvent(@RequestParam(required = false) Long id, ModelMap model) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -107,7 +121,9 @@ public class EventController {
         
         return "redirect:/event/view?id="+id;
     }
-    
+    /**
+     * Method for leave an event
+     */
     @RequestMapping(value = "/event/leave", method = RequestMethod.GET)
     public String leaveEvent(@RequestParam(required = false) Long id, ModelMap model) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -117,7 +133,10 @@ public class EventController {
         
         return "redirect:/event/view?id="+id;
     }
-
+    /**
+     * Method for update events
+     * @param name,type,date,end-date, option for periodic, location, description, photo-url
+     */
     @RequestMapping(value = "events/update")
     public String updateEvent(
             @RequestParam(required = false) Long id,
@@ -141,7 +160,9 @@ public class EventController {
 
         return "redirect:/events";
     }
-
+    /**
+     * Method for create an event
+     */
     @RequestMapping(value = "event/create")
     public String createEvent() {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -150,7 +171,9 @@ public class EventController {
     	
         return "createEvent";
     }
-
+    /**
+     * Method for delete an event
+     */
     @RequestMapping(value = "event/delete")
     public String deleteEvent(@RequestParam(required = false) Long id) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -163,6 +186,10 @@ public class EventController {
 
         return "redirect:/events";
     }
+    /**
+     * Method for share a post about an event
+     * @param post
+     */
     @RequestMapping( value = "/event/create/post" , method = RequestMethod.POST)
     public String createPost(@RequestParam long id_event, @RequestParam String post_text, @RequestParam(required = false) String post_url) {
     	
@@ -176,7 +203,10 @@ public class EventController {
 
     	return "redirect:/event/view?id="+id_event;
     }
-
+    /**
+     * Method for add a tag for event
+     * @param tag
+     */
     @RequestMapping( value = "/event/tag/add" , method = RequestMethod.POST)
     public String addTag(@RequestParam long id_event, @RequestParam String tag) {
     	

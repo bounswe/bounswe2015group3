@@ -1,7 +1,8 @@
 package cmpe451.group3.MobileAPI;
 
 /**
- * Created by umut on 11/24/15.
+ * <h2> Controller for API of Group object </h2>
+ * @author Umut Afacan
  */
 
 import cmpe451.group3.model.*;
@@ -37,7 +38,11 @@ public class GroupAPIController {
     @Qualifier("tagDAO")
     @Autowired
     private TagDAO tagDAO = null;
-
+/**
+ * Method for creating group
+ * @param groupModel
+ * @return
+ */
     @RequestMapping( value = "/groups/create" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String createEvent(@RequestBody GroupModel groupModel) {
@@ -49,6 +54,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
+    /**
+     * Method for getting all groups
+     * @param groupIDRequestModel
+     * @return
+     */
     @RequestMapping( value = "/groups/all" , method = RequestMethod.POST,produces = {"text/plain;charset=UTF-8"} )
     @ResponseBody
     public String events(@RequestBody EventIDRequestModel groupIDRequestModel) {
@@ -74,7 +84,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for group view in detailed	
+ * @param groupModel
+ * @return
+ */
     @RequestMapping( value = "/groups/view" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String viewEvents(@RequestBody GroupViewRequestModel groupModel) {
@@ -95,7 +109,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for getting groups which belong to specific user
+ * @param eventIDModel
+ * @return
+ */
     @RequestMapping( value = "/groups/viewOwned" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String viewEventsOwned(@RequestBody EventIDRequestModel eventIDModel) {
@@ -104,6 +122,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
+    /**
+     * Method for getting groups which the specific user is member of it
+     * @param eventIDModel
+     * @return
+     */
     @RequestMapping( value = "/groups/viewWithMembership" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String viewGroupsWithMembership(@RequestBody EventIDRequestModel eventIDModel) {
@@ -112,7 +135,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for getting groups which the user invited
+ * @param eventIDModel
+ * @return
+ */
     @RequestMapping( value = "/groups/viewInvited" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String viewGroupInvited(@RequestBody EventIDRequestModel eventIDModel) {
@@ -121,7 +148,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for updating group information
+ * @param groupModel
+ * @return
+ */
 
     @RequestMapping( value = "/groups/update" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
@@ -134,6 +165,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
+    /**
+     * Method for delete a group
+     * @param eventBaseModel
+     * @return
+     */
 
     @RequestMapping( value = "/groups/delete" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
@@ -146,7 +182,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for getting members of a group
+ * @param eventID
+ * @return
+ */
     @RequestMapping( value = "/groups/getMembers" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String groupMembers(@RequestBody EventIDRequestModel eventID) {
@@ -157,7 +197,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for join action to groups
+ * @param partModel
+ * @return
+ */
     @RequestMapping( value = "/groups/join" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String groupJoin(@RequestBody GroupJoinModel partModel) {
@@ -176,7 +220,11 @@ public class GroupAPIController {
         }
         return gson.toJson(result);
     }
-
+/**
+ * Method for invite action for users to groups
+ * @param partModel
+ * @return
+ */
 
     @RequestMapping( value = "/groups/invite" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
@@ -189,7 +237,11 @@ public class GroupAPIController {
         result.put("Result","Success");
         return gson.toJson(result);
     }
-
+/**
+ * Method for creating post in the group
+ * @param postModel
+ * @return
+ */
     @RequestMapping( value = "/groups/createPost" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String createPost(@RequestBody GroupPostModel postModel) {
@@ -205,7 +257,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for updating the post in the group
+ * @param postModel
+ * @return
+ */
     @RequestMapping( value = "/groups/updatePost" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String updatePost(@RequestBody GroupPostBaseModel postModel) {
@@ -221,7 +277,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for getting posts belong to a group
+ * @param idModel
+ * @return
+ */
     @RequestMapping( value = "/groups/getPosts" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String getPosts(@RequestBody EventIDRequestModel idModel) {
@@ -243,7 +303,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for leave action from groups
+ * @param idModel
+ * @return
+ */
     @RequestMapping( value = "/groups/leave" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String getPosts(@RequestBody GroupJoinModel idModel) {
@@ -304,7 +368,11 @@ public class GroupAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for adding tag to the groups
+ * @param tagModel
+ * @return
+ */
     @RequestMapping(value = "/groups/tag/add" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String addTag(@RequestBody GroupTagCreateModel tagModel)
@@ -318,7 +386,11 @@ public class GroupAPIController {
         result.put("Result","Success");
         return  gson.toJson(result);
     }
-
+/**
+ * Method for deleting tag from groups
+ * @param tagModel
+ * @return
+ */
     @RequestMapping(value = "/groups/tag/delete" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String deleteTag(@RequestBody GroupTagCreateModel tagModel)
@@ -332,7 +404,11 @@ public class GroupAPIController {
         result.put("Result","Success");
         return  gson.toJson(result);
     }
-    //get groups has this tag
+    /**
+     * Method for getting all groups has specific tag
+     * @param tagModel
+     * @return
+     */
     @RequestMapping(value = "/groups/tag/getGroups" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String addTag(@RequestBody SimpleTagModel tagModel)
@@ -343,7 +419,11 @@ public class GroupAPIController {
         result.put("Result","Success");
         return  gson.toJson(result);
     }
-    //gets tags for group id
+    /**
+     * Method for getting all tags belong to a specific group
+     * @param tagModel
+     * @return
+     */
     @RequestMapping(value = "/groups/tag/getTags" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String addTag(@RequestBody EventIDRequestModel tagModel)

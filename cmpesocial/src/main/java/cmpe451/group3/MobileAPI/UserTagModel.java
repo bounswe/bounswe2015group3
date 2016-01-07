@@ -1,9 +1,10 @@
 package cmpe451.group3.MobileAPI;
 
 import java.util.Map;
-
 /**
- * Created by Umut on 14.12.2015.
+ * <h2>USer Tag Model</h2>
+ * @author Umut Afacan
+ * @param id_user,tag
  */
 public class UserTagModel {
     public long id_user;

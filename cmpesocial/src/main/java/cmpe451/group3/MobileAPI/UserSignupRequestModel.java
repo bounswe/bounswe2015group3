@@ -1,7 +1,8 @@
 package cmpe451.group3.MobileAPI;
 
 /**
- * Created by umut on 11/3/15.
+ * <h2>Request Model for Sign up Action</h2>
+ * @author Umut Afacan
  */
 public class UserSignupRequestModel
 {

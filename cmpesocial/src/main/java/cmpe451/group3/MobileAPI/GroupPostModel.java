@@ -1,8 +1,10 @@
 package cmpe451.group3.MobileAPI;
 
 /**
- * Created by Umut on 28.11.2015.
+ * <h2>Post Model for Groups</h2>
+ * @author Umut Afacan
  */
+
 public class GroupPostModel {
     public Long id_user;
     public Long id_group;

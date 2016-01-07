@@ -1,9 +1,10 @@
 package cmpe451.group3.MobileAPI;
 
 import java.util.Map;
-
 /**
- * Created by umut on 11/24/15.
+ * <h2>Group Model</h2>
+ * @author Umut Afacan
+ * @param id,name,date_of_creation,id_admin, type,description, group_url
  */
 public class GroupModel {
     public Long id;

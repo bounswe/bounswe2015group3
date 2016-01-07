@@ -3,7 +3,11 @@ package cmpe451.group3.auth;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.*;
 import org.springframework.security.core.context.SecurityContextHolder;
-
+/**
+ * Method for authentication of the users
+ * @author Can Kurtan
+ * @author Cem Ozen
+ */
 public class CmpeSocialAuthentication {
 	private static AuthenticationManager am = new CmpeSocialAuthenticationManager();
 

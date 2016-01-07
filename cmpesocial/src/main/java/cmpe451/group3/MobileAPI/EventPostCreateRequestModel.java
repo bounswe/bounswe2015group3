@@ -1,7 +1,13 @@
 package cmpe451.group3.MobileAPI;
 
 /**
- * Created by Umut on 4.12.2015.
+ * <h2>Request Model for Create Post in Events</h2>
+ * @author Umut Afacan
+ * @param id_event
+ * @param id_user
+ * @param content
+ * @param content_url
+ *
  */
 public class EventPostCreateRequestModel {
     public Long id_event;

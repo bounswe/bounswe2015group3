@@ -4,7 +4,8 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Created by umut on 11/3/15.
+ * <h2>Event Model for API </h2>
+ * @author Umut Afacan
  */
 public class EventBaseModel {
 
@@ -21,7 +22,11 @@ public class EventBaseModel {
     public Long id_group;
     public String url;
 
-
+/**
+ * Event Base Model
+ * @param event
+ * @return
+ */
     public EventBaseModel mapModel(Map<String, Object> event)
     {
         EventBaseModel eventModel = new EventBaseModel();

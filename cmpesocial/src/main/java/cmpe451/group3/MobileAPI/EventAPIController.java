@@ -1,7 +1,8 @@
 package cmpe451.group3.MobileAPI;
 
 /**
- * Created by umut on 11/3/15.
+ * <h2> Controller for API of Event object </h2>
+ * @author Umut Afacan
  */
 
 import java.util.ArrayList;
@@ -44,8 +45,8 @@ import java.util.Map;
 import java.util.Date;
 
 /**
- * API Controller Class
- * This class includes following functions
+ * <h3>API Controller Class
+ * This class includes following functions</h3>
  */
 @Controller
 @RequestMapping("api")
@@ -68,7 +69,11 @@ public class EventAPIController {
 
 
 
-
+/**
+ * Method for creating event
+ * @param eventCreateRequestModel
+ * @return
+ */
     @RequestMapping( value = "/events/create" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String createEvent(@RequestBody EventCreateRequestModel eventCreateRequestModel) {
@@ -80,6 +85,11 @@ public class EventAPIController {
 
         return gson.toJson(result);
     }
+    /**
+     * Method for getting all events
+     * @param requestModel
+     * @return
+     */
     @RequestMapping( value = "/events/all" , method = RequestMethod.POST,produces = {"text/plain;charset=UTF-8"} )
     @ResponseBody
     public String events(@RequestBody EventIDRequestModel requestModel) {
@@ -102,7 +112,11 @@ public class EventAPIController {
         result.put("events",events);
         return gson.toJson(result);
     }
-
+/**
+ * Method for getting events belong to the specific user
+ * @param userModel
+ * @return
+ */
     @RequestMapping( value = "/events/viewByOwned" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String viewEventsOwned(@RequestBody EventIDRequestModel userModel) {
@@ -130,7 +144,11 @@ public class EventAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for getting events which the specific user attending
+ * @param eventIDModel
+ * @return
+ */
     @RequestMapping( value = "/events/viewJoined" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String viewEventsJoined(@RequestBody EventIDRequestModel eventIDModel) {
@@ -139,7 +157,11 @@ public class EventAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for getting events which the specific user invited
+ * @param eventIDModel
+ * @return
+ */
     @RequestMapping( value = "/events/viewInvited" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String viewEventsInvited(@RequestBody EventIDRequestModel eventIDModel) {
@@ -148,6 +170,12 @@ public class EventAPIController {
 
         return gson.toJson(result);
     }
+    
+    /**
+     * Method for get event details
+     * @param eventParticipateModel
+     * @return
+     */
 
     @RequestMapping( value = "/events/viewDetail" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
@@ -169,7 +197,11 @@ public class EventAPIController {
         return gson.toJson(result);
     }
 
-
+/**
+ * Method for updating event 
+ * @param eventBaseModel
+ * @return
+ */
     @RequestMapping( value = "/events/update" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String eventUpdate(@RequestBody EventBaseModel eventBaseModel) {
@@ -181,7 +213,11 @@ public class EventAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for deleting event
+ * @param eventBaseModel
+ * @return
+ */
     @RequestMapping( value = "/events/delete" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String eventDelete(@RequestBody EventBaseModel eventBaseModel) {
@@ -193,6 +229,11 @@ public class EventAPIController {
 
         return gson.toJson(result);
     }
+    /**
+     * Method for getting all participants of the event
+     * @param eventID
+     * @return
+     */
 
     @RequestMapping( value = "/events/getParticipants" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
@@ -204,7 +245,11 @@ public class EventAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for join action for events
+ * @param partModel
+ * @return
+ */
     @RequestMapping( value = "/events/join" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String eventJoin(@RequestBody EventParticipateModel partModel) {
@@ -223,7 +268,11 @@ public class EventAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for invite action for events
+ * @param partModel
+ * @return
+ */
     @RequestMapping( value = "/events/invite" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String eventInvite(@RequestBody EventParticipateModel partModel) {
@@ -242,7 +291,11 @@ public class EventAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for leave action for events
+ * @param partModel
+ * @return
+ */
     @RequestMapping( value = "/events/leave" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String eventLeave(@RequestBody EventParticipateModel partModel) {
@@ -256,7 +309,11 @@ public class EventAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for creating post in the events
+ * @param postModel
+ * @return
+ */
     @RequestMapping( value = "/events/createPost" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String eventPostCreate (@RequestBody EventPostCreateRequestModel postModel) {
@@ -268,7 +325,11 @@ public class EventAPIController {
         result.put("Result","Success");
         return gson.toJson(result);
     }
-
+/**
+ * Method for update post in the events
+ * @param postModel
+ * @return
+ */
     @RequestMapping( value = "/events/updatePost" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String eventPostUpdate(@RequestBody EventPostBaseModel postModel) {
@@ -280,7 +341,11 @@ public class EventAPIController {
         result.put("Result","Success");
         return gson.toJson(result);
     }
-
+/**
+ * Method for deleting post in the events
+ * @param idModel
+ * @return
+ */
     @RequestMapping( value = "/events/deletePost" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String eventPostDelete(@RequestBody EventIDRequestModel idModel) {
@@ -292,7 +357,11 @@ public class EventAPIController {
         result.put("Result","Success");
         return gson.toJson(result);
     }
-
+/**
+ * Method for getting all posts for the event
+ * @param idModel
+ * @return
+ */
     @RequestMapping( value = "/events/getAllPosts" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String eventPostGetAll(@RequestBody EventIDRequestModel idModel) {
@@ -349,7 +418,11 @@ public class EventAPIController {
         result.put("Result","Success");
         return gson.toJson(result);
     }
-
+/**
+ * Method for adding tags for the event
+ * @param tagModel
+ * @return
+ */
     @RequestMapping(value = "/events/tag/add" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String addTag(@RequestBody EventTagCreateModel tagModel)
@@ -360,7 +433,11 @@ public class EventAPIController {
         result.put("Result","Success");
         return  gson.toJson(result);
     }
-
+/**
+ * Method for deleting tags of the event
+ * @param tagModel
+ * @return
+ */
     @RequestMapping(value = "/events/tag/delete" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String deleteTag(@RequestBody EventTagCreateModel tagModel)
@@ -374,7 +451,11 @@ public class EventAPIController {
         result.put("Result","Success");
         return  gson.toJson(result);
     }
-    //get groups has this tag
+    /**
+     * Method for getting all events with specific tag
+     * @param tagModel
+     * @return
+     */
     @RequestMapping(value = "/events/tag/getEvents" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String addTag(@RequestBody SimpleTagModel tagModel)
@@ -385,7 +466,11 @@ public class EventAPIController {
         result.put("Result","Success");
         return  gson.toJson(result);
     }
-    //gets tags for group id
+    /**
+     * Method for getting all tags belong to an event
+     * @param tagModel
+     * @return
+     */
     @RequestMapping(value = "/events/tag/getTags" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String addTag(@RequestBody EventIDRequestModel tagModel)

@@ -1,7 +1,7 @@
 package cmpe451.group3.MobileAPI;
-
 /**
- * Created by Umut on 13.12.2015.
+ * <h2>Create Comment Model for Groups</h2>
+ * @author Umut Afacan
  */
 public class GroupCreateCommentModel {
 

@@ -1,8 +1,9 @@
 package cmpe451.group3.MobileAPI;
-
 /**
- * Created by umut on 12/13/15.
+ * <h2>Post Base Model for Groups</h2>
+ * @author Umut Afacan
  */
+
 public class GroupTagCreateModel {
 
     public long id_group;

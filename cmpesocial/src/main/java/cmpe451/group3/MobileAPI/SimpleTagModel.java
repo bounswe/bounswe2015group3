@@ -1,7 +1,7 @@
 package cmpe451.group3.MobileAPI;
-
 /**
- * Created by umut on 12/13/15.
+ * <h2>Simple Tag Model</h2>
+ * @author Umut Afacan
  */
 public class SimpleTagModel {
 

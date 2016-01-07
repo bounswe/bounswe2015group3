@@ -1,7 +1,8 @@
 package cmpe451.group3.MobileAPI;
 
 /**
- * Created by umut on 11/21/15.
+ * <h2> Event Participation Model</h2>
+ * @author Umut Afacan
  */
 public class EventParticipateModel {
     public Long id_user;

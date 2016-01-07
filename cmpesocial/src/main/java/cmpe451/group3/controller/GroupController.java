@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-
+/**
+* <h2>This class basically contains functions about groups</h2>
+* @author Can Kurtan
+* @author Umut Afacan 
+* @author Cem Ozen
+*/
 
 
 @Controller
@@ -28,7 +33,11 @@ public class GroupController {
     
     @Autowired
     private TagDAO tagModel = null;
-    
+    /**
+     * Method for getting all group objects
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/groups")
     public String events(ModelMap model) {
 
@@ -38,7 +47,12 @@ public class GroupController {
 
         return "groups";
     }
-
+/**
+ * Method for editing group objects 
+ * @param id
+ * @param model
+ * @return
+ */
     @RequestMapping(value = "/group/edit")
     public String editEvent(@RequestParam(required = false) long id, ModelMap model) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -53,7 +67,12 @@ public class GroupController {
 
         return "redirect:/groups";
     }
-
+/**
+ * Method for getting all related objects and their info with a specific group object
+ * @param id
+ * @param model
+ * @return
+ */
     @RequestMapping(value = "/group/view", method = RequestMethod.GET)
     public String viewEvent(@RequestParam(required = false) long id, ModelMap model) {
         Map<String, Object> group = groupDAO.getGroup(id);
@@ -96,7 +115,12 @@ public class GroupController {
 
         return "viewGroup";
     }
-
+/**
+ * Method for join action for group object
+ * @param id
+ * @param model
+ * @return
+ */
     @RequestMapping(value = "/group/join", method = RequestMethod.GET)
     public String joinGroup(@RequestParam(required = false) long id, ModelMap model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -107,7 +131,12 @@ public class GroupController {
 
         return "redirect:/group/view?id="+id;
     }
-
+/**
+ * Method for leaving action from group object
+ * @param id
+ * @param model
+ * @return
+ */
     @RequestMapping(value = "/group/leave", method = RequestMethod.GET)
     public String leaveGroup(@RequestParam(required = false) long id, ModelMap model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -118,7 +147,15 @@ public class GroupController {
 
         return "redirect:/group/view?id="+id;
     }
-    
+    /**
+     * Method for updating group object info
+     * @param id
+     * @param name
+     * @param type
+     * @param description
+     * @param group_url
+     * @return
+     */
     @RequestMapping(value = "group/update")
     public String updateGroup(
             @RequestParam(required = false) Long id,
@@ -137,7 +174,10 @@ public class GroupController {
 
         return "redirect:/groups";
     }
-
+/**
+ * Method for creating group object
+ * @return
+ */
     @RequestMapping(value = "group/create")
     public String createEvent() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -146,7 +186,11 @@ public class GroupController {
 
         return "createGroup";
     }
-
+/**
+ * Method for deleting group object
+ * @param id
+ * @return
+ */
     @RequestMapping(value = "group/delete")
     public String deleteGroup(@RequestParam(required = false) Long id) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -159,7 +203,12 @@ public class GroupController {
 
         return "redirect:/groups";
     }
-
+/**
+ * Method for invite action to group objects
+ * @param id_user
+ * @param id_group
+ * @return
+ */
     @RequestMapping( value = "/groups/invite" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     public String groupInvite(@RequestParam Long id_user, @RequestParam Long id_group) {
 
@@ -167,7 +216,13 @@ public class GroupController {
 
         return "redirect:/groups";
     }
-
+/**
+ * Method for creating post in group objects
+ * @param id_group
+ * @param post_text
+ * @param post_url
+ * @return
+ */
     @RequestMapping( value = "/group/create/post" , method = RequestMethod.POST)
     public String createPost(@RequestParam long id_group, @RequestParam String post_text, @RequestParam(required = false) String post_url) {
     	
@@ -181,7 +236,14 @@ public class GroupController {
 
     	return "redirect:/group/view?id="+id_group;
     }
-
+/**
+ * Method for updating posts belongs to group objects
+ * @param id
+ * @param id_group
+ * @param post_text
+ * @param post_url
+ * @return
+ */
     @RequestMapping( value = "/groups/update/post" , method = RequestMethod.POST)
     public String updatePost(@RequestParam Long id, @RequestParam Long id_group, @RequestParam String post_text, @RequestParam(required = false) String post_url) {
     	
@@ -199,7 +261,12 @@ public class GroupController {
             return "redirect:/group/updatePost" ;
 
     }
-    
+    /**
+     * Method for adding tag object to the group object
+     * @param id_group
+     * @param tag
+     * @return
+     */
     @RequestMapping( value = "/group/tag/add" , method = RequestMethod.POST)
     public String addTag(@RequestParam long id_group, @RequestParam String tag) {
     	

@@ -28,6 +28,7 @@ import  cmpe451.group3.MobileAPI.UserLoginRequestModel;
 /**
  * API Controller Class
  * This class includes following functions
+ * @author Umut Afacan
  */
 
 @Controller
@@ -47,7 +48,11 @@ public class UserAPIController {
     @Qualifier("tagDAO")
     @Autowired
     private TagDAO tagDAO = null;
-
+/**
+ * Method for login action 
+ * @param userLoginRequestModel
+ * @return
+ */
     @RequestMapping( value = "/login" , method = RequestMethod.POST,produces ={ "text/plain;charset=UTF-8"} )
     @ResponseBody
     public String login(@RequestBody UserLoginRequestModel userLoginRequestModel) {
@@ -76,7 +81,11 @@ public class UserAPIController {
             return gson.toJson(result);
     }
 
-
+    /**
+     * Method for sign up action
+     * @param userSignupRequestModel
+     * @return
+     */
     @RequestMapping( value = "/signup" , method = RequestMethod.POST,produces ={ "text/plain;charset=UTF-8"} )
     @ResponseBody
     public String signup(@RequestBody UserSignupRequestModel userSignupRequestModel) {
@@ -90,7 +99,11 @@ public class UserAPIController {
         return gson.toJson(result);
     }
 
-
+/**
+ * Method for update action for user information
+ * @param userRequestModel
+ * @return
+ */
     @RequestMapping( value = "/updateUser" , method = RequestMethod.POST,produces = {"text/plain;charset=UTF-8"} )
     @ResponseBody
     public String updateUser(@RequestBody UserModel userRequestModel) {
@@ -103,7 +116,11 @@ public class UserAPIController {
 
         return gson.toJson(result);
     }
-
+/**
+ * Method for getting specific user
+ * @param userRequestModel
+ * @return
+ */
     @RequestMapping( value = "/getUser" , method = RequestMethod.POST,produces = {"text/plain;charset=UTF-8"} )
     @ResponseBody
     public String updateUser(@RequestBody EventIDRequestModel userRequestModel) {
@@ -112,7 +129,11 @@ public class UserAPIController {
         result = cmpeSocialUserModel.getUser(userRequestModel.id);
         return gson.toJson(result);
     }
-
+/**
+ * Method for adding tag to a specific user
+ * @param tagModel
+ * @return
+ */
     @RequestMapping( value = "/user/tag/add" , method = RequestMethod.POST,produces = {"text/plain;charset=UTF-8"} )
     @ResponseBody
     public String addTagToUser(@RequestBody UserTagModel tagModel) {
@@ -122,7 +143,11 @@ public class UserAPIController {
         tagDAO.addTagToUser(tagModel.id_user,tagModel.tag);
         return gson.toJson(result);
     }
-
+/**
+ * Method for deleting a tag belongs to an specific user
+ * @param tagModel
+ * @return
+ */
     @RequestMapping( value = "/user/tag/delete" , method = RequestMethod.POST,produces = {"text/plain;charset=UTF-8"} )
     @ResponseBody
     public String deleteTagToUser(@RequestBody UserTagModel tagModel) {
@@ -133,7 +158,11 @@ public class UserAPIController {
         return gson.toJson(result);
     }
 
-    //get users has this tag
+    /**
+     * Method for getting users having specific tag
+     * @param tagModel
+     * @return
+     */
     @RequestMapping(value = "/user/tag/getUsers" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String getUsersForTag(@RequestBody SimpleTagModel tagModel)
@@ -144,7 +173,11 @@ public class UserAPIController {
         result.put("Result","Success");
         return  gson.toJson(result);
     }
-    //gets tags for user id
+/**
+ * Method for getting all tags belong to an user
+ * @param tagModel
+ * @return
+ */
     @RequestMapping(value = "/user/tag/getTags" ,method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String getTagsForUser(@RequestBody EventIDRequestModel tagModel)

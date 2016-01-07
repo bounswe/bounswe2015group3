@@ -9,73 +9,104 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.*;
-
+/**
+* <h2>Event Model</h2>
+* @author Can Kurtan
+* @author Umut Afacan
+* @author Cem Ozen
+* @author Tuba Topaloğlu
+*/
 @Repository
 @Scope("request")
 public class EventModel {
 
     private DataSource dataSource;
     protected JdbcTemplate jdbcTemplate;
-
+/**
+ * Setting up the data source
+ */
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
-
+/**
+ * Script for getting events for specific user 
+ */
     public List<Map<String, Object>> getEventsForUser(long id_user) {
         String sql = "SELECT * FROM event WHERE id_user = ? ORDER  BY event.date ASC";
 
         return this.jdbcTemplate.queryForList(sql, id_user);
     }
-
+/**
+ * Script for getting events which the user attending
+ */
     public List<Map<String,Object>> getEventsJoined(long id_user){
         String sql = "SELECT `event`.* FROM `event`, user_event WHERE event.id = user_event.id_event AND user_event.id_user = ? AND user_event.status = 1 ORDER BY event.date ASC";
         return this.jdbcTemplate.queryForList(sql,id_user);
     }
 
-
+/**
+ * Script for getting all events
+ */
     public List<Map<String, Object>> getEvents() {
         String sql = "SELECT * FROM event ORDER BY event.date ASC";
 
         return this.jdbcTemplate.queryForList(sql);
     }
-
+    /**
+     * Script for get specific event
+     */
     public Map<String, Object> getEvent(Long id) {
         String sql = "SELECT * FROM event WHERE id = ? ";
 
         return this.jdbcTemplate.queryForMap(sql, id);
     }
-
+    /**
+     * Script for get specific event according to its name
+     */
     public Map<String, Object> getEventForName(String name)
     {
         String sql = "SELECT * FROM event WHERE name = ?";
         return  this.jdbcTemplate.queryForMap(sql,name);
     }
-
+    /**
+     * Script for create event
+     * @param name, date, end_date, periodic option, id_user(Owner of the event), lcoation, description, type, id_group(Group of the event), url(for cover photo) 
+     */
 
     public void createEvent(String name, String date,String end_date,int periodic, long userid, String location, String description,String type, Long id_group, String url) {
         String sql = "INSERT INTO event(name, date,end_date,periodic, id_user, location, description,type,id_group,url) VALUES(?, ?, ?, ?, ?, ?, ?,?,?,?)";
         //bug is here
         this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description,type,id_group,url);
     }
-
+    /**
+     * Script for update event
+     * @param name, date, end_date, periodic option, id_user(Owner of the event), lcoation, description, type, id_group(Group of the event), url(for cover photo) 
+     */
     public void updateEvent(Long id, String name, String date,String end_date,int periodic, long userid, String location, String description, String type, Long id_group, String url) {
         String sql = "UPDATE event SET name = ?, date = ?, end_date = ?, periodic = ?, id_user = ?, location = ?, description = ?, type = ?, id_group= ?, url = ? WHERE id = ?";
         //bug is here
         this.jdbcTemplate.update(sql, name, date, end_date, periodic, userid, location, description, type, id_group, url, id);
     }
-
+/**
+ * Script for get events for a group
+ */
     public List<Map<String,Object>> getEventsOfGroup(long id_group)
     {
         String sql = "SELECT event.* FROM event WHERE event.id_group = ?";
        return this.jdbcTemplate.queryForList(sql,id_group);
     }
-
+    /**
+     * Script for delete an event
+     */
     public void deleteEvent(Long id) {
         String sql = "DELETE FROM event WHERE id = ?";
         this.jdbcTemplate.update(sql, id);
     }
+    /**
+     * Script for join an event
+     */
     
     public void joinEvent(Long userid, Long eventid) {
         String sql = "INSERT INTO user_event(id_user,id_event,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = 1";
@@ -84,13 +115,17 @@ public class EventModel {
         addTagFromEventToUser(userid, eventid);
 
     }
-
+    /**
+     * Script for leave an event
+     */
     public void leaveEvent(Long id_user, Long id_event){
         String sql = "INSERT INTO user_event(id_user,id_event,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = 0";
         this.jdbcTemplate.update(sql, id_user, id_event, 0);
 
     }
-    
+    /**
+     * Script for invite an user to an event
+     */
     public void invite(Long userid, Long eventid) {
         String sql = "INSERT INTO user_event(id_user,id_event,status) VALUES(?,?,?) ON DUPLICATE KEY UPDATE status = IF((status = 1), 1, 2)";
         this.jdbcTemplate.update(sql, userid, eventid, 2);
@@ -107,7 +142,9 @@ public class EventModel {
         
         return id;
     }
-    
+    /**
+     * Script for get participants of an event
+     */
     public List<Map<String, Object>> getParticipants(Long id) {
         String sql = "SELECT user.* from user, user_event WHERE user.id = user_event.id_user AND user_event.id_event = ? AND user_event.status = 1";
         
@@ -115,7 +152,9 @@ public class EventModel {
         
         return participants;
     }
-
+    /**
+     * Script for get events for invited user
+     */
     public List<Map<String, Object>> getEventsInvited(Long id) {
         String sql = "SELECT event.* from event, user_event WHERE event.id = user_event.id_event AND user_event.id_user = ? AND user_event.status = 2";
 
@@ -138,30 +177,56 @@ public class EventModel {
     	
     	return events;
     }
-
+/**
+ * create a post for event
+ * @param id_event
+ * @param id_user
+ * @param content
+ * @param content_url
+ */
     public void createPost(Long id_event, Long id_user, String content, String content_url )
     {
         String sql = "INSERT INTO post_event(id_event, id_user, content, content_url) VALUES(?,?,?,?)";
         this.jdbcTemplate.update(sql, id_event, id_user, content, content_url);
     }
+    /**
+     * update post of an event
+     * @param id
+     * @param id_event
+     * @param id_user
+     * @param content
+     * @param content_url
+     */
 
     public void updatePost(Long id, Long id_event, Long id_user, String content, String content_url){
         String sql= "UPDATE post_event SET id_event = ? , id_user = ?, content= ?, content_url = ? WHERE id= ?";
         this.jdbcTemplate.update(sql,id_event,id_user,content,content_url,id);
     }
-
+/**
+ * delete a post of en event
+ * @param id
+ */
     public void deletePost(Long id)
     {
         String sql = "DELETE FROM post_event WHERE id = ?";
         this.jdbcTemplate.update(sql,id);
     }
+    /**
+     * Script for get all posts belong to an event
+     * @param id_event
+     * @return
+     */
     public List<Map<String,Object>> getAllPosts(Long id_event)
     {
         String sql = "SELECT * FROM post_event WHERE id_event = ?";
 
        return this.jdbcTemplate.queryForList(sql,id_event);
     }
-
+/**
+ * Script for get a specific post of an event
+ * @param id
+ * @return
+ */
     public Map<String,Object> getPost(Long id)
     {
         String sql = "SELECT * FROM post_event WHERE id= ?";
@@ -196,7 +261,12 @@ public class EventModel {
         return  this.jdbcTemplate.queryForMap(sql, id);
     }
 
-
+/**
+ * Method for checking an user role is acceptable for the event
+ * @param id_event
+ * @param id_user
+ * @return
+ */
     public Boolean isAvailableForEvent(Long id_event, Long id_user)
     {
         String sql2 = "SELECT * FROM `user` WHERE id = ? " ;
@@ -218,7 +288,12 @@ public class EventModel {
         }
         return  Boolean.FALSE;
     }
-
+/**
+ * Method for checking a user is attending the event or not 
+ * @param id_user
+ * @param id_event
+ * @return
+ */
     public Boolean isGoingToEvent(Long id_user,Long id_event)
     {
         String sql = "SELECT user_event.* FROM user_event WHERE user_event.id_user = ? AND user_event.id_event = ? ";
@@ -235,7 +310,11 @@ public class EventModel {
     }
 
 
-
+/**
+ * Method for adding tag from users
+ * @param id_user
+ * @param id_event
+ */
     public void addTagFromEventToUser(long id_user,long id_event)
     {
         String sql = "SELECT tag_event.tag FROM tag_event WHERE tag_event.id_event = ?";

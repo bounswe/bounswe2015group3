@@ -1,7 +1,7 @@
 package cmpe451.group3.MobileAPI;
-
 /**
- * Created by umut on 11/24/15.
+ * <h2>Create Request Model for Groups</h2>
+ * @author Umut Afacan
  */
 public class GroupCreateRequest {
 

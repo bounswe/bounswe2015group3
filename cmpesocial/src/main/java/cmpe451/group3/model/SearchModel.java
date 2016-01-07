@@ -9,25 +9,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
+/**
+ * <h2>Search Model</h2>
+ * @author Can Kurtan
+ * @author Umut Afacan
+ *
+ */
 @Repository
 @Scope("request")
 public class SearchModel {
 	private DataSource dataSource;
     protected JdbcTemplate jdbcTemplate;
-
+/**
+ * Setting up the data source
+ * @param dataSource
+ */
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
-    
+    /**
+     * Method for getting events if their name, description or location contain the searched term
+     * @param query
+     * @return
+     */
     public List<Map<String, Object>> getEvents(String query) {
     	query = "%" +query.toLowerCase()+ "%";
         String sql = "SELECT * FROM event WHERE (LOWER(name) LIKE ? OR LOWER(location) LIKE ? OR LOWER(description) LIKE ?)";
 
         return this.jdbcTemplate.queryForList(sql, query, query, query);
     }
+    /**
+     * Method for getting groups if their name or description contain the searched term
+     * @param query
+     * @return
+     */
 
     public List<Map<String, Object>> getGroups(String query) {
         query = "%" +query.toLowerCase()+ "%";
@@ -35,7 +52,11 @@ public class SearchModel {
 
         return this.jdbcTemplate.queryForList(sql, query, query);
     }
-    
+    /**
+     * Method for getting users if their name or surname contain the searched term
+     * @param query
+     * @return
+     */
     public List<Map<String, Object>> getUsers(String query) {
     	String sql = "SELECT * FROM user WHERE (name = ? OR surname = ?)";
         String sqlNameSurname = "SELECT * FROM user WHERE (name = ? AND surname = ?)";

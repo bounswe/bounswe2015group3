@@ -6,7 +6,10 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Map;
 
 /**
- * Created by umut on 10/31/15.
+ * <h2>User Model</h2>
+ * @author Umut Afacan
+ * 
+ * @param id,name,surname,password,email,name,type
  */
 public class UserModel {
 

@@ -1,7 +1,11 @@
 package cmpe451.group3.MobileAPI;
 
 /**
- * Created by Umut on 14.12.2015.
+ * <h2>Tag Creation Model in Events</h2>
+ * @author Umut Afacan
+ * @param id_event
+ * @param tag
+ *
  */
 public class EventTagCreateModel {
 

@@ -3,7 +3,15 @@ package cmpe451.group3.MobileAPI;
 import java.util.Map;
 
 /**
- * Created by Umut on 4.12.2015.
+ * <h2>Base Model for Post in Event</h2>
+ * @author Umut Afacan
+ * @param id
+ * @param id_event
+ * @param id_user
+ * @param content
+ * @param content_url
+ * 
+ *
  */
 public class EventPostBaseModel {
     public Long id;

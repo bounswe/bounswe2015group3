@@ -1,8 +1,9 @@
 package cmpe451.group3.MobileAPI;
-
 /**
- * Created by umut on 12/9/15.
+ * <h2>API Controller for Search</h2>
+ * @author Umut Afacan
  */
+
 
 
 import cmpe451.group3.model.*;
@@ -48,7 +49,11 @@ public class SearchAPIController {
     @Qualifier("groupDAO")
     @Autowired
     private GroupDAO groupDAO = null;
-
+/**
+ * Method for search users with specific term
+ * @param requestModel
+ * @return
+ */
     @RequestMapping( value = "/search/users" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String searchUsers(@RequestBody SearchRequestModel requestModel) {
@@ -59,7 +64,11 @@ public class SearchAPIController {
         result.put("Users",searchModel.getUsers(requestModel.text));
         return gson.toJson(result);
     }
-
+/**
+ * Method for search events with specific term
+ * @param requestModel
+ * @return
+ */
     @RequestMapping( value = "/search/events" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String searchEvents(@RequestBody SearchRequestModel requestModel) {
@@ -70,7 +79,11 @@ public class SearchAPIController {
         result.put("Events", searchModel.getEvents(requestModel.text));
         return gson.toJson(result);
     }
-
+/**
+ * Method for search groups with specific term
+ * @param requestModel
+ * @return
+ */
     @RequestMapping( value = "/search/groups" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String searchGroups(@RequestBody SearchRequestModel requestModel) {
@@ -81,7 +94,11 @@ public class SearchAPIController {
         result.put("Events", searchModel.getGroups(requestModel.text));
         return gson.toJson(result);
     }
-
+/**
+ * Method for search recommended events with specific term
+ * @param idModel
+ * @return
+ */
 
     @RequestMapping( value = "/search/recommendEvents" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
@@ -129,7 +146,11 @@ public class SearchAPIController {
     }
 
 
-    //method can event keywords but ignore them this code evaluated from above
+    /**
+     * Method for search recommended groups with specific term
+     * @param idModel
+     * @return
+     */
     @RequestMapping( value = "/search/recommendGroups" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String recommendGroups(@RequestBody EventIDRequestModel idModel) {
@@ -172,7 +193,11 @@ public class SearchAPIController {
     }
 
 
-    //Get recommended users
+/**
+ * Method for search recommended users with specific term
+ * @param idModel
+ * @return
+ */
     @RequestMapping( value = "/search/recommendUsers" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String recommendUser(@RequestBody EventIDRequestModel idModel) {
@@ -261,7 +286,11 @@ public class SearchAPIController {
         return target;
     }
 
-    //get groups
+/**
+ * Method for getting recommended groups
+ * @param id_user
+ * @return
+ */
     public List<Map<String,Object>> getRecommendGroups(long id_user) {
 
 
@@ -301,7 +330,11 @@ public class SearchAPIController {
         return groups;
     }
 
-    //recommended events
+/**
+ * Method for getting recommended events
+ * @param id_user
+ * @return
+ */
     public List<Map<String,Object>> getRecommendEvents(long id_user) {
 
 

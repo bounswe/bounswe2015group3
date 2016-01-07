@@ -3,7 +3,8 @@ package cmpe451.group3.MobileAPI;
 import java.util.Locale;
 
 /**
- * Created by umut on 11/3/15.
+ * <h2> Request Model for Event Creation</h2>
+ * @author Umut Afacan
  */
 public class EventCreateRequestModel {
 

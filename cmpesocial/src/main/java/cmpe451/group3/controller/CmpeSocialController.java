@@ -18,17 +18,16 @@ import cmpe451.group3.utils.SecurityUtils;
 
 import java.util.List;
 import java.util.Map;
-
-@Controller
-@Scope("request")
 /**
-* this class contains main functionilities of the system
+* <h2>This class contains main functionalities of the system</h2>
+* <h3>These functionalities includes sign in, register, sign out, search, home page</h3>
 * @author Can Kurtan
 * @author Umut Afacan 
-* @author Cem Özen
-
-
+* @author Cem Ozen
 */
+@Controller
+@Scope("request")
+
 public class CmpeSocialController {
 
     @Autowired
@@ -42,8 +41,11 @@ public class CmpeSocialController {
     
     @Autowired
     private GroupDAO groupDAO = null;
-
+    /**
+    * Method for getting all users
+    */
     @RequestMapping(value = "/index")
+
     public String index(ModelMap model) {
 
         // gets users from model.
@@ -54,8 +56,11 @@ public class CmpeSocialController {
 
         return "redirect:/";
     }
-
+    /**
+    * Method for edit user
+    */
     @RequestMapping(value = "user/edit")
+
     public String editUser(@RequestParam(required = false) Long id, ModelMap model) {
         Map<String, Object> user = cmpeSocialUserModel.getUser(id);
 
@@ -63,8 +68,12 @@ public class CmpeSocialController {
 
         return "signup";
     }
-
+    /**
+    * Method for update user
+    * @param name,surname,email,password,photo_url
+    */
     @RequestMapping(value = "user/update")
+
     public String updateUser(
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String name,
@@ -110,19 +119,27 @@ public class CmpeSocialController {
     	}
         return "userHomePage";
     }
+    /**
+    * Method for registration of user
+    */
 
     @RequestMapping(value = "user/new")
     public String newUser() {
         return "signup";
     }
-
+    /**
+    * Method for delete an user
+    */
     @RequestMapping(value = "user/delete")
+
     public String deleteUser(@RequestParam(required = false) Long id) {
     	cmpeSocialUserModel.deleteUser(id);
 
         return "redirect:/signup";
     }
-    
+    /**
+    * Method for main-page function
+    */
     @RequestMapping(value = {"/", "/home"})
     public String home(ModelMap model) {
         // return back to home page
@@ -143,8 +160,11 @@ public class CmpeSocialController {
             return "index";
     	}
     }
-    
+    /**
+    * Method for login of an  user
+    */
     @RequestMapping(value = "user/login")
+
     public String userLogin(
     		@RequestParam(required = false) String email,
             @RequestParam(required = false) String password) {
@@ -158,14 +178,20 @@ public class CmpeSocialController {
         else
         	return "login";
     }
-    
+    /**
+    * Method for logout of an user
+    */
     @RequestMapping(value = "user/logout")
+
     public String logout() {
     	CmpeSocialAuthentication.removeAuthentication();
     	return "redirect:/";
     }
-    
+    /**
+    * Method for search function
+    */
     @RequestMapping(value = "/search")
+
     public String search(@RequestParam(required = false) String query, ModelMap model) {
     	if(query != null){
     		List<Map<String, Object>> users = searchModel.getUsers(query.trim());

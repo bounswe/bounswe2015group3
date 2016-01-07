@@ -1,7 +1,8 @@
 package cmpe451.group3.MobileAPI;
 
 /**
- * Created by Umut on 4.12.2015.
+ * <h2>Comment model for Events</h2>
+ * @author Umut Afacan
  */
 public class EventCommentBaseModel {
     public Long id;
