@@ -45,7 +45,7 @@ public class EventController {
 
         List<Map<String, Object>> events_recommended = searchAPIController.getRecommendEvents(userid);
         model.put("events", events);
-        model.put("events_recommended",events);
+        model.put("events_recommended",events_recommended);
 
         return "events";
     }
