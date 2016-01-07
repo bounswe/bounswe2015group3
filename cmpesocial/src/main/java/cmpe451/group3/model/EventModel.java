@@ -211,11 +211,16 @@ public class EventModel {
         List<String> list_event = new ArrayList<String>(Arrays.asList(group.get("type").toString().split(",")));
         List<String> list_user = new ArrayList<String>(Arrays.asList(user.get("type").toString().split(",")));
 
+        if(list_event.get(0).equalsIgnoreCase("0"))
+            return  Boolean.TRUE;
+
+
         for (String type_group : list_event){
             for (String type_user : list_user)
             {
                 if(type_group.equalsIgnoreCase("0"))
                     return Boolean.TRUE;
+
                 if (type_group.equalsIgnoreCase(type_user))
                     return Boolean.TRUE;
             }

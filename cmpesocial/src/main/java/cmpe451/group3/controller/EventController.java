@@ -77,8 +77,9 @@ public class EventController {
     @RequestMapping(value = "/event/view", method = RequestMethod.GET)
     public String viewEvent(@RequestParam(required = false) Long id, ModelMap model,
                             @CookieValue(value="id_user", defaultValue = "") String id_user) {
-        if (eventModel.isAvailableForEvent(id,new Long(id_user)))
-            return "redirect:/events";
+
+       // if (eventModel.isAvailableForEvent(id,new Long(id_user)))
+       //   return "redirect:/events";
 
         Map<String, Object> event = eventModel.getEvent(id);
         List<Map<String,Object>> participants = eventModel.getParticipants(id);
@@ -131,13 +132,10 @@ public class EventController {
     	//String mail = auth.getName();
     	long userid = new Long(id_user);
     	if(!id_user.equalsIgnoreCase("")) {
-            if(eventModel.isAvailableForEvent(id,userid)) {
+
                 eventModel.joinEvent(userid, id);
                 return "redirect:/event/view?id=" + id;
-            }else
-            {
-                return "redirect:/events";
-            }
+
 
         }else
         {
