@@ -138,15 +138,9 @@ public class CmpeSocialController {
     public String home(ModelMap model,
                        @CookieValue(value="id_user", defaultValue = "") String id_user) {
         // return back to home page
-<<<<<<< Updated upstream
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	if(auth == null || !auth.isAuthenticated())
-    		return "redirect:/welcome";
-=======
-    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	if(id_user == null || id_user.equalsIgnoreCase(""))
-    		return "redirect:/user/login";
->>>>>>> Stashed changes
+    		return "redirect:/welcome";
+
     	else{
     		List<Map<String, Object>> events = eventModel.getEvents();
             model.put("events", events);
