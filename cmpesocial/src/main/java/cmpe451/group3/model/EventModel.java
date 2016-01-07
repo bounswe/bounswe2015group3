@@ -59,6 +59,7 @@ public class EventModel {
         String sql = "INSERT INTO event(name, date,end_date,periodic, id_user, location, description,type,id_group,url) VALUES(?, ?, ?, ?, ?, ?, ?,?,?,?)";
         //bug is here
         this.jdbcTemplate.update(sql, name, date,end_date,periodic, userid, location, description,type,id_group,url);
+
     }
 
     public void updateEvent(Long id, String name, String date,String end_date,int periodic, long userid, String location, String description, String type, Long id_group, String url) {

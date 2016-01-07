@@ -75,6 +75,9 @@ public class GroupController {
     @RequestMapping(value = "/group/view", method = RequestMethod.GET)
     public String viewEvent(@RequestParam(required = false) long id, ModelMap model,
                             @CookieValue(value="id_user", defaultValue = "") String id_user) {
+        if(groupDAO.isAvailableForGroup(new Long(id_user),id))
+            return "redirect:/groups";
+
         Map<String, Object> group = groupDAO.getGroup(id);
         List<Map<String,Object>> members = groupDAO.getMembers(id);
         
@@ -124,9 +127,13 @@ public class GroupController {
         //String mail = auth.getName();
         Long userid = new Long(id_user);
 
-        groupDAO.joinGroup(userid,id);
+        if(groupDAO.isAvailableForGroup(userid,id)){
+         groupDAO.joinGroup(userid,id);
 
-        return "redirect:/group/view?id="+id;
+         return "redirect:/group/view?id="+id;
+        }
+        else
+            return  "redirect:/groups";
     }
 
     @RequestMapping(value = "/group/leave", method = RequestMethod.GET)
@@ -186,8 +193,8 @@ public class GroupController {
 
     @RequestMapping( value = "/groups/invite" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     public String groupInvite(@RequestParam Long id_user, @RequestParam Long id_group) {
-
-        groupDAO.invite(id_user, id_group);
+        if(groupDAO.isAvailableForGroup(id_user,id_group))
+            groupDAO.invite(id_user, id_group);
 
         return "redirect:/groups";
     }
