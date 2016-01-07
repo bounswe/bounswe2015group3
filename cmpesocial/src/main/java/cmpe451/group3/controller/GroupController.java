@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import org.springframework.web.bind.annotation.CookieValue;
+import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
@@ -34,23 +37,30 @@ public class GroupController {
     private SearchAPIController searchAPIController = null;
     
     @RequestMapping(value = "/groups")
-    public String events(ModelMap model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String mail = auth.getName();
-        long userid = userModel.getIDUserByEmail(mail);
+    public String events(ModelMap model,
+                         @CookieValue(value="id_user", defaultValue = "") String id_user) {
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //String mail = auth.getName();
+        if(!id_user.equals("")) {
+            long userid = new Long(id_user);
 
-        List<Map<String, Object>> groups = groupDAO.getAllGroups();
-        List<Map<String, Object>> groups_recommended = searchAPIController.getRecommendGroups(userid);
-        model.put("groups", groups);
-        model.put("groups_recommended",groups_recommended);
-        return "groups";
+            List<Map<String, Object>> groups = groupDAO.getAllGroups();
+            List<Map<String, Object>> groups_recommended = searchAPIController.getRecommendGroups(userid);
+            model.put("groups", groups);
+            model.put("groups_recommended", groups_recommended);
+            return "groups";
+        }else
+            return "redirect:/";
     }
 
     @RequestMapping(value = "/group/edit")
-    public String editEvent(@RequestParam(required = false) long id, ModelMap model) {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String mail = auth.getName();
-		int userid = groupDAO.getIdFromMail(mail);
+    public String editEvent(@RequestParam(required = false) long id, ModelMap model,
+                            @CookieValue(value="id_user", defaultValue = "") String id_user) {
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//String mail = auth.getName();
+
+
+        int userid = new Integer(id_user);
 
         Map<String, Object> group = groupDAO.getGroup(id);
 
@@ -63,7 +73,8 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group/view", method = RequestMethod.GET)
-    public String viewEvent(@RequestParam(required = false) long id, ModelMap model) {
+    public String viewEvent(@RequestParam(required = false) long id, ModelMap model,
+                            @CookieValue(value="id_user", defaultValue = "") String id_user) {
         Map<String, Object> group = groupDAO.getGroup(id);
         List<Map<String,Object>> members = groupDAO.getMembers(id);
         
@@ -84,10 +95,11 @@ public class GroupController {
         	post.put("comments", comments);
         }
         
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	String mail = auth.getName();
-    	long userid = groupDAO.getIdFromMail(mail);
-    	boolean isMember = groupDAO.isMemberOfGroup(userid, id);
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	//String mail = auth.getName();
+    	long userid = new Long(id_user);
+
+        boolean isMember = groupDAO.isMemberOfGroup(userid, id);
     	boolean isOwner = false;
     	if((int)userid == (int)group.get("id_admin")){
     		isOwner = true;
@@ -106,10 +118,11 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group/join", method = RequestMethod.GET)
-    public String joinGroup(@RequestParam(required = false) long id, ModelMap model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String mail = auth.getName();
-        Long userid = userModel.getIDUserByEmail(mail);
+    public String joinGroup(@RequestParam(required = false) long id, ModelMap model,
+                            @CookieValue(value="id_user", defaultValue = "") String id_user) {
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //String mail = auth.getName();
+        Long userid = new Long(id_user);
 
         groupDAO.joinGroup(userid,id);
 
@@ -117,10 +130,11 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group/leave", method = RequestMethod.GET)
-    public String leaveGroup(@RequestParam(required = false) long id, ModelMap model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String mail = auth.getName();
-        Long userid = userModel.getIDUserByEmail(mail);
+    public String leaveGroup(@RequestParam(required = false) long id, ModelMap model,
+                             @CookieValue(value="id_user", defaultValue = "") String id_user) {
+      //  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+       // String mail = auth.getName();
+        Long userid = new Long(id_user);
 
         groupDAO.leaveGroup(userid,id);
 
@@ -133,11 +147,12 @@ public class GroupController {
             @RequestParam(required = false) String name,
             @RequestParam(required = false) String type,
             @RequestParam(required = false) String description,
-            @RequestParam(required = false) String group_url) {
+            @RequestParam(required = false) String group_url,
+            @CookieValue(value="id_user", defaultValue = "") String id_user) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String mail = auth.getName();
-        Long userid = userModel.getIDUserByEmail(mail);
+      //  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+       // String mail = auth.getName();
+        Long userid = new Long(id_user);
         if (id != null)
             groupDAO.updateGroup(id, name, userid, type, description, group_url);
         else
@@ -147,19 +162,20 @@ public class GroupController {
     }
 
     @RequestMapping(value = "group/create")
-    public String createEvent() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if(auth == null || !auth.isAuthenticated())
+    public String createEvent( @CookieValue(value="id_user", defaultValue = "") String id_user) {
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(id_user == null || id_user.equals(""))
             return "redirect:/user/login";
 
         return "createGroup";
     }
 
     @RequestMapping(value = "group/delete")
-    public String deleteGroup(@RequestParam(required = false) Long id) {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String mail = auth.getName();
-		int userid = groupDAO.getIdFromMail(mail);
+    public String deleteGroup(@RequestParam(required = false) Long id,
+                              @CookieValue(value="id_user", defaultValue = "") String id_user) {
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//String mail = auth.getName();
+		int userid = new Integer(id_user);
 		Map<String, Object> group = groupDAO.getGroup(id);
     	
 		if((int)group.get("id_admin") == userid)
@@ -177,28 +193,30 @@ public class GroupController {
     }
 
     @RequestMapping( value = "/group/create/post" , method = RequestMethod.POST)
-    public String createPost(@RequestParam long id_group, @RequestParam String post_text, @RequestParam(required = false) String post_url) {
+    public String createPost(@RequestParam long id_group, @RequestParam String post_text, @RequestParam(required = false) String post_url,
+                             @CookieValue(value="id_user", defaultValue = "") String id_user) {
     	
     	if(post_url == null){
     		post_url="";
     	}
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String mail = auth.getName();
-        Long userid = userModel.getIDUserByEmail(mail);
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //String mail = auth.getName();
+        Long userid = new Long(id_user);
     	groupDAO.createPost(userid, id_group, post_text, post_url);
 
     	return "redirect:/group/view?id="+id_group;
     }
 
     @RequestMapping( value = "/groups/update/post" , method = RequestMethod.POST)
-    public String updatePost(@RequestParam Long id, @RequestParam Long id_group, @RequestParam String post_text, @RequestParam(required = false) String post_url) {
+    public String updatePost(@RequestParam Long id, @RequestParam Long id_group, @RequestParam String post_text, @RequestParam(required = false) String post_url,
+                             @CookieValue(value="id_user", defaultValue = "") String id_user) {
     	
     	if(post_url == null){
     		post_url="";
     	}
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String mail = auth.getName();
-        Long userid = userModel.getIDUserByEmail(mail);
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //String mail = auth.getName();
+        Long userid = new Long(id_user);
         int control =groupDAO.updatePost(userid, id_group, post_text, post_url, id);
 
         if (control != 0)

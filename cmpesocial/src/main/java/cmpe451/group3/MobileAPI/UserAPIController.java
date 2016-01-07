@@ -58,9 +58,7 @@ public class UserAPIController {
             String hashedPassword = cmpeSocialUserModel.getPassword(userLoginRequestModel.email);
 
             if(SecurityUtils.checkPassword(hashedPassword, userLoginRequestModel.password)){
-                CmpeSocialAuthentication.getAuthentication(userLoginRequestModel.email, userLoginRequestModel.password);
                 result.put("type", "SUCCESS");
-
                 result.put("user", userModel.MapModelFromDAO(cmpeSocialUserModel.getUserByEmail(userLoginRequestModel.email)));
             }
             else

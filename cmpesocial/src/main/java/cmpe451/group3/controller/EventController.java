@@ -15,6 +15,9 @@ import cmpe451.group3.model.CmpeSocialUserModel;
 import cmpe451.group3.model.EventModel;
 import cmpe451.group3.model.TagDAO;
 
+import javax.servlet.http.Cookie;
+import org.springframework.web.bind.annotation.CookieValue;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -36,25 +39,32 @@ public class EventController {
 
 
     @RequestMapping(value = "/events")
-    public String events(ModelMap model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String mail = auth.getName();
-        long userid = userModel.getIDUserByEmail(mail);
+    public String events(ModelMap model,
+                         @CookieValue(value="id_user", defaultValue = "") String id_user) {
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //String mail = auth.getName();
+       if (!id_user.equalsIgnoreCase("")) {
+           long userid = new Long(id_user);
 
-        List<Map<String, Object>> events = eventModel.getEvents();
+           List<Map<String, Object>> events = eventModel.getEvents();
 
-        List<Map<String, Object>> events_recommended = searchAPIController.getRecommendEvents(userid);
-        model.put("events", events);
-        model.put("events_recommended",events_recommended);
+           List<Map<String, Object>> events_recommended = searchAPIController.getRecommendEvents(userid);
+           model.put("events", events);
+           model.put("events_recommended", events_recommended);
 
-        return "events";
+           return "events";
+       }
+        else
+           return "redirect:/";
+
     }
 
     @RequestMapping(value = "/event/edit")
-    public String editEvent(@RequestParam(required = false) Long id, ModelMap model) {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String mail = auth.getName();
-		int userid = eventModel.getIdFromMail(mail);
+    public String editEvent(@RequestParam(required = false) Long id, ModelMap model,
+                            @CookieValue(value="id_user", defaultValue = "") String id_user) {
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//String mail = auth.getName();
+		int userid = new Integer(id_user);
         Map<String, Object> event = eventModel.getEvent(id);
     	
 		if((int)event.get("id_user") == userid){
@@ -65,7 +75,8 @@ public class EventController {
     }
     
     @RequestMapping(value = "/event/view", method = RequestMethod.GET)
-    public String viewEvent(@RequestParam(required = false) Long id, ModelMap model) {
+    public String viewEvent(@RequestParam(required = false) Long id, ModelMap model,
+                            @CookieValue(value="id_user", defaultValue = "") String id_user) {
         Map<String, Object> event = eventModel.getEvent(id);
         List<Map<String,Object>> participants = eventModel.getParticipants(id);
         
@@ -86,9 +97,11 @@ public class EventController {
         	post.put("comments", comments);
         }
         
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	String mail = auth.getName();
-    	long userid = eventModel.getIdFromMail(mail);
+      //  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    //	String mail = auth.getName();
+    	long userid = new Long(id_user);
+
+
     	boolean going = eventModel.isGoingToEvent(userid, id);
     	boolean isOwner = false;
     	if((int)userid == (int)event.get("id_user")){
@@ -108,24 +121,34 @@ public class EventController {
     }
     
     @RequestMapping(value = "/event/join", method = RequestMethod.GET)
-    public String joinEvent(@RequestParam(required = false) Long id, ModelMap model) {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	String mail = auth.getName();
-    	long userid = eventModel.getIdFromMail(mail);
-    	
-    	eventModel.joinEvent(userid,id);
-        
-        return "redirect:/event/view?id="+id;
+    public String joinEvent(@RequestParam(required = false) Long id, ModelMap model,
+                            @CookieValue(value="id_user", defaultValue = "") String id_user) {
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	//String mail = auth.getName();
+    	//long userid = eventModel.getIdFromMail(mail);
+    	if(!id_user.equalsIgnoreCase("")) {
+            eventModel.joinEvent(new Long(id_user), id);
+            return "redirect:/event/view?id=" + id;
+        }else
+        {
+            return  "redirect:/";
+        }
     }
     
     @RequestMapping(value = "/event/leave", method = RequestMethod.GET)
-    public String leaveEvent(@RequestParam(required = false) Long id, ModelMap model) {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	String mail = auth.getName();
-    	long userid = eventModel.getIdFromMail(mail);
-    	eventModel.leaveEvent(userid,id);
-        
-        return "redirect:/event/view?id="+id;
+    public String leaveEvent(@RequestParam(required = false) Long id, ModelMap model,
+                             @CookieValue(value="id_user", defaultValue = "") String id_user) {
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	//String mail = auth.getName();
+    	//long userid = eventModel.getIdFromMail(mail);
+        if(!id_user.equalsIgnoreCase("")) {
+            eventModel.leaveEvent(new Long(id_user), id);
+
+            return "redirect:/event/view?id=" + id;
+
+        }
+        else
+            return "redirect:/";
     }
 
     @RequestMapping(value = "events/update")
@@ -138,34 +161,42 @@ public class EventController {
             @RequestParam(required = false) Integer periodic,
             @RequestParam(required = false) String location,
             @RequestParam(required = false) String description,
-            @RequestParam(required = false) String photo_url) {
+            @RequestParam(required = false) String photo_url,
+            HttpServletResponse response,
+            @CookieValue(value="id_user", defaultValue = "") String id_user) {
 
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	String mail = auth.getName();
-    	long userid = eventModel.getIdFromMail(mail);
-		
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	//String mail = auth.getName();
+    	//long userid = eventModel.getIdFromMail(mail);
+
+
+
         if (id != null)
-        	eventModel.updateEvent(id, name, date, end_date, periodic, userid, location, description, type, null, photo_url);
+        	eventModel.updateEvent(id, name, date, end_date, periodic, new Long(id_user), location, description, type, null, photo_url);
         else
-        	eventModel.createEvent(name, date, end_date, periodic, userid, location, description, type, null, photo_url);
+        	eventModel.createEvent(name, date, end_date, periodic,new Long(id_user), location, description, type, null, photo_url);
 
         return "redirect:/events";
     }
 
     @RequestMapping(value = "event/create")
-    public String createEvent() {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    	if(auth == null || !auth.isAuthenticated())
+    public String createEvent(@CookieValue(value="id_user", defaultValue = "") String id_user) {
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	if(id_user == null || id_user.equalsIgnoreCase(""))
     		return "redirect:/user/login";
     	
         return "createEvent";
     }
 
     @RequestMapping(value = "event/delete")
-    public String deleteEvent(@RequestParam(required = false) Long id) {
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String mail = auth.getName();
-		int userid = eventModel.getIdFromMail(mail);
+    public String deleteEvent(@RequestParam(required = false) Long id,
+                              @CookieValue(value="id_user", defaultValue = "") String id_user) {
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//String mail = auth.getName();
+
+
+		int userid = new Integer(id_user);
+
 		Map<String, Object> event = eventModel.getEvent(id);
     	
 		if((int)event.get("id_user") == userid)
@@ -174,14 +205,15 @@ public class EventController {
         return "redirect:/events";
     }
     @RequestMapping( value = "/event/create/post" , method = RequestMethod.POST)
-    public String createPost(@RequestParam long id_event, @RequestParam String post_text, @RequestParam(required = false) String post_url) {
+    public String createPost(@RequestParam long id_event, @RequestParam String post_text, @RequestParam(required = false) String post_url,
+                             @CookieValue(value="id_user", defaultValue = "") String id_user) {
     	
     	if(post_url == null){
     		post_url="";
     	}
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String mail = auth.getName();
-        Long userid = userModel.getIDUserByEmail(mail);
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //String mail = auth.getName();
+        Long userid = new Long(id_user);
         eventModel.createPost(id_event, userid, post_text, post_url);
 
     	return "redirect:/event/view?id="+id_event;
