@@ -110,7 +110,7 @@ public class GroupController {
     	
     	List<Map<String,Object>> tags = tagModel.getTagsForGroup(id);
     	
-    	Map<String,Object> creator = userModel.getUser(userid);
+    	Map<String,Object> creator = userModel.getUser(new Long((int)group.get("id_admin")));
     	model.put("creator", creator);
     	model.put("tags", tags);
     	
