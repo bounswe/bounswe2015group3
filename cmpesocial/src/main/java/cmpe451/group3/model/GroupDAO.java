@@ -190,6 +190,9 @@ public class GroupDAO {
         List<String> list_group = new ArrayList<String>(Arrays.asList(group.get("type").toString().split(",")));
         List<String> list_user = new ArrayList<String>(Arrays.asList(user.get("type").toString().split(",")));
 
+        if(list_group.get(0).equalsIgnoreCase("0"))
+            return  Boolean.TRUE;
+
         for (String type_group : list_group){
             for (String type_user : list_user)
             {
