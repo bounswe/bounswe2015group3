@@ -247,7 +247,7 @@
 										<h3 class="title">${participant.name}
 											${participant.surname}</h3>
 										<p class="job">${participant.type}</p>
-										<a href="${contextPath}/user/home?id=${user.id}">See
+										<a href="${contextPath}/user/home?id=${participant.id}">See
 											Profile</a>
 									</div>
 								</div>
