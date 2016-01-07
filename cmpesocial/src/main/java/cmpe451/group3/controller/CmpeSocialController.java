@@ -16,6 +16,13 @@ import cmpe451.group3.model.GroupDAO;
 import cmpe451.group3.model.SearchModel;
 import cmpe451.group3.utils.SecurityUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Cookie;
+import org.springframework.web.bind.annotation.CookieValue;
+import retrofit.http.POST;
+
+
 import java.util.List;
 import java.util.Map;
 
@@ -82,14 +89,17 @@ public class CmpeSocialController {
     }
 
     @RequestMapping(value = "user/home")
-    public String userHome(@RequestParam(required = false) Long id, ModelMap model) {
+    public String userHome(@RequestParam(required = false) Long id, ModelMap model,
+                           @CookieValue(value="id_user", defaultValue = "") String id_user) {
     	if(id == null){
-    		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    		String mail = auth.getName();
-    		int userid = cmpeSocialUserModel.getIdFromMail(mail);
-    		Map<String, Object> user = cmpeSocialUserModel.getUser((long)userid);
+
+
+            Long temp = new Long(id_user);
+            long userid = temp;
+
+            Map<String, Object> user = cmpeSocialUserModel.getUser((long)userid);
     		List<Map<String, Object>> events = eventModel.getEventsOfUser((long)userid);
-    		List<Map<String, Object>> groups = groupDAO.getGroupWithMembership(id);
+    		List<Map<String, Object>> groups = groupDAO.getGroupWithMembership(userid);
     		
     		model.put("user", user);
     		model.put("events", events);
@@ -125,11 +135,18 @@ public class CmpeSocialController {
     }
     
     @RequestMapping(value = {"/", "/home"})
-    public String home(ModelMap model) {
+    public String home(ModelMap model,
+                       @CookieValue(value="id_user", defaultValue = "") String id_user) {
         // return back to home page
+<<<<<<< Updated upstream
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	if(auth == null || !auth.isAuthenticated())
     		return "redirect:/welcome";
+=======
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    	if(id_user == null || id_user.equalsIgnoreCase(""))
+    		return "redirect:/user/login";
+>>>>>>> Stashed changes
     	else{
     		List<Map<String, Object>> events = eventModel.getEvents();
             model.put("events", events);
@@ -148,12 +165,22 @@ public class CmpeSocialController {
     @RequestMapping(value = "user/login")
     public String userLogin(
     		@RequestParam(required = false) String email,
-            @RequestParam(required = false) String password) {
+            @RequestParam(required = false) String password,HttpServletResponse response) {
+
         if(email != null && cmpeSocialUserModel.checkEmail(email) && password != null){
         	String hashedPassword = cmpeSocialUserModel.getPassword(email);
         	if(SecurityUtils.checkPassword(hashedPassword, password)){
-        		CmpeSocialAuthentication.getAuthentication(email, password);
+//        		CmpeSocialAuthentication.getAuthentication(email, password);
+                long user_id = cmpeSocialUserModel.getIdFromMail(email);
+                Long id_user = new Long(user_id);
+
+                Cookie cookie = new Cookie("id_user", id_user.toString());
+
+                cookie.setPath("/cmpesocial/");
+                response.addCookie(cookie);
         	}
+
+
         	return "redirect:/";
         }
         else
@@ -161,8 +188,15 @@ public class CmpeSocialController {
     }
     
     @RequestMapping(value = "user/logout")
-    public String logout() {
-    	CmpeSocialAuthentication.removeAuthentication();
+    public String logout(HttpServletResponse response) {
+
+    	//CmpeSocialAuthentication.removeAuthentication();
+
+        Cookie cookie = new Cookie("id_user","");
+        cookie.setPath("/cmpesocial/");
+        response.addCookie(cookie);
+
+
     	return "redirect:/";
     }
     
