@@ -117,14 +117,22 @@
 						<!-- meta -->
 						<ul class="meta clearfix">
 							<li class="date"><i class="icon fa fa-calendar"></i>
-								${event.date}</li>
-							<li>${event.location}</li>
+								${fn:substring(event.date, 0, 16)}</li>
+							<li><i class="icon fa fa-map-marker"></i>${event.location}</li>
 						</ul>
 						<!-- event-detail-img -->
 						<c:choose>
-						<c:when test="${event.url != null}">
-							<img src="${event.url}" alt="">
-						</c:when>
+							<c:when test="${not empty event.url}">
+								<div class="panel-thumbnail">
+									<img src="${event.url}" class="img-responsive">
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="panel-thumbnail">
+									<img src="${contextPath}/assets/img/default_event.png"
+										class="img-responsive">
+								</div>
+							</c:otherwise>
 						</c:choose>
 						<h3 class="title">Description</h3>
 						<p>${event.description}</p>

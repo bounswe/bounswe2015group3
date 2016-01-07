@@ -105,9 +105,19 @@
 	<section class="background clearfix newsection">
 		<div class="container">
 			<div class="panel panel-default">
-				<div class="panel-thumbnail">
-					<img src="${group.group_url}" class="img-responsive">
-				</div>
+				<c:choose>
+					<c:when test="${not empty group.group_url}">
+						<div class="panel-thumbnail">
+							<img src="${group.group_url}" class="img-responsive">
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="panel-thumbnail">
+							<img src="${contextPath}/assets/img/cover-group-default.png"
+								class="img-responsive">
+						</div>
+					</c:otherwise>
+				</c:choose>
 				<div class="panel-body">
 					<p class="lead">${group.name}</p>
 					<p>${group.description}</p>
