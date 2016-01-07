@@ -161,7 +161,9 @@ public class CmpeSocialController {
     @RequestMapping(value = "user/login")
     public String userLogin(
     		@RequestParam(required = false) String email,
-            @RequestParam(required = false) String password,HttpServletResponse response) {
+            @RequestParam(required = false) String password,
+            HttpServletResponse response,
+            ModelMap model) {
 
         if(email != null && cmpeSocialUserModel.checkEmail(email) && password != null){
         	String hashedPassword = cmpeSocialUserModel.getPassword(email);
@@ -175,12 +177,15 @@ public class CmpeSocialController {
                 cookie.setPath("/cmpesocial/");
                 response.addCookie(cookie);
             }
-
-
+        	else{
+        		model.put("error", true);
+            	return "login";
+        	}
         	return "redirect:/";
         }
-        else
+        else{
         	return "login";
+        }
     }
     
     @RequestMapping(value = "user/logout")

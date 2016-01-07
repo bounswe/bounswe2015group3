@@ -55,7 +55,7 @@
 
 					<!-- logo  -->
 					<div id="logo">
-						<a href=""${contextPath}/"><img src="${contextPath}/assets/img/logo.png" alt=""></a>
+						<a href="${contextPath}/"><img src="${contextPath}/assets/img/logo.png" alt=""></a>
 					</div>
 
 					<!-- moblie-menu-icon -->
@@ -78,11 +78,19 @@
 		<div class="container">
 			<h2 class="title">Sign In</h2>
 			<ul class="breadcrumb">
-				<li><a href=""${contextPath}/">Home</a></li>
+				<li><a href="${contextPath}/">Home</a></li>
 				<li>Sign In</li>
 			</ul>
 		</div>
 	</section>
+	<c:choose>
+		<c:when test="${error == true}">
+			<div class="alert alert-warning alert-dismissible" role="alert">
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				   <strong>Password is wrong!</strong>
+				</div>
+		</c:when>
+	</c:choose>
 	<section class="events newsection">
 		<div class="container">
 			<div class="row">
