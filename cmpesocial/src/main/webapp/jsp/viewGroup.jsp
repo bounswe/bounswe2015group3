@@ -196,7 +196,7 @@
 
 							<h3 class="title">Tags</h3>
 							<c:forEach var="tag" items="${tags}" varStatus="roop">
-								<a href="#">${tag.tag}</a>
+								<a href="${contextPath}/search/tag?query=${tag.tag}">${tag.tag}</a>
 							</c:forEach>
 						</div>
 						<!-- Tag goruntuleme bitti-->

@@ -1,5 +1,6 @@
 package cmpe451.group3.controller;
 
+import cmpe451.group3.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
@@ -10,10 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cmpe451.group3.auth.CmpeSocialAuthentication;
-import cmpe451.group3.model.CmpeSocialUserModel;
-import cmpe451.group3.model.EventModel;
-import cmpe451.group3.model.GroupDAO;
-import cmpe451.group3.model.SearchModel;
 import cmpe451.group3.utils.SecurityUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +26,9 @@ import java.util.Map;
 @Controller
 @Scope("request")
 public class CmpeSocialController {
+
+    @Autowired
+    private TagDAO tagDAO = null;
 
     @Autowired
     private CmpeSocialUserModel cmpeSocialUserModel = null;
@@ -209,4 +209,19 @@ public class CmpeSocialController {
     	}
         return "searchResult";
     }
+
+    @RequestMapping(value = "/search/tag")
+    public String searchTag(@RequestParam(required = false) String query, ModelMap model) {
+        if(query != null){
+            List<Map<String, Object>> users = tagDAO.getTaggedFromUsers(query);
+            List<Map<String, Object>> events = tagDAO.getTaggedFromEvents(query);
+            List<Map<String, Object>> groups = tagDAO.getTaggedFromGroups(query);
+            model.put("query", query);
+            model.put("users", users);
+            model.put("events", events);
+            model.put("groups", groups);
+        }
+        return "searchResult";
+    }
+
 }
