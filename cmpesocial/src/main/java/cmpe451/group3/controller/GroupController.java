@@ -1,5 +1,6 @@
 package cmpe451.group3.controller;
 
+import cmpe451.group3.MobileAPI.SearchAPIController;
 import cmpe451.group3.model.CmpeSocialUserModel;
 import cmpe451.group3.model.GroupDAO;
 import cmpe451.group3.model.TagDAO;
@@ -28,14 +29,20 @@ public class GroupController {
     
     @Autowired
     private TagDAO tagModel = null;
+
+    @Autowired
+    private SearchAPIController searchAPIController = null;
     
     @RequestMapping(value = "/groups")
     public String events(ModelMap model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String mail = auth.getName();
+        long userid = userModel.getIDUserByEmail(mail);
 
         List<Map<String, Object>> groups = groupDAO.getAllGroups();
-
+        List<Map<String, Object>> groups_recommended = searchAPIController.getRecommendGroups(userid);
         model.put("groups", groups);
-
+        model.put("groups_recommended",groups_recommended);
         return "groups";
     }
 
@@ -44,6 +51,7 @@ public class GroupController {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String mail = auth.getName();
 		int userid = groupDAO.getIdFromMail(mail);
+
         Map<String, Object> group = groupDAO.getGroup(id);
 
         if((int)group.get("id_admin") == userid){

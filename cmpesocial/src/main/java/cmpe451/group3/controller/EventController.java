@@ -1,5 +1,6 @@
 package cmpe451.group3.controller;
 
+import cmpe451.group3.MobileAPI.SearchAPIController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
@@ -30,12 +31,21 @@ public class EventController {
     @Autowired
     private TagDAO tagModel = null;
 
+    @Autowired
+    private SearchAPIController searchAPIController= null;
+
+
     @RequestMapping(value = "/events")
     public String events(ModelMap model) {
-        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String mail = auth.getName();
+        long userid = userModel.getIDUserByEmail(mail);
+
         List<Map<String, Object>> events = eventModel.getEvents();
 
+        List<Map<String, Object>> events_recommended = searchAPIController.getRecommendEvents(userid);
         model.put("events", events);
+        model.put("events_recommended",events);
 
         return "events";
     }

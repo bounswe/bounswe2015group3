@@ -141,32 +141,21 @@
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<div class="widget clearfix">
 							<h3 class="title">Suggested For You</h3>
+							<c:forEach var="event_re" items="${events_recommended}" varStatus="roop">
 							<div class="top-ppost">
 
 								<div class="date">
-									<p>
-										<span><i class="icon fa fa-calendar"> </i></span>EVENT
-									</p>
+									<p>${event_re.date}</p>
 								</div>
 								<div class="content">
 									<h4 class="title">
-										<a href="#">Watching Star Wars in Kuzey Kampus Cinema </a>
+										<a href="${contextPath}/event/view?id=${event_re.id}">${event_re.name}</a>
 									</h4>
+									<h5 style="color:gray"><i class="icon fa fa-map-marker"></i> ${event_re.location}</h5>
 								</div>
 							</div>
 							<hr />
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-group"> </i></span>GROUP
-									</p>
-								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="#">Orta Düzey Tenis Oyuncuları </a>
-									</h4>
-								</div>
-							</div>
+							</c:forEach>
 						</div>
 					</aside>
 				</div>
