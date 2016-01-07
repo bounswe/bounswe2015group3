@@ -211,15 +211,19 @@ public class GroupDAO {
 
     public void addTagFromGroupToUser(long id_user,long id_group)
     {
-        String sql = "SELECT tag_group.tag FROM tag_group WHERE tag_group.id_group = ?";
-        List<Map<String,Object>> tag_list = this.jdbcTemplate.queryForList(sql, id_group);
 
-        for (Map<String,Object> tag_map :tag_list)
-        {
-            String tag = tag_map.get("tag").toString();
-            String sqlUser = "INSERT INTO tag_user(id_user,tag,hidden) VALUES(?,?,TRUE)";
-            this.jdbcTemplate.update(sqlUser,id_user,tag);
-        }
+      try {
+          String sql = "SELECT tag_group.tag FROM tag_group WHERE tag_group.id_group = ?";
+          List<Map<String, Object>> tag_list = this.jdbcTemplate.queryForList(sql, id_group);
 
+          for (Map<String, Object> tag_map : tag_list) {
+              String tag = tag_map.get("tag").toString();
+              String sqlUser = "INSERT INTO tag_user(id_user,tag,hidden) VALUES(?,?,TRUE)";
+              this.jdbcTemplate.update(sqlUser, id_user, tag);
+          }
+      }catch (Exception e)
+      {
+
+      }
     }
 }

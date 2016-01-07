@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.*;
+import java.util.concurrent.Exchanger;
 
 @Repository
 @Scope("request")
@@ -238,16 +239,21 @@ public class EventModel {
 
     public void addTagFromEventToUser(long id_user,long id_event)
     {
-        String sql = "SELECT tag_event.tag FROM tag_event WHERE tag_event.id_event = ?";
-        List<Map<String,Object>> tag_list = this.jdbcTemplate.queryForList(sql, id_event);
 
-        for (Map<String,Object> tag_map :tag_list)
-        {
-            String tag = tag_map.get("tag").toString();
-            String sqlUser = "INSERT INTO tag_user(id_user,tag,hidden) VALUES(?,?,TRUE)";
-            this.jdbcTemplate.update(sqlUser,id_user,tag);
-        }
+      try {
+          String sql = "SELECT tag_event.tag FROM tag_event WHERE tag_event.id_event = ?";
+          List<Map<String, Object>> tag_list = this.jdbcTemplate.queryForList(sql, id_event);
 
+          for (Map<String, Object> tag_map : tag_list) {
+              String tag = tag_map.get("tag").toString();
+              String sqlUser = "INSERT INTO tag_user(id_user,tag,hidden) VALUES(?,?,TRUE)";
+              this.jdbcTemplate.update(sqlUser, id_user, tag);
+          }
+      }
+      catch(Exception e)
+      {
+            e.printStackTrace();
+      }
     }
 
 }

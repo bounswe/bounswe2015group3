@@ -138,6 +138,8 @@ public class CmpeSocialController {
     public String home(ModelMap model,
                        @CookieValue(value="id_user", defaultValue = "") String id_user) {
         // return back to home page
+
+    	//Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	if(id_user == null || id_user.equalsIgnoreCase(""))
     		return "redirect:/welcome";
 
@@ -172,7 +174,7 @@ public class CmpeSocialController {
 
                 cookie.setPath("/cmpesocial/");
                 response.addCookie(cookie);
-        	}
+            }
 
 
         	return "redirect:/";
@@ -191,7 +193,7 @@ public class CmpeSocialController {
         response.addCookie(cookie);
 
 
-    	return "redirect:/";
+        return "redirect:/";
     }
     
     @RequestMapping(value = "/search")
