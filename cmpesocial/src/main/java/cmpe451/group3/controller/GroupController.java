@@ -106,6 +106,9 @@ public class GroupController {
     	}
     	
     	List<Map<String,Object>> tags = tagModel.getTagsForGroup(id);
+    	
+    	Map<String,Object> creator = userModel.getUser(userid);
+    	model.put("creator", creator);
     	model.put("tags", tags);
     	
     	model.put("isOwner", isOwner);

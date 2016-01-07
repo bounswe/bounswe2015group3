@@ -178,8 +178,6 @@
 					<aside id="aside" class="aside-bar-style-two clearfix">
 						<br />
 						<br />
-						<br />
-						<br />
 						<!-- Tag Ekleme basliyor-->
 						<div class="widget news">
 							<form method="post" action="${contextPath}/group/tag/add">
@@ -222,16 +220,36 @@
 					</aside>
 					<br />
 					<aside id="aside" class="aside-bar-style-two clearfix">
+						<div class="widget">
+							<h3 class="title">Organizer</h3>
+							<div class="top-ppost">
+								<div class="date">
+									<p>
+										<span><i class="icon fa fa-user"> </i></span>
+									</p>
+								</div>
+								<div class="content">
+									<h4 class="title">
+										<a href="${contextPath}/user/home?id=${creator.id}">${creator.name} ${creator.surname}</a>
+									</h4>
+								</div>
+							</div>
+							<br />
+						</div>
 						<div class="widget clearfix">
 							<h3 class="title">Group Members</h3>
 							<c:forEach var="participant" items="${members}" varStatus="roop">
-								<div class="event">
-									<div class="event-content">
-										<h3 class="title">${participant.name}
-											${participant.surname}</h3>
-										<p class="job">${participant.type}</p>
-										<a href="${contextPath}/user/home?id=${user.id}">See
-											Profile</a>
+								<div class="top-ppost">
+									<div class="date">
+										<p>
+											<span><i class="icon fa fa-user"> </i></span>
+										</p>
+									</div>
+									<div class="content">
+										<h4 class="title">
+											<a href="${contextPath}/user/home?id=${participant.id}">
+												${participant.name} ${participant.surname}</a>
+										</h4>
 									</div>
 								</div>
 							</c:forEach>
