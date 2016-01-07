@@ -110,7 +110,8 @@ public class EventController {
     	if((int)userid == (int)event.get("id_user")){
     		isOwner = true;
     	}
-    	
+    	Map<String,Object> creator = userModel.getUser(new Long((int)event.get("id_user")));
+    	model.put("creator", creator);
     	List<Map<String,Object>> tags = tagModel.getTagsForEvent(id);
     	model.put("tags", tags);
     	
