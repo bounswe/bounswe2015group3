@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.group3.cmpesocial.activities.UserDetailActivity;
 import com.group3.cmpesocial.classes.User;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,11 +25,17 @@ public class UserAdapter extends ArrayAdapter<User> {
 
     private Context context;
     private List objects;
+    private ArrayList<User> selectedUsers;
 
     public UserAdapter(Context context, List objects) {
         super(context, R.layout.item_event, objects);
         this.context = context;
         this.objects = objects;
+        selectedUsers = new ArrayList<>();
+    }
+
+    public ArrayList<User> getSelectedUsers() {
+        return selectedUsers;
     }
 
     @Override
@@ -36,6 +44,7 @@ public class UserAdapter extends ArrayAdapter<User> {
 
         final User mUser = getItem(position);
 
+        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
         ImageView profileImageView = (ImageView) convertView.findViewById(R.id.profileImageView);
         TextView nameTextView = (TextView) convertView.findViewById(R.id.nameTextView);
 
@@ -51,6 +60,17 @@ public class UserAdapter extends ArrayAdapter<User> {
                 Intent intent = new Intent(context, UserDetailActivity.class);
                 intent.putExtra("id", mUser.getId());
                 context.startActivity(intent);
+            }
+        });
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((CheckBox) v).isChecked()){
+                    selectedUsers.add(mUser);
+                } else {
+                    selectedUsers.remove(mUser);
+                }
             }
         });
 
