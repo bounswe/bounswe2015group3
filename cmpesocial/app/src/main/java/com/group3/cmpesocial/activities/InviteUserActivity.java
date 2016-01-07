@@ -118,10 +118,9 @@ public class InviteUserActivity extends AppCompatActivity {
 
     public void invite(View v) {
         Log.i(TAG, "invite");
-        long[] ids = userListView.getCheckedItemIds();
-        for (int i = 0; i < ids.length; i++) {
-            User mUser = usersArray.get((int) ids[i]);
-            int id_user = mUser.getId();
+        ArrayList<User> users = adapter.getSelectedUsers();
+        for (int i = 0; i < users.size(); i++) {
+            int id_user = (users.get(i)).getId();
             if (isEvent) {
                 JsonObject json = new JsonObject();
                 json.addProperty("id_user", id_user);
@@ -135,6 +134,7 @@ public class InviteUserActivity extends AppCompatActivity {
             }
         }
         Log.i(TAG, "done");
+        finish();
     }
 
 }
