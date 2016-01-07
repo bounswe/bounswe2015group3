@@ -121,7 +121,7 @@
 							<c:forEach var="event" items="${events}" varStatus="roop">
 								<div class="top-ppost">
 									<div class="date">
-										<p>${event.date}</p>
+										<p>${fn:substring(event.date, 0, 16)}</p>
 									</div>
 									<div class="content">
 										<h4 class="title">
