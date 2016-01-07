@@ -135,19 +135,19 @@
 						<div class="widget clearfix">
 							<h3 class="title">Suggested For You</h3>
 							<c:forEach var="group_r" items="${groups_recommended}" varStatus="roop">
-							<div class="top-ppost">
-								<div class="date">
-									<p>
-										<span><i class="icon fa fa-calendar"> </i></span>EVENT
-									</p>
+								<div class="top-ppost">
+									<div class="date">
+										<p>
+											<span><i class="icon fa fa-group"> </i></span>
+										</p>
+									</div>
+									<div class="content">
+										<h4 class="title">
+											<a href="${contextPath}/group/view?id=${group_r.id}">${group_r.name}</a>
+										</h4>
+									</div>
 								</div>
-								<div class="content">
-									<h4 class="title">
-										<a href="${contextPath}/group/view?id=${group_r.id}">${group_r.name}</a>
-									</h4>
-								</div>
-							</div>
-							<hr />
+								<br />
 							</c:forEach>
 						</div>
 					</aside>
