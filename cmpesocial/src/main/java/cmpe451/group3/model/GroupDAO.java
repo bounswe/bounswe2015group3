@@ -180,6 +180,7 @@ public class GroupDAO {
     
     public Boolean isAvailableForGroup(long id_user,long id_group){
 
+
         String sql2 = "SELECT * FROM `user` WHERE id = ?";
 
         String sql = "SELECT * FROM `group` WHERE id = ? ";
