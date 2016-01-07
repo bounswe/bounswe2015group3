@@ -7,7 +7,7 @@
 
     -<RelativeLayout android:orientation="horizontal" android:layout_height="wrap_content" android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Button android:layout_height="35dp" android:layout_width="80dp" android:text="Comment" android:textSize="10sp" android:id="@+id/comment" android:layout_toLeftOf="@+id/updatePost"/>
+
 
     <Button android:layout_height="35dp" android:layout_width="70dp" android:text="Update" android:textSize="10sp" android:id="@+id/updatePost" android:layout_toLeftOf="@+id/deletePost"/>
 
