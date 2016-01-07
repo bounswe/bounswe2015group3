@@ -75,8 +75,8 @@ public class GroupController {
     @RequestMapping(value = "/group/view", method = RequestMethod.GET)
     public String viewEvent(@RequestParam(required = false) long id, ModelMap model,
                             @CookieValue(value="id_user", defaultValue = "") String id_user) {
-      //  if(groupDAO.isAvailableForGroup(new Long(id_user),id))
-        //    return "redirect:/groups";
+        if(!groupDAO.isAvailableForGroup(new Long(id_user),id))
+            return "redirect:/groups";
 
         Map<String, Object> group = groupDAO.getGroup(id);
         List<Map<String,Object>> members = groupDAO.getMembers(id);

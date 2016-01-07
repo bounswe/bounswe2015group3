@@ -78,8 +78,8 @@ public class EventController {
     public String viewEvent(@RequestParam(required = false) Long id, ModelMap model,
                             @CookieValue(value="id_user", defaultValue = "") String id_user) {
 
-       // if (eventModel.isAvailableForEvent(id,new Long(id_user)))
-       //   return "redirect:/events";
+        if (!eventModel.isAvailableForEvent(id,new Long(id_user)))
+         return "redirect:/events";
 
         Map<String, Object> event = eventModel.getEvent(id);
         List<Map<String,Object>> participants = eventModel.getParticipants(id);
