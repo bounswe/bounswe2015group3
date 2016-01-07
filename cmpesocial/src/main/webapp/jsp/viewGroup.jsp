@@ -149,8 +149,8 @@
 								<div class="event clearfix">
 									<div class="event-content">
 										<ul class="meta">
-											<li class="date"><i class="icon fa fa-calendar"></i>1
-												month ago</li>
+											<li class="date"><i class="icon fa fa-calendar"></i>
+											${fn:substring(post.date, 0, 16)}</li>
 											<li><a
 												href="${contextPath}/user/home?id=${post.author.id}"><i
 													class="icon fa fa-user"></i>by ${post.author.name}
