@@ -176,8 +176,20 @@ public class GroupAPIController {
         }
         return gson.toJson(result);
     }
+/*
+    @RequestMapping( value = "/groups/deletePost" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
+    @ResponseBody
+    public String eventPostDelete(@RequestBody EventIDRequestModel idModel) {
+        Gson gson = new Gson();
+        Map<String,Object> result = new HashMap<>();
 
+        groupDAO.deletePost(idModel.id);
 
+        result.put("Result","Success");
+        return gson.toJson(result);
+    }
+
+*/
     @RequestMapping( value = "/groups/invite" , method = RequestMethod.POST ,produces = {"text/plain;charset=UTF-8"})
     @ResponseBody
     public String groupInvite(@RequestBody GroupJoinModel partModel) {

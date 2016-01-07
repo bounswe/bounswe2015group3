@@ -214,6 +214,8 @@ public class EventModel {
         for (String type_group : list_event){
             for (String type_user : list_user)
             {
+                if(type_group.equalsIgnoreCase("0"))
+                    return Boolean.TRUE;
                 if (type_group.equalsIgnoreCase(type_user))
                     return Boolean.TRUE;
             }

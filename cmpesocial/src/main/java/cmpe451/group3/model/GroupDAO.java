@@ -132,6 +132,9 @@ public class GroupDAO {
        return this.jdbcTemplate.update(sql, id_group, id_user, text, content_url);
 
     }
+
+
+
     public int updatePost(long id_user,long id_group, String text, String content_url,long id)
     {
         String sql = "UPDATE post_group SET id_group = ?, id_user=?,post_text=?,post_url=?) WHERE id= ?";
@@ -190,6 +193,8 @@ public class GroupDAO {
         for (String type_group : list_group){
             for (String type_user : list_user)
             {
+                if(type_group.equals("0"))
+                    return Boolean.TRUE;
                 if (type_group.equalsIgnoreCase(type_user))
                     return Boolean.TRUE;
             }
