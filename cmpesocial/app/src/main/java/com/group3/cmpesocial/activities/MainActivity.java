@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        searchEditText.setVisibility(View.GONE);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,6 +150,10 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
+        searchButton.setVisibility(View.GONE);
+        searchEditText.setVisibility(View.GONE);
+        createButton.setVisibility(View.GONE);
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
