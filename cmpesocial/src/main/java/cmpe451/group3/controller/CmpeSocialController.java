@@ -119,12 +119,17 @@ public class CmpeSocialController {
         return "redirect:/signup";
     }
     
+    @RequestMapping(value = "/welcome")
+    public String welcome() {
+        return "welcome";
+    }
+    
     @RequestMapping(value = {"/", "/home"})
     public String home(ModelMap model) {
         // return back to home page
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     	if(auth == null || !auth.isAuthenticated())
-    		return "redirect:/user/login";
+    		return "redirect:/welcome";
     	else{
     		List<Map<String, Object>> events = eventModel.getEvents();
             model.put("events", events);
