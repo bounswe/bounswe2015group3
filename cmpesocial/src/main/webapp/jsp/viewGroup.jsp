@@ -252,6 +252,8 @@
 										</h4>
 									</div>
 								</div>
+								<hr />
+								<br />
 							</c:forEach>
 						</div>
 					</aside>
