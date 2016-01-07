@@ -1004,7 +1004,7 @@ public class EventDetailActivity extends AppCompatActivity {
             b2.setTag(position);
             b2.setOnClickListener(update);
 
-            
+
 
             t = (TextView) convertView.findViewById(R.id.postEditText);
             t.setTag(position);

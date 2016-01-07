@@ -146,7 +146,41 @@
                     android:layout_width="wrap_content"
                     android:layout_height="100dp" />
 
+
+
             </LinearLayout>
+
+            <EditText
+                android:id="@+id/postEditTextMainGroup"
+                android:layout_width="325dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittextborder"
+                android:padding="5dp"
+                android:textColor="@android:color/secondary_text_light"
+
+                android:textSize="20sp" />
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/postButtonGroup"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+
+                    android:text="Post" />
+            </RelativeLayout>
+
+            <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/listViewGroupPost"
+                android:layout_width="match_parent"
+                android:layout_height="200dip"
+                android:textSize="20sp"
+
+                />
+
 
         </LinearLayout>
 

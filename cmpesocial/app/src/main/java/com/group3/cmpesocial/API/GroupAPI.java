@@ -10,6 +10,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.group3.cmpesocial.R;
 import com.group3.cmpesocial.classes.Group;
+import com.group3.cmpesocial.classes.Post;
+import com.group3.cmpesocial.classes.PostG;
 import com.group3.cmpesocial.classes.User;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
@@ -481,10 +483,10 @@ public class GroupAPI {
     }
 
 
-    public static ArrayList<Object> getAllGroupPosts(JsonObject json, Context context) {
+    public static ArrayList<PostG> getAllGroupPosts(JsonObject json, Context context) {
         Log.d(TAG, "getAllGroupPosts json " + json.toString());
 
-        ArrayList<Object> eventPosts = new ArrayList<>();
+        ArrayList<PostG> eventPosts = new ArrayList<>();
         final int[] returnArray = new int[1];
         Future mFuture = Ion.with(context)
                 .load(context.getString(R.string.baseURI) + context.getString(R.string.getGroupPosts))
@@ -515,6 +517,15 @@ public class GroupAPI {
                     }
                 });
         try {
+            JsonObject postsObject = (JsonObject) mFuture.get();
+            Log.i(TAG, postsObject.toString());
+            JsonArray posts = postsObject.getAsJsonArray("Posts");
+            Log.i(TAG, posts.toString());
+            Iterator<JsonElement> iterator = posts.iterator();
+            while (iterator.hasNext()) {
+                PostG post = new PostG(iterator.next().getAsJsonObject());
+                eventPosts.add(post);
+            }
             Log.d(TAG, "future : " + mFuture.get().toString());
         } catch (Exception e) {
             Log.d(TAG, "exception getAllGroupPosts" + e.getMessage());
